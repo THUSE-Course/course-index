@@ -65,6 +65,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -494,10 +499,84 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Step 2 绘制游戏界面
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         Step 2 绘制游戏界面
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    实验目标
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    实验步骤
+  </a>
+  
+    <nav class="md-nav" aria-label="实验步骤">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    实验提示
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    代码说明
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    实验评分
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    知识讲解
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -655,6 +734,64 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    实验目标
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    实验步骤
+  </a>
+  
+    <nav class="md-nav" aria-label="实验步骤">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    实验提示
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    代码说明
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    实验评分
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    知识讲解
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -675,9 +812,36 @@
   </a>
 
 
-  <h1>Step 2 绘制游戏界面</h1>
-
-
+<h1 id="_1">绘制游戏界面<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">实验目标<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>通过本 Step，我们希望你能够掌握 React 框架的基本使用，学会使用属性传递参数并且编写完成康威生命游戏的界面。</p>
+<h2 id="_3">实验步骤<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>首先，你需要理解 React 中组件的概念，并理解如何使用属性来控制组件的显示方式。</p>
+<p>之后，你需要在 <code>src/BoardScreen.tsx</code> 文件的组件 <code>BoardUI</code> 之中，<strong>两处</strong>注释 <code>// Step 2 BEGIN</code> 与 <code>// Step 2 END</code> 之间的部分填充你的代码（有一处和 Step 3 共用），使得屏幕上能够出现一个 <span class="arithmatex"><span class="MathJax_Preview">50 \times 50</span><script type="math/tex">50 \times 50</script></span> 的灰色边框棋盘，棋盘中细胞的背景色可以任意指定，我们建议为白色。注意，请勿改动其余部分的代码，请勿新建文件、删除文件。</p>
+<p>完成本 Step 后，参考的界面如下：</p>
+<p><img alt="" src="../../static/react/step2-board.png" /></p>
+<p>【TODO：由于 Step 3 加了个按钮，这里示意图需要改】</p>
+<h3 id="_4">实验提示<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>标签 <code>&lt;div /&gt;</code> 的 <code>style</code> 属性中 <code>flexDirection</code> 字段决定了所有子元素按照何种方式排列。</li>
+</ul>
+<h3 id="_5">代码说明<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p><code>src/BoardScreen.tsx</code> 文件中包含下述组件：</p>
+<ul>
+<li><code>Square</code>。绘制一个长宽均为 <code>16</code>，边框为宽为 <code>1</code> 的灰色实线的正方形，其背景色由属性指定</li>
+<li><code>BoardUI</code>。游戏中棋盘的 UI，由 <span class="arithmatex"><span class="MathJax_Preview">50 \times 50</span><script type="math/tex">50 \times 50</script></span> 个正方形格子组成</li>
+<li><code>BoardScreen</code>。代表整个游戏区域</li>
+</ul>
+<h2 id="_6">实验评分<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>本 Step 总分为 5 分。</p>
+<p>本 Step 采用人工评分。由于该界面的细节可能会在后续的 Step 中修改，我们仅会<strong>在通过 CI 检查的基础上</strong>查看最后一次部署后游戏主界面是否满足：</p>
+<ul>
+<li>存在一个 <span class="arithmatex"><span class="MathJax_Preview">50 \times 50</span><script type="math/tex">50 \times 50</script></span> 的棋盘</li>
+<li>该棋盘具有灰色实线边框</li>
+</ul>
+<p>上述两个条件均满足，则你获得本 Step 所有分数。否则，如果任何一个条件不满足，则你本 Step 评为零分。</p>
+<h2 id="_7">知识讲解<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>【TODO】</p>
 
   <hr>
 <div class="md-source-file">
@@ -698,7 +862,7 @@
     
         <div class="md-source-date">
             <small>
-                作者: <span class='git-page-authors git-authors'></span>
+                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a></span>
             </small>
         </div>
     
