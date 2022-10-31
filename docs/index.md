@@ -12,3 +12,17 @@
 ## 课程团队
 
 - 本文档维护者：钱厚德（[Ashitemaru](https://ashitemaru.github.io)）
+
+## 课程评分
+
+!!! error "示例"
+
+    这里仅仅是示例，并非实际执行标准。
+
+- 小作业（20 points）
+    - Git 小作业（3 points）
+    - CI/CD 小作业（7 points）
+    - Django 后端小作业（10 points）
+    - React 前端小作业（10 points）
+- 大作业（70 points）
+- 课程参与与课堂小测（10 points）
