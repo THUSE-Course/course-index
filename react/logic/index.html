@@ -822,12 +822,12 @@
 </ul>
 <p>之后，你需要在 <code>src/utils/logic.ts</code> 文件的函数 <code>stepBoard</code> 之中，注释 <code>// Step 1 BEGIN</code> 与 <code>// Step 1 END</code> 之间的部分填充你的代码，编写完成康威生命游戏的核心逻辑。注意，请勿改动其余部分的代码，请勿新建文件、删除文件。</p>
 <p>在编写完成后，你可以在项目根目录下，运行命令 <code>yarn test logic</code> 执行我们编写好的单元测试，如果显示下述提示信息则代表你完成了 Step 1：</p>
-<p><img alt="" src="/static/react/step1-test-pass.png" /></p>
+<p><img alt="" src="../../static/react/step1-test-pass.png" /></p>
 <p>如果你在编写游戏的核心逻辑上遇到了困难，可以打开 <code>test/logic.test.ts</code> 文件，其中的 <code>stepBoardGT</code> 函数是我们提供的样例实现，可供参考。</p>
 <h3 id="_3">游戏规则<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>本作业中的康威生命游戏基于一个 <span class="arithmatex"><span class="MathJax_Preview">100 \times 100</span><script type="math/tex">100 \times 100</script></span> 的棋盘，棋盘上的每一个格子代表一个<strong>细胞</strong>。细胞具有两种状态，分别为<strong>存活</strong>（在代码中用 <code>1</code> 代表）以及<strong>死亡</strong>（在代码中用 <code>0</code> 代表）。</p>
 <p>每个细胞在下一时刻的状态取决于其在这个时刻的状态，以及其所有<strong>邻居</strong>在这个时刻的状态。每一个细胞都有 8 个邻居，这里由于棋盘大小有限，故采用循环相邻的定义方式。具体请看下图，这里用一个 <span class="arithmatex"><span class="MathJax_Preview">8 \times 8</span><script type="math/tex">8 \times 8</script></span> 的棋盘作为简化示例，对于每一个红色的细胞，8 个黄色的细胞称之为其邻居：</p>
-<p><img alt="" src="/static/react/neigbour.png" /></p>
+<p><img alt="" src="../../static/react/neigbour.png" /></p>
 <p>基于上述定义，每个细胞在下一个时刻的状态按照下述规则确定：</p>
 <ul>
 <li>如果该细胞在这个时刻存活<ul>
