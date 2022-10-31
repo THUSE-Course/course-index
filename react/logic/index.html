@@ -513,14 +513,48 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#step" class="md-nav__link">
-    Step 目标
+  <a href="#_1" class="md-nav__link">
+    实验目标
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
+    实验步骤
+  </a>
+  
+    <nav class="md-nav" aria-label="实验步骤">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    游戏规则
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    代码说明
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    实验评分
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
     知识讲解
   </a>
   
@@ -710,14 +744,48 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#step" class="md-nav__link">
-    Step 目标
+  <a href="#_1" class="md-nav__link">
+    实验目标
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
+    实验步骤
+  </a>
+  
+    <nav class="md-nav" aria-label="实验步骤">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    游戏规则
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    代码说明
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    实验评分
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
     知识讲解
   </a>
   
@@ -745,10 +813,51 @@
 
 
 <h1 id="typescript">TypeScript 初探与游戏逻辑<a class="headerlink" href="#typescript" title="Permanent link">&para;</a></h1>
-<h2 id="step">Step 目标<a class="headerlink" href="#step" title="Permanent link">&para;</a></h2>
+<h2 id="_1">实验目标<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>通过本 Step，我们希望你能够掌握基本的 TypeScript 语法并且能够使用 TypeScript 语言编写完成康威生命游戏的核心逻辑。</p>
-<h2 id="_1">知识讲解<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>这里我们会简单讲解 TypeScript 的语法</p>
+<h2 id="_2">实验步骤<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>首先，你需要仔细阅读并理解游戏规则，对康威生命游戏形成基本的认知。这里我们提供一个示例网站，你可以在该网站上尝试游玩康威生命游戏，以加深对该游戏规则的理解（需要注意，该网站所实现的棋盘是无限的，与本作业要求的并不一致）：</p>
+<ul>
+<li>康威生命游戏示例网站 <a href="https://playgameoflife.com/">https://playgameoflife.com/</a></li>
+</ul>
+<p>之后，你需要在 <code>src/utils/logic.ts</code> 文件的函数 <code>stepBoard</code> 之中，注释 <code>// Step 1 BEGIN</code> 与 <code>// Step 1 END</code> 之间的部分填充你的代码，编写完成康威生命游戏的核心逻辑。注意，请勿改动其余部分的代码，请勿新建文件、删除文件。</p>
+<p>在编写完成后，你可以在项目根目录下，运行命令 <code>yarn test logic</code> 执行我们编写好的单元测试，如果显示下述提示信息则代表你完成了 Step 1：</p>
+<p><img alt="" src="/static/react/step1-test-pass.png" /></p>
+<p>如果你在编写游戏的核心逻辑上遇到了困难，可以打开 <code>test/logic.test.ts</code> 文件，其中的 <code>stepBoardGT</code> 函数是我们提供的样例实现，可供参考。</p>
+<h3 id="_3">游戏规则<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>本作业中的康威生命游戏基于一个 <span class="arithmatex"><span class="MathJax_Preview">100 \times 100</span><script type="math/tex">100 \times 100</script></span> 的棋盘，棋盘上的每一个格子代表一个<strong>细胞</strong>。细胞具有两种状态，分别为<strong>存活</strong>（在代码中用 <code>1</code> 代表）以及<strong>死亡</strong>（在代码中用 <code>0</code> 代表）。</p>
+<p>每个细胞在下一时刻的状态取决于其在这个时刻的状态，以及其所有<strong>邻居</strong>在这个时刻的状态。每一个细胞都有 8 个邻居，这里由于棋盘大小有限，故采用循环相邻的定义方式。具体请看下图，这里用一个 <span class="arithmatex"><span class="MathJax_Preview">8 \times 8</span><script type="math/tex">8 \times 8</script></span> 的棋盘作为简化示例，对于每一个红色的细胞，8 个黄色的细胞称之为其邻居：</p>
+<p><img alt="" src="/static/react/neigbour.png" /></p>
+<p>基于上述定义，每个细胞在下一个时刻的状态按照下述规则确定：</p>
+<ul>
+<li>如果该细胞在这个时刻存活<ul>
+<li>（孤独死亡）如果其邻居中存活的个数不多于 1 个，则该细胞在下一时刻死亡</li>
+<li>（人口超载）如果其邻居中存活的个数不少于 4 个，则该细胞在下一时刻死亡</li>
+<li>（环境适中）如果其邻居中存活的个数为 2 个或者 3 个，则该细胞在下一时刻继续存活</li>
+</ul>
+</li>
+<li>如果该细胞在这个时刻死亡<ul>
+<li>（细胞繁殖）如果其邻居中存活的个数为 3 个，则该细胞在下一时刻存活</li>
+<li>其余情况下，该细胞保持死亡状态</li>
+</ul>
+</li>
+</ul>
+<h3 id="_4">代码说明<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>在 <code>src/utils/logic.ts</code> 文件的前两行，我们规定了棋盘尺寸以及表示棋盘的类型如下：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">BOARD_LENGTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span><span class="w"></span>
+<span class="k">export</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="nx">Board</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">0</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mf">1</span><span class="p">)[][];</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<p>这说明我们使用一个二维数组表示棋盘，二维数组中的每一个元素代表一个细胞，元素的取值为 <code>0</code> 或者 <code>1</code>，分别代表细胞死亡与细胞存活。</p>
+<p>你需要填充的 <code>stepBoard</code> 函数接收一个 <code>Board</code> 类型的参数 <code>board</code>，其表示这个时刻的棋盘状态。该函数的返回值为 <code>Board</code> 类型，其表示下一时刻的棋盘状态。</p>
+<h2 id="_5">实验评分<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>本 Step 总分为 5 分。</p>
+<p>本 Step 采用自动化评分。我们会检查 Tsinghua Git CI 中是否如下显示该 Step 的通过信息。若有，则你获得该 Step 所有分数：</p>
+<p>【TODO：CI 通过界面】</p>
+<p>我们保证 CI 判定通过的方式与你本地完全一致（即通过 <code>yarn test logic</code> 命令判定）。</p>
+<h2 id="_6">知识讲解<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>这里我们会简单讲解 TypeScript 的语法。</p>
+<p>【TODO：讲解 TypeScript】</p>
 
   <hr>
 <div class="md-source-file">
