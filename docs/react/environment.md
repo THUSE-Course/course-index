@@ -32,6 +32,8 @@ Node.js 是服务器端运行 JavaScript 的环境，我们需要在本地配置
 
 Node.js 下载后会自带有包管理工具 npm 用于管理项目内所用到的第三方依赖。这里我们更推荐使用 yarn 作为后续开发的包管理工具，因为 yarn 相对于 npm 具有更快的下载速度、更清晰的命令行输出。
 
+对 yarn 与 npm 更为细节的介绍参考计算机系学生科协技能引导文档 <https://docs.net9.org/languages/node.js/npm/>。
+
 安装 yarn 时，你首先需要确定 npm 已经安装完毕，只需要通过 `npm -v` 确认：
 
 ![](../static/react/step0-npm.png)
@@ -86,7 +88,7 @@ yarn start # 运行名为 start 的脚本
 }
 ```
 
-其中 `dependencies` 与 `devDependencies` 字段定义了本项目所有的依赖名称以及版本要求，在本项目根目录下运行 `yarn install` 即会安装这里所列举的所有依赖。
+其中 `dependencies` 与 `devDependencies` 字段定义了本项目所有的依赖名称以及版本要求，而 `devDependencies` 字段下的是开发环境的依赖。此时，在本项目根目录下运行 `yarn install` 即会安装这里所列举的所有依赖。
 
 另外，`scripts` 字段定义了所有可以运行的脚本，这里运行 `yarn fix` 相当于运行 `eslint src --ext .js,.jsx,.ts,.tsx --fix`。
 
