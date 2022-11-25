@@ -75,7 +75,7 @@ nav:
   - 前后端分离开发基础: basic.md
   - Django 小作业文档:
     - django/index.md
-  - React 小作业文档:
+  - React (Next.js) 小作业文档:
     - react/index.md
     - Step 0 环境配置: react/environment.md
     - Step 1 TS 初探与游戏逻辑: react/logic.md
