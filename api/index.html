@@ -648,44 +648,63 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    前置提示
+  <a href="#url-boards" class="md-nav__link">
+    URL /boards
   </a>
+  
+    <nav class="md-nav" aria-label="URL /boards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get" class="md-nav__link">
+    GET
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post" class="md-nav__link">
+    POST
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#get-apiall" class="md-nav__link">
-    GET /api/all
+  <a href="#url-boardsid" class="md-nav__link">
+    URL /boards/{id}
+  </a>
+  
+    <nav class="md-nav" aria-label="URL /boards/{id}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_1" class="md-nav__link">
+    GET
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#get-apiboard" class="md-nav__link">
-    GET /api/board
+        
+          <li class="md-nav__item">
+  <a href="#delete" class="md-nav__link">
+    DELETE
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#put-apiadd" class="md-nav__link">
-    PUT /api/add
+        
+          <li class="md-nav__item">
+  <a href="#put" class="md-nav__link">
+    PUT
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#delete-apiremove" class="md-nav__link">
-    DELETE /api/remove
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#post-apiupdate" class="md-nav__link">
-    POST /api/update
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -739,44 +758,63 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    前置提示
+  <a href="#url-boards" class="md-nav__link">
+    URL /boards
   </a>
+  
+    <nav class="md-nav" aria-label="URL /boards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get" class="md-nav__link">
+    GET
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post" class="md-nav__link">
+    POST
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#get-apiall" class="md-nav__link">
-    GET /api/all
+  <a href="#url-boardsid" class="md-nav__link">
+    URL /boards/{id}
+  </a>
+  
+    <nav class="md-nav" aria-label="URL /boards/{id}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_1" class="md-nav__link">
+    GET
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#get-apiboard" class="md-nav__link">
-    GET /api/board
+        
+          <li class="md-nav__item">
+  <a href="#delete" class="md-nav__link">
+    DELETE
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#put-apiadd" class="md-nav__link">
-    PUT /api/add
+        
+          <li class="md-nav__item">
+  <a href="#put" class="md-nav__link">
+    PUT
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#delete-apiremove" class="md-nav__link">
-    DELETE /api/remove
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#post-apiupdate" class="md-nav__link">
-    POST /api/update
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -802,33 +840,34 @@
 
 
 <h1 id="api">小作业 API 文档<a class="headerlink" href="#api" title="Permanent link">&para;</a></h1>
-<h2 id="_1">前置提示<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>本 API 文档中对响应正文字段的规定中将会多次出现下述表达：</p>
+<div class="admonition note">
+<p class="admonition-title">应该写到后端文档里的一些东西</p>
+<p>数据唯一性规定：</p>
+<ul>
+<li>同名用户认为是同一个用户（不允许重名用户）</li>
+<li>同一名用户使用同样的游戏记录名存储的游戏记录认为是同一条记录（即根据用户名和游戏记录名亦可唯一确定游戏记录）</li>
+</ul>
+</div>
+<h2 id="url-boards">URL <code>/boards</code><a class="headerlink" href="#url-boards" title="Permanent link">&para;</a></h2>
+<p>该 API 用于操作整体的游戏记录列表，包括获取全部游戏记录以及新增游戏记录。</p>
+<p>该 API 仅接受以 GET 与 POST 方法请求。以其他方法请求均应当设置状态码为 400 Bad Request，错误响应格式为：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// ...</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Anything you want to write.]&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// ...</span><span class="w"></span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-3</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bad method&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
-<p>这个字段的含义是，我们不会使用自动化工具 CI 检查 <code>info</code> 字段的内容，但我们会通过白盒检查确认后端返回给前端的信息是准确易懂的。</p>
-<h2 id="get-apiall">GET <code>/api/all</code><a class="headerlink" href="#get-apiall" title="Permanent link">&para;</a></h2>
-<p>本 API 用于获取存储在数据库中的所有游戏记录的基本数据。</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">请求</label><label for="__tabbed_1_2">行为</label><label for="__tabbed_1_3">响应</label><label for="__tabbed_1_4">错误</label></div>
+<h3 id="get">GET<a class="headerlink" href="#get" title="Permanent link">&para;</a></h3>
+<p>使用 GET 方法请求该 API 即表示请求当前存储的全部游戏记录。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">请求体</label><label for="__tabbed_1_2">成功响应</label><label for="__tabbed_1_3">错误响应</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>本 API 使用 GET 方法，且不需要携带任何参数。</p>
+<p>本方法不需要提供任何请求体。</p>
 </div>
 <div class="tabbed-block">
-<p>后端收到请求后，应当首先判定请求所使用的方法是否为 GET。若否，则应当按照要求构建错误响应。</p>
-<p>随后，应当从数据库中读取所有游戏记录并按照要求构建响应。</p>
-<p>若中途抛出错误，则应当按照要求构建错误响应。</p>
-</div>
-<div class="tabbed-block">
-<p>正确响应的状态码为 200 OK。响应的正文为 JSON，格式如下：</p>
+<p>请求成功时，应当设置状态码为 200 OK，成功响应格式为：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -841,10 +880,12 @@
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Anything you want to write.]&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Succeed&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;boards&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// For example:</span><span class="w"></span>
 <span class="w">        </span><span class="p">{</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"></span>
 <span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Double beehive&quot;</span><span class="p">,</span><span class="w"></span>
@@ -864,91 +905,27 @@
 </ul>
 </div>
 <div class="tabbed-block">
-<p>所有错误响应的正文均为 JSON，格式均为：</p>
+<p>所有错误响应的格式均为：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">*</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Anything you want to write.]&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">*</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Some message]&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
-<p>唯一的差别在于表示错误类型的数字类型字段 <code>status</code> 不同。下述该字段称为<strong>错误码</strong>。</p>
 <ul>
-<li>若请求使用了错误的方法，错误响应的状态码为 400 Bad Request，错误码为 <code>-1</code></li>
-<li>若读取数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，错误码为 <code>-2</code></li>
+<li>若读取数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，<code>code</code> 字段为 <code>-4</code>，<code>info</code> 字段尽量携带错误信息（CI 不评测该错误响应）</li>
 </ul>
 </div>
 </div>
 </div>
-<h2 id="get-apiboard">GET <code>/api/board</code><a class="headerlink" href="#get-apiboard" title="Permanent link">&para;</a></h2>
-<p>本 API 用于获取存储在数据库中指定 ID 的游戏记录。</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:4"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">请求</label><label for="__tabbed_2_2">行为</label><label for="__tabbed_2_3">响应</label><label for="__tabbed_2_4">错误</label></div>
+<h3 id="post">POST<a class="headerlink" href="#post" title="Permanent link">&para;</a></h3>
+<p>使用 POST 方法请求该 API 即表示请求增加一条游戏记录，如果需要增加的游戏记录已存在，则更新该记录。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">请求体</label><label for="__tabbed_2_2">成功响应</label><label for="__tabbed_2_3">错误响应</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>本 API 使用 GET 方法，且需要携带下述参数：</p>
-<ul>
-<li><code>id</code>。表示请求的游戏记录 ID，应当为正整数</li>
-</ul>
-<p>携带请求参数后的 URL 类似于 <code>/api/board?id=2</code>。</p>
-</div>
-<div class="tabbed-block">
-<p>后端收到请求后，应当首先判定请求所使用的方法是否为 GET 以及是否按要求携带参数。若否，则应当按照要求构建错误响应。</p>
-<p>随后，应当从数据库中读取相应 ID 的游戏记录并按照要求构建响应。</p>
-<p>若该 ID 对应的游戏记录不存在，则应当按照要求构建错误响应。</p>
-<p>若中途抛出其他错误，也应当按照要求构建错误响应。</p>
-</div>
-<div class="tabbed-block">
-<p>正确响应的状态码为 200 OK。响应的正文为 JSON，格式如下：</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Anything you want to write.]&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;board&quot;</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;00010001010000...&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;boardName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Double beehive&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;userName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ashitemaru&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div></td></tr></table></div>
-<p>上述字段的说明为：</p>
-<ul>
-<li><code>board</code>。表示该游戏记录，应当为长度为 2500 的、仅含有 <code>0</code> 或者 <code>1</code> 的字符串</li>
-<li><code>boardName</code>。表示该游戏记录的名称，应当为非空字符串</li>
-<li><code>userName</code>。表示该游戏创建者的用户名，应当为非空字符串</li>
-</ul>
-</div>
-<div class="tabbed-block">
-<p>所有错误响应的正文均为 JSON，格式均为：</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">*</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Anything you want to write.]&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div></td></tr></table></div>
-<p>唯一的差别在于表示错误类型的数字类型字段 <code>status</code> 不同。下述该字段称为<strong>错误码</strong>。</p>
-<ul>
-<li>若该 ID 对应的游戏记录不存在，错误响应的状态码为 404 Not Found，错误码为 <code>1</code></li>
-<li>若请求使用了错误的方法，错误响应的状态码为 400 Bad Request，错误码为 <code>-1</code></li>
-<li>若请求中携带的 <code>id</code> 参数缺失或者存在但并非是正整数，错误响应的状态码为 400 Bad Request，错误码为 <code>-2</code></li>
-<li>若读取数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，错误码为 <code>-3</code></li>
-</ul>
-</div>
-</div>
-</div>
-<h2 id="put-apiadd">PUT <code>/api/add</code><a class="headerlink" href="#put-apiadd" title="Permanent link">&para;</a></h2>
-<p>本 API 用于在数据库中新增游戏记录。但是考虑到数据库中对字段唯一性的要求，本接口也有可能仅更新存储在数据库中的游戏记录而不新增游戏记录。</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:4"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><input id="__tabbed_3_4" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">请求</label><label for="__tabbed_3_2">行为</label><label for="__tabbed_3_3">响应</label><label for="__tabbed_3_4">错误</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<p>本 API 使用 PUT 方法，且需要携带 JSON 格式正文：</p>
+<p>请求体的格式为：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
@@ -961,167 +938,222 @@
 <span class="w">    </span><span class="nt">&quot;userName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ashitemaru&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
+<p>上述字段的说明为：</p>
 <ul>
 <li><code>board</code>。表示该游戏记录，应当为长度为 2500 的、仅含有 <code>0</code> 或者 <code>1</code> 的字符串</li>
-<li><code>boardName</code>。表示该游戏记录的名称，应当为非空字符串</li>
-<li><code>userName</code>。表示该游戏创建者的用户名，应当为非空字符串</li>
+<li><code>boardName</code>。表示该游戏记录的名称，应当为非空字符串，且长度不大于 50</li>
+<li><code>userName</code>。表示该游戏创建者的用户名，应当为非空字符串，且长度不大于 50</li>
 </ul>
 </div>
 <div class="tabbed-block">
-<p>后端收到请求后，应当首先判定请求所使用的方法是否为 PUT 以及是否按要求携带 JSON 格式正文。若否，则应当按照要求构建错误响应。</p>
-<p>在具体新增记录时，首先应当根据 <code>boardName</code> 和 <code>userName</code> 的唯一性要求查找是否存在已有游戏记录。若找到，则应当更新该记录并按照要求构建响应。若无法找到，则应当新建游戏记录并按照要求构建响应。</p>
-<p>若中途抛出其他错误，也应当按照要求构建错误响应。</p>
+<p>请求成功时，应当设置状态码为 200 OK，成功响应格式为：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Succeed&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;isCreate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="c1">// For example</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<p>这里 <code>isCreate</code> 字段是一个布尔值，表示这次请求是否在数据库中新增了一条游戏记录。换言之，若本次请求仅仅是更新了数据库中的某一条记录，则 <code>isCreate</code> 字段为 <code>false</code>。</p>
 </div>
 <div class="tabbed-block">
-<p>所有正确响应的状态码均为 200 OK，正文均为 JSON，格式均为：</p>
+<p>所有错误响应的格式均为：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">*</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Anything you want to write.]&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">*</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Some message]&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
-<p>唯一的差别在于表示操作类型的数字类型字段 <code>status</code> 不同。下述该字段称为<strong>提示码</strong>。</p>
 <ul>
-<li>若新建了游戏记录，提示码为 <code>0</code></li>
-<li>若未新建游戏记录，仅仅更新了游戏记录，提示码为 <code>1</code></li>
+<li>若请求体中数据格式不满足格式规定，错误响应的状态码为 400 Bad Request，<code>code</code> 字段为 <code>-2</code>。<code>info</code> 字段的具体内容根据具体错误确定，各类格式错误的优先级如下：<ol>
+<li><code>board</code> 字段缺失或非字符串类型，此时 <code>info</code> 字段为 <code>"Missing or error type of [board]"</code></li>
+<li><code>boardName</code> 字段缺失或非字符串类型，此时 <code>info</code> 字段为 <code>"Missing or error type of [boardName]"</code></li>
+<li><code>userName</code> 字段缺失或非字符串类型，此时 <code>info</code> 字段为 <code>"Missing or error type of [userName]"</code></li>
+<li><code>boardName</code> 为空串或过长，此时 <code>info</code> 字段为 <code>"Bad length of [boardName]"</code></li>
+<li><code>userName</code> 为空串或过长，此时 <code>info</code> 字段为 <code>"Bad length of [userName]"</code></li>
+<li><code>board</code> 长度不为 2500，此时 <code>info</code> 字段为 <code>"Bad length of [board]"</code></li>
+<li><code>board</code> 中含有非 <code>0</code> 或 <code>1</code> 的字符，此时 <code>info</code> 字段为 <code>"Invalid char in [board]"</code></li>
+</ol>
+</li>
+<li>若读写数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，<code>code</code> 字段为 <code>-4</code>，<code>info</code> 字段尽量携带错误信息（CI 不评测该错误响应）</li>
 </ul>
 </div>
-<div class="tabbed-block">
-<p>所有错误响应的正文均为 JSON，格式均为：</p>
+</div>
+</div>
+<h2 id="url-boardsid">URL <code>/boards/{id}</code><a class="headerlink" href="#url-boardsid" title="Permanent link">&para;</a></h2>
+<p>该 API 用于操作具体的某一条游戏记录，包括获取该游戏记录、删除该游戏记录以及更新该游戏记录。</p>
+<p>该 API 仅接受以 GET、DELETE 与 PUT 方法请求。以其他方法请求均应当设置状态码为 400 Bad Request，错误响应格式为：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">*</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Anything you want to write.]&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-3</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bad method&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
-<p>唯一的差别在于表示错误类型的数字类型字段 <code>status</code> 不同。下述该字段称为<strong>错误码</strong>。</p>
-<ul>
-<li>若请求使用了错误的方法，错误响应的状态码为 400 Bad Request，错误码为 <code>-1</code></li>
-<li>若请求的正文中携带的字段不满足约束，错误响应的状态码为 400 Bad Request，错误码为 <code>-2</code></li>
-<li>若读写数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，错误码为 <code>-3</code></li>
-</ul>
-</div>
-</div>
-</div>
-<h2 id="delete-apiremove">DELETE <code>/api/remove</code><a class="headerlink" href="#delete-apiremove" title="Permanent link">&para;</a></h2>
-<p>本 API 用于删除存储在数据库中指定 ID 的游戏记录。</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:4"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><input id="__tabbed_4_4" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">请求</label><label for="__tabbed_4_2">行为</label><label for="__tabbed_4_3">响应</label><label for="__tabbed_4_4">错误</label></div>
+<p>此外，需要检测参数 <code>id</code>，该参数必须为正整数。若参数不符合要求均应当设置状态码为 400 Bad Request，错误响应格式为：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bad param [id]&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<p>在 <code>id</code> 格式正确的基础上应当检验该 ID 对应的游戏记录是否存在。若不存在均应当设置状态码为 404 Not Found，错误响应格式为：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Board not found&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<h3 id="get_1">GET<a class="headerlink" href="#get_1" title="Permanent link">&para;</a></h3>
+<p>使用 GET 方法请求该 API 即表示请求读取指定的游戏记录。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">请求体</label><label for="__tabbed_3_2">成功响应</label><label for="__tabbed_3_3">错误响应</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>本 API 使用 DELETE 方法，且需要携带 JSON 格式正文：</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div></td></tr></table></div>
-<ul>
-<li><code>id</code>。表示请求删除的游戏记录 ID，应当为正整数</li>
-</ul>
+<p>本方法不需要提供任何请求体。</p>
 </div>
 <div class="tabbed-block">
-<p>后端收到请求后，应当首先判定请求所使用的方法是否为 DELETE 以及是否按要求携带 JSON 格式正文。若否，则应当按照要求构建错误响应。</p>
-<p>随后，应当从数据库中删除相应 ID 的游戏记录并按照要求构建响应。</p>
-<p>若该 ID 对应的游戏记录不存在，则应当按照要求构建错误响应。</p>
-<p>若中途抛出其他错误，也应当按照要求构建错误响应。</p>
-</div>
-<div class="tabbed-block">
-<p>正确响应的状态码为 200 OK。响应的正文为 JSON，格式如下：</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Anything you want to write.]&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div></td></tr></table></div>
-</div>
-<div class="tabbed-block">
-<p>所有错误响应的正文均为 JSON，格式均为：</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">*</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Anything you want to write.]&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div></td></tr></table></div>
-<p>唯一的差别在于表示错误类型的数字类型字段 <code>status</code> 不同。下述该字段称为<strong>错误码</strong>。</p>
-<ul>
-<li>若该 ID 对应的游戏记录不存在，错误响应的状态码为 404 Not Found，错误码为 <code>1</code></li>
-<li>若请求使用了错误的方法，错误响应的状态码为 400 Bad Request，错误码为 <code>-1</code></li>
-<li>若请求的正文中携带的 <code>id</code> 字段缺失或者存在但并非是正整数，错误响应的状态码为 400 Bad Request，错误码为 <code>-2</code></li>
-<li>若读写数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，错误码为 <code>-3</code></li>
-</ul>
-</div>
-</div>
-</div>
-<h2 id="post-apiupdate">POST <code>/api/update</code><a class="headerlink" href="#post-apiupdate" title="Permanent link">&para;</a></h2>
-<p>本 API 用于更新存储在数据库中指定 ID 的游戏记录。</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="5:4"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><input id="__tabbed_5_3" name="__tabbed_5" type="radio" /><input id="__tabbed_5_4" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">请求</label><label for="__tabbed_5_2">行为</label><label for="__tabbed_5_3">响应</label><label for="__tabbed_5_4">错误</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<p>本 API 使用 POST 方法，且需要携带 JSON 格式正文：</p>
+<p>请求成功时，应当设置状态码为 200 OK，成功响应格式为：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
 <span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"></span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Succeed&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;board&quot;</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="s2">&quot;00010001010000...&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;boardName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Double beehive&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;userName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ashitemaru&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
+<p>上述字段的说明为：</p>
 <ul>
-<li><code>id</code>。表示请求更新的游戏记录 ID，应当为正整数</li>
 <li><code>board</code>。表示该游戏记录，应当为长度为 2500 的、仅含有 <code>0</code> 或者 <code>1</code> 的字符串</li>
-<li><code>boardName</code>。表示该游戏记录的名称，应当为非空字符串</li>
-<li><code>userName</code>。表示该游戏创建者的用户名，应当为非空字符串</li>
+<li><code>boardName</code>。表示该游戏记录的名称，应当为非空字符串，且长度不大于 50</li>
+<li><code>userName</code>。表示该游戏创建者的用户名，应当为非空字符串，且长度不大于 50</li>
 </ul>
 </div>
 <div class="tabbed-block">
-<p>后端收到请求后，应当首先判定请求所使用的方法是否为 POST 以及是否按要求携带 JSON 格式正文。若否，则应当按照要求构建错误响应。</p>
-<p>若该 ID 对应的游戏记录不存在，则应当按照要求构建错误响应。</p>
-<p>若该 ID 对应的游戏记录存在但不满足 <code>boardName</code> 和 <code>userName</code> 的唯一性要求，也应当按照要求构建错误响应。</p>
-<p>其余情况下，应当更新游戏记录并按照要求构建响应。</p>
-<p>若中途抛出其他错误，也应当按照要求构建错误响应。</p>
-</div>
-<div class="tabbed-block">
-<p>正确响应的状态码为 200 OK。响应的正文为 JSON，格式如下：</p>
+<p>所有错误响应的格式均为：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Anything you want to write.]&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">*</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Some message]&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
-</div>
-<div class="tabbed-block">
-<p>所有错误响应的正文均为 JSON，格式均为：</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">*</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Anything you want to write.]&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div></td></tr></table></div>
-<p>唯一的差别在于表示错误类型的数字类型字段 <code>status</code> 不同。下述该字段称为<strong>错误码</strong>。</p>
 <ul>
-<li>若 ID 对应的游戏记录存在，但在更新时因 <code>boardName</code> 和 <code>userName</code> 的唯一性要求失败，错误响应的状态码为 400 Bad Request，错误码为 <code>2</code></li>
-<li>若 ID 对应的游戏记录不存在，错误响应的状态码为 404 Not Found，错误码为 <code>1</code></li>
-<li>若请求使用了错误的方法，错误响应的状态码为 400 Bad Request，错误码为 <code>-1</code></li>
-<li>若请求的正文中携带的字段不满足约束，错误响应的状态码为 400 Bad Request，错误码为 <code>-2</code></li>
-<li>若读写数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，错误码为 <code>-3</code></li>
+<li>若读取数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，<code>code</code> 字段为 <code>-4</code>，<code>info</code> 字段尽量携带错误信息（CI 不评测该错误响应）</li>
+</ul>
+</div>
+</div>
+</div>
+<h3 id="delete">DELETE<a class="headerlink" href="#delete" title="Permanent link">&para;</a></h3>
+<p>使用 DELETE 方法请求该 API 即表示请求删除指定的游戏记录。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:3"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">请求体</label><label for="__tabbed_4_2">成功响应</label><label for="__tabbed_4_3">错误响应</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>本方法不需要提供任何请求体。</p>
+</div>
+<div class="tabbed-block">
+<p>请求成功时，应当设置状态码为 200 OK，成功响应格式为：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Succeed&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<p>所有错误响应的格式均为：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">*</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Some message]&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>若读取数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，<code>code</code> 字段为 <code>-4</code>，<code>info</code> 字段尽量携带错误信息（CI 不评测该错误响应）</li>
+</ul>
+</div>
+</div>
+</div>
+<h3 id="put">PUT<a class="headerlink" href="#put" title="Permanent link">&para;</a></h3>
+<p>使用 PUT 方法请求该 API 即表示请求更新指定的游戏记录。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:3"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><input id="__tabbed_5_3" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">请求体</label><label for="__tabbed_5_2">成功响应</label><label for="__tabbed_5_3">错误响应</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>请求体的格式为：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;board&quot;</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;00010001010000...&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;boardName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Double beehive&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;userName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ashitemaru&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<p>上述字段的说明为：</p>
+<ul>
+<li><code>board</code>。表示该游戏记录，应当为长度为 2500 的、仅含有 <code>0</code> 或者 <code>1</code> 的字符串</li>
+<li><code>boardName</code>。表示该游戏记录的名称，应当为非空字符串，且长度不大于 50</li>
+<li><code>userName</code>。表示该游戏创建者的用户名，应当为非空字符串，且长度不大于 50</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p>请求成功时，应当设置状态码为 200 OK，成功响应格式为：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Succeed&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<p>所有错误响应的格式均为：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">*</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Some message]&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>若请求体中数据格式不满足格式规定，错误响应的状态码为 400 Bad Request，<code>code</code> 字段为 <code>-2</code>。<code>info</code> 字段的具体内容根据具体错误确定，各类格式错误的优先级如下：<ol>
+<li><code>board</code> 字段缺失或非字符串类型，此时 <code>info</code> 字段为 <code>"Missing or error type of [board]"</code></li>
+<li><code>boardName</code> 字段缺失或非字符串类型，此时 <code>info</code> 字段为 <code>"Missing or error type of [boardName]"</code></li>
+<li><code>userName</code> 字段缺失或非字符串类型，此时 <code>info</code> 字段为 <code>"Missing or error type of [userName]"</code></li>
+<li><code>boardName</code> 为空串或过长，此时 <code>info</code> 字段为 <code>"Bad length of [boardName]"</code></li>
+<li><code>userName</code> 为空串或过长，此时 <code>info</code> 字段为 <code>"Bad length of [userName]"</code></li>
+<li><code>board</code> 长度不为 2500，此时 <code>info</code> 字段为 <code>"Bad length of [board]"</code></li>
+<li><code>board</code> 中含有非 <code>0</code> 或 <code>1</code> 的字符，此时 <code>info</code> 字段为 <code>"Invalid char in [board]"</code></li>
+</ol>
+</li>
+<li>若读取数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，<code>code</code> 字段为 <code>-4</code>，<code>info</code> 字段尽量携带错误信息（CI 不评测该错误响应）</li>
 </ul>
 </div>
 </div>
