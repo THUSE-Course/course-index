@@ -61,6 +61,9 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.snippets
   - pymdownx.progressbar
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true 
   - pymdownx.superfences:
       custom_fences:
         - name: math
