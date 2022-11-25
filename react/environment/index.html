@@ -794,6 +794,7 @@
 <p><img alt="" src="../../static/react/step0-node.png" /></p>
 <h2 id="yarn">yarn<a class="headerlink" href="#yarn" title="Permanent link">&para;</a></h2>
 <p>Node.js 下载后会自带有包管理工具 npm 用于管理项目内所用到的第三方依赖。这里我们更推荐使用 yarn 作为后续开发的包管理工具，因为 yarn 相对于 npm 具有更快的下载速度、更清晰的命令行输出。</p>
+<p>对 yarn 与 npm 更为细节的介绍参考计算机系学生科协技能引导文档 <a href="https://docs.net9.org/languages/node.js/npm/">https://docs.net9.org/languages/node.js/npm/</a>。</p>
 <p>安装 yarn 时，你首先需要确定 npm 已经安装完毕，只需要通过 <code>npm -v</code> 确认：</p>
 <p><img alt="" src="../../static/react/step0-npm.png" /></p>
 <p>之后运行指令 <code>npm install -g yarn</code> 即可安装 yarn，随后可以通过指令 <code>yarn -v</code> 来确认是否安装成功（这里如果遇到了读写权限问题，可能需要切换到管理员模式，Mac 与 Linux 系统上可以直接在指令前加 <code>sudo</code>，Windows 系统上则应在打开终端时选择“以管理员身份运行”）：</p>
@@ -851,7 +852,7 @@ yarn start <span class="c1"># 运行名为 start 的脚本</span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
-<p>其中 <code>dependencies</code> 与 <code>devDependencies</code> 字段定义了本项目所有的依赖名称以及版本要求，在本项目根目录下运行 <code>yarn install</code> 即会安装这里所列举的所有依赖。</p>
+<p>其中 <code>dependencies</code> 与 <code>devDependencies</code> 字段定义了本项目所有的依赖名称以及版本要求，而 <code>devDependencies</code> 字段下的是开发环境的依赖。此时，在本项目根目录下运行 <code>yarn install</code> 即会安装这里所列举的所有依赖。</p>
 <p>另外，<code>scripts</code> 字段定义了所有可以运行的脚本，这里运行 <code>yarn fix</code> 相当于运行 <code>eslint src --ext .js,.jsx,.ts,.tsx --fix</code>。</p>
 <hr />
 <p>在配置好 yarn 的基础上，现在运行 <code>yarn install</code> 安装第三方依赖。本次小作业不需要额外安装其他第三方依赖即可完成：</p>
