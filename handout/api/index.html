@@ -881,6 +881,14 @@
 
 
 <h1 id="api">小作业 API 文档<a class="headerlink" href="#api" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">甲方可不会给你这些</p>
+<p>API 文档、数据库表设计文档等文档均应当是开发组内部编写的文档，用于协调组内开发和前后端交互。这些文档均不会由甲方提供，需要开发组自行设计。</p>
+<p>API 文档应当包含每一个 API 的地址、请求方法和响应格式，通过 API 文档，前后端均只需要面对 API 的约束进行开发从而实现解耦合。</p>
+<p>小作业为了减轻作业压力，不需要大家自行设计 API，只需要面对我们给出的 API 文档实现前后端即可。</p>
+<p>这里提供部分设计 API 文档的时候可以参考的资料：</p>
+<p>【TODO：参考资料】</p>
+</div>
 <h2 id="url-boards">URL <code>/boards</code><a class="headerlink" href="#url-boards" title="Permanent link">&para;</a></h2>
 <p>该 API 用于操作整体的游戏记录列表，包括获取全部游戏记录以及新增游戏记录。</p>
 <p>该 API 仅接受以 GET 与 POST 方法请求。以其他方法请求均应当设置状态码为 400 Bad Request，错误响应格式为：</p>
