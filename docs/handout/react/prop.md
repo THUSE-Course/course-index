@@ -12,7 +12,7 @@
 
 完成本 Step 后，参考的界面如下：
 
-![](../static/react/step2-board.png)
+![](../../static/react/step2-board.png)
 
 【TODO：由于 Step 3 加了个按钮，这里示意图需要改】
 

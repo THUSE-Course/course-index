@@ -73,19 +73,22 @@ markdown_extensions:
 nav:
   - 主页: index.md
   - 前后端分离开发基础: basic.md
-  - Django 小作业文档:
-    - django/index.md
-  - React (Next.js) 小作业文档:
-    - react/index.md
-    - Step 0 环境配置: react/environment.md
-    - Step 1 TS 初探与游戏逻辑: react/logic.md
-    - Step 2 绘制游戏界面: react/prop.md
-    - Step 3 管理状态与处理事件: react/state.md
-    - Step 4 管理全局资源: react/timer.md
-    - Step 5 切换页面: react/router.md
-    - Step 6 网络请求: react/net.md
-    - Appendix 1 可能有用的工具: react/tools.md
-    - Appendix 2 实验思考题题面: react/questions.md
-    - Appendix 3 CI 检查项列表: react/ci.md
-  - 小作业 API 文档: api.md
+  - 小作业文档:
+    - handout/index.md
+    - 小作业需求文档: handout/requirement.md
+    - 小作业 API 文档: handout/api.md
+    - Django 后端文档:
+      - handout/django/index.md
+    - React (Next.js) 前端文档:
+      - handout/react/index.md
+      - Step 0 环境配置: handout/react/environment.md
+      - Step 1 TS 初探与游戏逻辑: handout/react/logic.md
+      - Step 2 绘制游戏界面: handout/react/prop.md
+      - Step 3 管理状态与处理事件: handout/react/state.md
+      - Step 4 管理全局资源: handout/react/timer.md
+      - Step 5 切换页面: handout/react/router.md
+      - Step 6 网络请求: handout/react/net.md
+      - Appendix 1 可能有用的工具: handout/react/tools.md
+      - Appendix 2 实验思考题题面: handout/react/questions.md
+      - Appendix 3 CI 检查项列表: handout/react/ci.md
   - FAQ: faq.md
