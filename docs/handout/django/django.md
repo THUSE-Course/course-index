@@ -113,9 +113,14 @@ urlpatterns = [
 
 此外还有更多和路由有关的功能，例如在路径中解析变量等，请阅读[官方文档](https://docs.djangoproject.com/zh-hans/4.1/topics/http/urls/)。
 
+!!! note 思考题
+	假如要设置 `<project>/urls.py` 要把所有的请求都转发给 `api/urls.py` 应该如何设置？`<project>/urls.py` 中 `path` 所匹配的字段应如何填写？
+
 
 
 ### 模型（Models）
+
+我们使用 Django 提供的 ORM 机制来进行对数据表和数据表列属性的管理。具体来说，我们只需要在 `<app>/models.py` 中定义一个类即可。
 
 
 
