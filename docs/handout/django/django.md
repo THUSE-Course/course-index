@@ -40,7 +40,7 @@
 │   ├── tests.py  # 应用的“单元测试”定义
 │   └── views.py  # 应用的“视图”定义
 ├── manage.py
-└── v11
+└── <Project Name>
     ├── __init__.py
     ├── asgi.py
     ├── settings.py
@@ -48,7 +48,7 @@
     └── wsgi.py
 ```
 
-接下来，你应该能够理解我们给出的小作业目录结构：
+这时，你一般需要在 `<project>/settings.py` 中的 `INSTALLED_APPS` 字段中注册该应用（见我们给出的小作业示例）。接下来，你应该能够理解我们给出的小作业目录结构：
 
 ```
 .
@@ -79,6 +79,9 @@
     ├── utils_require.py
     └── utils_time.py
 ```
+
+!!! note 参考资料
+	本节对应官方文档 “编写你的第一个 Django 应用，第 1 部分” 中“创建项目”、“用于开发的简易服务器”、“创建投票应用”节。
 
 
 
@@ -114,19 +117,61 @@ urlpatterns = [
 此外还有更多和路由有关的功能，例如在路径中解析变量等，请阅读[官方文档](https://docs.djangoproject.com/zh-hans/4.1/topics/http/urls/)。
 
 !!! note 思考题
-	假如要设置 `<project>/urls.py` 要把所有的请求都转发给 `api/urls.py` 应该如何设置？`<project>/urls.py` 中 `path` 所匹配的字段应如何填写？
+	假如要设置 `<project>/urls.py` 要把所有的请求都转发给 `api/urls.py` 应该如何设置？`<project>/urls.py` 中 `path` 所**匹配掉**的字段应如何填写？
 
 
 
 ### 模型（Models）
 
-我们使用 Django 提供的 ORM 机制来进行对数据表和数据表列属性的管理。具体来说，我们只需要在 `<app>/models.py` 中定义一个类即可。
+!!! note 数据库使用的相关知识
+	如果你对记录、主键、外键、索引、联合主键这些概念并不熟悉，你可以阅读 [这篇文档](https://zhuanlan.zhihu.com/p/64368422) 快速入门。在实际的开发过程中，这些元数据对于数据表的设计以及数据库使用起来的性能是至关重要的。
+
+在 Django 中，模型用于数据库中数据表的结构设计以及数据表的元数据（如主键、外键、索引等）管理。我们使用 Django 提供的 ORM 机制来进行对数据表和数据表列属性的管理。具体来说，我们只需要在 `<app>/models.py` 中定义一个类继承 `django.db.models.Model` 即可，比如[官方文档](https://docs.djangoproject.com/zh-hans/4.1/intro/tutorial02/)中给出的定义：
+
+```python
+from django.db import models
+
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField()
+
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+```
+
+在你修改完应用的 `models.py` 之后，你应该使用如下命令去生成修改数据表结构与属性的语句：
+
+```bash
+python3 manage.py makemigrations
+```
+
+注意请不要将 migrations 文件夹纳入到 .gitignore 文件中。进而，每次在服务端部署时，在其运行之前，请确保你的部署脚本会执行：
+
+```bash
+python3 manage.py migrate
+```
+
+将上条命令生成的修改表属性的语句应用到该部署所对应的数据库中。
+
+由于我们只是进行本地测试，所以你可以在本地连续地输入这两条指令，本地的数据库会存储在 `db.sqlite3` 文件中。 
+
+!!! note 思考题
+	请查阅文档，主键、外键、联合主键、唯一性约束、索引这些元数据都应该如何创建？
+
+!!! note 参考资料
+	本节对应官方文档 “编写你的第一个 Django 应用，第 2 部分” 中“数据库配置”、“创建模型”、“激活模型”节。
 
 
 
 ### 视图（Views）
 
+我们接下来介绍视图函数。
+
 
 
 ### 单元测试（Unit Tests）
+
+接下来我们介绍单元测试。
 
