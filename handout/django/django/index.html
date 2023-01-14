@@ -979,14 +979,14 @@
 │   ├── tests.py  # 应用的“单元测试”定义
 │   └── views.py  # 应用的“视图”定义
 ├── manage.py
-└── v11
+└── &lt;Project Name&gt;
     ├── __init__.py
     ├── asgi.py
     ├── settings.py
     ├── urls.py
     └── wsgi.py
 </code></pre></div></td></tr></table></div>
-<p>接下来，你应该能够理解我们给出的小作业目录结构：</p>
+<p>这时，你一般需要在 <code>&lt;project&gt;/settings.py</code> 中的 <code>INSTALLED_APPS</code> 字段中注册该应用（见我们给出的小作业示例）。接下来，你应该能够理解我们给出的小作业目录结构：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1041,6 +1041,10 @@
     ├── utils_require.py
     └── utils_time.py
 </code></pre></div></td></tr></table></div>
+<div class="admonition note 参考资料">
+<p class="admonition-title">Note</p>
+<p>本节对应官方文档 “编写你的第一个 Django 应用，第 1 部分” 中“创建项目”、“用于开发的简易服务器”、“创建投票应用”节。</p>
+</div>
 <h3 id="routing">路由（Routing）<a class="headerlink" href="#routing" title="Permanent link">&para;</a></h3>
 <p>首先，我们来解决后端收到请求时，后端会将请求交给哪个应用的哪个视图函数处理的问题。和这个功能有关的文件主要包括 <code>&lt;项目名&gt;/urls.py</code> 和 <code>&lt;应用名&gt;/urls.py</code>。</p>
 <p>假如我们的后端部署在 <code>my-backend.com</code>，我们在访问 <code>my-backend.com/board/restart</code> 时，后端会首先在 <code>&lt;项目名&gt;/urls.py</code> 中以 <code>board/restart</code> 开始搜索。假设 <code>&lt;项目名&gt;/urls.py</code> 中配置为：</p>
@@ -1072,12 +1076,54 @@
 <p>此外还有更多和路由有关的功能，例如在路径中解析变量等，请阅读<a href="https://docs.djangoproject.com/zh-hans/4.1/topics/http/urls/">官方文档</a>。</p>
 <div class="admonition note 思考题">
 <p class="admonition-title">Note</p>
-<p>假如要设置 <code>&lt;project&gt;/urls.py</code> 要把所有的请求都转发给 <code>api/urls.py</code> 应该如何设置？<code>&lt;project&gt;/urls.py</code> 中 <code>path</code> 所匹配的字段应如何填写？</p>
+<p>假如要设置 <code>&lt;project&gt;/urls.py</code> 要把所有的请求都转发给 <code>api/urls.py</code> 应该如何设置？<code>&lt;project&gt;/urls.py</code> 中 <code>path</code> 所<strong>匹配掉</strong>的字段应如何填写？</p>
 </div>
 <h3 id="models">模型（Models）<a class="headerlink" href="#models" title="Permanent link">&para;</a></h3>
-<p>我们使用 Django 提供的 ORM 机制来进行对数据表和数据表列属性的管理。具体来说，我们只需要在 <code>&lt;app&gt;/models.py</code> 中定义一个类即可。</p>
+<div class="admonition note 数据库使用的相关知识">
+<p class="admonition-title">Note</p>
+<p>如果你对记录、主键、外键、索引、联合主键这些概念并不熟悉，你可以阅读 <a href="https://zhuanlan.zhihu.com/p/64368422">这篇文档</a> 快速入门。在实际的开发过程中，这些元数据对于数据表的设计以及数据库使用起来的性能是至关重要的。</p>
+</div>
+<p>在 Django 中，模型用于数据库中数据表的结构设计以及数据表的元数据（如主键、外键、索引等）管理。我们使用 Django 提供的 ORM 机制来进行对数据表和数据表列属性的管理。具体来说，我们只需要在 <code>&lt;app&gt;/models.py</code> 中定义一个类继承 <code>django.db.models.Model</code> 即可，比如<a href="https://docs.djangoproject.com/zh-hans/4.1/intro/tutorial02/">官方文档</a>中给出的定义：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+<span class="k">class</span> <span class="nc">Question</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">question_text</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">pub_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">Choice</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Question</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+    <span class="n">choice_text</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">votes</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>在你修改完应用的 <code>models.py</code> 之后，你应该使用如下命令去生成修改数据表结构与属性的语句：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>python3<span class="w"> </span>manage.py<span class="w"> </span>makemigrations
+</code></pre></div></td></tr></table></div>
+<p>注意请不要将 migrations 文件夹纳入到 .gitignore 文件中。进而，每次在服务端部署时，在其运行之前，请确保你的部署脚本会执行：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>python3<span class="w"> </span>manage.py<span class="w"> </span>migrate
+</code></pre></div></td></tr></table></div>
+<p>将上条命令生成的修改表属性的语句应用到该部署所对应的数据库中。</p>
+<p>由于我们只是进行本地测试，所以你可以在本地连续地输入这两条指令，本地的数据库会存储在 <code>db.sqlite3</code> 文件中。 </p>
+<div class="admonition note 思考题">
+<p class="admonition-title">Note</p>
+<p>请查阅文档，主键、外键、联合主键、唯一性约束、索引这些元数据都应该如何创建？</p>
+</div>
+<div class="admonition note 参考资料">
+<p class="admonition-title">Note</p>
+<p>本节对应官方文档 “编写你的第一个 Django 应用，第 2 部分” 中“数据库配置”、“创建模型”、“激活模型”节。</p>
+</div>
 <h3 id="views">视图（Views）<a class="headerlink" href="#views" title="Permanent link">&para;</a></h3>
+<p>我们接下来介绍视图函数。</p>
 <h3 id="unit-tests">单元测试（Unit Tests）<a class="headerlink" href="#unit-tests" title="Permanent link">&para;</a></h3>
+<p>接下来我们介绍单元测试。</p>
 
   <hr>
 <div class="md-source-file">
