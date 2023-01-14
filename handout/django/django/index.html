@@ -9,17 +9,17 @@
       
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../knowledge/">
       
       
-        <link rel="next" href="../logic/">
+        <link rel="next" href="../task/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.4">
     
     
       
-        <title>Step 0 环境配置 - Software Engineering Course Index</title>
+        <title>Django 语法 - Software Engineering Course Index</title>
       
     
     
@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#django" class="md-skip">
           跳转至
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Step 0 环境配置
+              Django 语法
             
           </span>
         </div>
@@ -410,14 +410,16 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_4" type="checkbox" id="__nav_3_4" >
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_4" type="checkbox" id="__nav_3_4" checked>
       
       
         
@@ -438,7 +440,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../django/">Django 后端文档</a>
+          <a href="../">Django 后端文档</a>
           
             <label for="__nav_3_4">
               <span class="md-nav__icon md-icon"></span>
@@ -461,7 +463,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../django/knowledge/" class="md-nav__link">
+      <a href="../knowledge/" class="md-nav__link">
         知识回顾
       </a>
     </li>
@@ -473,11 +475,93 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../django/django/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Django 语法
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Django 语法
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#django_1" class="md-nav__link">
+    Django 框架
+  </a>
+  
+    <nav class="md-nav" aria-label="Django 框架">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    文件树结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#routing" class="md-nav__link">
+    路由（Routing）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#models" class="md-nav__link">
+    模型（Models）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#views" class="md-nav__link">
+    视图（Views）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unit-tests" class="md-nav__link">
+    单元测试（Unit Tests）
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -489,7 +573,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../django/task/" class="md-nav__link">
+      <a href="../task/" class="md-nav__link">
         任务汇总
       </a>
     </li>
@@ -503,7 +587,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../django/judge/" class="md-nav__link">
+      <a href="../judge/" class="md-nav__link">
         评分方式
       </a>
     </li>
@@ -522,16 +606,14 @@
               
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_5" type="checkbox" id="__nav_3_5" checked>
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_5" type="checkbox" id="__nav_3_5" >
       
       
         
@@ -564,7 +646,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../">React (Next.js) 前端文档</a>
+          <a href="../../react/">React (Next.js) 前端文档</a>
           
             <label for="__nav_3_5">
               <span class="md-nav__icon md-icon"></span>
@@ -585,73 +667,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Step 0 环境配置
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../react/environment/" class="md-nav__link">
         Step 0 环境配置
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#nodejs" class="md-nav__link">
-    Node.js
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#yarn" class="md-nav__link">
-    yarn
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#typescript" class="md-nav__link">
-    TypeScript
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    本项目的配置
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -663,7 +683,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../logic/" class="md-nav__link">
+      <a href="../../react/logic/" class="md-nav__link">
         Step 1 TS 初探与游戏逻辑
       </a>
     </li>
@@ -677,7 +697,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../prop/" class="md-nav__link">
+      <a href="../../react/prop/" class="md-nav__link">
         Step 2 绘制游戏界面
       </a>
     </li>
@@ -691,7 +711,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state/" class="md-nav__link">
+      <a href="../../react/state/" class="md-nav__link">
         Step 3 管理状态与处理事件
       </a>
     </li>
@@ -705,7 +725,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../timer/" class="md-nav__link">
+      <a href="../../react/timer/" class="md-nav__link">
         Step 4 管理全局资源
       </a>
     </li>
@@ -719,7 +739,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../router/" class="md-nav__link">
+      <a href="../../react/router/" class="md-nav__link">
         Step 5 切换页面
       </a>
     </li>
@@ -733,7 +753,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../net/" class="md-nav__link">
+      <a href="../../react/net/" class="md-nav__link">
         Step 6 网络请求
       </a>
     </li>
@@ -747,7 +767,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tools/" class="md-nav__link">
+      <a href="../../react/tools/" class="md-nav__link">
         Appendix 1 可能有用的工具
       </a>
     </li>
@@ -761,7 +781,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../questions/" class="md-nav__link">
+      <a href="../../react/questions/" class="md-nav__link">
         Appendix 2 实验思考题题面
       </a>
     </li>
@@ -775,7 +795,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ci/" class="md-nav__link">
+      <a href="../../react/ci/" class="md-nav__link">
         Appendix 3 CI 检查项列表
       </a>
     </li>
@@ -838,30 +858,50 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#nodejs" class="md-nav__link">
-    Node.js
+  <a href="#django_1" class="md-nav__link">
+    Django 框架
+  </a>
+  
+    <nav class="md-nav" aria-label="Django 框架">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    文件树结构
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#yarn" class="md-nav__link">
-    yarn
+        
+          <li class="md-nav__item">
+  <a href="#routing" class="md-nav__link">
+    路由（Routing）
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#typescript" class="md-nav__link">
-    TypeScript
+        
+          <li class="md-nav__item">
+  <a href="#models" class="md-nav__link">
+    模型（Models）
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    本项目的配置
+        
+          <li class="md-nav__item">
+  <a href="#views" class="md-nav__link">
+    视图（Views）
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unit-tests" class="md-nav__link">
+    单元测试（Unit Tests）
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -885,49 +925,33 @@
 
 
 
-<h1 id="_1">环境配置<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<div class="admonition note">
-<p class="admonition-title">时效性文档</p>
-<p>本文档是具有时效性的文档，为了保证内容准确应当保持更新。</p>
-<p>本文档的最后更新时间在页面最底部。</p>
+<h1 id="django">Django 语法<a class="headerlink" href="#django" title="Permanent link">&para;</a></h1>
+<p>本文档回顾 Django 中关于上一章提到的 “路由”、“模型”、“视图” 与 “单元测试” 的具体写法。在文档中有若干以<strong>粗体</strong>标识的关键词，如果你对这些概念已经非常熟悉，就可跳过本节内容。</p>
+<div class="admonition warning 注意时效性">
+<p class="admonition-title">Warning</p>
+<p>本文档在撰写时主要参考了官方 Django 教程 <a href="https://docs.djangoproject.com/en/4.1/">4.1 版本</a> 的文档，请注意关注官方教程保持其时效性。</p>
 </div>
-<p>为了能够在本地正确运行我们下发的代码，请你按照本 Step 配置本地环境。</p>
-<p>在配置环境中遇到问题，请首先检查这一问题是否已经在 FAQ 部分提出。如果这一问题并未出现在 FAQ 或者 FAQ 中提供的解决方案并不能解决问题，请在微信群或者网络学堂中提出。</p>
-<hr />
-<p>本文档截图均基于 Mac 系统与 Safari 浏览器。</p>
-<h2 id="nodejs">Node.js<a class="headerlink" href="#nodejs" title="Permanent link">&para;</a></h2>
-<p>Node.js 是服务器端运行 JavaScript 的环境，我们需要在本地配置 Node.js 环境以运行我们的前端代码。</p>
-<p>对 Node.js 更为细节的介绍参考计算机系学生科协技能引导文档 <a href="https://docs.net9.org/languages/node.js/">https://docs.net9.org/languages/node.js/</a>。</p>
-<p>可以通过 <a href="https://nodejs.org/zh-cn/">Node.js 官方中文网站</a> 下载并安装 Node.js，我们推荐下载<strong>长期维护版本（Long Time Support）</strong>，LTS 版本相较于最新版本往往更为稳定。</p>
-<p>另外，为了获取更详细的安装指导，我们推荐获取安装包而非二进制文件，下载安装包后打开即可安装。</p>
-<p>为了确认是否正确安装，可以打开终端，输入指令 <code>node -v</code> 确认：</p>
-<p><img alt="" src="../../../static/react/step0-node.png" /></p>
-<h2 id="yarn">yarn<a class="headerlink" href="#yarn" title="Permanent link">&para;</a></h2>
-<p>Node.js 下载后会自带有包管理工具 npm 用于管理项目内所用到的第三方依赖。这里我们更推荐使用 yarn 作为后续开发的包管理工具，因为 yarn 相对于 npm 具有更快的下载速度、更清晰的命令行输出。</p>
-<p>对 yarn 与 npm 更为细节的介绍参考计算机系学生科协技能引导文档 <a href="https://docs.net9.org/languages/node.js/npm/">https://docs.net9.org/languages/node.js/npm/</a>。</p>
-<p>安装 yarn 时，你首先需要确定 npm 已经安装完毕，只需要通过 <code>npm -v</code> 确认：</p>
-<p><img alt="" src="../../../static/react/step0-npm.png" /></p>
-<p>之后运行指令 <code>npm install -g yarn</code> 即可安装 yarn，随后可以通过指令 <code>yarn -v</code> 来确认是否安装成功（这里如果遇到了读写权限问题，可能需要切换到管理员模式，Mac 与 Linux 系统上可以直接在指令前加 <code>sudo</code>，Windows 系统上则应在打开终端时选择“以管理员身份运行”）：</p>
-<p><img alt="" src="../../../static/react/step0-yarn.png" /></p>
-<h2 id="typescript">TypeScript<a class="headerlink" href="#typescript" title="Permanent link">&para;</a></h2>
-<p>TypeScript 是 JavaScript 的超集，可以将其简单理解为带有类型标注的 JavaScript。TypeScript 的编译器会在编译时检查变量类型是否满足标注要求，若满足则会编译生成 JavaScript 代码。</p>
-<p>可以通过 yarn 安装 TypeScript，指令为 <code>yarn global add typescript</code>。</p>
-<p>为了确定 TypeScript 是否正确安装，可以需要通过 <code>tsc -v</code> 确认：</p>
-<p><img alt="" src="../../../static/react/step0-ts.png" /></p>
-<h2 id="_2">本项目的配置<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>在配置完最基本的环境后，下一步可以将本次小作业 <code>git clone</code> 到本地，进入该项目的根目录作最后的配置。</p>
-<p>下面我们简单讲解 yarn 的使用方法：</p>
+<h2 id="django_1">Django 框架<a class="headerlink" href="#django_1" title="Permanent link">&para;</a></h2>
+<h3 id="_1">文件树结构<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>在安装了 Django 库之后，我们可以使用 <code>django-admin startproject &lt;项目名&gt;</code> 来创建一个新项目。在新建<strong>项目</strong>后，我们进入项目文件夹，可以看到如下的文件树：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>yarn<span class="w"> </span>install<span class="w"> </span><span class="c1"># 自动安装依赖</span>
-yarn<span class="w"> </span>add<span class="w"> </span>lodash<span class="w"> </span><span class="c1"># 添加名为 lodash 的依赖</span>
-yarn<span class="w"> </span>add<span class="w"> </span>-D<span class="w"> </span>lodash<span class="w"> </span><span class="c1"># 添加开发环境下名为 lodash 的依赖（即生产环境下不使用该依赖）</span>
-yarn<span class="w"> </span>remove<span class="w"> </span>lodash<span class="w"> </span><span class="c1"># 删除名为 lodash 的依赖</span>
-yarn<span class="w"> </span>start<span class="w"> </span><span class="c1"># 运行名为 start 的脚本</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code>.
+├── manage.py  # 使用命令行操作后端的主入口
+└── &lt;Project Name&gt;
+    ├── __init__.py  
+    ├── settings.py  # 后端启动时应用的设置
+    ├── urls.py  # 主路由入口
+    ├── asgi.py  # 以 asgi 方式进行部署的配置文件
+    └── wsgi.py  # 以 wsgi 方式进行部署的配置文件
 </code></pre></div></td></tr></table></div>
-<p>而 yarn 如何确定怎么自动安装依赖或者应当运行什么样的脚本，均会在项目根目录下 <code>package.json</code> 文件内定义。本次小作业的 <code>package.json</code> 文件节选为：</p>
+<p>项目部署的部分是大作业阶段 Sprint 1 的主要内容，这里我们不详细展开。</p>
+<p>然后我们可以使用 <code>python3 manage.py startapp &lt;应用名&gt;</code> 来新建一个<strong>应用</strong>。一个 Django 项目中可以同时存在多个应用，一个应用是具有完成某个独立功能作用的模块，这之后你应该看到：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -944,47 +968,123 @@ yarn<span class="w"> </span>start<span class="w"> </span><span class="c1"># 运�
 <span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span>
-<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;conway-game&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="c1">// ...</span>
-<span class="w">    </span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">// ...</span>
-<span class="w">        </span><span class="nt">&quot;fix&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eslint src --ext .js,.jsx,.ts,.tsx --fix&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="c1">// ...</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;axios&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.2.0&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="c1">// ...</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;devDependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;@testing-library/jest-dom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^5.14.1&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="c1">// ...</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code>.
+├── app1  # 你创建的应用
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── migrations  # 应用对数据库表及表属性的修改历史
+│   │   └── __init__.py
+│   ├── models.py  # 应用的“模型”定义
+│   ├── tests.py  # 应用的“单元测试”定义
+│   └── views.py  # 应用的“视图”定义
+├── manage.py
+└── v11
+    ├── __init__.py
+    ├── asgi.py
+    ├── settings.py
+    ├── urls.py
+    └── wsgi.py
 </code></pre></div></td></tr></table></div>
-<p>其中 <code>dependencies</code> 与 <code>devDependencies</code> 字段定义了本项目所有的依赖名称以及版本要求，而 <code>devDependencies</code> 字段下的是开发环境的依赖。此时，在本项目根目录下运行 <code>yarn install</code> 即会安装这里所列举的所有依赖。</p>
-<p>另外，<code>scripts</code> 字段定义了所有可以运行的脚本，这里运行 <code>yarn fix</code> 相当于运行 <code>eslint src --ext .js,.jsx,.ts,.tsx --fix</code>。</p>
-<hr />
-<p>在配置好 yarn 的基础上，现在运行 <code>yarn install</code> 安装第三方依赖。本次小作业不需要额外安装其他第三方依赖即可完成：</p>
-<p><img alt="" src="../../../static/react/step0-yarn-install.png" /></p>
-<p>所有的第三方依赖将会安装在 <code>node_modules</code> 目录下，该目录应当已经被 <code>.gitignore</code> 忽略。</p>
-<div class="admonition warning">
-<p class="admonition-title">黑洞</p>
-<p><code>node_modules</code> 是一个文件结构十分复杂且庞大的文件夹，并且随着依赖迭代更新和包管理工具对其的维护，其内部的结构变动十分频繁，所以该目录非常不利于文件系统管理，故戏称为“黑洞”。</p>
-<p>另外，<strong>切记在 <code>.gitignore</code> 内忽略该目录</strong>，否则软工大作业刚开始一周内就在仓库里写了十几万行代码的，就有可能是你的小组。</p>
+<p>接下来，你应该能够理解我们给出的小作业目录结构：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code>.
+├── DjangoHW  # 我们的项目名为 DjangoHW
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── README.md
+├── board  # 我们新建了一个应用叫做 board
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── migrations
+│   │   ├── 0001_initial.py
+│   │   ├── 0002_remove_board_deleted_remove_user_deleted.py
+│   │   └── __init__.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── db.sqlite3  # 本地数据库存储
+├── manage.py
+├── requirements.txt
+└── utils  # 撰写的功能函数，可以放在应用中也可以放在根目录下，保证引用路径正确即可
+    ├── utils_request.py
+    ├── utils_require.py
+    └── utils_time.py
+</code></pre></div></td></tr></table></div>
+<h3 id="routing">路由（Routing）<a class="headerlink" href="#routing" title="Permanent link">&para;</a></h3>
+<p>首先，我们来解决后端收到请求时，后端会将请求交给哪个应用的哪个视图函数处理的问题。和这个功能有关的文件主要包括 <code>&lt;项目名&gt;/urls.py</code> 和 <code>&lt;应用名&gt;/urls.py</code>。</p>
+<p>假如我们的后端部署在 <code>my-backend.com</code>，我们在访问 <code>my-backend.com/board/restart</code> 时，后端会首先在 <code>&lt;项目名&gt;/urls.py</code> 中以 <code>board/restart</code> 开始搜索。假设 <code>&lt;项目名&gt;/urls.py</code> 中配置为：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">include</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;board/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s2">&quot;board.urls&quot;</span><span class="p">)),</span>
+<span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+<p>我们会匹配掉字符串 <code>'board/'</code>，然后将剩下的请求 <code>restart</code> 交给 <code>board/urls.py</code> 处理，这也是这里 <code>include</code> 的作用，将请求转发给子应用的路由表处理。</p>
+<p>然后，假设我们在 <code>board/urls.py</code> 中配置为：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">include</span>
+<span class="kn">import</span> <span class="nn">board.views</span> <span class="k">as</span> <span class="nn">views</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;restart&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">restart_board</span><span class="p">),</span>
+<span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+<p>这时剩余请求 <code>restart</code> 匹配到第一条规则后，交由 <code>board/views.py</code> 中的 <code>restart_board</code> 函数进行处理，即后端会帮助我们调用这个函数，并把请求体（和请求有关的信息，包括请求方法、请求数据等等）作为参数传给这个函数。</p>
+<p>此外还有更多和路由有关的功能，例如在路径中解析变量等，请阅读<a href="https://docs.djangoproject.com/zh-hans/4.1/topics/http/urls/">官方文档</a>。</p>
+<div class="admonition note 思考题">
+<p class="admonition-title">Note</p>
+<p>假如要设置 <code>&lt;project&gt;/urls.py</code> 要把所有的请求都转发给 <code>api/urls.py</code> 应该如何设置？<code>&lt;project&gt;/urls.py</code> 中 <code>path</code> 所匹配的字段应如何填写？</p>
 </div>
-<p>之后，运行 <code>yarn dev</code> 启动本次项目：</p>
-<p><img alt="" src="../../../static/react/step0-yarn-dev.png" /></p>
-<p>项目启动后应当能在本地端口上访问到前端页面，默认端口号为 3000。上述截图中因为默认端口 3000 被占用，故采用了 3001 端口。</p>
-<p>打开浏览器并在地址栏输入 <code>http://localhost:3000</code>（默认端口占用时需要替换端口号），即可访问到本次小作业前端页面。若能够看到类似于下图的界面，就说明环境配置完成，可以继续完成小作业了🎉：</p>
-<p><img alt="" src="../../../static/react/step0-final.png" /></p>
+<h3 id="models">模型（Models）<a class="headerlink" href="#models" title="Permanent link">&para;</a></h3>
+<p>我们使用 Django 提供的 ORM 机制来进行对数据表和数据表列属性的管理。具体来说，我们只需要在 <code>&lt;app&gt;/models.py</code> 中定义一个类即可。</p>
+<h3 id="views">视图（Views）<a class="headerlink" href="#views" title="Permanent link">&para;</a></h3>
+<h3 id="unit-tests">单元测试（Unit Tests）<a class="headerlink" href="#unit-tests" title="Permanent link">&para;</a></h3>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2022年11月26日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年1月14日</span>
       
     
   </small>
@@ -998,7 +1098,7 @@ yarn<span class="w"> </span>start<span class="w"> </span><span class="c1"># 运�
     
         <div class="md-source-date">
             <small>
-                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a></span>
+                作者: <span class='git-page-authors git-authors'><a href='mailto:cc7w@foxmail.com'>c7w</a></span>
             </small>
         </div>
     
