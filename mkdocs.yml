@@ -80,6 +80,7 @@ nav:
     - Django 后端文档:
       - handout/django/index.md
       - 知识回顾: handout/django/knowledge.md
+      - Django 语法: handout/django/django.md
       - 任务汇总: handout/django/task.md
       - 评分方式: handout/django/judge.md
     - React (Next.js) 前端文档:
