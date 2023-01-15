@@ -492,6 +492,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#url-userusername" class="md-nav__link">
+    URL /user/&lt;userName&gt;
+  </a>
+  
+    <nav class="md-nav" aria-label="URL /user/&lt;userName&gt;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_2" class="md-nav__link">
+    GET
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete_1" class="md-nav__link">
+    DELETE
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -929,6 +956,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#url-userusername" class="md-nav__link">
+    URL /user/&lt;userName&gt;
+  </a>
+  
+    <nav class="md-nav" aria-label="URL /user/&lt;userName&gt;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_2" class="md-nav__link">
+    GET
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete_1" class="md-nav__link">
+    DELETE
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -966,11 +1020,11 @@
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-3</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bad method&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bad method&quot;</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="get">GET<a class="headerlink" href="#get" title="Permanent link">&para;</a></h3>
-<p>使用 GET 方法请求该 API 即表示请求当前存储的全部游戏记录。</p>
+<p>使用 GET 方法请求该 API 即表示请求当前存储的全部游戏记录，以创建时间为基准倒序排列，越晚创建的记录出现在数组索引越小的位置。</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">请求体</label><label for="__tabbed_1_2">成功响应</label><label for="__tabbed_1_3">错误响应</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -1003,7 +1057,7 @@
 <span class="w">            </span><span class="nt">&quot;userName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ashitemaru&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="c1">// ...</span>
-<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <p>这里 <code>boards</code> 字段是一个数组，数组中每一项都应该包含下述字段：</p>
@@ -1021,7 +1075,7 @@
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">*</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Some message]&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Some message]&quot;</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <ul>
@@ -1045,7 +1099,7 @@
 <span class="w">    </span><span class="nt">&quot;board&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="s2">&quot;00010001010000...&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;boardName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Double beehive&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;userName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ashitemaru&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;userName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ashitemaru&quot;</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <p>上述字段的说明为：</p>
@@ -1064,7 +1118,7 @@
 <span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Succeed&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;isCreate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="c1">// For example</span>
+<span class="w">    </span><span class="nt">&quot;isCreate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="c1">// For example</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <p>这里 <code>isCreate</code> 字段是一个布尔值，表示这次请求是否在数据库中新增了一条游戏记录。换言之，若本次请求仅仅是更新了数据库中的某一条记录，则 <code>isCreate</code> 字段为 <code>false</code>。</p>
@@ -1076,11 +1130,11 @@
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">*</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Some message]&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Some message]&quot;</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <ul>
-<li>若请求体中数据格式不满足格式规定，错误响应的状态码为 400 Bad Request，<code>code</code> 字段为 <code>-2</code>。<code>info</code> 字段的具体内容根据具体错误确定，各类格式错误的优先级如下：<ol>
+<li>若请求体中数据格式不满足格式规定，错误响应的状态码为 400 Bad Request，<code>code</code> 字段为 <code>-2</code>。<code>info</code> 字段的具体内容根据具体错误确定。<ol>
 <li><code>board</code> 字段缺失或非字符串类型，此时 <code>info</code> 字段为 <code>"Missing or error type of [board]"</code></li>
 <li><code>boardName</code> 字段缺失或非字符串类型，此时 <code>info</code> 字段为 <code>"Missing or error type of [boardName]"</code></li>
 <li><code>userName</code> 字段缺失或非字符串类型，此时 <code>info</code> 字段为 <code>"Missing or error type of [userName]"</code></li>
@@ -1103,7 +1157,7 @@
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-3</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bad method&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bad method&quot;</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <p>此外，需要检测参数 <code>id</code>，该参数必须为正整数。若参数不符合要求均应当设置状态码为 400 Bad Request，错误响应格式为：</p>
@@ -1112,7 +1166,7 @@
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bad param [id]&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bad param [id]&quot;</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <p>在 <code>id</code> 格式正确的基础上应当检验该 ID 对应的游戏记录是否存在。若不存在均应当设置状态码为 404 Not Found，错误响应格式为：</p>
@@ -1121,7 +1175,7 @@
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Board not found&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Board not found&quot;</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="get_1">GET<a class="headerlink" href="#get_1" title="Permanent link">&para;</a></h3>
@@ -1146,7 +1200,7 @@
 <span class="w">    </span><span class="nt">&quot;board&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="s2">&quot;00010001010000...&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;boardName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Double beehive&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;userName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ashitemaru&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;userName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ashitemaru&quot;</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <p>上述字段的说明为：</p>
@@ -1163,7 +1217,7 @@
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">*</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Some message]&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Some message]&quot;</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <ul>
@@ -1186,7 +1240,7 @@
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Succeed&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Succeed&quot;</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 </div>
@@ -1197,7 +1251,7 @@
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">*</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Some message]&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Some message]&quot;</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <ul>
@@ -1221,7 +1275,7 @@
 <span class="w">    </span><span class="nt">&quot;board&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="s2">&quot;00010001010000...&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;boardName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Double beehive&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;userName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ashitemaru&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;userName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ashitemaru&quot;</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <p>上述字段的说明为：</p>
@@ -1238,7 +1292,7 @@
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Succeed&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Succeed&quot;</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 </div>
@@ -1249,7 +1303,7 @@
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">*</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Some message]&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Some message]&quot;</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <ul>
@@ -1268,13 +1322,137 @@
 </div>
 </div>
 </div>
+<h2 id="url-userusername">URL <code>/user/&lt;userName&gt;</code><a class="headerlink" href="#url-userusername" title="Permanent link">&para;</a></h2>
+<p>该 API 用于操作存储在数据库中的玩家，包括获取玩家的所有游戏记录，删除玩家的所有游戏记录。</p>
+<p>该 API 仅接受以 GET 与 DELETE 方法请求。以其他方法请求均应当设置状态码为 400 Bad Request，错误响应格式为：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-3</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bad method&quot;</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>此外，需要检测参数 <code>userName</code>，该参数必须为非空且长度不大于 50 的字符串。若参数不符合要求均应当设置状态码为 400 Bad Request，错误响应格式为：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bad param [userName]&quot;</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>在 <code>userName</code> 格式正确的基础上应当检验该名称对应的玩家是否存在。若不存在均应当设置状态码为 404 Not Found，错误响应格式为：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;User not found&quot;</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="get_2">GET<a class="headerlink" href="#get_2" title="Permanent link">&para;</a></h3>
+<p>本接口返回玩家的所有棋盘存档信息。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:3"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><input id="__tabbed_6_3" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">请求体</label><label for="__tabbed_6_2">成功响应</label><label for="__tabbed_6_3">错误响应</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>本方法不需要提供任何请求体。</p>
+</div>
+<div class="tabbed-block">
+<p>请求成功时，应当设置状态码为 200 OK，成功响应格式为：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Succeed&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;userName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c7w&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;boards&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="c1">// For example:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IWannaTakeABreak:(&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;createdAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1669320727646</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;userName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c7w&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>上述字段的说明为：</p>
+<ul>
+<li><code>userName</code>。查询的用户名，应当为非空字符串，且长度不大于 50</li>
+<li><code>boards</code>。该玩家的所有对局信息，不含棋盘的具体状态。</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p>所有错误响应的格式均为：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">*</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Some message]&quot;</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>若读取数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，<code>code</code> 字段为 <code>-4</code>，<code>info</code> 字段尽量携带错误信息（CI 不评测该错误响应）</li>
+</ul>
+</div>
+</div>
+</div>
+<h3 id="delete_1">DELETE<a class="headerlink" href="#delete_1" title="Permanent link">&para;</a></h3>
+<p>注意该接口的语义为删掉该玩家下的所有存档记录，而不是直接删掉该玩家。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:3"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><input id="__tabbed_7_3" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">请求体</label><label for="__tabbed_7_2">成功响应</label><label for="__tabbed_7_3">错误响应</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>本方法不需要提供任何请求体。</p>
+</div>
+<div class="tabbed-block">
+<p>请求成功时，应当设置状态码为 200 OK，成功响应格式为：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Succeed&quot;</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<p>所有错误响应的格式均为：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">*</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Some message]&quot;</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>若读取数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，<code>code</code> 字段为 <code>-4</code>，<code>info</code> 字段尽量携带错误信息（CI 不评测该错误响应）</li>
+</ul>
+</div>
+</div>
+</div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2022年11月26日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年1月15日</span>
       
     
   </small>
@@ -1288,7 +1466,7 @@
     
         <div class="md-source-date">
             <small>
-                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a></span>
+                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (60.05%), <a href='mailto:cc7w@foxmail.com'>c7w</a> (39.95%)</span>
             </small>
         </div>
     
