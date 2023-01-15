@@ -915,33 +915,250 @@
 <h2 id="_1">实验目标<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>通过本 Step，我们希望你能够掌握基本的 TypeScript 语法并且能够使用 TypeScript 语言编写完成康威生命游戏的核心逻辑。</p>
 <h2 id="_2">实验步骤<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>之后，你需要在 <code>src/utils/logic.ts</code> 文件的函数 <code>stepBoard</code> 之中，注释 <code>// Step 1 BEGIN</code> 与 <code>// Step 1 END</code> 之间的部分填充你的代码，编写完成康威生命游戏的核心逻辑。注意，请勿改动其余部分的代码，请勿新建文件、删除文件。</p>
-<p>在编写完成后，你可以在项目根目录下，运行命令 <code>yarn test logic</code> 执行我们编写好的单元测试，如果显示下述提示信息则代表你完成了 Step 1：</p>
+<p>你需要在 <code>src/utils/logic.ts</code> 文件的函数 <code>stepBoard</code> 之中，注释 <code>// Step 1 BEGIN</code> 与 <code>// Step 1 END</code> 之间的部分填充你的代码，编写完成康威生命游戏的核心逻辑。</p>
+<p>本 Step 的代码量大约为 20 - 40 行。</p>
+<p>在编写完成后，你可以在项目根目录下，运行命令 <code>yarn test step</code> 执行我们编写好的单元测试，如果显示下述提示信息则代表你完成了 Step 1：</p>
 <p><img alt="" src="../../../static/react/step1-test-pass.png" /></p>
-<p>如果你在编写游戏的核心逻辑上遇到了困难，可以打开 <code>test/logic.test.ts</code> 文件，其中的 <code>stepBoardGT</code> 函数是我们提供的样例实现，可供参考。但我们保留因认定为抄袭参考代码而将本 Step 评为零分的权利。</p>
+<p>如果你在编写游戏的核心逻辑上遇到了困难，可以打开 <code>src/tests/step.test.ts</code> 文件，其中的 <code>stepBoardGT</code> 函数是我们提供的样例实现，也是最后评分所使用的对拍基准实现，可供本 Step 的参考。</p>
 <h3 id="_3">代码说明<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
-<p>在 <code>src/utils/logic.ts</code> 文件的前两行，我们规定了棋盘尺寸以及表示棋盘的类型如下：</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">BOARD_LENGTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">50</span><span class="p">;</span>
-<span class="k">export</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="nx">Board</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">0</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mf">1</span><span class="p">)[][];</span>
+<p>在 <code>src/utils/types.ts</code> 文件中，我们规定了表示棋盘的类型如下：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="nx">Board</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">0</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mf">1</span><span class="p">)[][];</span>
 </code></pre></div></td></tr></table></div>
 <p>这说明我们使用一个二维数组表示棋盘，二维数组中的每一个元素代表一个细胞，元素的取值为 <code>0</code> 或者 <code>1</code>，分别代表细胞死亡与细胞存活。</p>
 <p>你需要填充的 <code>stepBoard</code> 函数接收一个 <code>Board</code> 类型的参数 <code>board</code>，其表示这个时刻的棋盘状态。该函数的返回值为 <code>Board</code> 类型，其表示下一时刻的棋盘状态。</p>
+<p>在完成本 Step 的时候可以使用在 <code>src/constants/constants.ts</code> 文件中定义的常量，如描述棋盘尺寸的常量：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">BOARD_LENGTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">50</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
 <h2 id="_4">实验评分<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>本 Step 总分为 10 分。</p>
 <p>本 Step 采用自动化评分。我们会检查 Tsinghua Git CI 中是否如下显示本 Step 的通过信息。若有，则你获得本 Step 所有分数：</p>
 <p>【TODO：CI 通过界面】</p>
-<p>我们保证 CI 判定通过的方式与你本地完全一致（即通过 <code>yarn test logic</code> 命令判定）。</p>
+<p>我们保证 CI 判定通过的方式与你本地完全一致（即通过 <code>yarn test step</code> 命令判定）。</p>
 <h2 id="_5">知识讲解<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<p>这里我们会简单讲解 TypeScript 的语法。</p>
-<p>【TODO：讲解 TypeScript】</p>
+<p>详细的 TypeScript 语法可以参考 <a href="https://www.typescriptlang.org/docs/">TypeScript 的官方语法文档</a>。作为已经有一定 C/C++ 语言基础的计算机系同学，可以参考较为简略的 <a href="https://docs.net9.org/languages/typescript/">计算机系科协技能引导文档 TypeScript 部分</a>。</p>
+<p>如果你只想快速上手本作业，并不想完整学完 TypeScript 语法后再完成作业，这里我们提供一个更简略的 TypeScript Cheatsheet。</p>
+<ul>
+<li>变量声明</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">caption</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;This is a string&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// 声明一个字符串类型的常量</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">val</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span><span class="w"> </span><span class="c1">// 声明一个数字类型的变量</span>
+<span class="nx">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span><span class="w"> </span><span class="c1">// 给变量 val 赋予新值</span>
+
+<span class="nx">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;A string&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// ERROR! 不能给变量赋予不符合其类型声明的值</span>
+<span class="nx">caption</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;This is another string&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// ERROR! 不能修改常量</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">oneValue</span><span class="o">:</span><span class="w"> </span><span class="kt">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span><span class="w"> </span><span class="c1">// 可以使用字面量作为类型标注</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Maybe string&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// 可以用 | 运算符实现联合类型</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">templateStr</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`An example: </span><span class="si">${</span><span class="nx">val</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span><span class="w"> </span><span class="c1">// 模板字符串，用反引号标记，用 ${} 标记需要嵌入字符串的变量</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>运算与控制流</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// 一般的运算符与 C++ 语法近似</span>
+<span class="mf">1</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span><span class="w"> </span><span class="c1">// false</span>
+<span class="mf">1</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mf">4</span><span class="p">;</span><span class="w"> </span><span class="c1">// true</span>
+<span class="mf">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">3</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span><span class="w"> </span><span class="c1">// true</span>
+
+<span class="c1">// 判定相等和不相等务必使用 === 和 !== 以防止意料外的类型转换</span>
+<span class="mf">1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"> </span><span class="c1">// true</span>
+<span class="mf">1</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"> </span><span class="c1">// false</span>
+
+<span class="c1">// 控制流的写法与 C++ 语法近似</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">foo</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;foo is not 2&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">10</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="nx">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Now, i is </span><span class="si">${</span><span class="nx">i</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>数组与对象</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">arr</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="mf">4</span><span class="p">];</span><span class="w"> </span><span class="c1">// 在类型后面加上 [] 表示这个类型的值构成的数组</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">mat</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">[][]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="mf">4</span><span class="p">]];</span><span class="w"> </span><span class="c1">// 二维数组则如此表示</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">tuple</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;TS&quot;</span><span class="p">];</span><span class="w"> </span><span class="c1">// 元组则如此表示</span>
+
+<span class="c1">// 接口可以用来作为对象的类型标记</span>
+<span class="c1">// TS 中对象指的是键值对的组合，类似于 Python 的字典</span>
+<span class="kd">interface</span><span class="w"> </span><span class="nx">Bar</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">bar</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">foobar</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">[];</span>
+<span class="p">}</span>
+
+<span class="c1">// 由某一个接口标记的对象中每一个键值对都需要符合接口的约束</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">barfoo</span><span class="o">:</span><span class="w"> </span><span class="kt">Bar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="kt">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">bar</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Test string&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">foobar</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">],</span>
+<span class="p">};</span>
+</code></pre></div></td></tr></table></div>
+<p>另外一定要注意在访问数组或者对象的内部元素的时候可能出现的 <code>undefined</code>：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">arr</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="mf">4</span><span class="p">];</span>
+<span class="nx">arr</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span><span class="w"> </span><span class="c1">// 1</span>
+<span class="nx">arr</span><span class="p">[</span><span class="mf">100</span><span class="p">];</span><span class="w"> </span><span class="c1">// undefined</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">obj</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="kt">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">bar</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">foo</span><span class="p">;</span><span class="w"> </span><span class="c1">// 1</span>
+<span class="nx">obj</span><span class="p">.</span><span class="nx">barbar</span><span class="p">;</span><span class="w"> </span><span class="c1">// undefined</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>声明函数</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// 最为经典的声明函数的方式</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">sum</span><span class="p">(</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">y</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// 箭头函数，另外一种声明函数的方式，与经典方法基本类似</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">y</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>数组的常用方法</li>
+</ul>
+<p>这里涉及到回调模式这一在 JavaScript 中得到广泛应用的模式，这一模式的介绍可以参考 <a href="https://docs.net9.org/languages/javascript/function/#_3">技能引导文档的介绍</a>。</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">arr</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="mf">4</span><span class="p">,</span><span class="w"> </span><span class="mf">5</span><span class="p">];</span>
+
+<span class="nx">arr</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">val</span><span class="p">,</span><span class="w"> </span><span class="nx">ind</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`The value at index </span><span class="si">${</span><span class="nx">ind</span><span class="si">}</span><span class="sb"> is </span><span class="si">${</span><span class="nx">val</span><span class="si">}</span><span class="sb">.`</span><span class="p">);</span>
+<span class="p">});</span><span class="w"> </span><span class="c1">// 遍历数组，回调函数第一个参数是数组的值，第二个参数是数组下标</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">val</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">val</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">val</span><span class="p">);</span><span class="w"> </span><span class="c1">// 映射数组，该语句得到 [1, 4, 9, 16, 25]</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">val</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">val</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mf">2</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// 筛选数组，该语句得到 [2, 4]</span>
+
+<span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mf">6</span><span class="p">);</span><span class="w"> </span><span class="c1">// 在尾部添加元素</span>
+<span class="nx">arr</span><span class="p">;</span><span class="w"> </span><span class="c1">// [1, 2, 3, 4, 5, 6]</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>面向对象</li>
+</ul>
+<p>TypeScript 中的 OOP 语法与 C++ 中的类似，这里给出一个例子，覆盖了声明类成员和访问权限、声明构造函数、声明成员函数和静态方法等基本语法。</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">Complex</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="nx">real</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="nx">imaginary</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">_real</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="nx">_imaginary</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">_real</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">imaginary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">_imaginary</span><span class="p">;</span><span class="w"> </span><span class="c1">// Declare members &amp; initialize</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">print</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">real</span><span class="si">}</span><span class="sb"> </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">imaginary</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">&quot;+&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;-&quot;</span><span class="si">}</span><span class="sb"> </span><span class="si">${</span><span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">imaginary</span><span class="p">)</span><span class="si">}</span><span class="sb"> i`</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="nx">printInfo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;This is a complex class.&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="nx">com</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Complex</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">);</span>
+<span class="nx">com</span><span class="p">.</span><span class="nx">print</span><span class="p">();</span><span class="w"> </span><span class="c1">// &quot;1 + 2 i&quot;</span>
+<span class="nx">Complex</span><span class="p">.</span><span class="nx">printInfo</span><span class="p">();</span><span class="w"> </span><span class="c1">// &quot;This is a complex class.&quot;</span>
+</code></pre></div></td></tr></table></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2022年11月26日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年1月15日</span>
       
     
   </small>

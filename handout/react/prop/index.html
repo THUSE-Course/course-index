@@ -930,38 +930,103 @@
 <p>通过本 Step，我们希望你能够掌握 React 框架的基本使用，学会使用属性传递参数并且编写完成康威生命游戏的界面。</p>
 <h2 id="_3">实验步骤<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>首先，你需要理解 React 中组件的概念，并理解如何使用属性来控制组件的显示方式。</p>
-<p>之后，你需要在 <code>src/BoardScreen.tsx</code> 文件的组件 <code>BoardUI</code> 之中，<strong>两处</strong>注释 <code>// Step 2 BEGIN</code> 与 <code>// Step 2 END</code> 之间的部分填充你的代码（有一处和 Step 3 共用），使得屏幕上能够出现一个 <span class="arithmatex"><span class="MathJax_Preview">50 \times 50</span><script type="math/tex">50 \times 50</script></span> 的灰色边框棋盘，棋盘中细胞的背景色为白色。注意，请勿改动其余部分的代码，请勿新建文件、删除文件。</p>
-<p>完成本 Step 后，参考的界面如下：</p>
+<p>之后，你需要在 <code>src/components/BoardUI.tsx</code> 文件的组件 <code>BoardUI</code> 之中，<strong>两处</strong>注释 <code>// Step 2 BEGIN</code> 与 <code>// Step 2 END</code> 之间的部分填充你的代码，使得屏幕上能够出现一个 <span class="arithmatex"><span class="MathJax_Preview">50 \times 50</span><script type="math/tex">50 \times 50</script></span> 的灰色边框棋盘，棋盘中细胞的背景色根据细胞的状态确定，若死亡则为白色，若存活则为红色。</p>
+<p>本 Step 两处填空的代码量均在 5 行以内。</p>
+<p>完成本 Step 后，参考的界面如下。由于在完成后续 Step 之前棋盘上所有细胞均处于死亡状态，所以所有细胞均为白色背景色：</p>
 <p><img alt="" src="../../../static/react/step2-board.png" /></p>
-<p>【TODO：由于 Step 3 加了个按钮，这里示意图需要改】</p>
 <h3 id="_4">实验提示<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <ul>
-<li>标签 <code>&lt;div /&gt;</code> 的 <code>style</code> 属性中 <code>flexDirection</code> 字段决定了所有子元素按照何种方式排列。</li>
+<li>标签 <code>&lt;div /&gt;</code> 的 <code>style</code> 属性中 <code>flexDirection</code> 字段决定了所有子元素按照何种方式排列</li>
+<li>为了让 React 能够追踪一个列表之中各个元素的动态，需要在合适的地方添加 <code>key</code> 属性，该属性的详细介绍可见 <a href="https://reactjs.org/docs/lists-and-keys.html#keys">React 官方文档</a></li>
 </ul>
 <h3 id="_5">代码说明<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
-<p><code>src/BoardScreen.tsx</code> 文件中包含下述组件：</p>
-<ul>
-<li><code>Square</code>。绘制一个长宽均为 <code>16</code>，边框为宽为 <code>1</code> 的灰色实线的正方形，其背景色由属性指定</li>
-<li><code>BoardUI</code>。游戏中棋盘的 UI，由 <span class="arithmatex"><span class="MathJax_Preview">50 \times 50</span><script type="math/tex">50 \times 50</script></span> 个正方形格子组成</li>
-<li><code>BoardScreen</code>。代表整个游戏区域</li>
-</ul>
+<p><code>src/components/Square.tsx</code> 文件中包含一个 <code>Square</code> 组件，其会绘制一个长宽均为 <code>16</code>，边框为宽为 <code>1</code> 的灰色实线的正方形，其背景色由属性中的 <code>color</code> 字段指定。你可以在完成本 Step 的时候引用该组件。</p>
+<p>组件 <code>BoardUI</code> 所接受的参数格式定义在接口 <code>BoardUIProps</code> 中，其中 <code>board</code> 字段记录了当前棋盘上每个细胞的状态。</p>
 <h2 id="_6">实验评分<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>本 Step 总分为 5 分。</p>
 <p>本 Step 采用人工评分。由于该界面的细节可能会在后续的 Step 中修改，我们仅会<strong>在通过 CI 检查的基础上</strong>查看最后一次部署后游戏主界面是否满足：</p>
 <ul>
 <li>存在一个 <span class="arithmatex"><span class="MathJax_Preview">50 \times 50</span><script type="math/tex">50 \times 50</script></span> 的棋盘</li>
 <li>该棋盘具有灰色实线边框</li>
+<li>打开控制台后没有类似下图的 warning</li>
 </ul>
-<p>上述两个条件均满足，则你获得本 Step 所有分数。否则，如果任何一个条件不满足，则你本 Step 评为零分。</p>
+<p><img alt="" src="../../../static/react/step2-key.png" /></p>
+<p>上述三个条件均满足，则你获得本 Step 所有分数。如果前两个条件有一不满足，则你本 Step 评为 0 分。如果仅有第三个条件不满足，则你本 Step 评为 3 分。</p>
 <h2 id="_7">知识讲解<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
-<p>【TODO】</p>
+<p>由于 <a href="https://docs.net9.org/frontend/react/">技能引导文档</a> 是基于类组件这一概念讲解 React 框架，而本小作业是基于函数组件的，若你希望对 React 框架有更为深入的理解可以在完成本小作业后阅读技能引导文档中对类组件和生命周期等的介绍。</p>
+<p>首先简单介绍 React 所引入的 TSX 语法扩展（这也是涉及到 React 的 TypeScript 文件扩展名为 <code>.tsx</code> 的原因），TSX 语法扩展的重点在于引入标签语法，即在 TypeScript 中使用类似 HTML 的标签语法编写组件，标签本身就是一个对象，同时也支持类似 HTML 语法的标签嵌套：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">return</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">This</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">simple</span><span class="w"> </span><span class="nx">div</span><span class="p">.</span><span class="w"> </span><span class="o">&lt;</span><span class="err">/div&gt;;</span>
+
+<span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">&quot;container&quot;</span><span class="o">&gt;</span>
+<span class="w">        </span><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="nx">paragraph</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">div</span><span class="w"> </span><span class="nx">container</span><span class="p">.</span><span class="w"> </span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<p>在 TSX 中，可以在标签语法内使用大括号 <code>{}</code> 包围任何合法的 TypeScript 表达式，该表达式结果会嵌入至标签语法之中：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">increase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;white&quot;</span><span class="p">;</span>
+
+<span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">&quot;container&quot;</span><span class="w"> </span><span class="nx">style</span><span class="o">=</span><span class="p">{{</span><span class="w"> </span><span class="nx">backgroundColor</span><span class="o">:</span><span class="w"> </span><span class="kt">color</span><span class="w"> </span><span class="p">}}</span><span class="o">&gt;</span>
+<span class="w">        </span><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="w"> </span><span class="mf">2</span><span class="w"> </span><span class="nx">plus</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="p">{</span><span class="nx">increase</span><span class="p">(</span><span class="mf">2</span><span class="p">)}.</span><span class="w"> </span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<p>大括号嵌入的一个重要应用是渲染一个组件的列表。React 允许我们事先构建一个标签的列表，之后使用大括号嵌入将这个标签列表嵌入到某一个容器之中，此时这个列表中的所有标签会按照列表的顺序成为该容器的子元素。这也是本 Step 需要你去理解的核心语法：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">arr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="mf">1</span><span class="p">}</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">The</span><span class="w"> </span><span class="nx">element</span><span class="w"> </span><span class="mf">1.</span><span class="w"> </span><span class="o">&lt;</span><span class="err">/div&gt;,</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="mf">2</span><span class="p">}</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">The</span><span class="w"> </span><span class="nx">element</span><span class="w"> </span><span class="mf">2.</span><span class="w"> </span><span class="o">&lt;</span><span class="err">/div&gt;,</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="mf">3</span><span class="p">}</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">The</span><span class="w"> </span><span class="nx">element</span><span class="w"> </span><span class="mf">3.</span><span class="w"> </span><span class="o">&lt;</span><span class="err">/div&gt;,</span>
+<span class="p">];</span>
+
+<span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">className</span><span class="o">=</span><span class="s2">&quot;container&quot;</span><span class="o">&gt;</span>
+<span class="w">        </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="mf">0</span><span class="p">}</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">The</span><span class="w"> </span><span class="nx">element</span><span class="w"> </span><span class="mf">0.</span><span class="w"> </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="w">        </span><span class="p">{</span><span class="nx">arr</span><span class="p">}</span>
+<span class="w">        </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="mf">4</span><span class="p">}</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">The</span><span class="w"> </span><span class="nx">element</span><span class="w"> </span><span class="mf">4.</span><span class="w"> </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<p>但需要注意的是，由于 React 会追踪更新的元素并进行部分更新，对于一个数组渲染的节点，必须提供在兄弟节点间唯一的 key 作为区分，通常对于有 ID 的数据，我们可以直接使用 ID 作为 key。</p>
+<p>函数组件的基本思路类似于一个渲染管道，其接受这个组件的<strong>参数</strong>（Properties，一般简称为 Props），也就是一系列描述这个组件显示方式的键值对。最终函数组件会返回一个 TSX 标签，定义这个组件会怎么渲染到屏幕上。</p>
+<p>一个最为经典的无状态组件（<strong>状态</strong>这一概念后续说明）可以参考文件 <code>src/components/Square.tsx</code> 之中的 <code>Square</code> 组件，这也是自定义组件的最经典写法。首先使用接口定义这个组件所要接受的参数格式，最后在函数返回值里使用 TSX 标签语法写明该组件的显示方式。</p>
+<p>在命名规则上，自定义组件命名最好首字母大写，与内置 HTML 标签名称全小写区分。</p>
+<p>使用自定义组件的方式和使用内置 HTML 标签的方式并无差异，如使用带有 <code>color</code> 参数要求的自定义组件 <code>Square</code> 的写法即：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">return</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">Square</span><span class="w"> </span><span class="nx">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="w"> </span><span class="o">/&gt;</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2022年11月26日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年1月15日</span>
       
     
   </small>
