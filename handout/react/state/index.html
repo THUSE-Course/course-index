@@ -948,7 +948,50 @@
 <p>【TODO：CI 通过界面】</p>
 <p>我们保证 CI 判定通过的方式与你本地完全一致（即通过 <code>yarn test flip</code> 命令判定）。</p>
 <h2 id="_6">知识讲解<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
-<p>【TODO】</p>
+<p>我们已经讲解了一个无状态的组件如何编写，一个无状态的组件实际上类似于<strong>纯函数</strong>，即无论在什么条件下调用该组件，只要传入的参数一样，那么最后总是得到一样的结果。然而仅仅使用无状态组件显然是无法完成能够处理用户交互的 UI 的。</p>
+<p>React 是允许组件具有状态的，并且允许编写相应的代码让用户的点击等行为触发状态的改变。</p>
+<p>首先，在一个组件内声明该组件的状态的方式是使用 <code>useState</code> Hook，如文件 <code>src/pages/index.tsx</code> 中组件 <code>BoardScreen</code> 中的下述代码：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">board</span><span class="p">,</span><span class="w"> </span><span class="nx">setBoard</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="o">&lt;</span><span class="nx">Board</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">props</span><span class="p">.</span><span class="nx">init</span><span class="o">?</span><span class="p">.</span><span class="nx">initBoard</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="nx">getBlankBoard</span><span class="p">());</span>
+<span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">autoPlay</span><span class="p">,</span><span class="w"> </span><span class="nx">setAutoPlay</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="o">&lt;</span><span class="kt">boolean</span><span class="o">&gt;</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">userName</span><span class="p">,</span><span class="w"> </span><span class="nx">setUserName</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">props</span><span class="p">.</span><span class="nx">init</span><span class="o">?</span><span class="p">.</span><span class="nx">initUserName</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">boardName</span><span class="p">,</span><span class="w"> </span><span class="nx">setBoardName</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">props</span><span class="p">.</span><span class="nx">init</span><span class="o">?</span><span class="p">.</span><span class="nx">initBoardName</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<p>以第二行为例，该语句表明我们声明了一个名为 <code>autoPlay</code> 的，类型布尔值的状态，其初始值是 <code>false</code>。这里 <code>setAutoPlay</code> 是一个函数，可以使用该函数修改 <code>autoPlay</code> 的值，而 React 框架会在该函数调用后，由于组件状态发生改变，触发对该组件的重新渲染。该函数的调用方式有两种，第一种是直接传入新状态值，而遇到后续状态依赖于先前状态的场景的时候，则使用第二种，传入回调函数：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nx">setAutoPlay</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w"> </span><span class="c1">// 第一种，直接传值</span>
+<span class="nx">setAutoPlay</span><span class="p">((</span><span class="nx">o</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="o">!</span><span class="nx">o</span><span class="p">);</span><span class="w"> </span><span class="c1">// 第二种，回调函数，回调函数参数为先前状态，返回值为后续状态</span>
+</code></pre></div></td></tr></table></div>
+<p>这里需要强调两点。</p>
+<p>第一点是，如果使用直接传值的方式调用，则可能面临值消失的问题。用于修改状态的函数如果采用第一种调用方式，其会把新状态放入一个队列，并且在合适的时机执行状态更新和重新渲染，这样的操作可能会导致对同一个状态的距离较近的两次更新被合并，从而导致更新并未实际执行。这种处理方式可以优化性能，但可能导致意料之外的结果，比如：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">cnt</span><span class="p">,</span><span class="w"> </span><span class="nx">setCnt</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="o">&lt;</span><span class="kt">number</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
+
+<span class="nx">setCnt</span><span class="p">(</span><span class="nx">cnt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+<span class="nx">setCnt</span><span class="p">(</span><span class="nx">cnt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<p>这里两次更新很近，很有可能导致运行到第二次更新的时候第一次更新还在等待队列内并未实际执行，也就导致第二次更新时 <code>cnt</code> 依然是 <code>1</code>，最后的结果是 <code>cnt</code> 仅仅加了 <code>1</code> 变为 <code>2</code>，而非期望中的 <code>3</code>。</p>
+<p>该问题的解决方案是使用第二种调用方式，即传入回调函数。React 依然采用了队列的处理方式来优化性能，然而 React 这次会把回调函数放入队列，实际更新的时候会按照队列顺序依次执行这些回调，所以即使两次更新很近，但两个回调都会被执行，这就保证了符合预期的结果：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">cnt</span><span class="p">,</span><span class="w"> </span><span class="nx">setCnt</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="o">&lt;</span><span class="kt">number</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
+
+<span class="nx">setCnt</span><span class="p">((</span><span class="nx">cnt</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">cnt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+<span class="nx">setCnt</span><span class="p">((</span><span class="nx">cnt</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">cnt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<p>第二点是，如果更新后的状态与先前状态一致，则 React 会忽略本次更新导致的重新渲染。这里的“一致”，对于数字、字符串等基本类型指的是值相等，对对象等复杂类型指的是其引用指向同样的内存。React 框架这种为了性能而跳过重新渲染的机制可能会导致意料之外的结果。</p>
+<p>为了处理用户的行为，如对某一个组件的点击行为，我们可以在类似 <code>&lt;div /&gt;</code> 等的标签的 <code>onClick</code> 属性中定义一个回调函数，在这个函数中调用状态修改函数以更新组件状态：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">setCnt</span><span class="p">((</span><span class="nx">cnt</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">cnt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">)}</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="nx">You</span><span class="w"> </span><span class="nx">have</span><span class="w"> </span><span class="nx">clicked</span><span class="w"> </span><span class="nx">it</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="p">{</span><span class="nx">cnt</span><span class="p">}</span><span class="w"> </span><span class="nx">times</span><span class="p">.</span>
+<span class="o">&lt;</span><span class="err">/div&gt;</span>
+</code></pre></div></td></tr></table></div>
 
   <hr>
 <div class="md-source-file">
