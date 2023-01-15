@@ -57,4 +57,54 @@ return board;
 
 ## 知识讲解
 
-【TODO】
+我们已经讲解了一个无状态的组件如何编写，一个无状态的组件实际上类似于**纯函数**，即无论在什么条件下调用该组件，只要传入的参数一样，那么最后总是得到一样的结果。然而仅仅使用无状态组件显然是无法完成能够处理用户交互的 UI 的。
+
+React 是允许组件具有状态的，并且允许编写相应的代码让用户的点击等行为触发状态的改变。
+
+首先，在一个组件内声明该组件的状态的方式是使用 `useState` Hook，如文件 `src/pages/index.tsx` 中组件 `BoardScreen` 中的下述代码：
+
+```typescript
+const [board, setBoard] = useState<Board>(props.init?.initBoard ?? getBlankBoard());
+const [autoPlay, setAutoPlay] = useState<boolean>(false);
+const [userName, setUserName] = useState<string>(props.init?.initUserName ?? "");
+const [boardName, setBoardName] = useState<string>(props.init?.initBoardName ?? "");
+```
+
+以第二行为例，该语句表明我们声明了一个名为 `autoPlay` 的，类型布尔值的状态，其初始值是 `false`。这里 `setAutoPlay` 是一个函数，可以使用该函数修改 `autoPlay` 的值，而 React 框架会在该函数调用后，由于组件状态发生改变，触发对该组件的重新渲染。该函数的调用方式有两种，第一种是直接传入新状态值，而遇到后续状态依赖于先前状态的场景的时候，则使用第二种，传入回调函数：
+
+```typescript
+setAutoPlay(true); // 第一种，直接传值
+setAutoPlay((o) => !o); // 第二种，回调函数，回调函数参数为先前状态，返回值为后续状态
+```
+
+这里需要强调两点。
+
+第一点是，如果使用直接传值的方式调用，则可能面临值消失的问题。用于修改状态的函数如果采用第一种调用方式，其会把新状态放入一个队列，并且在合适的时机执行状态更新和重新渲染，这样的操作可能会导致对同一个状态的距离较近的两次更新被合并，从而导致更新并未实际执行。这种处理方式可以优化性能，但可能导致意料之外的结果，比如：
+
+```typescript
+const [cnt, setCnt] = useState<number>(1);
+
+setCnt(cnt + 1);
+setCnt(cnt + 1);
+```
+
+这里两次更新很近，很有可能导致运行到第二次更新的时候第一次更新还在等待队列内并未实际执行，也就导致第二次更新时 `cnt` 依然是 `1`，最后的结果是 `cnt` 仅仅加了 `1` 变为 `2`，而非期望中的 `3`。
+
+该问题的解决方案是使用第二种调用方式，即传入回调函数。React 依然采用了队列的处理方式来优化性能，然而 React 这次会把回调函数放入队列，实际更新的时候会按照队列顺序依次执行这些回调，所以即使两次更新很近，但两个回调都会被执行，这就保证了符合预期的结果：
+
+```typescript
+const [cnt, setCnt] = useState<number>(1);
+
+setCnt((cnt) => cnt + 1);
+setCnt((cnt) => cnt + 1);
+```
+
+第二点是，如果更新后的状态与先前状态一致，则 React 会忽略本次更新导致的重新渲染。这里的“一致”，对于数字、字符串等基本类型指的是值相等，对对象等复杂类型指的是其引用指向同样的内存。React 框架这种为了性能而跳过重新渲染的机制可能会导致意料之外的结果。
+
+为了处理用户的行为，如对某一个组件的点击行为，我们可以在类似 `<div />` 等的标签的 `onClick` 属性中定义一个回调函数，在这个函数中调用状态修改函数以更新组件状态：
+
+```typescript
+<div onClick={() => setCnt((cnt) => cnt + 1)}>
+    You have clicked it for {cnt} times.
+</div>
+```
