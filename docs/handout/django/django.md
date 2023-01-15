@@ -167,11 +167,184 @@ python3 manage.py migrate
 
 ### 视图（Views）
 
-我们接下来介绍视图函数。
+我们接下来介绍视图函数。视图函数是后端逻辑的主入口，其接受经过路由之后的 [`HttpRequest`](https://docs.djangoproject.com/en/4.1/ref/request-response/#django.http.HttpRequest) 类型的请求作为参数，并返回一个 [`HttpResponse`](https://docs.djangoproject.com/zh-hans/4.1/ref/request-response/#django.http.HttpResponse)类型的对象作为响应。你可以在上述链接中查找这两个类分别有哪些成员变量可以供你使用。
+
+我们可以在 `<app>/views.py` 中定义一个应用所具有的视图函数。我们在这里举一个留言板应用“获取与创建留言”的视图函数作为例子：
+
+```python
+def message(request):  # 这里 request 是 HttpRequest 类型的对象
+    # 功能函数，快速创建具有特定状态码的响应
+    def gen_response(code: int, data: str):
+        return JsonResponse({
+            'code': code,
+            'data': data
+        }, status=code)  # JsonResponse 是 HttpResponse 的子类
+        				 # 可以传入一个 dict 转换成 JSON 响应
+
+    if request.method == 'GET':
+        limit = request.GET.get('limit', default='100')
+        offset = request.GET.get('offset', default='0')
+        if not limit.isdigit():
+            return gen_response(400, f'{limit} is not a number')
+        if not offset.isdigit():
+            return gen_response(400, f'{offset} is not a number')
+
+        return gen_response(200, [
+                {
+                    'title': msg.title,
+                    'content': msg.content,
+                    'user': msg.user.name,
+                    'timestamp': int(msg.pub_date.timestamp())
+                }
+                for msg in Message.objects.all()\
+            				.order_by('-pub_date')\
+            				[int(offset):int(offset)+int(limit)]
+            ])
+
+    elif request.method == 'POST':
+        # 从 cookie 中获得 user 的名字，如果 user 不存在则新建一个
+        # 如果 cookie 中没有 user 则使用 "Unknown" 作为默认用户名
+        name = request.COOKIES['user']\
+        		if 'user' in request.COOKIES else 'Unknown'
+        user = User.objects.filter(name=name).first()
+        if not user:
+            user = User(name = name)
+            try:
+                user.full_clean()
+                user.save()
+            except ValidationError as e:
+                return gen_response(400, 
+                                    f"Validation Error of user: {e}")
+
+
+        # 验证请求的数据格式是否符合 json 规范，如果不符合则返回 400
+        try:
+            data = json.loads(request.body.decode("utf-8"))
+        except:
+            return gen_response(400, 
+                            "Exception occurred in request body parsing.")
+
+        # 验证请求数据是否满足接口要求，若通过所有的验证，则将新的消息添加到数据库中
+        # PS: {"title": "something", "content": "someting"} 
+        # 这里 title 和 content 均有最大长度限制
+        try:
+            title = data['title']
+            content = data['content']
+            obj = Message(user=user, title=title, content=content)
+            obj.full_clean()
+            obj.save()
+        except:
+            return gen_response(400, 
+                                "Requested data failed verification.")
+
+        # 添加成功返回 code 201
+        return gen_response(201, 
+                            "Message received successfully")
+
+    else:
+        return gen_response(405, 
+                            f'Method {request.method} not allowed')
+```
+
+这是个经典的视图函数，面对 GET 方法返回数据库中的相应信息，面对 POST / PUT / DELETE 方法在**做检查**之后去修改对应的数据库内容，然后返回一个 `JsonResponse` 对象说明操作的结果，以 HTTP 状态码来区分操作的状态。
+
+!!! note HTTP 状态码
+	HTTP 响应状态码用来表明特定 HTTP 请求是否成功完成，其可以被归为以下五大类：
+	
+	- 信息响应 (100–199)
+	- 成功响应 (200–299)
+	- 重定向消息 (300–399)
+	- 客户端错误响应 (400–499)
+	- 服务端错误响应 (500–599)
+	
+	更详细的说明可以见[这里](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status)与[这里](https://http.cat/)。
+
+!!! note 参考资料
+	本节对应官方文档 “编写你的第一个 Django 应用，第 1 部分” 中“编写第一个视图”节，“编写你的第一个 Django 应用，第 3 部分”中“编写更多视图”、“写一个真正有用的视图”、“抛出 404 错误”节。
 
 
 
 ### 单元测试（Unit Tests）
 
-接下来我们介绍单元测试。
+接下来我们介绍单元测试。在课程中我们学过，对模块进行测试，相比对模块拼接起来的系统直接测试所付出的代价要小得多。在真正的软件开发过程中，单元测试环节就是要对我们所开发的模块进行自动化的测试。在 Django 中，测试工程师会将开发工程师所编写的路由与视图视为黑盒，通过 `django.test.TestCase` 类与 `django.test.Client` 类来模拟前端与开发工程师所撰写的后端交互，并通过其提供的断言函数来断言响应所应该具有的属性或是数据库应被如何修改。以上述的留言板应用的视图函数为例，我们可以撰写如下测试：
 
+```python
+from django.test import TestCase, Client
+from .models import Message, User  # Defined in models.py
+
+class MessageModelTests(TestCase):
+    def setUp(self):  # Preparation
+        alice = User.objects.create(name="Alice")
+        bob = User.objects.create(name="Bob")
+        Message.objects.create(user=alice, 
+                               title="Hi", 
+                               content="Hello World!")
+        Message.objects.create(user=bob, 
+                               title="This is a title", 
+                               content="This is my content")
+
+        
+    # 测试 POST 方法
+    def test_add_new_message(self):
+        # 模拟前端请求
+        title, content = "Title", "Message"
+        user = "student"
+        payload = {
+            'title': title,
+            'content': content,
+        }
+        self.client.cookies['user'] = user
+
+        response = self.client.post('/api/message', 
+                                data=payload,
+                                content_type="application/json")
+        
+        # 断言响应的属性
+        self.assertJSONEqual(response.content, 
+                             {
+                                 'code': 201, 
+                                 'data': "Message received successfully"}
+                            )
+        # 断言数据库的属性
+        self.assertTrue(User.objects.filter(name=user).exists())
+        self.assertTrue(Message.objects.filter(
+            title=title, content=content).exists())
+    
+    
+    # 测试 GET 方法
+    def test_message_can_be_fetched(self):  
+        offset, limit = 0, 100  
+        response_data = [
+                {
+                    'title': msg.title,
+                    'content': msg.content,
+                    'user': msg.user.name,
+                    'timestamp': int(msg.pub_date.timestamp())
+                }
+                for msg in Message.objects.all()\
+            				.order_by('-pub_date')\
+            				[int(offset):int(offset)+int(limit)]
+            ]
+        response = self.client.get("/api/message")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['data'], response_data)
+     
+    
+	# 测试 Corner Case（如不存在 Title 字段）
+    def test_add_new_message_title_not_exists(self):
+        content = "Message"
+        user = "student"
+        payload = {
+            'content': content,
+        }
+        self.client.cookies['user'] = user
+
+        response = self.client.post('/api/message', 
+                                data=payload,
+                                content_type="application/json")
+        
+        self.assertEqual(response.status_code, 400)
+```
+
+!!! note 参考资料
+	本节对应官方文档 “编写你的第一个 Django 应用，第 5 部分” 中的所有节。
