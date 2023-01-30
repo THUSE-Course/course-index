@@ -935,15 +935,19 @@
 <h2 id="_5">补全模型<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <p>在 <code>board/models.py</code> 中：</p>
 <ul>
-<li>补全 <code>Board</code> 类的成员</li>
+<li>补全 <code>Board</code> 类的成员<ul>
 <li><code>id</code>，使用 BigAutoField，设置主键</li>
 <li><code>user</code>，外键连接到 <code>User</code> 类，使用级联删除</li>
 <li><code>board_state</code>，使用 CharField</li>
 <li><code>board_name</code>，使用 CharField</li>
 <li><code>created_time</code>，使用 FloatField，初始值为类创建时的时间</li>
-<li>补全 <code>Board</code> 表的元数据</li>
+</ul>
+</li>
+<li>补全 <code>Board</code> 表的元数据<ul>
 <li>为 <code>board_name</code> 创建索引</li>
 <li>在 <code>user</code> 和 <code>board_name</code> 上建立联合唯一约束</li>
+</ul>
+</li>
 </ul>
 <h2 id="_6">补全与添加视图函数<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>在 <code>board/views.py</code> 中：</p>
