@@ -167,7 +167,7 @@ python3 manage.py migrate
 
 ### 视图（Views）
 
-我们接下来介绍视图函数。视图函数是后端逻辑的主入口，其接受经过路由之后的 [`HttpRequest`](https://docs.djangoproject.com/en/4.1/ref/request-response/#django.http.HttpRequest) 类型的请求作为参数，并返回一个 [`HttpResponse`](https://docs.djangoproject.com/zh-hans/4.1/ref/request-response/#django.http.HttpResponse)类型的对象作为响应。你可以在上述链接中查找这两个类分别有哪些成员变量可以供你使用。
+我们接下来介绍视图函数。视图函数是后端逻辑的主入口，其接受经过路由之后的 [`HttpRequest`](https://docs.djangoproject.com/en/4.1/ref/request-response/#django.http.HttpRequest) 类型的请求作为参数，并返回一个 [`HttpResponse`](https://docs.djangoproject.com/zh-hans/4.1/ref/request-response/#django.http.HttpResponse) 类型的对象作为响应。你可以在上述链接中查找这两个类分别有哪些成员变量可以供你使用。
 
 我们可以在 `<app>/views.py` 中定义一个应用所具有的视图函数。我们在这里举一个留言板应用“获取与创建留言”的视图函数作为例子：
 
