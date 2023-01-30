@@ -38,14 +38,14 @@ pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 在 `board/models.py` 中：
 
 - 补全 `Board` 类的成员
-  - `id`，使用 BigAutoField，设置主键
-  - `user`，外键连接到 `User` 类，使用级联删除
-  - `board_state`，使用 CharField
-  - `board_name`，使用 CharField
-  - `created_time`，使用 FloatField，初始值为类创建时的时间
+    - `id`，使用 BigAutoField，设置主键
+    - `user`，外键连接到 `User` 类，使用级联删除
+    - `board_state`，使用 CharField
+    - `board_name`，使用 CharField
+    - `created_time`，使用 FloatField，初始值为类创建时的时间
 - 补全 `Board` 表的元数据
-  - 为 `board_name` 创建索引
-  - 在 `user` 和 `board_name` 上建立联合唯一约束
+    - 为 `board_name` 创建索引
+    - 在 `user` 和 `board_name` 上建立联合唯一约束
 
 
 
