@@ -1056,6 +1056,11 @@ requests==2.28.1
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;python3&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;main.py&quot;</span><span class="p">]</span>
 </code></pre></div></td></tr></table></div>
 <p>指定容器运行时执行的命令。注意，与 <code>RUN</code> 指令不同，容器构建时不会执行这段命令，只有容器启动时才会。注意此指令的格式，需要将每个参数分隔为单独字符串并在最外层加方括号。这里的这条指令表明基于该镜像的容器运行时将执行 <code>python3 main.py</code>。典型地，这条指令用于启动我们的程序。不过，如果程序运行步骤比较复杂，我们一般会选择将程序运行逻辑写为一个 shell 脚本，而在 Dockerfile 中使用 <code>CMD ["sh", "run.sh"]</code> 之类的指令来执行这个脚本。</p>
+<div class="admonition warning">
+<p class="admonition-title">不要将开发配置作为正式部署</p>
+<p>由于正式部署的站点是对外开放的，使用开发配置进行部署将带来极大的危险性。例如，如果你直接使用 <code>python3 manage.py runserver</code> 作为容器的运行命令，这将启动一个开发服务器，在发生异常时程序的调用栈将会直接展示给用户。</p>
+<p>正确的部署方式可以参考你所使用的框架的文档。例如，<a href="https://docs.djangoproject.com/en/4.1/howto/deployment/">How to deploy Django</a> 文档说明了应该如何部署 Django，包括使用 Gunicorn 和 uWSGI 等方式。</p>
+</div>
 <hr />
 <p>到此，该镜像的构建过程就结束了，之后我们就可以使用 SECoder 的 deployer 工具基于构建的镜像运行一个容器。</p>
 <h2 id="_1">多阶段构建<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
@@ -1155,7 +1160,7 @@ requests==2.28.1
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年1月31日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月1日</span>
       
     
   </small>
