@@ -12,7 +12,7 @@
         <link rel="prev" href="../">
       
       
-        <link rel="next" href="../../../faq/">
+        <link rel="next" href="../gitlab-ci/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.9">
@@ -751,6 +751,8 @@
         
           
         
+          
+        
       
       
         
@@ -837,6 +839,20 @@
   
 </nav>
       
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gitlab-ci/" class="md-nav__link">
+        GitLab CI/CD
+      </a>
     </li>
   
 
@@ -957,7 +973,7 @@
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.10</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.9</span>
 
 <span class="k">ENV</span><span class="w"> </span><span class="nv">HOME</span><span class="o">=</span>/opt/app
 
@@ -976,7 +992,8 @@
 <p>我们将会通过逐句讲解此 Dockerfile 中每条指令的作用来让你对 Docker 镜像的构建过程有一个快速了解。</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.9</span>
 </code></pre></div></td></tr></table></div>
-<p>指定当前镜像基于什么镜像进行构建。你可以在 <a href="https://hub.docker.com">Docker Hub</a> 上找到各种各样的镜像。一般来说，一个镜像只包含能够满足功能需求的最小环境。例如，我们在这里所使用的 <code>python</code> 镜像就包含了能够运行 Python 的最小环境。这样做的好处是使镜像充分精简，同时允许通过基于已有镜像构建新镜像的方法获得所需的功能。</p>
+<p>指定当前镜像基于什么镜像进行构建。你可以在 <a href="https://hub.docker.com">Docker Hub</a> 上找到各种各样的镜像。像 Docker Hub 这样的网站被称为 Image Registry，在配置 CI 时我们将会看到除了默认的 Docker Hub 之外，也可以指定其他 registry 作为镜像来源，例如 SECoder 自己的 registry。</p>
+<p>一般来说，一个镜像只包含能够满足功能需求的最小环境。例如，我们在这里所使用的 <code>python</code> 镜像就包含了能够运行 Python 的最小环境。这样做的好处是使镜像充分精简，同时允许通过基于已有镜像构建新镜像的方法获得所需的功能。</p>
 <p>在镜像名后可以加上以冒号分隔的标签。标签一般指定镜像的版本，例如这里是 <code>3.9</code>，代表此镜像的 Python 版本为 3.9。如果不指定标签，默认获取标签为 <code>latest</code> 的版本。</p>
 <div class="admonition note">
 <p class="admonition-title">本课程中你也许会需要的镜像</p>
@@ -1092,8 +1109,8 @@ requests==2.28.1
 <span class="normal">24</span>
 <span class="normal">25</span>
 <span class="normal">26</span>
-<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c"># Stage 0</span>
-<span class="k">FROM</span><span class="w"> </span><span class="s">node:16</span>
+<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c"># Stage 0: build</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">node:16</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">build</span>
 
 <span class="k">ENV</span><span class="w"> </span><span class="nv">FRONTEND</span><span class="o">=</span>/opt/frontend
 
@@ -1114,13 +1131,13 @@ requests==2.28.1
 
 <span class="k">WORKDIR</span><span class="w"> </span><span class="s">$HOME</span>
 
-<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span><span class="m">0</span><span class="w"> </span>/opt/frontend/dist<span class="w"> </span>dist
+<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>build<span class="w"> </span>/opt/frontend/dist<span class="w"> </span>dist
 
 <span class="k">COPY</span><span class="w"> </span>nginx<span class="w"> </span>/etc/nginx/conf.d
 
 <span class="k">EXPOSE</span><span class="w"> </span><span class="s">80</span>
 </code></pre></div></td></tr></table></div>
-<p>可以看到，现在我们的构建过程被 <code>FROM</code> 指令分为两个阶段。(<code>#</code> 开头的行只是注释。) 在第一个阶段，我们首先将 <code>npm</code> 源更换为淘宝源以加速下载，然后将主机文件系统下当前目录的文件全部复制到镜像文件系统中，再使用 <code>npm install</code> 安装需要的第三方包，最后使用 <code>npm run build</code> 生成站点的静态文件。我们的网站只需要这些文件就能提供服务，不需要我们下载的第三方包以及整个工具链。因此，我们接下来在下一个阶段构建我们真正使用的镜像。</p>
+<p>可以看到，现在我们的构建过程被 <code>FROM</code> 指令分为两个阶段，其中我们把第一个阶段命名为 <code>build</code>。 (<code>#</code> 开头的行只是注释。) 在第一个阶段，我们首先将 <code>npm</code> 源更换为淘宝源以加速下载，然后将主机文件系统下当前目录的文件全部复制到镜像文件系统中，再使用 <code>npm install</code> 安装需要的第三方包，最后使用 <code>npm run build</code> 生成站点的静态文件。我们的网站只需要这些文件就能提供服务，不需要我们下载的第三方包以及整个工具链。因此，我们接下来在下一个阶段构建我们真正使用的镜像。</p>
 <div class="admonition note">
 <p class="admonition-title">主机文件系统</p>
 <p>在 GitLab 平台上执行 CI/CD 时，这里的主机文件系统实际上是我们的仓库，因此 <code>COPY . .</code> 实际上是将仓库中的所有文件复制到了镜像的工作目录。因此，不用担心庞大的 <code>node_modules</code> 会带来什么负担。</p>
@@ -1131,7 +1148,7 @@ requests==2.28.1
 <p>要向外界提供我们的静态文件，我们一般会使用 nginx 进行反向代理，根据请求向客户提供页面文件。</p>
 <div class="admonition note">
 <p class="admonition-title">nginx</p>
-<p>我们不会过多介绍 nginx 的用法，你可以通过 <a href="https://nginx.org/en/docs/">nginx 文档</a> 或网络上的其他资源进行学习。对于简单的前端页面部署，我们提供一个样例 nginx 配置，它应该能够满足多数需求。我们在仓库的 <code>nginx</code> 目录下放置以下配置文件：</p>
+<p>我们不会过多介绍 nginx 的用法，你可以通过 <a href="https://nginx.org/en/docs/">nginx 文档</a> 或网络上的其他资源进行学习。对于简单的前端页面部署，我们提供一个样例 nginx 配置，它应该能够满足多数需求。我们在仓库的 <code>nginx</code> 目录下放置后缀名为 <code>.conf</code> 的以下配置文件：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
@@ -1148,12 +1165,12 @@ requests==2.28.1
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<p>它表明监听 80 端口，以 <code>/opt/app/dist</code> 目录作为根目录，在访问任意 URL 时首先尝试查找该 URL 的文件，再查找该 URL 的目录，最后回退到 <code>/index.html</code>。对于由前端框架处理路由的情况来说，实际上只需要反向代理到 <code>/index.html</code>，然后由前端框架处理路由即可。</p>
+<p>它表明监听 80 端口，以 <code>/opt/app/dist</code> 目录作为根目录，在访问任意 URL 时首先尝试查找该 URI 的文件，再查找该 URI 的目录，最后回退到 <code>/index.html</code>。对于由前端框架处理路由的情况来说，实际上只需要反向代理到 <code>/index.html</code>，然后由前端框架处理路由即可。</p>
 </div>
-<p>我们基于 <code>nginx</code> 镜像构建我们这一阶段的镜像。不同构建阶段的镜像是互相独立的，不共享文件系统。因此，我们在希望从之前的阶段复制文件时，需要使用 <code>COPY --from={stage}</code> 指令，其中 <code>{stage}</code> 为阶段编号。在这里，我们将前一阶段生成的位于 <code>/opt/frontend/dist</code> 目录下的静态文件复制到当前镜像的 <code>dist</code> 目录，再将主机文件系统 <code>nginx</code> 目录下的配置文件复制到 nginx 的配置目录 <code>/etc/nginx/conf.d</code>。最后，我们暴露 80 端口。由于没有显式指定 <code>CMD</code> 指令，这一镜像将使用 <code>nginx</code> 镜像的 <code>CMD</code> 指令，运行 nginx 守护进程。</p>
+<p>我们基于 <code>nginx</code> 镜像构建我们这一阶段的镜像。不同构建阶段的镜像是互相独立的，不共享文件系统。因此，我们在希望从之前的阶段复制文件时，需要使用 <code>COPY --from={stage}</code> 指令，其中 <code>{stage}</code> 为阶段名称或编号。在这里，我们将前一阶段生成的位于 <code>/opt/frontend/dist</code> 目录下的静态文件复制到当前镜像的 <code>dist</code> 目录，再将主机文件系统 <code>nginx</code> 目录下的配置文件复制到镜像中 nginx 的配置目录 <code>/etc/nginx/conf.d</code>。最后，我们暴露 80 端口。由于没有显式指定 <code>CMD</code> 指令，这一镜像将使用 <code>nginx</code> 镜像的 <code>CMD</code> 指令，运行 nginx 守护进程。</p>
 <h2 id="_2">参考资料<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>以上我们介绍了 Dockerfile 的编写。如果希望更加深入地学习 Docker，包括在本地构建镜像并运行容器等，可以参考 <a href="https://liang2kl.codes/2022-summer-training-docker-tutorial/">2022 酒井科协暑培 Docker 文档</a> 和 <a href="https://docs.docker.com">Docker 官方文档</a>。</p>
-<p>在本课程提供的<a href="https://git.tsinghua.edu.cn/SEG/example">样例项目</a>仓库中也可以找到几种常见项目框架的 Dockerfile，可供配置部署时参考。</p>
+<p>在本课程提供的<a href="https://git.tsinghua.edu.cn/SEG/example">样例项目</a>仓库中也可以找到几种常见项目框架的 Dockerfile，可供配置部署时参考。需要注意的是，这些样例项目都较为老旧，请在参考时注意版本和兼容性等问题。</p>
 
   <hr>
 <div class="md-source-file">
