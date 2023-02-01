@@ -11,7 +11,7 @@ Docker 可以理解为程序级别的虚拟化，类比于虚拟机，但 Docker
 我们通过 Dockerfile 文件指示构建镜像时需要执行的操作。以下是一个示例 Dockerfile：
 
 ```dockerfile
-FROM python:3.10
+FROM python:3.9
 
 ENV HOME=/opt/app
 
@@ -34,7 +34,9 @@ CMD ["python3", "main.py"]
 FROM python:3.9
 ```
 
-指定当前镜像基于什么镜像进行构建。你可以在 [Docker Hub](https://hub.docker.com) 上找到各种各样的镜像。一般来说，一个镜像只包含能够满足功能需求的最小环境。例如，我们在这里所使用的 `python` 镜像就包含了能够运行 Python 的最小环境。这样做的好处是使镜像充分精简，同时允许通过基于已有镜像构建新镜像的方法获得所需的功能。
+指定当前镜像基于什么镜像进行构建。你可以在 [Docker Hub](https://hub.docker.com) 上找到各种各样的镜像。像 Docker Hub 这样的网站被称为 Image Registry，在配置 CI 时我们将会看到除了默认的 Docker Hub 之外，也可以指定其他 registry 作为镜像来源，例如 SECoder 自己的 registry。
+
+一般来说，一个镜像只包含能够满足功能需求的最小环境。例如，我们在这里所使用的 `python` 镜像就包含了能够运行 Python 的最小环境。这样做的好处是使镜像充分精简，同时允许通过基于已有镜像构建新镜像的方法获得所需的功能。
 
 在镜像名后可以加上以冒号分隔的标签。标签一般指定镜像的版本，例如这里是 `3.9`，代表此镜像的 Python 版本为 3.9。如果不指定标签，默认获取标签为 `latest` 的版本。
 
@@ -130,8 +132,8 @@ CMD ["python3", "main.py"]
 结合本课程的特点，下面我们以前端镜像的构建为例说明多阶段构建。前端的部署过程与编译型语言有些类似：我们首先生成网站所提供的静态文件，然后再通过 nginx 反向代理使网站向访问者提供这些文件。
 
 ```dockerfile
-# Stage 0
-FROM node:16
+# Stage 0: build
+FROM node:16 AS build
 
 ENV FRONTEND=/opt/frontend
 
@@ -152,14 +154,14 @@ ENV HOME=/opt/app
 
 WORKDIR $HOME
 
-COPY --from=0 /opt/frontend/dist dist
+COPY --from=build /opt/frontend/dist dist
 
 COPY nginx /etc/nginx/conf.d
 
 EXPOSE 80
 ```
 
-可以看到，现在我们的构建过程被 `FROM` 指令分为两个阶段。(`#` 开头的行只是注释。) 在第一个阶段，我们首先将 `npm` 源更换为淘宝源以加速下载，然后将主机文件系统下当前目录的文件全部复制到镜像文件系统中，再使用 `npm install` 安装需要的第三方包，最后使用 `npm run build` 生成站点的静态文件。我们的网站只需要这些文件就能提供服务，不需要我们下载的第三方包以及整个工具链。因此，我们接下来在下一个阶段构建我们真正使用的镜像。
+可以看到，现在我们的构建过程被 `FROM` 指令分为两个阶段，其中我们把第一个阶段命名为 `build`。 (`#` 开头的行只是注释。) 在第一个阶段，我们首先将 `npm` 源更换为淘宝源以加速下载，然后将主机文件系统下当前目录的文件全部复制到镜像文件系统中，再使用 `npm install` 安装需要的第三方包，最后使用 `npm run build` 生成站点的静态文件。我们的网站只需要这些文件就能提供服务，不需要我们下载的第三方包以及整个工具链。因此，我们接下来在下一个阶段构建我们真正使用的镜像。
 
 !!! note "主机文件系统"
 
@@ -171,7 +173,7 @@ EXPOSE 80
 
 !!! note "nginx"
 
-    我们不会过多介绍 nginx 的用法，你可以通过 [nginx 文档](https://nginx.org/en/docs/) 或网络上的其他资源进行学习。对于简单的前端页面部署，我们提供一个样例 nginx 配置，它应该能够满足多数需求。我们在仓库的 `nginx` 目录下放置以下配置文件：
+    我们不会过多介绍 nginx 的用法，你可以通过 [nginx 文档](https://nginx.org/en/docs/) 或网络上的其他资源进行学习。对于简单的前端页面部署，我们提供一个样例 nginx 配置，它应该能够满足多数需求。我们在仓库的 `nginx` 目录下放置后缀名为 `.conf` 的以下配置文件：
 
     ```nginx
     server {
@@ -184,12 +186,12 @@ EXPOSE 80
     }
     ```
 
-    它表明监听 80 端口，以 `/opt/app/dist` 目录作为根目录，在访问任意 URL 时首先尝试查找该 URL 的文件，再查找该 URL 的目录，最后回退到 `/index.html`。对于由前端框架处理路由的情况来说，实际上只需要反向代理到 `/index.html`，然后由前端框架处理路由即可。
+    它表明监听 80 端口，以 `/opt/app/dist` 目录作为根目录，在访问任意 URL 时首先尝试查找该 URI 的文件，再查找该 URI 的目录，最后回退到 `/index.html`。对于由前端框架处理路由的情况来说，实际上只需要反向代理到 `/index.html`，然后由前端框架处理路由即可。
 
-我们基于 `nginx` 镜像构建我们这一阶段的镜像。不同构建阶段的镜像是互相独立的，不共享文件系统。因此，我们在希望从之前的阶段复制文件时，需要使用 `COPY --from={stage}` 指令，其中 `{stage}` 为阶段编号。在这里，我们将前一阶段生成的位于 `/opt/frontend/dist` 目录下的静态文件复制到当前镜像的 `dist` 目录，再将主机文件系统 `nginx` 目录下的配置文件复制到 nginx 的配置目录 `/etc/nginx/conf.d`。最后，我们暴露 80 端口。由于没有显式指定 `CMD` 指令，这一镜像将使用 `nginx` 镜像的 `CMD` 指令，运行 nginx 守护进程。
+我们基于 `nginx` 镜像构建我们这一阶段的镜像。不同构建阶段的镜像是互相独立的，不共享文件系统。因此，我们在希望从之前的阶段复制文件时，需要使用 `COPY --from={stage}` 指令，其中 `{stage}` 为阶段名称或编号。在这里，我们将前一阶段生成的位于 `/opt/frontend/dist` 目录下的静态文件复制到当前镜像的 `dist` 目录，再将主机文件系统 `nginx` 目录下的配置文件复制到镜像中 nginx 的配置目录 `/etc/nginx/conf.d`。最后，我们暴露 80 端口。由于没有显式指定 `CMD` 指令，这一镜像将使用 `nginx` 镜像的 `CMD` 指令，运行 nginx 守护进程。
 
 ## 参考资料
 
 以上我们介绍了 Dockerfile 的编写。如果希望更加深入地学习 Docker，包括在本地构建镜像并运行容器等，可以参考 [2022 酒井科协暑培 Docker 文档](https://liang2kl.codes/2022-summer-training-docker-tutorial/) 和 [Docker 官方文档](https://docs.docker.com)。
 
-在本课程提供的[样例项目](https://git.tsinghua.edu.cn/SEG/example)仓库中也可以找到几种常见项目框架的 Dockerfile，可供配置部署时参考。
+在本课程提供的[样例项目](https://git.tsinghua.edu.cn/SEG/example)仓库中也可以找到几种常见项目框架的 Dockerfile，可供配置部署时参考。需要注意的是，这些样例项目都较为老旧，请在参考时注意版本和兼容性等问题。
