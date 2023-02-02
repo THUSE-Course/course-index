@@ -116,8 +116,8 @@ urlpatterns = [
 
 此外还有更多和路由有关的功能，例如在路径中解析变量等，请阅读[官方文档](https://docs.djangoproject.com/zh-hans/4.1/topics/http/urls/)。
 
-!!! note 思考题
-	假如要设置 `<project>/urls.py` 要把所有的请求都转发给 `api/urls.py` 应该如何设置？`<project>/urls.py` 中 `path` 所**匹配掉**的字段应如何填写？
+!!! question 思考题
+	假如 `<project>/urls.py` 要把所有的请求都转发给 `api/urls.py`，`<project>/urls.py` 中 `path` 应如何填写？
 
 
 
@@ -157,7 +157,7 @@ python3 manage.py migrate
 
 由于我们只是进行本地测试，所以你可以在本地连续地输入这两条指令，本地的数据库会存储在 `db.sqlite3` 文件中。 
 
-!!! note 思考题
+!!! question 思考题
 	请查阅文档，主键、外键、联合主键、唯一性约束、索引这些元数据都应该如何创建？
 
 !!! note 参考资料
