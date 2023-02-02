@@ -998,9 +998,18 @@
 <h1 id="_1">任务清单<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <p>本文档列出所有你需要在 Django 小作业中做的任务。</p>
 <h2 id="_2">环境配置<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>我们使用 <code>Python=3.9</code> 配置的本次作业，请在此基础上运行下述命令安装依赖。</p>
+<p>我们使用 <code>Python=3.9</code> 配置本次作业，推荐你使用 <code>conda</code> 创建一个新的虚拟环境：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>django_hw<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9<span class="w"> </span>-y
+conda<span class="w"> </span>activate<span class="w"> </span>django_hw
+</code></pre></div></td></tr></table></div>
+<p>在此环境的基础之上，你可以运行下述命令安装依赖：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-i<span class="w"> </span>https://pypi.tuna.tsinghua.edu.cn/simple<span class="w"> </span>-r<span class="w"> </span>requirements.txt
 </code></pre></div></td></tr></table></div>
+<p>然后，你可以运行如下指令检查环境配置是否成功：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>python3<span class="w"> </span>manage.py<span class="w"> </span>runserver
+</code></pre></div></td></tr></table></div>
+<p>这会在 <code>localhost:8000</code> 开启服务端进行监听网络请求。你可以打开浏览器，访问 <a href="http://localhost:8000/startup">http://localhost:8000/startup</a> 来检查服务端是否正常启动。如果正常启动，你会看到含有 "Congratulations! You have successfully installed the requirements. Go ahead!" 的网页。</p>
 <h2 id="_3">代码阅读<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>快速阅读提供的代码框架，试着回答以下问题：</p>
 <ul>
@@ -1049,7 +1058,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年1月30日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月2日</span>
       
     
   </small>

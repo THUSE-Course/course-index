@@ -1156,9 +1156,9 @@
 </code></pre></div></td></tr></table></div>
 <p>这时剩余请求 <code>restart</code> 匹配到第一条规则后，交由 <code>board/views.py</code> 中的 <code>restart_board</code> 函数进行处理，即后端会帮助我们调用这个函数，并把请求体（和请求有关的信息，包括请求方法、请求数据等等）作为参数传给这个函数。</p>
 <p>此外还有更多和路由有关的功能，例如在路径中解析变量等，请阅读<a href="https://docs.djangoproject.com/zh-hans/4.1/topics/http/urls/">官方文档</a>。</p>
-<div class="admonition note 思考题">
-<p class="admonition-title">Note</p>
-<p>假如要设置 <code>&lt;project&gt;/urls.py</code> 要把所有的请求都转发给 <code>api/urls.py</code> 应该如何设置？<code>&lt;project&gt;/urls.py</code> 中 <code>path</code> 所<strong>匹配掉</strong>的字段应如何填写？</p>
+<div class="admonition question 思考题">
+<p class="admonition-title">Question</p>
+<p>假如 <code>&lt;project&gt;/urls.py</code> 要把所有的请求都转发给 <code>api/urls.py</code>，<code>&lt;project&gt;/urls.py</code> 中 <code>path</code> 应如何填写？</p>
 </div>
 <h3 id="models">模型（Models）<a class="headerlink" href="#models" title="Permanent link">&para;</a></h3>
 <div class="admonition note 数据库使用的相关知识">
@@ -1194,8 +1194,8 @@
 </code></pre></div></td></tr></table></div>
 <p>将上条命令生成的修改表属性的语句应用到该部署所对应的数据库中。</p>
 <p>由于我们只是进行本地测试，所以你可以在本地连续地输入这两条指令，本地的数据库会存储在 <code>db.sqlite3</code> 文件中。 </p>
-<div class="admonition note 思考题">
-<p class="admonition-title">Note</p>
+<div class="admonition question 思考题">
+<p class="admonition-title">Question</p>
 <p>请查阅文档，主键、外键、联合主键、唯一性约束、索引这些元数据都应该如何创建？</p>
 </div>
 <div class="admonition note 参考资料">
@@ -1528,7 +1528,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年1月15日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月2日</span>
       
     
   </small>
