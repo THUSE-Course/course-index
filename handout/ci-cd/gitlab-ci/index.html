@@ -15,7 +15,7 @@
         <link rel="next" href="../../../faq/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.9">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.10">
     
     
       
@@ -1108,8 +1108,8 @@
 <p>以下是一个 GitLab CI/CD 流水线，我们将以它为例说明 GitLab CI/CD 中的一些基本概念。</p>
 <p><img alt="GitLab CI/CD 流水线" src="../../../static/pipeline.png" /></p>
 <h3 id="job">作业 (Job)<a class="headerlink" href="#job" title="Permanent link">&para;</a></h3>
-<p>作业是 CI/CD 流程的最小执行单元，一个作业包含了一系列需要执行的命令。每个作业需要指定一个 Docker 镜像，在执行 CI/CD 时将会基于此镜像运行一个容器，在其中执行指令。例如，上图中的 <code>test_all</code> 和 <code>build_img</code> 等就是一些作业。</p>
-<p>作业的成功状态将取决于其最后一条指令的返回值。若最后一条指令返回 0，则此作业成功执行，否则此作业失败。在 GitLab 的 CI/CD 界面可以查看每个作业的状态以及运行过程的输出。</p>
+<p>作业是 CI/CD 流程的最小执行单元，一个作业包含了一系列需要执行的命令。每个作业需要指定一个 Docker 镜像，在执行 CI/CD 时将会基于此镜像运行一个容器，在其中执行命令。例如，上图中的 <code>test_all</code> 和 <code>build_image</code> 等就是一些作业。</p>
+<p>作业的成功状态将取决于其最后一条命令的返回值。若最后一条命令返回 0，则此作业成功执行，否则此作业失败。在 GitLab 的 CI/CD 界面可以查看每个作业的状态以及运行过程的输出。</p>
 <h3 id="stage">阶段 (Stage)<a class="headerlink" href="#stage" title="Permanent link">&para;</a></h3>
 <p>CI/CD 流程划分为多个阶段分别进行，每个阶段可以包含一个或多个作业。同一个阶段的多个作业可以并行执行。只有一个阶段的所有作业均成功执行后，才会执行下一个阶段的作业。上图中 <code>Build_image</code> 和 <code>Deploy_integration</code> 等就是不同的阶段，只有 <code>Deploy_integration</code> 阶段的三个作业全部成功后才会执行 <code>Deploy_staging</code> 阶段。</p>
 <h3 id="pipeline">流水线 (Pipeline)<a class="headerlink" href="#pipeline" title="Permanent link">&para;</a></h3>
@@ -1122,7 +1122,7 @@
 <ul>
 <li><strong>对象</strong>：一个对象由一系列冒号分隔的键值对组成。键和值都可以由任何类型的值组成，包括嵌套的子对象。整个文件定义了一个对象，因此文件顶层的键值对就是该对象的属性。</li>
 <li><strong>子对象</strong>：YAML 使用缩进层级来表明对象的嵌套层级。因此，在一个键之后的缩进一级的行会被认为是该键对应的值。</li>
-<li><strong>字符串</strong>：与 JSON 不同，绝大多数情况下，字符串不需要加引号。字符串可以是多行的，换行会被转换为空格。</li>
+<li><strong>字符串</strong>：与 JSON 不同，多数情况下，字符串不需要加引号。字符串可以是多行的，换行会被转换为空格。</li>
 <li><strong>数组</strong>：以 <code>-</code> (连字符 + 空格) 开头的一系列行表示一个数组，每行是一个数组元素。</li>
 </ul>
 <p>下面是一份样例 YAML 文件：</p>
@@ -1213,9 +1213,7 @@
 <span class="normal">54</span>
 <span class="normal">55</span>
 <span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.secoder.net/tool/deployer</span>
+<span class="normal">57</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.secoder.net/tool/deployer</span>
 
 <span class="nt">stages</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build</span>
@@ -1258,8 +1256,6 @@
 <span class="w">  </span><span class="nt">extends</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.test</span>
 <span class="w">  </span><span class="nt">allow_failure</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 
-<span class="w">  </span><span class="nt">before_script</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements_dev.txt</span>
 <span class="w">  </span><span class="nt">script</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pycodestyle app tests</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PYCODESTYLE_RET=$?</span>
@@ -1310,7 +1306,7 @@
 </tr>
 <tr>
 <td>$CI_COMMIT_REF_SLUG</td>
-<td>当前分支名</td>
+<td>当前分支/标签名</td>
 </tr>
 <tr>
 <td>$CI_REGISTRY_IMAGE</td>
@@ -1326,7 +1322,7 @@
 </tr>
 </tbody>
 </table>
-<p>SECoder GitLab 配置了 SECoder registry，因此在执行流水线时，将能够通过这些变量访问 registry。在 <code>build</code> 作业中，我们将这些信息通过环境变量传递给 deployer，deployer 会根据项目的 Dockerfile 构建镜像并上传到 SECoder registry中。</p>
+<p>SECoder GitLab 配置了 image registry，因此在执行流水线时，将能够通过这些变量访问 registry。在 <code>build</code> 作业中，我们将这些信息通过环境变量传递给 deployer，deployer 会根据项目的 Dockerfile 构建镜像并上传到 SECoder registry 中。</p>
 <h3 id="test"><code>test</code><a class="headerlink" href="#test" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -1345,7 +1341,7 @@
 <p><code>test</code> 阶段定义了 <code>unit-test</code> 和 <code>style-test</code> 两个作业。</p>
 <p>由于这两个作业有一些共同之处，我们首先定义了一个作业模板 <code>.test</code>。以 <code>.</code> 开头的作业将不会真正执行。在 <code>unit-test</code> 和 <code>style-test</code> 作业中，我们使用 <code>extends</code> 属性指定模板，这将继承模板的属性，除非在当前作业中显式覆盖。</p>
 <p>我们首先通过 <code>image</code> 属性指定镜像为 <code>python:3.9</code>，这会覆盖全局的镜像设置。</p>
-<p><code>before_script</code> 将会在作业的 <code>script</code> 之前执行。在 <code>before_script</code> 中，我们根据项目的 <code>requirements.txt</code> 安装依赖，同时还安装了测试需要的 <code>pytest</code>、<code>pycodestyle</code>、<code>pylint</code> 等库。</p>
+<p><code>before_script</code> 将会在作业的 <code>script</code> 之前执行。在 <code>before_script</code> 中，我们根据项目的 <code>requirements.txt</code> 安装依赖，同时还安装了测试和代码风格检查需要的 <code>coverage</code>、<code>pytest</code>、<code>pycodestyle</code>、<code>pylint</code> 等库。</p>
 <h4 id="unit-test"><code>unit-test</code><a class="headerlink" href="#unit-test" title="Permanent link">&para;</a></h4>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -1377,7 +1373,7 @@
 </code></pre></div></td></tr></table></div>
 <p>这一作业执行单元测试。</p>
 <p>在 <code>script</code> 中，我们利用 <code>coverage</code> 和 <code>pytest</code> 执行单元测试并生成测试报告和覆盖率报告。生成的报告会被 SonarQube 用于代码质量分析，这一点我们将在介绍 SonarQube 时展开介绍。</p>
-<p><code>after-script</code> 会在 <code>script</code> 之后执行。在 <code>after-script</code> 中，我们通过 SonarScanner 扫描项目，使单元测试结果和代码静态检查结果能够被 SonarQube 记录。为了兼容性，我们将直接下载 SECoder 提供的 SonarScanner。</p>
+<p><code>after-script</code> 会在 <code>script</code> 之后执行，注意作业的执行成功状态仍取决于 <code>script</code> 最后一条命令的执行结果。在 <code>after-script</code> 中，我们通过 SonarScanner 扫描项目，使单元测试结果和代码静态检查结果能够被 SonarQube 记录。为了兼容性，我们将直接下载 SECoder 提供的 SonarScanner。</p>
 <h4 id="style-test"><code>style-test</code><a class="headerlink" href="#style-test" title="Permanent link">&para;</a></h4>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -1389,14 +1385,10 @@
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">style-test</span><span class="p">:</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">style-test</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">extends</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.test</span>
 <span class="w">  </span><span class="nt">allow_failure</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 
-<span class="w">  </span><span class="nt">before_script</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements_dev.txt</span>
 <span class="w">  </span><span class="nt">script</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pycodestyle app tests</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PYCODESTYLE_RET=$?</span>
@@ -1430,7 +1422,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月1日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月2日</span>
       
     
   </small>
@@ -1488,7 +1480,7 @@
     <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top", "navigation.tabs", "navigation.indexes"], "search": "../../../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.a00a7c5e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.6df46069.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
