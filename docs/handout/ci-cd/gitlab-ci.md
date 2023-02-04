@@ -12,9 +12,9 @@ SECoder 平台的 GitLab 提供了集成的 CI/CD 系统，可以通过项目仓
 
 ### 作业 (Job)
 
-作业是 CI/CD 流程的最小执行单元，一个作业包含了一系列需要执行的命令。每个作业需要指定一个 Docker 镜像，在执行 CI/CD 时将会基于此镜像运行一个容器，在其中执行指令。例如，上图中的 `test_all` 和 `build_img` 等就是一些作业。
+作业是 CI/CD 流程的最小执行单元，一个作业包含了一系列需要执行的命令。每个作业需要指定一个 Docker 镜像，在执行 CI/CD 时将会基于此镜像运行一个容器，在其中执行命令。例如，上图中的 `test_all` 和 `build_image` 等就是一些作业。
 
-作业的成功状态将取决于其最后一条指令的返回值。若最后一条指令返回 0，则此作业成功执行，否则此作业失败。在 GitLab 的 CI/CD 界面可以查看每个作业的状态以及运行过程的输出。
+作业的成功状态将取决于其最后一条命令的返回值。若最后一条命令返回 0，则此作业成功执行，否则此作业失败。在 GitLab 的 CI/CD 界面可以查看每个作业的状态以及运行过程的输出。
 
 ### 阶段 (Stage)
 
@@ -34,7 +34,7 @@ GitLab 会通过仓库根目录下的 `.gitlab-ci.yml` 读取 CI/CD 配置，并
 
     - **对象**：一个对象由一系列冒号分隔的键值对组成。键和值都可以由任何类型的值组成，包括嵌套的子对象。整个文件定义了一个对象，因此文件顶层的键值对就是该对象的属性。
     - **子对象**：YAML 使用缩进层级来表明对象的嵌套层级。因此，在一个键之后的缩进一级的行会被认为是该键对应的值。
-    - **字符串**：与 JSON 不同，绝大多数情况下，字符串不需要加引号。字符串可以是多行的，换行会被转换为空格。
+    - **字符串**：与 JSON 不同，多数情况下，字符串不需要加引号。字符串可以是多行的，换行会被转换为空格。
     - **数组**：以 `- ` (连字符 + 空格) 开头的一系列行表示一个数组，每行是一个数组元素。
 
     下面是一份样例 YAML 文件：
@@ -107,8 +107,6 @@ style-test:
   extends: .test
   allow_failure: true
 
-  before_script:
-    - pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements_dev.txt
   script:
     - pycodestyle app tests
     - PYCODESTYLE_RET=$?
@@ -149,12 +147,12 @@ GitLab 在执行流水线时，会定义一系列 CI/CD 相关的环境变量。
 |变量|说明|
 |-|-|
 |$CI_PROJECT_NAME|项目名称|
-|$CI_COMMIT_REF_SLUG|当前分支名|
+|$CI_COMMIT_REF_SLUG|当前分支/标签名|
 |$CI_REGISTRY_IMAGE|项目的镜像名称|
 |$CI_REGISTRY_USER|Registry 用户名|
 |$CI_REGISTRY_PASSWORD|Registry 密码|
 
-SECoder GitLab 配置了 SECoder registry，因此在执行流水线时，将能够通过这些变量访问 registry。在 `build` 作业中，我们将这些信息通过环境变量传递给 deployer，deployer 会根据项目的 Dockerfile 构建镜像并上传到 SECoder registry中。
+SECoder GitLab 配置了 image registry，因此在执行流水线时，将能够通过这些变量访问 registry。在 `build` 作业中，我们将这些信息通过环境变量传递给 deployer，deployer 会根据项目的 Dockerfile 构建镜像并上传到 SECoder registry 中。
 
 ### `test`
 
@@ -174,7 +172,7 @@ SECoder GitLab 配置了 SECoder registry，因此在执行流水线时，将能
 
 我们首先通过 `image` 属性指定镜像为 `python:3.9`，这会覆盖全局的镜像设置。
 
-`before_script` 将会在作业的 `script` 之前执行。在 `before_script` 中，我们根据项目的 `requirements.txt` 安装依赖，同时还安装了测试需要的 `pytest`、`pycodestyle`、`pylint` 等库。
+`before_script` 将会在作业的 `script` 之前执行。在 `before_script` 中，我们根据项目的 `requirements.txt` 安装依赖，同时还安装了测试和代码风格检查需要的 `coverage`、`pytest`、`pycodestyle`、`pylint` 等库。
 
 #### `unit-test`
 
@@ -199,7 +197,7 @@ unit-test:
 
 在 `script` 中，我们利用 `coverage` 和 `pytest` 执行单元测试并生成测试报告和覆盖率报告。生成的报告会被 SonarQube 用于代码质量分析，这一点我们将在介绍 SonarQube 时展开介绍。
 
-`after-script` 会在 `script` 之后执行。在 `after-script` 中，我们通过 SonarScanner 扫描项目，使单元测试结果和代码静态检查结果能够被 SonarQube 记录。为了兼容性，我们将直接下载 SECoder 提供的 SonarScanner。
+`after-script` 会在 `script` 之后执行，注意作业的执行成功状态仍取决于 `script` 最后一条命令的执行结果。在 `after-script` 中，我们通过 SonarScanner 扫描项目，使单元测试结果和代码静态检查结果能够被 SonarQube 记录。为了兼容性，我们将直接下载 SECoder 提供的 SonarScanner。
 
 #### `style-test`
 
@@ -208,8 +206,6 @@ style-test:
   extends: .test
   allow_failure: true
 
-  before_script:
-    - pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements_dev.txt
   script:
     - pycodestyle app tests
     - PYCODESTYLE_RET=$?
