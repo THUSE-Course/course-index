@@ -46,7 +46,7 @@
             {
                 "id": 3,
                 "name": "Double beehive",
-                "createdAt": 1669320727646,
+                "createdAt": 1669320727646.0,
                 "userName": "Ashitemaru",
             },
             // ...
@@ -58,7 +58,7 @@
     
     - `id`。表示该游戏记录在数据库中的唯一标识符，应当为正整数
     - `name`。表示该游戏记录的名称，应当为非空字符串
-    - `createdAt`。表示该游戏记录创建的时间，使用 UNIX 时间戳（毫秒）表示，应当为正整数
+    - `createdAt`。表示该游戏记录创建的时间，使用 UNIX 时间戳（毫秒）表示，应当为浮点数
     - `userName`。表示该游戏创建者的用户名，应当为非空字符串
 
 === "错误响应"
@@ -349,7 +349,7 @@
             {
                 "id": 7,
                 "name": "IWannaTakeABreak:(",
-                "createdAt": 1669320727646,
+                "createdAt": 1669320727646.0,
                 "userName": "c7w",
             },
             // ...
