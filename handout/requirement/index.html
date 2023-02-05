@@ -1114,7 +1114,7 @@
 <ul>
 <li>该游戏记录名称</li>
 <li>创建该游戏记录的用户</li>
-<li>该游戏记录的创建时间</li>
+<li>该游戏记录的创建（或更新）时间</li>
 </ul>
 <p>而每一条用户的记录应当包含下述信息：</p>
 <ul>
@@ -1206,6 +1206,7 @@
 <li>如果中途出现任何错误，需要弹窗提示用户错误原因</li>
 </ul>
 </li>
+<li>查看用户按钮。点击后进入该记录作者的所有游戏记录页面</li>
 </ul>
 </li>
 </ul>
@@ -1214,6 +1215,13 @@
 <p>如果记录列表为空，应当显示提示列表为空的提示文字。</p>
 <p>参考的实现为：</p>
 <p><img alt="" src="../../static/list-eg.png" /></p>
+<p>另外，需要一个显示指定用户所有游戏记录的页面，其大体设计要求与上述一致，页面上需要增加下述内容：</p>
+<ul>
+<li>页面顶部显示该用户的用户名</li>
+<li>页面顶部增加一个回到整体记录列表页面的按钮、一个删除该用户所有游戏记录的按钮</li>
+</ul>
+<p>参考的实现为：</p>
+<p><img alt="" src="../../static/list-user-eg.png" /></p>
 <div class="admonition note">
 <p class="admonition-title">More?</p>
 <p>本文档仅仅提供了一份最经典的需求文档的样本，大家的软工大作业中甲方也基本仅会提供类似这样的文档作为起始资料，将这种需求文档中的需求描述最终转化为代码实践也是软件工程课程希望大家掌握的重要技能。</p>
@@ -1225,7 +1233,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2022年11月26日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月5日</span>
       
     
   </small>

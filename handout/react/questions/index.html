@@ -70,6 +70,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -702,10 +707,64 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Appendix 2 实验思考题题面
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         Appendix 2 实验思考题题面
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#problem-1-2-pts" class="md-nav__link">
+    Problem 1 (2 pts)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-2-4-pts" class="md-nav__link">
+    Problem 2 (4 pts)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-3-6-pts" class="md-nav__link">
+    Problem 3 (6 pts)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-4-8-pts" class="md-nav__link">
+    Problem 4 (8 pts)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -867,6 +926,44 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#problem-1-2-pts" class="md-nav__link">
+    Problem 1 (2 pts)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-2-4-pts" class="md-nav__link">
+    Problem 2 (4 pts)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-3-6-pts" class="md-nav__link">
+    Problem 3 (6 pts)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-4-8-pts" class="md-nav__link">
+    Problem 4 (8 pts)
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -886,14 +983,126 @@
 
 
 
+<h1 id="_1">实验思考题题面<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="problem-1-2-pts">Problem 1 (2 pts)<a class="headerlink" href="#problem-1-2-pts" title="Permanent link">&para;</a></h2>
+<p>阅读下述代码：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">foobar</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="p">}</span>
 
+<span class="kd">interface</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">barfoo</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">bar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="kt">A</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">B</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">x</span><span class="w"> </span><span class="ow">instanceof</span><span class="w"> </span><span class="nx">A</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">x</span><span class="p">.</span><span class="nx">barfoo</span><span class="p">();</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div></td></tr></table></div>
+<p>这段代码 TypeScript 是否会报编译错误？请说明原因。</p>
+<h2 id="problem-2-4-pts">Problem 2 (4 pts)<a class="headerlink" href="#problem-2-4-pts" title="Permanent link">&para;</a></h2>
+<p>在 Step 3 中我们提供了 <code>flipCell</code> 的一个错误实现 <code>badFlipCell</code>，请简述其错误的原因。</p>
+<h2 id="problem-3-6-pts">Problem 3 (6 pts)<a class="headerlink" href="#problem-3-6-pts" title="Permanent link">&para;</a></h2>
+<p>在 Next.js 框架中，<code>pages</code> 目录结构如下所示，各个 <code>.tsx</code> 文件使用 <code>export default</code> 方式导出的 React 组件写在括号内。请分别回答在浏览器访问下述地址的时候，浏览器所要渲染的组件名称。若没有符合条件的组件，回答 404 Not Found。</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code>pages
+├── _app.tsx (App)
+├── index.tsx (IndexScreen)
+├── basic.tsx (BasicScreen)
+├── info
+│   ├── index.tsx (InfoIndexScreen)
+│   └── [id]
+│       ├── abstract.tsx (InfoAbstractScreen)
+│       └── detail.tsx (InfoDetailScreen)
+└── settings.tsx (SettingsScreen)
+</code></pre></div></td></tr></table></div>
+<p>地址列表：</p>
+<ul>
+<li><code>/</code></li>
+<li><code>/_app</code></li>
+<li><code>/my</code></li>
+<li><code>/info/index</code></li>
+<li><code>/info/5/detail</code></li>
+<li><code>/info/index/abstract</code></li>
+</ul>
+<h2 id="problem-4-8-pts">Problem 4 (8 pts)<a class="headerlink" href="#problem-4-8-pts" title="Permanent link">&para;</a></h2>
+<p>在小作业框架中，文件 <code>src/pages/[id].tsx</code> 内有这样一段代码：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">router</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useRouter</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">router</span><span class="p">.</span><span class="nx">query</span><span class="p">;</span>
+
+<span class="nx">useEffect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">router</span><span class="p">.</span><span class="nx">isReady</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Use router.query to fetch data</span>
+<span class="p">},</span><span class="w"> </span><span class="p">[</span><span class="nx">router</span><span class="p">,</span><span class="w"> </span><span class="nx">query</span><span class="p">]);</span>
+</code></pre></div></td></tr></table></div>
+<p>如果替换成下述形式：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">router</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useRouter</span><span class="p">();</span>
+
+<span class="nx">useEffect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Use router.query to fetch data</span>
+<span class="p">},</span><span class="w"> </span><span class="p">[]);</span>
+</code></pre></div></td></tr></table></div>
+<p>会发现通过 <code>router.query.id</code> 获取到的动态路由参数是 <code>undefined</code>。你可以通过实践来确认这一点，在修改代码后，观察访问这一页面时后端所返回的错误提示。</p>
+<p>请解释这一现象。</p>
+<div class="admonition note">
+<p class="admonition-title">Tips</p>
+<p>由于现代软件开发很难单人作战且极难不依赖于第三方，所以当问题发生在你所依赖的第三方或者框架的时候，你很难像在数据结构代码中 debug 那样，简单地回溯找到问题点。这个时候你需要适当地使用搜索引擎，适当地阅读第三方、框架的官方文档来寻找信息，这是软件工程的重要能力之一。</p>
+<p>题面中所描述的现象是 Next.js 框架的一个 Advanced Feature，并且在官方文档中有详细介绍。本题即需要你说明 Next.js 的什么机制导致了这种现象。</p>
+</div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2022年11月26日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月5日</span>
       
     
   </small>
@@ -907,7 +1116,7 @@
     
         <div class="md-source-date">
             <small>
-                作者: <span class='git-page-authors git-authors'></span>
+                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a></span>
             </small>
         </div>
     

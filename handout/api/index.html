@@ -496,10 +496,10 @@
       
         <li class="md-nav__item">
   <a href="#url-userusername" class="md-nav__link">
-    URL /user/&lt;userName&gt;
+    URL /user/{userName}
   </a>
   
-    <nav class="md-nav" aria-label="URL /user/&lt;userName&gt;">
+    <nav class="md-nav" aria-label="URL /user/{userName}">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1056,10 +1056,10 @@
       
         <li class="md-nav__item">
   <a href="#url-userusername" class="md-nav__link">
-    URL /user/&lt;userName&gt;
+    URL /user/{userName}
   </a>
   
-    <nav class="md-nav" aria-label="URL /user/&lt;userName&gt;">
+    <nav class="md-nav" aria-label="URL /user/{userName}">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1107,8 +1107,7 @@
 <p>API 文档、数据库表设计文档等文档均应当是开发组内部编写的文档，用于协调组内开发和前后端交互。这些文档均不会由甲方提供，需要开发组自行设计。</p>
 <p>API 文档应当包含每一个 API 的地址、请求方法和响应格式，通过 API 文档，前后端均只需要面对 API 的约束进行开发从而实现解耦合。</p>
 <p>小作业为了减轻作业压力，不需要大家自行设计 API，只需要面对我们给出的 API 文档实现前后端即可。</p>
-<p>这里提供部分设计 API 文档的时候可以参考的资料：</p>
-<p>【TODO：参考资料】</p>
+<p>由于小作业规模较小，故我们直接使用文字说明。对于较大规模的应用，可以使用一些工具辅助管理 API 文档，如 <a href="https://www.apifox.cn">Apifox</a>。</p>
 </div>
 <h2 id="url-boards">URL <code>/boards</code><a class="headerlink" href="#url-boards" title="Permanent link">&para;</a></h2>
 <p>该 API 用于操作整体的游戏记录列表，包括获取全部游戏记录以及新增游戏记录。</p>
@@ -1424,7 +1423,7 @@
 </div>
 </div>
 </div>
-<h2 id="url-userusername">URL <code>/user/&lt;userName&gt;</code><a class="headerlink" href="#url-userusername" title="Permanent link">&para;</a></h2>
+<h2 id="url-userusername">URL <code>/user/{userName}</code><a class="headerlink" href="#url-userusername" title="Permanent link">&para;</a></h2>
 <p>该 API 用于操作存储在数据库中的玩家，包括获取玩家的所有游戏记录，删除玩家的所有游戏记录。</p>
 <p>该 API 仅接受以 GET 与 DELETE 方法请求。以其他方法请求均应当设置状态码为 400 Bad Request，错误响应格式为：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -1554,7 +1553,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月4日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月5日</span>
       
     
   </small>
@@ -1568,7 +1567,7 @@
     
         <div class="md-source-date">
             <small>
-                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (60.19%), <a href='mailto:cc7w@foxmail.com'>c7w</a> (39.81%)</span>
+                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (60.49%), <a href='mailto:cc7w@foxmail.com'>c7w</a> (39.51%)</span>
             </small>
         </div>
     
