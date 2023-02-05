@@ -125,7 +125,9 @@ deploy:
 
 可以看到，该配置首先指定了 SECoder 的 image registry 中的 `deployer` 镜像作为默认镜像。当没有在作业中显式指定镜像时，就会使用这个镜像。例如，这个流水线的 `build` 和 `image` 作业将使用 `deployer` 镜像进行项目的镜像构建与部署。
 
-接下来，我们定义了 `build`、`test` 和 `deploy` 三个阶段。
+接下来，我们定义了 `build`、`test` 和 `deploy` 三个阶段。该配置将会形成如下图所示的流水线：
+
+![Example Django Pipeline](../../static/pipeline-django.png)
 
 ### `build`
 
