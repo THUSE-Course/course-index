@@ -99,4 +99,5 @@ nav:
       - handout/ci-cd/index.md
       - Docker: handout/ci-cd/docker.md
       - GitLab CI/CD: handout/ci-cd/gitlab-ci.md
+      - SonarQube: handout/ci-cd/sonarqube.md
   - FAQ: faq.md
