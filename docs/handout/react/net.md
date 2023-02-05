@@ -16,7 +16,7 @@
 
 完成本 Step 后，你的游戏记录列表的交互应当和下述 GIF 图所展示的类似：
 
-【TODO】
+![](../../static/react/step6-demo.gif)
 
 ### 代码说明
 
@@ -46,3 +46,16 @@
 函数组件中的网络请求往往需要使用 `useEffect` Hook 管理。`useEffect` Hook 的使用方法可以参考 [技能引导文档相关页面](https://docs.net9.org/frontend/react/function-component/#_3)。
 
 本小作业框架使用 Axios 完成网络请求。Axios 的一个最小化使用示例见 [Axios 官方文档相关页面](https://axios-http.com/docs/example)，该示例足以支撑完成本 Step。Axios 更深入的知识可以自行学习。
+
+!!! success "🎉"
+
+    这是你前端小作业的最后一个 Step 了，如果你已经完成了，我相信你已经充分掌握了 Next.js 的入门知识。
+
+    事实上这份前端小作业几乎可以作为大作业的起始框架。除了 Next.js 框架本身，其包含了：
+
+    - 代码风格检查与修正插件 ESLint，配置文件为 `.eslintrc.json`
+    - 单元测试框架 Jest
+
+    一些拓展知识则可以看后续的 Appendix 部分学习。
+    
+    希望你能够在大作业中运用好小作业中学到的知识，祝你好运。

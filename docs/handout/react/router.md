@@ -22,7 +22,7 @@
 
 完成本 Step 后，你的游戏记录列表的交互应当和下述 GIF 图所展示的类似：
 
-【TODO】
+![](../../static/react/step5-demo.gif)
 
 ### 实验提示
 
