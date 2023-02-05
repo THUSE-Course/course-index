@@ -780,7 +780,7 @@
   
     <li class="md-nav__item">
       <a href="../react/router/" class="md-nav__link">
-        Step 5 切换页面
+        Step 5 切换页面 & 网络请求
       </a>
     </li>
   
@@ -793,8 +793,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../react/net/" class="md-nav__link">
-        Step 6 网络请求
+      <a href="../react/final/" class="md-nav__link">
+        Step 6 综合运用
       </a>
     </li>
   
@@ -1146,9 +1146,13 @@
 <ul>
 <li><code>id</code>。表示该游戏记录在数据库中的唯一标识符，应当为正整数</li>
 <li><code>name</code>。表示该游戏记录的名称，应当为非空字符串</li>
-<li><code>createdAt</code>。表示该游戏记录创建的时间，使用 UNIX 时间戳（毫秒）表示，应当为浮点数</li>
+<li><code>createdAt</code>。表示该游戏记录创建的时间，使用 UNIX 时间戳（秒）表示，应当为浮点数</li>
 <li><code>userName</code>。表示该游戏创建者的用户名，应当为非空字符串</li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title">时间戳是有单位的</p>
+<p>UNIX 时间戳可以以秒、毫秒、微秒作为单位，不同语言和不同第三方默认的 UNIX 时间戳单位是不同的，请务必查明文档。</p>
+</div>
 </div>
 <div class="tabbed-block">
 <p>所有错误响应的格式均为：</p>
@@ -1548,7 +1552,7 @@
     
         <div class="md-source-date">
             <small>
-                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (59.56%), <a href='mailto:cc7w@foxmail.com'>c7w</a> (40.44%)</span>
+                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (60.19%), <a href='mailto:cc7w@foxmail.com'>c7w</a> (39.81%)</span>
             </small>
         </div>
     
