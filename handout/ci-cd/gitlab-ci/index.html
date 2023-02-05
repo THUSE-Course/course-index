@@ -12,7 +12,7 @@
         <link rel="prev" href="../docker/">
       
       
-        <link rel="next" href="../../../faq/">
+        <link rel="next" href="../sonarqube/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.11">
@@ -753,6 +753,8 @@
         
           
         
+          
+        
       
       
         
@@ -927,6 +929,20 @@
   
 </nav>
       
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sonarqube/" class="md-nav__link">
+        SonarQube
+      </a>
     </li>
   
 
@@ -1272,7 +1288,8 @@
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span>
 </code></pre></div></td></tr></table></div>
 <p>可以看到，该配置首先指定了 SECoder 的 image registry 中的 <code>deployer</code> 镜像作为默认镜像。当没有在作业中显式指定镜像时，就会使用这个镜像。例如，这个流水线的 <code>build</code> 和 <code>image</code> 作业将使用 <code>deployer</code> 镜像进行项目的镜像构建与部署。</p>
-<p>接下来，我们定义了 <code>build</code>、<code>test</code> 和 <code>deploy</code> 三个阶段。</p>
+<p>接下来，我们定义了 <code>build</code>、<code>test</code> 和 <code>deploy</code> 三个阶段。该配置将会形成如下图所示的流水线：</p>
+<p><img alt="Example Django Pipeline" src="../../../static/pipeline-django.png" /></p>
 <h3 id="build"><code>build</code><a class="headerlink" href="#build" title="Permanent link">&para;</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -1422,7 +1439,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月2日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月5日</span>
       
     
   </small>
