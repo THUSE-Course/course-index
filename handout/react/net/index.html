@@ -19,7 +19,7 @@
     
     
       
-        <title>Step 6 综合运用 - Software Engineering Course Index</title>
+        <title>Step 6 网络请求 - Software Engineering Course Index</title>
       
     
     
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Step 6 综合运用
+              Step 6 网络请求
             
           </span>
         </div>
@@ -660,7 +660,7 @@
   
     <li class="md-nav__item">
       <a href="../router/" class="md-nav__link">
-        Step 5 切换页面 & 网络请求
+        Step 5 切换页面
       </a>
     </li>
   
@@ -683,12 +683,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Step 6 综合运用
+          Step 6 网络请求
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Step 6 综合运用
+        Step 6 网络请求
       </a>
       
         
@@ -993,21 +993,41 @@
 
 
 
-<h1 id="_1">综合运用<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h1 id="_1">网络请求<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <h2 id="_2">实验目的<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>如果你已经完成了前面的所有 Step，那你已经入门了 Next.js 框架。本 Step 将会要求你近似完整地编写一个组件（或称页面），综合运用前面所有的知识。</p>
+<p>通过本 Step，我们希望你能够掌握如何发送和处理网络请求，从而完成整个小作业的前端。</p>
 <h2 id="_3">实验步骤<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>首先，你需要在理解 JavaScript 的异步与 then 链语法的基础上，简单理解 Axios 库的使用方式，了解如何创建一个网络请求并按照 API 文档要求携带参数。</p>
+<p>之后，你需要在文件 <code>src/pages/list/index.tsx</code> 中的 <code>ListScreen</code> 组件内完成两处代码填空，完成网络请求的发送和处理。</p>
+<p>第一处，函数 <code>deleteBoard</code> 用于删除指定的游戏记录。本处填空的代码量在 20 行以内。该函数应当绑定在每一条游戏列表的 Delete it 按钮上，用于处理用户的点击行为。</p>
+<p>第二处，函数 <code>deleteUserBoard</code> 用于删除指定用户的所有游戏记录。本处填空的代码量在 20 行以内。</p>
+<p>完成本 Step 后，你的游戏记录列表的交互应当和下述 GIF 图所展示的类似：</p>
+<p>【TODO】</p>
 <h3 id="_4">代码说明<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>我们已经在 <code>src/utils/network.ts</code> 中展现了一个基于 Axios 的网络请求 wrapper 的写法，包括简单的错误处理。另外，本小作业框架中我们已经使用这个 wrapper 写过多个网络请求处理函数，你可以参考这些代码来完成本 Step。</p>
 <h2 id="_5">实验评分<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<p>本 Step 总分为 30 分。</p>
+<p>本 Step 总分为 25 分。</p>
+<p>本 Step 采用人工评分。我们仅会<strong>在通过 CI 检查的基础上</strong>查看最后一次部署是否满足：</p>
+<ul>
+<li>（8 分）前后端通信正常</li>
+<li>（8 分）点击某一条记录的 Delete it 按钮能够删除该记录，弹窗提示删除成功，关闭弹窗后该记录已经消失</li>
+<li>（8 分）点击 Delete all boards of this user 按钮能够删除该用户的所有记录，弹窗提示删除成功</li>
+<li>（1 分）删除某用户的所有记录后，退回到 <code>/list</code> 页面</li>
+</ul>
+<p>我们会从第二项开始按顺序检查到最后一项，若均通过，则自动获得第一项的全部分数。否则，只要有一项不通过，则第一项计 0 分。</p>
+<p>由于本 Step 涉及到网络请求，如果出现网络错误提示弹窗或者 5 秒内页面没有反应，我们会重试一次。若重试依然不成功则判定该功能点不得分。</p>
 <h2 id="_6">知识讲解<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>由于本 Step 所涉及的技术要点基本都有成熟的文档介绍，这里直接引用参考文档链接。</p>
+<p>最基本的 JS/TS 语言异步语法（包含 then 链语法）可以参考 <a href="https://docs.net9.org/languages/javascript/async/">技能引导文档相关页面</a>。</p>
+<p>函数组件中的网络请求往往需要使用 <code>useEffect</code> Hook 管理。<code>useEffect</code> Hook 的使用方法可以参考 <a href="https://docs.net9.org/frontend/react/function-component/#_3">技能引导文档相关页面</a>。</p>
+<p>本小作业框架使用 Axios 完成网络请求。Axios 的一个最小化使用示例见 <a href="https://axios-http.com/docs/example">Axios 官方文档相关页面</a>，该示例足以支撑完成本 Step。Axios 更深入的知识可以自行学习。</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月4日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月5日</span>
       
     
   </small>
