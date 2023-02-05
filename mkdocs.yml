@@ -26,6 +26,7 @@ extra_javascript:
 
 plugins:
   - search
+  - glightbox
   - git-revision-date-localized:
       fallback_to_build_date: true
       locale: zh
