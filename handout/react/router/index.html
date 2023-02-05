@@ -1046,6 +1046,24 @@
 <p>在渲染一个列表的时候不妨考虑一下 <code>Array.map</code> 方法，其会接受一个回调函数并且将数组中每一项按照回调函数指明的规则映射为新数组中对应项。回忆一下，React 组件的渲染，不就是将数据映射为 UI 吗？</p>
 <h3 id="_5">代码说明<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>我们已经在 <code>ListScreen</code> 组件内声明了 <code>refreshing, boardList</code> 两个组件状态，可以直接在此基础上完成你的代码。前者用于表示当前页面是否还在获取数据过程中，后者则用于存储列表页面用于展示的游戏记录。</p>
+<p>从本 Step 开始，前后端需要对接使用，这里简单叙述如何在本地对接前后端。首先你需要一个已经完全完成的后端小作业，将其启动并监听某一个端口。之后，打开前端小作业的 <code>next.config.js</code> 文件，找到下述内容：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// ...</span>
+<span class="k">async</span><span class="w"> </span><span class="nx">rewrites</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">[{</span>
+<span class="w">        </span><span class="nx">source</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;/api/:path*&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">destination</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;http://127.0.0.1:8001/:path*&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">}];</span>
+<span class="p">}</span>
+<span class="c1">// ...</span>
+</code></pre></div></td></tr></table></div>
+<p>将这里的 <code>8001</code> 修改为你的后端所监听的端口号即可。</p>
 <h2 id="_6">实验评分<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>本 Step 总分为 15 分。</p>
 <p>本 Step 采用人工评分。我们仅会<strong>在通过 CI 检查的基础上</strong>查看最后一次部署是否满足：</p>

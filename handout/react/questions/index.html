@@ -742,15 +742,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#problem-2-4-pts" class="md-nav__link">
-    Problem 2 (4 pts)
+  <a href="#problem-2-2-pts" class="md-nav__link">
+    Problem 2 (2 pts)
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#problem-3-6-pts" class="md-nav__link">
-    Problem 3 (6 pts)
+  <a href="#problem-3-4-pts" class="md-nav__link">
+    Problem 3 (4 pts)
   </a>
   
 </li>
@@ -758,6 +758,13 @@
         <li class="md-nav__item">
   <a href="#problem-4-8-pts" class="md-nav__link">
     Problem 4 (8 pts)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-5-4-pts" class="md-nav__link">
+    Problem 5 (4 pts)
   </a>
   
 </li>
@@ -943,15 +950,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#problem-2-4-pts" class="md-nav__link">
-    Problem 2 (4 pts)
+  <a href="#problem-2-2-pts" class="md-nav__link">
+    Problem 2 (2 pts)
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#problem-3-6-pts" class="md-nav__link">
-    Problem 3 (6 pts)
+  <a href="#problem-3-4-pts" class="md-nav__link">
+    Problem 3 (4 pts)
   </a>
   
 </li>
@@ -959,6 +966,13 @@
         <li class="md-nav__item">
   <a href="#problem-4-8-pts" class="md-nav__link">
     Problem 4 (8 pts)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-5-4-pts" class="md-nav__link">
+    Problem 5 (4 pts)
   </a>
   
 </li>
@@ -1023,9 +1037,9 @@
 <span class="p">};</span>
 </code></pre></div></td></tr></table></div>
 <p>这段代码 TypeScript 是否会报编译错误？请说明原因。</p>
-<h2 id="problem-2-4-pts">Problem 2 (4 pts)<a class="headerlink" href="#problem-2-4-pts" title="Permanent link">&para;</a></h2>
+<h2 id="problem-2-2-pts">Problem 2 (2 pts)<a class="headerlink" href="#problem-2-2-pts" title="Permanent link">&para;</a></h2>
 <p>在 Step 3 中我们提供了 <code>flipCell</code> 的一个错误实现 <code>badFlipCell</code>，请简述其错误的原因。</p>
-<h2 id="problem-3-6-pts">Problem 3 (6 pts)<a class="headerlink" href="#problem-3-6-pts" title="Permanent link">&para;</a></h2>
+<h2 id="problem-3-4-pts">Problem 3 (4 pts)<a class="headerlink" href="#problem-3-4-pts" title="Permanent link">&para;</a></h2>
 <p>在 Next.js 框架中，<code>pages</code> 目录结构如下所示，各个 <code>.tsx</code> 文件使用 <code>export default</code> 方式导出的 React 组件写在括号内。请分别回答在浏览器访问下述地址的时候，浏览器所要渲染的组件名称。若没有符合条件的组件，回答 404 Not Found。</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -1096,6 +1110,21 @@
 <p>由于现代软件开发很难单人作战且极难不依赖于第三方，所以当问题发生在你所依赖的第三方或者框架的时候，你很难像在数据结构代码中 debug 那样，简单地回溯找到问题点。这个时候你需要适当地使用搜索引擎，适当地阅读第三方、框架的官方文档来寻找信息，这是软件工程的重要能力之一。</p>
 <p>题面中所描述的现象是 Next.js 框架的一个 Advanced Feature，并且在官方文档中有详细介绍。本题即需要你说明 Next.js 的什么机制导致了这种现象。</p>
 </div>
+<h2 id="problem-5-4-pts">Problem 5 (4 pts)<a class="headerlink" href="#problem-5-4-pts" title="Permanent link">&para;</a></h2>
+<p>小作业框架中 <code>next.config.js</code> 中有下述函数：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">rewrites</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">[{</span>
+<span class="w">        </span><span class="nx">source</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;/api/:path*&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">destination</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;http://127.0.0.1:8001/:path*&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">}];</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>请分别叙述 <code>source, destination</code> 字段的含义，并简要叙述该函数的作用。</p>
 
   <hr>
 <div class="md-source-file">
