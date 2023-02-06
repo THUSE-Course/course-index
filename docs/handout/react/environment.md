@@ -42,6 +42,12 @@ Node.js 下载后会自带有包管理工具 npm 用于管理项目内所用到�
 
 ![](../../static/react/step0-yarn.png)
 
+!!! note "换源"
+
+    由于 yarn 默认从国外服务器请求数据，其很有可能因为一些魔法因素而下载速度极慢，这个时候推荐将 yarn 换源到国内镜像保证下载速度。
+
+    yarn 换源可以参考 [这篇博客](https://learnku.com/articles/15976/yarn-accelerate-and-modify-mirror-source-in-china)。
+
 ## TypeScript
 
 TypeScript 是 JavaScript 的超集，可以将其简单理解为带有类型标注的 JavaScript。TypeScript 的编译器会在编译时检查变量类型是否满足标注要求，若满足则会编译生成 JavaScript 代码。
@@ -94,7 +100,7 @@ yarn start # 运行名为 start 的脚本
 
 ---
 
-在配置好 yarn 的基础上，现在运行 `yarn install` 安装第三方依赖。本次小作业不需要额外安装其他第三方依赖即可完成：
+在配置好 yarn 的基础上，现在运行 `yarn install` 安装第三方依赖。本次小作业不需要在我们提供的第三方（已经列在 `package.json` 中）之外额外安装其他第三方依赖即可完成：
 
 ![](../../static/react/step0-yarn-install.png)
 
@@ -115,3 +121,7 @@ yarn start # 运行名为 start 的脚本
 打开浏览器并在地址栏输入 `http://localhost:3000`（默认端口占用时需要替换端口号），即可访问到本次小作业前端页面。若能够看到类似于下图的界面，就说明环境配置完成，可以继续完成小作业了🎉：
 
 ![](../../static/react/step0-final.png)
+
+!!! warning "热加载机制"
+
+    React 是具有热加载机制的，即你只要修改代码并保存，代码上的变化应当立刻反应到 UI 上。然而热加载机制可能在 WSL 上失效，具体请参考 [这个 Github Issue](https://github.com/microsoft/WSL/issues/6255)。
