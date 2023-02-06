@@ -479,7 +479,7 @@
 <p>本次小作业的最终目标为实现一个带有记录管理功能的康威生命游戏，需要采用前后端分离的开发模式，并需要分别部署以供验收。</p>
 <h2 id="_2">游戏规则<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <p>首先简要讲解康威生命游戏的规则。本作业中的康威生命游戏基于一个 <span class="arithmatex"><span class="MathJax_Preview">50 \times 50</span><script type="math/tex">50 \times 50</script></span> 的棋盘，棋盘上的每一个格子代表一个<strong>细胞</strong>。细胞具有两种状态，分别为<strong>存活</strong>以及<strong>死亡</strong>。</p>
-<p>每个细胞在下一时刻的状态取决于其在这个时刻的状态，以及其所有<strong>邻居</strong>在这个时刻的状态。每一个细胞都有 8 个邻居，这里由于棋盘大小有限，故采用循环相邻的定义方式。具体请看下图，这里用一个 <span class="arithmatex"><span class="MathJax_Preview">8 \times 8</span><script type="math/tex">8 \times 8</script></span> 的棋盘作为简化示例，对于每一个红色的细胞，8 个黄色的细胞称之为其邻居：</p>
+<p>每个细胞在 <span class="arithmatex"><span class="MathJax_Preview">t + 1</span><script type="math/tex">t + 1</script></span> 时刻的状态取决于它自身在 <span class="arithmatex"><span class="MathJax_Preview">t</span><script type="math/tex">t</script></span> 时刻的状态，以及其所有<strong>邻居</strong>在 <span class="arithmatex"><span class="MathJax_Preview">t</span><script type="math/tex">t</script></span> 时刻的状态。每一个细胞都有 8 个邻居，这里由于棋盘大小有限，故采用循环相邻的定义方式。具体请看下图，这里用一个 <span class="arithmatex"><span class="MathJax_Preview">8 \times 8</span><script type="math/tex">8 \times 8</script></span> 的棋盘作为简化示例，对于每一个红色的细胞，8 个黄色的细胞称之为其邻居：</p>
 <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../static/neigbour.png"><img alt="" src="../../static/neigbour.png"/></a></p>
 <p>基于上述定义，每个细胞在下一个时刻的状态按照下述规则确定：</p>
 <ul>
@@ -495,7 +495,7 @@
 </ul>
 </li>
 </ul>
-<p>所有细胞从这个时刻按照上述规则变换为下一时刻的状态称为一次<strong>演变</strong>。</p>
+<p>所有细胞从这个时刻按照上述规则变换为下一时刻的状态称为一次<strong>演变（英文：step）</strong>。</p>
 <p>这里我们提供一个示例网站，你可以在该网站上尝试游玩康威生命游戏，以加深对该游戏规则的理解（需要注意，该网站所实现的棋盘是无限的，与本作业要求的并不一致，并且部分交互也与我们要求不同）：</p>
 <ul>
 <li>康威生命游戏示例网站 <a href="https://playgameoflife.com/">https://playgameoflife.com/</a></li>
@@ -646,7 +646,7 @@
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月5日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月6日</span>
 </small>
 </div>
 <div class="md-source-date">

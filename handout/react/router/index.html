@@ -502,12 +502,17 @@
 <p>由于本 Step 所涉及的技术要点基本都有成熟的文档介绍，这里直接引用参考文档链接。</p>
 <p>你需要了解 Next.js 是通过 <code>pages</code> 目录下的目录结构管理路由的，具体的文档参见 <a href="https://nextjs.org/docs/routing/introduction">Next.js 官方文档相关页面</a>。</p>
 <p>关于路由，Next.js 定义了 <code>useRouter</code> Hook。其可以用于获取动态路由之中携带的参数以及通过 <code>const router = useRouter(); router.push(...);</code> 的方式实现页面跳转。该 Hook 的文档见 <a href="https://nextjs.org/docs/api-reference/next/router#userouter">官方指导</a>。</p>
+<div class="admonition note">
+<p class="admonition-title">浏览器 JavaScript 与 <code>useRouter</code></p>
+<p>我们提到过使用 <code>router.push()</code> 方法可以令页面跳转，然而在浏览器原生 JavaScript 中，对 <code>window.location.href</code> 赋值也能实现页面跳转。</p>
+<p>这两者的核心区别在于使用原生 JavaScript 会导致整个页面的完全重加载，这对性能而言是相当不利的。所以，我们推荐使用 <code>useRouter</code> 的方式实现页面跳转，非必要不使用原生 JavaScript 方法。</p>
+</div>
 <hr/>
 <div class="md-source-file">
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月5日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月6日</span>
 </small>
 </div>
 <div class="md-source-date">

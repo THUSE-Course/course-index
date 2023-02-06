@@ -443,6 +443,11 @@
 <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../../static/react/step0-npm.png"><img alt="" src="../../../static/react/step0-npm.png"/></a></p>
 <p>之后运行指令 <code>npm install -g yarn</code> 即可安装 yarn，随后可以通过指令 <code>yarn -v</code> 来确认是否安装成功（这里如果遇到了读写权限问题，可能需要切换到管理员模式，Mac 与 Linux 系统上可以直接在指令前加 <code>sudo</code>，Windows 系统上则应在打开终端时选择“以管理员身份运行”）：</p>
 <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../../static/react/step0-yarn.png"><img alt="" src="../../../static/react/step0-yarn.png"/></a></p>
+<div class="admonition note">
+<p class="admonition-title">换源</p>
+<p>由于 yarn 默认从国外服务器请求数据，其很有可能因为一些魔法因素而下载速度极慢，这个时候推荐将 yarn 换源到国内镜像保证下载速度。</p>
+<p>yarn 换源可以参考 <a href="https://learnku.com/articles/15976/yarn-accelerate-and-modify-mirror-source-in-china">这篇博客</a>。</p>
+</div>
 <h2 id="typescript">TypeScript<a class="headerlink" href="#typescript" title="Permanent link">¶</a></h2>
 <p>TypeScript 是 JavaScript 的超集，可以将其简单理解为带有类型标注的 JavaScript。TypeScript 的编译器会在编译时检查变量类型是否满足标注要求，若满足则会编译生成 JavaScript 代码。</p>
 <p>可以通过 yarn 安装 TypeScript，指令为 <code>yarn global add typescript</code>。</p>
@@ -499,7 +504,7 @@ yarn<span class="w"> </span>start<span class="w"> </span><span class="c1"># 运�
 <p>其中 <code>dependencies</code> 与 <code>devDependencies</code> 字段定义了本项目所有的依赖名称以及版本要求，而 <code>devDependencies</code> 字段下的是开发环境的依赖。此时，在本项目根目录下运行 <code>yarn install</code> 即会安装这里所列举的所有依赖。</p>
 <p>另外，<code>scripts</code> 字段定义了所有可以运行的脚本，这里运行 <code>yarn fix</code> 相当于运行 <code>eslint src --ext .js,.jsx,.ts,.tsx --fix</code>。</p>
 <hr/>
-<p>在配置好 yarn 的基础上，现在运行 <code>yarn install</code> 安装第三方依赖。本次小作业不需要额外安装其他第三方依赖即可完成：</p>
+<p>在配置好 yarn 的基础上，现在运行 <code>yarn install</code> 安装第三方依赖。本次小作业不需要在我们提供的第三方（已经列在 <code>package.json</code> 中）之外额外安装其他第三方依赖即可完成：</p>
 <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../../static/react/step0-yarn-install.png"><img alt="" src="../../../static/react/step0-yarn-install.png"/></a></p>
 <p>所有的第三方依赖将会安装在 <code>node_modules</code> 目录下，该目录应当已经被 <code>.gitignore</code> 忽略。</p>
 <div class="admonition warning">
@@ -512,12 +517,16 @@ yarn<span class="w"> </span>start<span class="w"> </span><span class="c1"># 运�
 <p>项目启动后应当能在本地端口上访问到前端页面，默认端口号为 3000。上述截图中因为默认端口 3000 被占用，故采用了 3001 端口。</p>
 <p>打开浏览器并在地址栏输入 <code>http://localhost:3000</code>（默认端口占用时需要替换端口号），即可访问到本次小作业前端页面。若能够看到类似于下图的界面，就说明环境配置完成，可以继续完成小作业了🎉：</p>
 <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../../static/react/step0-final.png"><img alt="" src="../../../static/react/step0-final.png"/></a></p>
+<div class="admonition warning">
+<p class="admonition-title">热加载机制</p>
+<p>React 是具有热加载机制的，即你只要修改代码并保存，代码上的变化应当立刻反应到 UI 上。然而热加载机制可能在 WSL 上失效，具体请参考 <a href="https://github.com/microsoft/WSL/issues/6255">这个 Github Issue</a>。</p>
+</div>
 <hr/>
 <div class="md-source-file">
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2022年11月26日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月6日</span>
 </small>
 </div>
 <div class="md-source-date">
