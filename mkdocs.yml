@@ -77,8 +77,10 @@ nav:
   - 部署相关:
     - deploy/index.md
     - Docker: deploy/docker.md
+    - Deployer: deploy/deployer.md
     - GitLab CI/CD: deploy/gitlab-ci.md
     - SonarQube: deploy/sonarqube.md
+    - SECoder: deploy/secoder.md
   - 小作业文档:
     - handout/index.md
     - 小作业需求文档: handout/requirement.md
