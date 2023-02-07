@@ -8,7 +8,7 @@ SECoder 平台的 GitLab 提供了集成的 CI/CD 系统，可以通过项目仓
 
 以下是一个 GitLab CI/CD 流水线，我们将以它为例说明 GitLab CI/CD 中的一些基本概念。
 
-![GitLab CI/CD 流水线](../../static/pipeline.png)
+![GitLab CI/CD 流水线](../static/pipeline.png)
 
 ### 作业 (Job)
 
@@ -127,7 +127,7 @@ deploy:
 
 接下来，我们定义了 `build`、`test` 和 `deploy` 三个阶段。该配置将会形成如下图所示的流水线：
 
-![Example Django Pipeline](../../static/pipeline-django.png)
+![Example Django Pipeline](../static/pipeline-django.png)
 
 ### `build`
 

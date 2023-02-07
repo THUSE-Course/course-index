@@ -39,7 +39,7 @@ sonar.coverage.exclusions=tests/**/*
 
 在代码分析完毕后，我们就可以在 SECoder 的 [SonarQube](https://sonarqube.secoder.net/) 平台上查看代码分析结果了。下面是一个示例：
 
-![SonarQube Project](../../static/sonarqube.png)
+![SonarQube Project](../static/sonarqube.png)
 
 我们可以进入项目来查看更详细的分析，这些分析有助于你更好地开发出符合软件工程规范的应用。
 
