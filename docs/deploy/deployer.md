@@ -70,7 +70,7 @@ SECoder 会为每个环境分配一个部署密钥，在 GitLab CI/CD 环境中�
     deployer dyno create {name}
     ```
 
-    创建具有指定名称的容器。
+    创建具有指定名称的容器。容器的默认镜像为 `nginx`。
 
 === "delete"
 
@@ -104,10 +104,10 @@ SECoder 会为每个环境分配一个部署密钥，在 GitLab CI/CD 环境中�
 === "replace"
 
     ```shell
-    deployer dyno replace {name} {image} {username} {password}
+    deployer dyno replace {name} {image} [username] [password]
     ```
 
-    使用给定的镜像 `image` 重新运行指定容器 `name`，`username` 和 `password` 为 image registry 的用户名与密码。
+    使用给定的镜像 `image` 重新运行指定容器 `name`，可选的 `username` 和 `password` 为 image registry 的用户名与密码。
 
 ## config
 
