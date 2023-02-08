@@ -529,7 +529,7 @@
 <div class="tabbed-block">
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>deployer<span class="w"> </span>dyno<span class="w"> </span>create<span class="w"> </span><span class="o">{</span>name<span class="o">}</span>
 </code></pre></div></td></tr></table></div>
-<p>创建具有指定名称的容器。</p>
+<p>创建具有指定名称的容器。容器的默认镜像为 <code>nginx</code>。</p>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>deployer<span class="w"> </span>dyno<span class="w"> </span>delete<span class="w"> </span><span class="o">{</span>name<span class="o">}</span>
@@ -578,9 +578,9 @@
 </div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>deployer<span class="w"> </span>dyno<span class="w"> </span>replace<span class="w"> </span><span class="o">{</span>name<span class="o">}</span><span class="w"> </span><span class="o">{</span>image<span class="o">}</span><span class="w"> </span><span class="o">{</span>username<span class="o">}</span><span class="w"> </span><span class="o">{</span>password<span class="o">}</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>deployer<span class="w"> </span>dyno<span class="w"> </span>replace<span class="w"> </span><span class="o">{</span>name<span class="o">}</span><span class="w"> </span><span class="o">{</span>image<span class="o">}</span><span class="w"> </span><span class="o">[</span>username<span class="o">]</span><span class="w"> </span><span class="o">[</span>password<span class="o">]</span>
 </code></pre></div></td></tr></table></div>
-<p>使用给定的镜像 <code>image</code> 重新运行指定容器 <code>name</code>，<code>username</code> 和 <code>password</code> 为 image registry 的用户名与密码。</p>
+<p>使用给定的镜像 <code>image</code> 重新运行指定容器 <code>name</code>，可选的 <code>username</code> 和 <code>password</code> 为 image registry 的用户名与密码。</p>
 </div>
 </div>
 </input></input></input></input></div>
