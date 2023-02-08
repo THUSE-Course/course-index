@@ -133,7 +133,7 @@
 </li>
 <li class="md-tabs__item">
 <a class="md-tabs__link md-tabs__link--active" href="../">
-        部署相关
+        部署基础
       </a>
 </li>
 <li class="md-tabs__item">
@@ -185,7 +185,7 @@
 <li class="md-nav__item md-nav__item--active md-nav__item--nested">
 <input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
 <div class="md-nav__link md-nav__link--index">
-<a href="../">部署相关</a>
+<a href="../">部署基础</a>
 <label for="__nav_3">
 <span class="md-nav__icon md-icon"></span>
 </label>
@@ -193,7 +193,7 @@
 <nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="__nav_3">
 <span class="md-nav__icon md-icon"></span>
-          部署相关
+          部署基础
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
@@ -733,6 +733,8 @@
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deployer build</span>
 </code></pre></div></td></tr></table></div>
 <p>在作业中，我们通过 <code>stage</code> 属性指定作业所属的阶段。这里，<code>build</code> 作业属于 <code>build</code> 阶段。<code>script</code> 属性是一个数组，指定作业执行的命令，每个数组元素表示一条命令。</p>
+<div class="admonition note">
+<p class="admonition-title">预定义环境变量</p>
 <p>GitLab 在执行流水线时，会定义一系列 CI/CD 相关的环境变量。完整的列表可以在 <a href="https://gitlab.secoder.net/help/ci/variables/predefined_variables.md">Predefined environment variables reference</a> 找到。这里我们列出一些常用的预定义环境变量：</p>
 <table>
 <thead>
@@ -743,28 +745,33 @@
 </thead>
 <tbody>
 <tr>
-<td>$CI_PROJECT_NAME</td>
+<td><code>GITLAB_USER_LOGIN</code></td>
+<td>GitLab 登录用户名，在 SECoder 平台上即学号</td>
+</tr>
+<tr>
+<td><code>CI_PROJECT_NAME</code></td>
 <td>项目名称</td>
 </tr>
 <tr>
-<td>$CI_COMMIT_REF_SLUG</td>
+<td><code>CI_COMMIT_REF_SLUG</code></td>
 <td>当前分支/标签名</td>
 </tr>
 <tr>
-<td>$CI_REGISTRY_IMAGE</td>
+<td><code>CI_REGISTRY_IMAGE</code></td>
 <td>项目的镜像名称</td>
 </tr>
 <tr>
-<td>$CI_REGISTRY_USER</td>
+<td><code>CI_REGISTRY_USER</code></td>
 <td>Registry 用户名</td>
 </tr>
 <tr>
-<td>$CI_REGISTRY_PASSWORD</td>
+<td><code>CI_REGISTRY_PASSWORD</code></td>
 <td>Registry 密码</td>
 </tr>
 </tbody>
 </table>
-<p>SECoder GitLab 配置了 image registry，因此在执行流水线时，将能够通过这些变量访问 registry。在 <code>build</code> 作业中，我们将这些信息通过环境变量传递给 deployer，deployer 会根据项目的 Dockerfile 构建镜像并上传到 SECoder registry 中。</p>
+</div>
+<p>SECoder GitLab 配置了 image registry，因此在执行流水线时，将能够通过预定义的环境变量访问 registry 的用户名与密码。在 <code>build</code> 作业中，我们将这些信息通过环境变量传递给 deployer，deployer 会根据项目的 Dockerfile 构建镜像并上传到 SECoder Image Registry 中。</p>
 <h3 id="test"><code>test</code><a class="headerlink" href="#test" title="Permanent link">¶</a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -863,7 +870,7 @@
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月7日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月8日</span>
 </small>
 </div>
 <div class="md-source-date">

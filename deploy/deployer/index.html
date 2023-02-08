@@ -133,7 +133,7 @@
 </li>
 <li class="md-tabs__item">
 <a class="md-tabs__link md-tabs__link--active" href="../">
-        部署相关
+        部署基础
       </a>
 </li>
 <li class="md-tabs__item">
@@ -185,7 +185,7 @@
 <li class="md-nav__item md-nav__item--active md-nav__item--nested">
 <input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
 <div class="md-nav__link md-nav__link--index">
-<a href="../">部署相关</a>
+<a href="../">部署基础</a>
 <label for="__nav_3">
 <span class="md-nav__icon md-icon"></span>
 </label>
@@ -193,7 +193,7 @@
 <nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="__nav_3">
 <span class="md-nav__icon md-icon"></span>
-          部署相关
+          部署基础
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
@@ -203,9 +203,46 @@
 </li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Deployer
+          <span class="md-nav__icon md-icon"></span>
+</label>
 <a class="md-nav__link md-nav__link--active" href="./">
         Deployer
       </a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build">
+    build
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#env">
+    env
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dyno">
+    dyno
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#config">
+    config
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#storage">
+    storage
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../gitlab-ci/">
@@ -384,6 +421,37 @@
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
 <nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build">
+    build
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#env">
+    env
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dyno">
+    dyno
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#config">
+    config
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#storage">
+    storage
+  </a>
+</li>
+</ul>
 </nav>
 </div>
 </div>
@@ -391,13 +459,180 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="deployer">Deployer<a class="headerlink" href="#deployer" title="Permanent link">¶</a></h1>
-<p>你说的对，但是《Deployer》是一款由 SECoder 自主研发的开放平台部署工具。</p>
+<p>SECoder 平台提供了托管 Web 应用的服务，可以通过运行 Docker 容器来使应用向外界提供服务。SECoder 平台提供了 deployer 工具来进行部署镜像的构建、容器的运行、配置文件和持久存储的挂载等操作。</p>
+<p>可以通过 <code>registry.secoder.net/tool/deployer</code> 镜像访问 deployer 工具。一般情况下，你不需要在本地运行 deployer，而是在 GitLab CI/CD 环境中通过配置的流水线运行 deployer 或者通过 SECoder 的部署管理工具间接使用 deployer。</p>
+<p>Deployer 有五个子命令：<code>build</code>、<code>env</code>、<code>dyno</code>、<code>config</code> 和 <code>storage</code>。</p>
+<h2 id="build">build<a class="headerlink" href="#build" title="Permanent link">¶</a></h2>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>deployer<span class="w"> </span>build<span class="w"> </span><span class="o">[</span><span class="nv">dockerfile</span><span class="o">=</span>Dockerfile<span class="o">]</span>
+</code></pre></div></td></tr></table></div>
+<p>命令接受一个可选参数 <code>dockerfile</code> 表示 Dockerfile 的文件名，默认为 <code>Dockerfile</code>。</p>
+<p>命令会从环境变量中读取构建需要的其他信息：</p>
+<table>
+<thead>
+<tr>
+<th>环境变量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BUILD_IMAGE_NAME</code></td>
+<td>镜像名称</td>
+</tr>
+<tr>
+<td><code>BUILD_IMAGE_TAG</code></td>
+<td>镜像标签</td>
+</tr>
+<tr>
+<td><code>BUILD_IMAGE_USERNAME</code></td>
+<td>Registry 用户名</td>
+</tr>
+<tr>
+<td><code>BUILD_IMAGE_PASSWORD</code></td>
+<td>Registry 密码</td>
+</tr>
+<tr>
+<td><code>DEPLOY_BUILDER</code></td>
+<td>Deployer 构建后端的 URL，默认值为 SECoder 的 deployer 后端；正常情况下你不应改动此项</td>
+</tr>
+</tbody>
+</table>
+<p>镜像构建完成后，将会上传到 SECoder Image Registry 用于后续的运行。</p>
+<h2 id="env">env<a class="headerlink" href="#env" title="Permanent link">¶</a></h2>
+<p>SECoder 使用环境来管理权限。每个容器都有其所属的环境，对容器进行管理操作需要有对应环境的权限。一般情况下，团队与环境一一对应，而团队的不同项目则置于环境下的不同容器之中。</p>
+<p>SECoder 会为每个环境分配一个部署密钥，在 GitLab CI/CD 环境中可以通过 <code>DEPLOY_ENV</code> 与 <code>DEPLOY_TOKEN</code> 环境变量来访问当前环境名与部署密钥。</p>
+<p><code>env</code> 命令有三个子命令：<code>list</code>、<code>create</code> 和 <code>delete</code>，其中 <code>create</code> 与 <code>delete</code> 要求密钥具有管理环境的权限。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><input id="__tabbed_1_3" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">list</label><label for="__tabbed_1_2">create</label><label for="__tabbed_1_3">delete</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>deployer<span class="w"> </span>env<span class="w"> </span>list
+</code></pre></div></td></tr></table></div>
+<p>列出所有环境。</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>deployer<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span><span class="o">{</span>name<span class="o">}</span>
+</code></pre></div></td></tr></table></div>
+<p>创建具有指定名称的环境。</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>deployer<span class="w"> </span>env<span class="w"> </span>delete<span class="w"> </span><span class="o">{</span>name<span class="o">}</span>
+</code></pre></div></td></tr></table></div>
+<p>删除具有指定名称的环境。</p>
+</div>
+</div>
+</input></input></input></div>
+<h2 id="dyno">dyno<a class="headerlink" href="#dyno" title="Permanent link">¶</a></h2>
+<p>此命令用于管理容器。<code>DEPLOY_ENV</code> 以及 <code>DEPLOY_TOKEN</code> 会用于访问容器所在的环境。</p>
+<p><code>dyno</code> 命令有四个子命令：<code>create</code>、<code>delete</code>、<code>mount</code> 和 <code>replace</code>。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:4"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><input id="__tabbed_2_3" name="__tabbed_2" type="radio"><input id="__tabbed_2_4" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">create</label><label for="__tabbed_2_2">delete</label><label for="__tabbed_2_3">mount</label><label for="__tabbed_2_4">replace</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>deployer<span class="w"> </span>dyno<span class="w"> </span>create<span class="w"> </span><span class="o">{</span>name<span class="o">}</span>
+</code></pre></div></td></tr></table></div>
+<p>创建具有指定名称的容器。</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>deployer<span class="w"> </span>dyno<span class="w"> </span>delete<span class="w"> </span><span class="o">{</span>name<span class="o">}</span>
+</code></pre></div></td></tr></table></div>
+<p>删除具有指定名称的容器。</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>deployer<span class="w"> </span>dyno<span class="w"> </span>mount<span class="w"> </span><span class="o">{</span>name<span class="o">}</span><span class="w"> </span><span class="o">{</span>volumes<span class="o">}</span>
+</code></pre></div></td></tr></table></div>
+<p>将给定的挂载项挂载到指定容器，其中 <code>volumes</code> 为一个文件名，该文件包含一个 JSON 数组，其中每一项代表一个挂载项，每个挂载项的属性如下：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td><code>"config" | "storage"</code></td>
+<td>该挂载项的类型，包括配置项和持久存储两种</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>string</code></td>
+<td>该挂载项的描述性名称</td>
+</tr>
+<tr>
+<td><code>src</code></td>
+<td><code>string</code></td>
+<td>挂载项的来源，即使用 <code>config</code> 或 <code>storage</code> 子命令创建的配置项或持久存储的名称</td>
+</tr>
+<tr>
+<td><code>path</code></td>
+<td><code>string</code></td>
+<td>挂载目录</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">不能挂载单文件</p>
+<p>由于 Linux 系统中的挂载实际上是挂载了一个文件系统，因此在表现上，挂载完成后 <code>path</code> 将会是一个目录。这意味着你不能挂载单独的一个文件。</p>
+<p>例如，若你希望从 <code>config.json</code> 中读取配置，则你需要创建一个目录 <code>config</code> (名字是无关紧要的)，将 <code>config.json</code> 放在其中，将含有 <code>config.json</code> 的配置项挂载到此目录，然后在运行时从 <code>config/config.json</code> 读取配置。</p>
+</div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>deployer<span class="w"> </span>dyno<span class="w"> </span>replace<span class="w"> </span><span class="o">{</span>name<span class="o">}</span><span class="w"> </span><span class="o">{</span>image<span class="o">}</span><span class="w"> </span><span class="o">{</span>username<span class="o">}</span><span class="w"> </span><span class="o">{</span>password<span class="o">}</span>
+</code></pre></div></td></tr></table></div>
+<p>使用给定的镜像 <code>image</code> 重新运行指定容器 <code>name</code>，<code>username</code> 和 <code>password</code> 为 image registry 的用户名与密码。</p>
+</div>
+</div>
+</input></input></input></input></div>
+<h2 id="config">config<a class="headerlink" href="#config" title="Permanent link">¶</a></h2>
+<p>管理配置项。<code>DEPLOY_ENV</code> 以及 <code>DEPLOY_TOKEN</code> 会用于访问容器所在的环境。</p>
+<p>在开发时和正式部署时使用不同的配置是一种常见做法。例如，你可以让你的后端在开发时连接本地的数据库，在部署时连接部署的数据库。然而，由于容器的易失性，一个容器在重新启动后其中所做的修改都将丢失。这意味着如果我们每次都进入容器手动修改配置将十分低效。</p>
+<p>我们可以通过配置项来简化这个流程。配置项是只读的挂载项，可以用于存放各种配置文件。配置项可以作为一个目录被挂载到容器中。这样，在部署时将会自动使用挂载的配置。</p>
+<p><code>config</code> 命令有三个子命令：<code>create</code>、<code>delete</code> 和 <code>replace</code>。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"><input id="__tabbed_3_2" name="__tabbed_3" type="radio"><input id="__tabbed_3_3" name="__tabbed_3" type="radio"><div class="tabbed-labels"><label for="__tabbed_3_1">create</label><label for="__tabbed_3_2">delete</label><label for="__tabbed_3_3">replace</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>deployer<span class="w"> </span>config<span class="w"> </span>create<span class="w"> </span><span class="o">{</span>name<span class="o">}</span><span class="w"> </span><span class="o">{</span>dir<span class="o">}</span>
+</code></pre></div></td></tr></table></div>
+<p>以目录 <code>dir</code> 下的内容创建配置项 <code>name</code>。</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>deployer<span class="w"> </span>config<span class="w"> </span>delete<span class="w"> </span><span class="o">{</span>name<span class="o">}</span>
+</code></pre></div></td></tr></table></div>
+<p>删除具有指定名称的配置项。</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>deployer<span class="w"> </span>config<span class="w"> </span>replace<span class="w"> </span><span class="o">{</span>name<span class="o">}</span><span class="w"> </span><span class="o">{</span>dir<span class="o">}</span>
+</code></pre></div></td></tr></table></div>
+<p>以目录 <code>dir</code> 下的内容替换配置项 <code>name</code>。</p>
+</div>
+</div>
+</input></input></input></div>
+<h2 id="storage">storage<a class="headerlink" href="#storage" title="Permanent link">¶</a></h2>
+<p>管理持久存储。<code>DEPLOY_ENV</code> 以及 <code>DEPLOY_TOKEN</code> 会用于访问容器所在的环境。</p>
+<p>数据库容器等需要在容器内保存数据。但同样由于容器的易失性，在容器重启时其中的数据将会丢失，因此我们需要一种能够持久保存数据的方法。</p>
+<p>持久存储与配置项类似，都可以挂载到容器的某一目录。它们之间的不同点在于持久存储是可写的，并且你不需要为其提供初始内容。这样，我们就可以在容器重新启动时不致丢失数据了。</p>
+<p><code>storage</code> 命令有两个子命令：<code>create</code> 和 <code>delete</code>。</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio"><input id="__tabbed_4_2" name="__tabbed_4" type="radio"><div class="tabbed-labels"><label for="__tabbed_4_1">create</label><label for="__tabbed_4_2">delete</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>deployer<span class="w"> </span>storage<span class="w"> </span>create<span class="w"> </span><span class="o">{</span>name<span class="o">}</span>
+</code></pre></div></td></tr></table></div>
+<p>创建持久存储 <code>name</code>。</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>deployer<span class="w"> </span>storage<span class="w"> </span>delete<span class="w"> </span><span class="o">{</span>name<span class="o">}</span>
+</code></pre></div></td></tr></table></div>
+<p>删除具有指定名称的持久存储。</p>
+</div>
+</div>
+</input></input></div>
 <hr/>
 <div class="md-source-file">
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月7日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月8日</span>
 </small>
 </div>
 <div class="md-source-date">
