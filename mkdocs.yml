@@ -74,7 +74,7 @@ markdown_extensions:
 nav:
   - 主页: index.md
   - 前后端分离开发基础: basic.md
-  - 部署相关:
+  - 部署基础:
     - deploy/index.md
     - Docker: deploy/docker.md
     - Deployer: deploy/deployer.md
