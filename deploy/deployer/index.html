@@ -461,6 +461,24 @@
 <h1 id="deployer">Deployer<a class="headerlink" href="#deployer" title="Permanent link">¶</a></h1>
 <p>SECoder 平台提供了托管 Web 应用的服务，可以通过运行 Docker 容器来使应用向外界提供服务。SECoder 平台提供了 deployer 工具来进行部署镜像的构建、容器的运行、配置文件和持久存储的挂载等操作。</p>
 <p>可以通过 <code>registry.secoder.net/tool/deployer</code> 镜像访问 deployer 工具。一般情况下，你不需要在本地运行 deployer，而是在 GitLab CI/CD 环境中通过配置的流水线运行 deployer 或者通过 SECoder 的部署管理工具间接使用 deployer。</p>
+<div class="admonition tip">
+<p class="admonition-title">Deployer Cheat Sheet</p>
+<p>如果你不想深入了解 deployer 的使用方法，可以直接在 GitLab CI/CD 配置中使用下列命令片段：</p>
+<p><strong>构建镜像</strong></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BUILD_IMAGE_NAME</span><span class="o">=</span><span class="nv">$CI_REGISTRY_IMAGE</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BUILD_IMAGE_TAG</span><span class="o">=</span><span class="nv">$CI_COMMIT_REF_SLUG</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BUILD_IMAGE_USERNAME</span><span class="o">=</span><span class="nv">$CI_REGISTRY_USER</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BUILD_IMAGE_PASSWORD</span><span class="o">=</span><span class="nv">$CI_REGISTRY_PASSWORD</span>
+deployer<span class="w"> </span>build
+</code></pre></div></td></tr></table></div>
+<p><strong>运行容器</strong></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>deployer<span class="w"> </span>dyno<span class="w"> </span>replace<span class="w"> </span><span class="nv">$CI_PROJECT_NAME</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CI_REGISTRY_IMAGE</span><span class="s2">:</span><span class="nv">$CI_COMMIT_REF_SLUG</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$REGISTRY_USER</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$REGISTRY_PWD</span><span class="s2">"</span>
+</code></pre></div></td></tr></table></div>
+</div>
 <p>Deployer 有五个子命令：<code>build</code>、<code>env</code>、<code>dyno</code>、<code>config</code> 和 <code>storage</code>。</p>
 <h2 id="build">build<a class="headerlink" href="#build" title="Permanent link">¶</a></h2>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>deployer<span class="w"> </span>build<span class="w"> </span><span class="o">[</span><span class="nv">dockerfile</span><span class="o">=</span>Dockerfile<span class="o">]</span>
@@ -498,6 +516,10 @@
 </tbody>
 </table>
 <p>镜像构建完成后，将会上传到 SECoder Image Registry 用于后续的运行。</p>
+<div class="admonition note">
+<p class="admonition-title">在 GitLab CI/CD 中使用</p>
+<p>正常情况下，你会在 GitLab CI/CD 中用到此命令来构建镜像。具体操作我们将会在下一篇文档中讲解。</p>
+</div>
 <h2 id="env">env<a class="headerlink" href="#env" title="Permanent link">¶</a></h2>
 <p>SECoder 使用环境来管理权限。每个容器都有其所属的环境，对容器进行管理操作需要有对应环境的权限。一般情况下，团队与环境一一对应，而团队的不同项目则置于环境下的不同容器之中。</p>
 <p>SECoder 会为每个环境分配一个部署密钥，在 GitLab CI/CD 环境中可以通过 <code>DEPLOY_ENV</code> 与 <code>DEPLOY_TOKEN</code> 环境变量来访问当前环境名与部署密钥。</p>
@@ -521,6 +543,10 @@
 </div>
 </div>
 </input></input></input></div>
+<div class="admonition note">
+<p class="admonition-title">正常情况下不会用到此命令</p>
+<p>由于正常情况下同学不具有创建和删除环境的权限，一般情况下你不需要用到此命令。</p>
+</div>
 <h2 id="dyno">dyno<a class="headerlink" href="#dyno" title="Permanent link">¶</a></h2>
 <p>此命令用于管理容器。<code>DEPLOY_ENV</code> 以及 <code>DEPLOY_TOKEN</code> 会用于访问容器所在的环境。</p>
 <p><code>dyno</code> 命令有四个子命令：<code>create</code>、<code>delete</code>、<code>mount</code> 和 <code>replace</code>。</p>
@@ -584,6 +610,10 @@
 </div>
 </div>
 </input></input></input></input></div>
+<div class="admonition note">
+<p class="admonition-title">在 GitLab CI/CD 中使用</p>
+<p>正常情况下，你会通过 SECoder 平台创建与仓库关联的容器 (将会在后续文档介绍)，此时相当于执行了 <code>dyno create</code>。接下来，在 GitLab CI/CD 的最后一个阶段使用 <code>dyno replace</code> 就可以使用新构建的镜像替换项目的容器，这样就完成了将新版本代码部署上线的流程。具体操作我们将会在下一篇文档中讲解。</p>
+</div>
 <h2 id="config">config<a class="headerlink" href="#config" title="Permanent link">¶</a></h2>
 <p>管理配置项。<code>DEPLOY_ENV</code> 以及 <code>DEPLOY_TOKEN</code> 会用于访问容器所在的环境。</p>
 <p>在开发时和正式部署时使用不同的配置是一种常见做法。例如，你可以让你的后端在开发时连接本地的数据库，在部署时连接部署的数据库。然而，由于容器的易失性，一个容器在重新启动后其中所做的修改都将丢失。这意味着如果我们每次都进入容器手动修改配置将十分低效。</p>
@@ -608,6 +638,10 @@
 </div>
 </div>
 </input></input></input></div>
+<div class="admonition note">
+<p class="admonition-title">在 SECoder 平台中使用</p>
+<p>你可以直接使用 SECoder 提供的可视化界面来管理配置项。具体操作我们将在后续文档讲解。</p>
+</div>
 <h2 id="storage">storage<a class="headerlink" href="#storage" title="Permanent link">¶</a></h2>
 <p>管理持久存储。<code>DEPLOY_ENV</code> 以及 <code>DEPLOY_TOKEN</code> 会用于访问容器所在的环境。</p>
 <p>数据库容器等需要在容器内保存数据。但同样由于容器的易失性，在容器重启时其中的数据将会丢失，因此我们需要一种能够持久保存数据的方法。</p>
@@ -627,12 +661,16 @@
 </div>
 </div>
 </input></input></div>
+<div class="admonition note">
+<p class="admonition-title">在 SECoder 平台中使用</p>
+<p>你可以直接使用 SECoder 提供的可视化界面来管理持久存储。具体操作我们将在后续文档讲解。</p>
+</div>
 <hr/>
 <div class="md-source-file">
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月8日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月9日</span>
 </small>
 </div>
 <div class="md-source-date">

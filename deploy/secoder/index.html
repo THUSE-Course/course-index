@@ -677,8 +677,58 @@
 <p class="admonition-title">上传不是增量的</p>
 <p>上传配置时，将会用新的配置项完全覆盖旧的配置项。这意味着如果原来的配置项中的某一文件没有在上传时提供，该文件将会丢失。因此，请注意在更新配置前先下载原来的配置，并将不作修改的配置文件重新原样上传。</p>
 </div>
+<details class="example">
+<summary>配置挂载演示</summary>
+<p>我们将演示如何通过 SECoder 平台进行配置项的挂载。</p>
+<ol>
+<li>
+<p>点击“新建配置”按钮</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../static/config-create-button.png"><img alt="新建配置" src="../../static/config-create-button.png"/></a></p>
+</li>
+<li>
+<p>输入配置项名称，点击“创建”</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../static/config-create.png"><img alt="新建配置" src="../../static/config-create.png"/></a></p>
+</li>
+<li>
+<p>找到新建的配置项，点击“上传”</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../static/config-upload-button.png"><img alt="上传配置" src="../../static/config-upload-button.png"/></a></p>
+</li>
+<li>
+<p>添加配置文件，点击“创建”</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../static/config-upload.png"><img alt="上传配置" src="../../static/config-upload.png"/></a></p>
+</li>
+<li>
+<p>逐个添加配置文件，完成后点击“上传”</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../static/config-upload-done.png"><img alt="上传配置" src="../../static/config-upload-done.png"/></a></p>
+</li>
+<li>
+<p>进入容器管理界面的“挂载”选项卡</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../static/config-mount-tab.png"><img alt="挂载界面" src="../../static/config-mount-tab.png"/></a></p>
+</li>
+<li>
+<p>选择“配置”，“名称”可自行取便于识别的描述性名称，“源”选择添加的配置项，“挂载点”填写项目中配置文件所在的目录，点击“加入”</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../static/config-mount.png"><img alt="挂载配置" src="../../static/config-mount.png"/></a></p>
+</li>
+<li>
+<p>点击“保存”，注意保存会导致容器重启</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../static/config-mount-done.png"><img alt="挂载配置" src="../../static/config-mount-done.png"/></a></p>
+</li>
+<li>
+<p>挂载已完成，进入“管理”选项卡打开终端</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../static/config-manage-tab.png"><img alt="管理界面" src="../../static/config-manage-tab.png"/></a></p>
+</li>
+<li>
+<p>查看挂载的目录下的文件，发现挂载成功</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../static/config-terminal.png"><img alt="终端界面" src="../../static/config-terminal.png"/></a></p>
+</li>
+</ol>
+</details>
 <h3 id="_13">持久存储<a class="headerlink" href="#_13" title="Permanent link">¶</a></h3>
 <p>可以在这里管理持久存储。你可以对持久存储进行新建、重命名和删除操作。</p>
+<div class="admonition note">
+<p class="admonition-title">可参考配置项挂载</p>
+<p>持久存储的挂载步骤与配置项类似，可以参考上方的演示进行持久存储的挂载。</p>
+</div>
 <h2 id="_14">参考资料<a class="headerlink" href="#_14" title="Permanent link">¶</a></h2>
 <p>你可以阅读 <a href="https://docs.secoder.net">SECoder 用户手册</a>来获取关于 SECoder 的其他帮助。</p>
 <hr/>
@@ -686,7 +736,7 @@
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月8日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月9日</span>
 </small>
 </div>
 <div class="md-source-date">
