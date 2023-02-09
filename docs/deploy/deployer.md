@@ -4,6 +4,26 @@ SECoder 平台提供了托管 Web 应用的服务，可以通过运行 Docker �
 
 可以通过 `registry.secoder.net/tool/deployer` 镜像访问 deployer 工具。一般情况下，你不需要在本地运行 deployer，而是在 GitLab CI/CD 环境中通过配置的流水线运行 deployer 或者通过 SECoder 的部署管理工具间接使用 deployer。
 
+!!! tip "Deployer Cheat Sheet"
+
+    如果你不想深入了解 deployer 的使用方法，可以直接在 GitLab CI/CD 配置中使用下列命令片段：
+
+    **构建镜像**
+
+    ```shell
+    export BUILD_IMAGE_NAME=$CI_REGISTRY_IMAGE
+    export BUILD_IMAGE_TAG=$CI_COMMIT_REF_SLUG
+    export BUILD_IMAGE_USERNAME=$CI_REGISTRY_USER
+    export BUILD_IMAGE_PASSWORD=$CI_REGISTRY_PASSWORD
+    deployer build
+    ```
+
+    **运行容器**
+
+    ```shell
+    deployer dyno replace $CI_PROJECT_NAME "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" "$REGISTRY_USER" "$REGISTRY_PWD"
+    ```
+
 Deployer 有五个子命令：`build`、`env`、`dyno`、`config` 和 `storage`。
 
 ## build
@@ -25,6 +45,10 @@ deployer build [dockerfile=Dockerfile]
 |`DEPLOY_BUILDER`|Deployer 构建后端的 URL，默认值为 SECoder 的 deployer 后端；正常情况下你不应改动此项|
 
 镜像构建完成后，将会上传到 SECoder Image Registry 用于后续的运行。
+
+!!! note "在 GitLab CI/CD 中使用"
+
+    正常情况下，你会在 GitLab CI/CD 中用到此命令来构建镜像。具体操作我们将会在下一篇文档中讲解。
 
 ## env
 
@@ -57,6 +81,10 @@ SECoder 会为每个环境分配一个部署密钥，在 GitLab CI/CD 环境中�
     ```
 
     删除具有指定名称的环境。
+
+!!! note "正常情况下不会用到此命令"
+
+    由于正常情况下同学不具有创建和删除环境的权限，一般情况下你不需要用到此命令。
 
 ## dyno
 
@@ -109,6 +137,10 @@ SECoder 会为每个环境分配一个部署密钥，在 GitLab CI/CD 环境中�
 
     使用给定的镜像 `image` 重新运行指定容器 `name`，可选的 `username` 和 `password` 为 image registry 的用户名与密码。
 
+!!! note "在 GitLab CI/CD 中使用"
+
+    正常情况下，你会通过 SECoder 平台创建与仓库关联的容器 (将会在后续文档介绍)，此时相当于执行了 `dyno create`。接下来，在 GitLab CI/CD 的最后一个阶段使用 `dyno replace` 就可以使用新构建的镜像替换项目的容器，这样就完成了将新版本代码部署上线的流程。具体操作我们将会在下一篇文档中讲解。
+
 ## config
 
 管理配置项。`DEPLOY_ENV` 以及 `DEPLOY_TOKEN` 会用于访问容器所在的环境。
@@ -143,6 +175,10 @@ SECoder 会为每个环境分配一个部署密钥，在 GitLab CI/CD 环境中�
 
     以目录 `dir` 下的内容替换配置项 `name`。
 
+!!! note "在 SECoder 平台中使用"
+
+    你可以直接使用 SECoder 提供的可视化界面来管理配置项。具体操作我们将在后续文档讲解。
+
 ## storage
 
 管理持久存储。`DEPLOY_ENV` 以及 `DEPLOY_TOKEN` 会用于访问容器所在的环境。
@@ -168,3 +204,7 @@ SECoder 会为每个环境分配一个部署密钥，在 GitLab CI/CD 环境中�
     ```
 
     删除具有指定名称的持久存储。
+
+!!! note "在 SECoder 平台中使用"
+
+    你可以直接使用 SECoder 提供的可视化界面来管理持久存储。具体操作我们将在后续文档讲解。
