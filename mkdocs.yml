@@ -105,4 +105,5 @@ nav:
       - Appendix 3 CI 检查项列表: handout/react/ci.md
     - CI/CD 文档:
       - handout/ci-cd/index.md
+      - 后端部署: handout/ci-cd/backend.md
   - FAQ: faq.md

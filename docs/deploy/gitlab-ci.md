@@ -157,7 +157,7 @@ build:
     |`CI_REGISTRY_USER`|Registry 用户名|
     |`CI_REGISTRY_PASSWORD`|Registry 密码|
 
-SECoder GitLab 配置了 image registry，因此在执行流水线时，将能够通过预定义的环境变量访问 registry 的用户名与密码。在 `build` 作业中，我们将这些信息通过环境变量传递给 deployer，deployer 会根据项目的 Dockerfile 构建镜像并上传到 SECoder Image Registry 中。
+SECoder GitLab 配置了 image registry，因此在执行流水线时，将能够通过预定义的环境变量访问 registry 的用户名与密码。密码实际上是访问当前项目镜像的 token，因此你将只能够写入到项目对应的镜像中。在 `build` 作业中，我们将这些信息通过环境变量传递给 deployer，deployer 会根据项目的 Dockerfile 构建镜像并上传到 SECoder Image Registry 中。
 
 ### `test`
 
@@ -235,7 +235,9 @@ deploy:
     - main
 ```
 
-`deploy` 作业通过调用 `deployer` 将 SECoder 平台上该项目部署的容器替换为以我们在 `build` 作业中构建的镜像运行的容器。我们还通过 `only` 属性指定仅在 `main` 分支执行这一作业。这样，我们就可以在其他分支进行开发，而不影响应用部署的版本。
+`deploy` 作业通过调用 `deployer` 将 SECoder 平台上该项目部署的容器替换为以我们在 `build` 作业中构建的镜像运行的容器。`REGISTRY_USER` 与 `REGISTRY_PWD` 环境变量是 SECoder 预定义的，它拥有对当前团队镜像的只读访问权限。
+
+我们还通过 `only` 属性指定仅在 `main` 分支执行这一作业。这样，我们就可以在其他分支进行开发，而不影响应用部署的版本。
 
 ## 参考资料
 

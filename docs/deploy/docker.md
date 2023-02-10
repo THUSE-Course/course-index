@@ -121,7 +121,7 @@ CMD ["python3", "main.py"]
 
 !!! warning "不要将开发配置作为正式部署"
 
-    由于正式部署的站点是对外开放的，使用开发配置进行部署将带来极大的危险性。例如，如果你直接使用 `python3 manage.py runserver` 作为容器的运行命令，这将启动一个开发服务器，在发生异常时程序的调用栈将会直接展示给用户。
+    开发环境的配置往往没有针对部署场景进行安全性和性能方面的检查，因此请不要在正式部署中使用开发配置。例如，如果你直接使用 `python3 manage.py runserver` 作为容器的运行命令，这将启动一个开发服务器，它并没有针对高并发场景进行优化。同时，若你没有在 Django 项目的 `settings.py` 中将 `DEBUG` 设置为 `False`，在发生异常时程序的调用栈将会直接展示给用户，这将带来极大的危险性。
 
     正确的部署方式可以参考你所使用的框架的文档。例如，[How to deploy Django](https://docs.djangoproject.com/en/4.1/howto/deployment/) 文档说明了应该如何部署 Django，包括使用 Gunicorn 和 uWSGI 等方式。
 
