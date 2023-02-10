@@ -17,7 +17,7 @@
 - 本文档维护者 & 小作业助教
     - 钱厚德（[Ashitemaru](https://ashitemaru.github.io)）
     - 高焕昂（[c7w](https://c7w.tech)）
-    - 王博文
+    - 王博文（[abmfy](https://abmfy.github.io)）
 - 大作业助教
     - 高焕昂、刘明道、陈博涵
     - 钱厚德、王博文、刘家硕

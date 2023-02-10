@@ -5,12 +5,12 @@
 阅读下述代码：
 
 ```typescript
-interface A {
+class A {
     foo: () => void;
     foobar: () => void;
 }
 
-interface B {
+class B {
     foo: () => void;
     barfoo: () => void;
 }

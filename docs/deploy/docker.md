@@ -2,11 +2,15 @@
 
 SECoder 平台通过构建 Docker 镜像并运行容器进行部署。Docker 是一个应用程序容器化环境，通过将程序隔离在不同的容器中运行来提供一致的运行环境，降低运维成本。
 
-Docker 可以理解为程序级别的虚拟化，类比于虚拟机，但 Docker 容器要轻量得多，几乎不带来性能损耗。
-
-## Dockerfile
+Docker 可以理解为程序级别的虚拟化，类比于虚拟机，但 Docker 容器要轻量得多，几乎不带来性能损耗。一个 Docker 容器包含了除了操作系统内核之外的整个文件系统，包括依赖的库以及应用程序本身。
 
 在进行部署之前，我们首先需要将程序运行所需的环境构建为一个**镜像 (Image)**。一个镜像包含与主机隔离的属于自己的文件系统。我们通过构建镜像将程序运行所需的环境放入这个文件系统中，之后基于镜像运行一个**容器 (Container)**。镜像与容器的关系类似于程序 (Program) 与进程 (Process) 的关系，即镜像是静态存在，而容器是基于镜像运行的动态存在。
+
+!!! note "容器的易失性"
+
+    容器的文件系统是一个临时文件系统，因此容器重启时其中的所有数据将会丢失。我们将在后续的文档介绍如何通过配置项和持久存储来使得数据在不同容器之间保持。
+
+## Dockerfile
 
 我们通过 Dockerfile 文件指示构建镜像时需要执行的操作。以下是一个示例 Dockerfile：
 
@@ -190,8 +194,30 @@ EXPOSE 80
 
 我们基于 `nginx` 镜像构建我们这一阶段的镜像。不同构建阶段的镜像是互相独立的，不共享文件系统。因此，我们在希望从之前的阶段复制文件时，需要使用 `COPY --from={stage}` 指令，其中 `{stage}` 为阶段名称或编号。在这里，我们将前一阶段生成的位于 `/opt/frontend/dist` 目录下的静态文件复制到当前镜像的 `dist` 目录，再将主机文件系统 `nginx` 目录下的配置文件复制到镜像中 nginx 的配置目录 `/etc/nginx/conf.d`。最后，我们暴露 80 端口。由于没有显式指定 `CMD` 指令，这一镜像将使用 `nginx` 镜像的 `CMD` 指令，运行 nginx 守护进程。
 
+## 本地运行容器
+
+在安装 [Docker](https://www.docker.com) 后，你可以通过在本地构建镜像和运行容器来进行调试。
+
+!!! note "Docker Desktop"
+
+    在 Windows 和 macOS 下，你需要通过 [Docker Desktop](https://www.docker.com/products/docker-desktop/) 来使用 Docker。不过，在 Windows 下更推荐的方法是通过 WSL 来使用 Docker。
+
+### 构建镜像
+
+在包含 Dockerfile 的目录下，执行 `docker build . --tag {name}:{tag}` 即可构建镜像，其中 `{name}` 为镜像名，`{tag}` 为标签。
+
+### 运行容器
+
+执行 `docker run -it --rm {name}:{tag}` 来基于指定镜像运行一个容器，镜像既可以是本地构建的也可以是在 Docker Hub 或其他 registry 中托管的。其中 `-i` 选项指定交互模式，`-t` 指定分配伪终端，`--rm` 指定运行结束后移除容器。这些选项在调试时会比较有用。
+
+!!! note "容器的退出与移除"
+
+    Docker 容器退出后并不会自动被移除，将会继续留存并占用空间，因此我们在调试时通过 `--rm` 来让容器退出后自动移除。
+
+    我们也可以使用 `docker ps --all` 命令来查看所有容器 (包括已退出的)，并使用 `docker rm` 命令来移除不再需要的容器。
+
 ## 参考资料
 
-以上我们介绍了 Dockerfile 的编写。如果希望更加深入地学习 Docker，包括在本地构建镜像并运行容器等，可以参考 [2022 酒井科协暑培 Docker 文档](https://liang2kl.codes/2022-summer-training-docker-tutorial/) 和 [Docker 官方文档](https://docs.docker.com)。
+以上我们介绍了 Dockerfile 的编写。如果希望更加深入地学习 Docker，可以参考 [2022 酒井科协暑培 Docker 文档](https://liang2kl.codes/2022-summer-training-docker-tutorial/)和 [Docker 官方文档](https://docs.docker.com)。
 
 在本课程提供的[样例项目](https://git.tsinghua.edu.cn/SEG/example)仓库中也可以找到几种常见项目框架的 Dockerfile，可供配置部署时参考。需要注意的是，这些样例项目都较为老旧，请在参考时注意版本和兼容性等问题。

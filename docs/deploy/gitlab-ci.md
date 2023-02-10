@@ -8,7 +8,7 @@ SECoder 平台的 GitLab 提供了集成的 CI/CD 系统，可以通过项目仓
 
 以下是一个 GitLab CI/CD 流水线，我们将以它为例说明 GitLab CI/CD 中的一些基本概念。
 
-![GitLab CI/CD 流水线](../../static/pipeline.png)
+![GitLab CI/CD 流水线](../static/pipeline.png)
 
 ### 作业 (Job)
 
@@ -127,7 +127,7 @@ deploy:
 
 接下来，我们定义了 `build`、`test` 和 `deploy` 三个阶段。该配置将会形成如下图所示的流水线：
 
-![Example Django Pipeline](../../static/pipeline-django.png)
+![Example Django Pipeline](../static/pipeline-django.png)
 
 ### `build`
 
@@ -144,17 +144,20 @@ build:
 
 在作业中，我们通过 `stage` 属性指定作业所属的阶段。这里，`build` 作业属于 `build` 阶段。`script` 属性是一个数组，指定作业执行的命令，每个数组元素表示一条命令。
 
-GitLab 在执行流水线时，会定义一系列 CI/CD 相关的环境变量。完整的列表可以在 [Predefined environment variables reference](https://gitlab.secoder.net/help/ci/variables/predefined_variables.md) 找到。这里我们列出一些常用的预定义环境变量：
+!!! note "预定义环境变量"
 
-|变量|说明|
-|-|-|
-|$CI_PROJECT_NAME|项目名称|
-|$CI_COMMIT_REF_SLUG|当前分支/标签名|
-|$CI_REGISTRY_IMAGE|项目的镜像名称|
-|$CI_REGISTRY_USER|Registry 用户名|
-|$CI_REGISTRY_PASSWORD|Registry 密码|
+    GitLab 在执行流水线时，会定义一系列 CI/CD 相关的环境变量。完整的列表可以在 [Predefined environment variables reference](https://gitlab.secoder.net/help/ci/variables/predefined_variables.md) 找到。这里我们列出一些常用的预定义环境变量：
 
-SECoder GitLab 配置了 image registry，因此在执行流水线时，将能够通过这些变量访问 registry。在 `build` 作业中，我们将这些信息通过环境变量传递给 deployer，deployer 会根据项目的 Dockerfile 构建镜像并上传到 SECoder registry 中。
+    |变量|说明|
+    |-|-|
+    |`GITLAB_USER_LOGIN`|GitLab 登录用户名，在 SECoder 平台上即学号|
+    |`CI_PROJECT_NAME`|项目名称|
+    |`CI_COMMIT_REF_SLUG`|当前分支/标签名|
+    |`CI_REGISTRY_IMAGE`|项目的镜像名称|
+    |`CI_REGISTRY_USER`|Registry 用户名|
+    |`CI_REGISTRY_PASSWORD`|Registry 密码|
+
+SECoder GitLab 配置了 image registry，因此在执行流水线时，将能够通过预定义的环境变量访问 registry 的用户名与密码。在 `build` 作业中，我们将这些信息通过环境变量传递给 deployer，deployer 会根据项目的 Dockerfile 构建镜像并上传到 SECoder Image Registry 中。
 
 ### `test`
 

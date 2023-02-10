@@ -74,6 +74,13 @@ markdown_extensions:
 nav:
   - 主页: index.md
   - 前后端分离开发基础: basic.md
+  - 部署基础:
+    - deploy/index.md
+    - Docker: deploy/docker.md
+    - Deployer: deploy/deployer.md
+    - GitLab CI/CD: deploy/gitlab-ci.md
+    - SonarQube: deploy/sonarqube.md
+    - SECoder: deploy/secoder.md
   - 小作业文档:
     - handout/index.md
     - 小作业需求文档: handout/requirement.md
@@ -98,7 +105,4 @@ nav:
       - Appendix 3 CI 检查项列表: handout/react/ci.md
     - CI/CD 文档:
       - handout/ci-cd/index.md
-      - Docker: handout/ci-cd/docker.md
-      - GitLab CI/CD: handout/ci-cd/gitlab-ci.md
-      - SonarQube: handout/ci-cd/sonarqube.md
   - FAQ: faq.md

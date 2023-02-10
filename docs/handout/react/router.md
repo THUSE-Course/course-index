@@ -67,3 +67,9 @@ async rewrites() {
 你需要了解 Next.js 是通过 `pages` 目录下的目录结构管理路由的，具体的文档参见 [Next.js 官方文档相关页面](https://nextjs.org/docs/routing/introduction)。
 
 关于路由，Next.js 定义了 `useRouter` Hook。其可以用于获取动态路由之中携带的参数以及通过 `const router = useRouter(); router.push(...);` 的方式实现页面跳转。该 Hook 的文档见 [官方指导](https://nextjs.org/docs/api-reference/next/router#userouter)。
+
+!!! note "浏览器 JavaScript 与 `useRouter`"
+
+    我们提到过使用 `router.push()` 方法可以令页面跳转，然而在浏览器原生 JavaScript 中，对 `window.location.href` 赋值也能实现页面跳转。
+
+    这两者的核心区别在于使用原生 JavaScript 会导致整个页面的完全重加载，这对性能而言是相当不利的。所以，我们推荐使用 `useRouter` 的方式实现页面跳转，非必要不使用原生 JavaScript 方法。
