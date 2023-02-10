@@ -144,7 +144,7 @@ class Choice(models.Model):
 在你修改完应用的 `models.py` 之后，你应该使用如下命令去生成修改数据表结构与属性的语句：
 
 ```bash
-python3 manage.py makemigrations
+python3 manage.py makemigrations <app_name>
 ```
 
 注意请不要将 migrations 文件夹纳入到 .gitignore 文件中。进而，每次在服务端部署时，在其运行之前，请确保你的部署脚本会执行：

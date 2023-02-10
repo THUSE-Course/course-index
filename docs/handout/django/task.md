@@ -62,6 +62,12 @@ python3 manage.py runserver
     - 为 `board_name` 创建索引
     - 在 `user` 和 `board_name` 上建立联合唯一约束
 
+之后，你应该使用如下命令建库：
+
+```bash
+ python3 manage.py makemigrations board && python3 manage.py migrate
+```
+
 
 
 ## 补全与添加视图函数
