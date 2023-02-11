@@ -15,10 +15,11 @@
 我们提供了 Dockerfile 的框架，现在请你补全这份 Dockerfile，使构建的镜像满足如下要求：
 
 - Python 版本为 3.9；
+- 设定 `DEPLOY` 环境变量为 `1`；
 - 工作目录为 `/opt/tmp`；
+- 将源代码复制到工作目录；
 - 安装 `requirements.txt` 声明的依赖并通过换源到 TUNA 加速下载；
 - 对外暴露 80 端口；
-- 设定 `DEPLOY` 环境变量为 `1`；
 - 容器运行时执行 `start.sh` 脚本。
 
 ### 关闭调试开关
@@ -47,6 +48,8 @@
 
     你可以在 [uWSGI Docs](https://uwsgi-docs.readthedocs.io/en/latest/index.html) 更详细地了解 uWSGI 的使用方法。
 
+请阅读上述文档并理解我们提供的选项的作用，并修改部分参数使之能够正确运行。
+
 ### 完成 GitLab CI/CD 配置
 
 **需要修改的代码：**`.gitlab-ci.yml` 第 17-18、23、28、32-34、48-49 行
@@ -67,6 +70,3 @@
 完成任务后，你应当能够成功执行 GitLab CI/CD 流水线并能够通过 `https://backend-{id}.app.secoder.net` 访问到你部署在 SECoder 上的后端。此时你可以使用 [curl](https://curl.se)、[Postman](https://www.postman.com) 等工具来向它发送请求并得到正确的响应。
 
 完成前端小作业后，你可以将 API 地址修改为此 URL 并测试前后端的对接。
-
-## 
-

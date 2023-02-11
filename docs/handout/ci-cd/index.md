@@ -25,9 +25,9 @@
     
     除此之外，你还需要自己生成拥有 SECoder Image Registry 读取权限的 registry 密钥。生成方法如下：
 
-    1. 进入 GitLab 的 Profile 页面
+    1. 进入 GitLab 的 Settings 页面
 
-        ![Profile 页面](../../static/token-profile.png)
+        ![Profile 页面](../../static/token-settings.png)
 
     2. 在 Access Tokens 选项卡中生成密钥，名字任意，过期时间不晚于本课程结课时间，权限选择 `read_registry`，点击 “Create personal access token”
 

@@ -177,7 +177,7 @@ EXPOSE 80
 
 !!! note "nginx"
 
-    我们不会过多介绍 nginx 的用法，你可以通过 [nginx 文档](https://nginx.org/en/docs/) 或网络上的其他资源进行学习。对于简单的前端页面部署，我们提供一个样例 nginx 配置，它应该能够满足多数需求。我们在仓库的 `nginx` 目录下放置后缀名为 `.conf` 的以下配置文件：
+    我们不会过多介绍 nginx 的用法，你可以通过 [nginx 文档](https://nginx.org/en/docs/) 或网络上的其他资源进行学习。对于简单的前端页面部署，我们提供一个样例 nginx 配置，它应该能够满足多数需求。我们在仓库的 `nginx` 目录下放置名为 `default.conf` 的以下配置文件：
 
     ```nginx
     server {
