@@ -137,13 +137,13 @@ CMD ["python3", "main.py"]
 
 ```dockerfile
 # Stage 0: build
-FROM node:16 AS build
+FROM node:18 AS build
 
 ENV FRONTEND=/opt/frontend
 
 WORKDIR $FRONTEND
 
-RUN npm config set registry https://registry.npm.taobao.org
+RUN npm config set registry https://registry.npmmirror.com
 
 COPY . .
 
@@ -165,7 +165,7 @@ COPY nginx /etc/nginx/conf.d
 EXPOSE 80
 ```
 
-可以看到，现在我们的构建过程被 `FROM` 指令分为两个阶段，其中我们把第一个阶段命名为 `build`。 (`#` 开头的行只是注释。) 在第一个阶段，我们首先将 `npm` 源更换为淘宝源以加速下载，然后将主机文件系统下当前目录的文件全部复制到镜像文件系统中，再使用 `npm install` 安装需要的第三方包，最后使用 `npm run build` 生成站点的静态文件。我们的网站只需要这些文件就能提供服务，不需要我们下载的第三方包以及整个工具链。因此，我们接下来在下一个阶段构建我们真正使用的镜像。
+可以看到，现在我们的构建过程被 `FROM` 指令分为两个阶段，其中我们把第一个阶段命名为 `build`。 (`#` 开头的行只是注释。) 在第一个阶段，我们首先将 `npm` 源更换为 [npmmirror](https://npmmirror.com) 以加速下载，然后将主机文件系统下当前目录的文件全部复制到镜像文件系统中，再使用 `npm install` 安装需要的第三方包，最后使用 `npm run build` 生成站点的静态文件。我们的网站只需要这些文件就能提供服务，不需要我们下载的第三方包以及整个工具链。因此，我们接下来在下一个阶段构建我们真正使用的镜像。
 
 !!! note "主机文件系统"
 
@@ -187,12 +187,18 @@ EXPOSE 80
         location / {
             try_files $uri $uri/ /index.html;
         }
+
+        location /api/ {
+            proxy_pass https://your.backend.url/;
+        }
     }
     ```
 
     它表明监听 80 端口，以 `/opt/app/dist` 目录作为根目录，在访问任意 URL 时首先尝试查找该 URI 的文件，再查找该 URI 的目录，最后回退到 `/index.html`。对于由前端框架处理路由的情况来说，实际上只需要反向代理到 `/index.html`，然后由前端框架处理路由即可。
 
-我们基于 `nginx` 镜像构建我们这一阶段的镜像。不同构建阶段的镜像是互相独立的，不共享文件系统。因此，我们在希望从之前的阶段复制文件时，需要使用 `COPY --from={stage}` 指令，其中 `{stage}` 为阶段名称或编号。在这里，我们将前一阶段生成的位于 `/opt/frontend/dist` 目录下的静态文件复制到当前镜像的 `dist` 目录，再将主机文件系统 `nginx` 目录下的配置文件复制到镜像中 nginx 的配置目录 `/etc/nginx/conf.d`。最后，我们暴露 80 端口。由于没有显式指定 `CMD` 指令，这一镜像将使用 `nginx` 镜像的 `CMD` 指令，运行 nginx 守护进程。
+    第二个 `location` 部分适用于需要前端服务器重写 API 请求的情况，这么做会将到前端 `/api/` 路径下的请求转发到你的后端地址 `https://your.backend.url/`。如果没有需要前端重写 API 请求的需求，则不需要这一部分。
+
+我们基于 `nginx` 镜像构建我们这一阶段的镜像。不同构建阶段的镜像是互相独立的，不共享文件系统。因此，我们在希望从之前的阶段复制文件时，需要使用 `COPY --from={stage}` 指令，其中 `{stage}` 为阶段名称或编号。在这里，我们将前一阶段生成的位于 `/opt/frontend/dist` 目录下的静态文件复制到当前镜像的 `dist` 目录，再将主机文件系统 `nginx` 目录下的配置文件复制到镜像中 nginx 的配置目录 `/etc/nginx/conf.d`。最后，我们暴露 80 端口。由于没有显式指定 `CMD` 指令，这一镜像将使用 `nginx` 镜像的 `CMD` 指令，运行 nginx 服务器。
 
 ## 本地运行容器
 
@@ -209,6 +215,10 @@ EXPOSE 80
 ### 运行容器
 
 执行 `docker run -it --rm {name}:{tag}` 来基于指定镜像运行一个容器，镜像既可以是本地构建的也可以是在 Docker Hub 或其他 registry 中托管的。其中 `-i` 选项指定交互模式，`-t` 指定分配伪终端，`--rm` 指定运行结束后移除容器。这些选项在调试时会比较有用。
+
+你可以可选地在最后指定容器运行时执行的命令，这将会覆盖镜像中使用 `CMD` 指定的命令。例如，你可以通过 `docker run -it --rm nginx:1.22 bash` 来启动一个运行 `bash` 的 `nginx` 容器，这将使你能够探索 `nginx` 容器的内部结构并允许你在容器内部运行命令。
+
+你还可以指定 `-p [hostPort]:{containerPort}` 来将本机端口 `hostPort` 映射到容器暴露的端口 `containerPort`。
 
 !!! note "容器的退出与移除"
 

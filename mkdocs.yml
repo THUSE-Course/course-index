@@ -106,4 +106,5 @@ nav:
     - CI/CD 文档:
       - handout/ci-cd/index.md
       - 后端部署: handout/ci-cd/backend.md
+      - 前端部署: handout/ci-cd/frontend.md
   - FAQ: faq.md
