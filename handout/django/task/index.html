@@ -496,13 +496,21 @@ conda<span class="w"> </span>activate<span class="w"> </span>django_hw
 <ul>
 <li>本次作业的顶层项目名是什么？其下有哪些应用？</li>
 <li><code>utils</code> 中的三个文件中的功能函数的输入、输出分别是什么？<code>CheckRequire</code> 装饰器的作用是什么？</li>
-<li>本项目的部署经过了哪些阶段？不同阶段分别做了什么？</li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">API 文档</p>
+<p>下面的任务推荐你对照着 API 文档完成。</p>
+</div>
 <h2 id="_4">添加路由<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <p>在 <code>board/urls.py</code> 中：</p>
 <ul>
 <li>为 <code>boards/&lt;index&gt;</code> API 添加路由到 <code>views.boards_index</code> 视图函数</li>
-<li>为 <code>user/&lt;userName&gt;</code> API 添加路由到下面“添加视图函数”节中自定义的视图函数</li>
+<li>
+<p>注意这里不要写成 <code>&lt;int:index&gt;</code>，因为 API 文档里规定对于不是 int 的情况也要返回合法的 JSON 请求，而非展示 Django 的默认 404 网页</p>
+</li>
+<li>
+<p>为 <code>user/&lt;userName&gt;</code> API 添加路由到下面“添加视图函数”节中自定义的视图函数</p>
+</li>
 </ul>
 <h2 id="_5">补全模型<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
 <p>在 <code>board/models.py</code> 中：</p>
@@ -541,7 +549,7 @@ conda<span class="w"> </span>activate<span class="w"> </span>django_hw
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月10日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月12日</span>
 </small>
 </div>
 <div class="md-source-date">

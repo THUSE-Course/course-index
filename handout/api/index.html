@@ -624,6 +624,10 @@
 </div>
 </div>
 </input></input></input></div>
+<div class="admonition note">
+<p class="admonition-title">board 字段</p>
+<p>注意到这里返回的棋盘信息中没有 <code>board</code> 字段，这里是故意为之的。这里遵守的设计思想是只提供必要的信息给前端展示。如这里要求列出所有棋盘，显然应该是在“列表”界面出现，不需要具体的棋盘信息。这样设计可以极大地降低网络传输时延（从每个棋盘要传输 2KB 以上的具体数据到只需要传输仅仅几个字节的元信息）。我们可以等到用户真正要看这个棋盘的时候再去请求具体内容，也可以在棋盘元信息取回渲染在前端之后再开始在后台请求具体的数据，实现预加载机制。</p>
+</div>
 <h3 id="post">POST<a class="headerlink" href="#post" title="Permanent link">¶</a></h3>
 <p>使用 POST 方法请求该 API 即表示请求增加一条游戏记录，如果需要增加的游戏记录已存在，则更新该记录。</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><input id="__tabbed_2_3" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">请求体</label><label for="__tabbed_2_2">成功响应</label><label for="__tabbed_2_3">错误响应</label></div>
@@ -991,12 +995,12 @@
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月5日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月12日</span>
 </small>
 </div>
 <div class="md-source-date">
 <small>
-                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (60.49%), <a href="mailto:cc7w@foxmail.com">c7w</a> (39.51%)</span>
+                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (59.56%), <a href="mailto:cc7w@foxmail.com">c7w</a> (40.44%)</span>
 </small>
 </div>
 </article>
