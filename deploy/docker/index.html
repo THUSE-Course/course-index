@@ -418,6 +418,11 @@
         后端部署
       </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../handout/ci-cd/frontend/">
+        前端部署
+      </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -645,13 +650,13 @@ requests==2.28.1
 <span class="normal">25</span>
 <span class="normal">26</span>
 <span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c"># Stage 0: build</span>
-<span class="k">FROM</span><span class="w"> </span><span class="s">node:16</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">build</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">node:18</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">build</span>
 
 <span class="k">ENV</span><span class="w"> </span><span class="nv">FRONTEND</span><span class="o">=</span>/opt/frontend
 
 <span class="k">WORKDIR</span><span class="w"> </span><span class="s">$FRONTEND</span>
 
-<span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>registry<span class="w"> </span>https://registry.npm.taobao.org
+<span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>registry<span class="w"> </span>https://registry.npmmirror.com
 
 <span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
 
@@ -672,7 +677,7 @@ requests==2.28.1
 
 <span class="k">EXPOSE</span><span class="w"> </span><span class="s">80</span>
 </code></pre></div></td></tr></table></div>
-<p>可以看到，现在我们的构建过程被 <code>FROM</code> 指令分为两个阶段，其中我们把第一个阶段命名为 <code>build</code>。 (<code>#</code> 开头的行只是注释。) 在第一个阶段，我们首先将 <code>npm</code> 源更换为淘宝源以加速下载，然后将主机文件系统下当前目录的文件全部复制到镜像文件系统中，再使用 <code>npm install</code> 安装需要的第三方包，最后使用 <code>npm run build</code> 生成站点的静态文件。我们的网站只需要这些文件就能提供服务，不需要我们下载的第三方包以及整个工具链。因此，我们接下来在下一个阶段构建我们真正使用的镜像。</p>
+<p>可以看到，现在我们的构建过程被 <code>FROM</code> 指令分为两个阶段，其中我们把第一个阶段命名为 <code>build</code>。 (<code>#</code> 开头的行只是注释。) 在第一个阶段，我们首先将 <code>npm</code> 源更换为 <a href="https://npmmirror.com">npmmirror</a> 以加速下载，然后将主机文件系统下当前目录的文件全部复制到镜像文件系统中，再使用 <code>npm install</code> 安装需要的第三方包，最后使用 <code>npm run build</code> 生成站点的静态文件。我们的网站只需要这些文件就能提供服务，不需要我们下载的第三方包以及整个工具链。因此，我们接下来在下一个阶段构建我们真正使用的镜像。</p>
 <div class="admonition note">
 <p class="admonition-title">主机文件系统</p>
 <p>在 GitLab 平台上执行 CI/CD 时，这里的主机文件系统实际上是我们的仓库，因此 <code>COPY . .</code> 实际上是将仓库中的所有文件复制到了镜像的工作目录。因此，不用担心庞大的 <code>node_modules</code> 会带来什么负担。</p>
@@ -684,25 +689,34 @@ requests==2.28.1
 <div class="admonition note">
 <p class="admonition-title">nginx</p>
 <p>我们不会过多介绍 nginx 的用法，你可以通过 <a href="https://nginx.org/en/docs/">nginx 文档</a> 或网络上的其他资源进行学习。对于简单的前端页面部署，我们提供一个样例 nginx 配置，它应该能够满足多数需求。我们在仓库的 <code>nginx</code> 目录下放置名为 <code>default.conf</code> 的以下配置文件：</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">server</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">server</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span>
 <span class="w">    </span><span class="kn">root</span><span class="w"> </span><span class="s">/opt/app/dist</span><span class="p">;</span>
 
 <span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="kn">try_files</span><span class="w"> </span><span class="nv">$uri</span><span class="w"> </span><span class="nv">$uri/</span><span class="w"> </span><span class="s">/index.html</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/api/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">https://your.backend.url/</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <p>它表明监听 80 端口，以 <code>/opt/app/dist</code> 目录作为根目录，在访问任意 URL 时首先尝试查找该 URI 的文件，再查找该 URI 的目录，最后回退到 <code>/index.html</code>。对于由前端框架处理路由的情况来说，实际上只需要反向代理到 <code>/index.html</code>，然后由前端框架处理路由即可。</p>
+<p>第二个 <code>location</code> 部分适用于需要前端服务器重写 API 请求的情况，这么做会将到前端 <code>/api/</code> 路径下的请求转发到你的后端地址 <code>https://your.backend.url/</code>。如果没有需要前端重写 API 请求的需求，则不需要这一部分。</p>
 </div>
-<p>我们基于 <code>nginx</code> 镜像构建我们这一阶段的镜像。不同构建阶段的镜像是互相独立的，不共享文件系统。因此，我们在希望从之前的阶段复制文件时，需要使用 <code>COPY --from={stage}</code> 指令，其中 <code>{stage}</code> 为阶段名称或编号。在这里，我们将前一阶段生成的位于 <code>/opt/frontend/dist</code> 目录下的静态文件复制到当前镜像的 <code>dist</code> 目录，再将主机文件系统 <code>nginx</code> 目录下的配置文件复制到镜像中 nginx 的配置目录 <code>/etc/nginx/conf.d</code>。最后，我们暴露 80 端口。由于没有显式指定 <code>CMD</code> 指令，这一镜像将使用 <code>nginx</code> 镜像的 <code>CMD</code> 指令，运行 nginx 守护进程。</p>
+<p>我们基于 <code>nginx</code> 镜像构建我们这一阶段的镜像。不同构建阶段的镜像是互相独立的，不共享文件系统。因此，我们在希望从之前的阶段复制文件时，需要使用 <code>COPY --from={stage}</code> 指令，其中 <code>{stage}</code> 为阶段名称或编号。在这里，我们将前一阶段生成的位于 <code>/opt/frontend/dist</code> 目录下的静态文件复制到当前镜像的 <code>dist</code> 目录，再将主机文件系统 <code>nginx</code> 目录下的配置文件复制到镜像中 nginx 的配置目录 <code>/etc/nginx/conf.d</code>。最后，我们暴露 80 端口。由于没有显式指定 <code>CMD</code> 指令，这一镜像将使用 <code>nginx</code> 镜像的 <code>CMD</code> 指令，运行 nginx 服务器。</p>
 <h2 id="_2">本地运行容器<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <p>在安装 <a href="https://www.docker.com">Docker</a> 后，你可以通过在本地构建镜像和运行容器来进行调试。</p>
 <div class="admonition note">
@@ -713,6 +727,8 @@ requests==2.28.1
 <p>在包含 Dockerfile 的目录下，执行 <code>docker build . --tag {name}:{tag}</code> 即可构建镜像，其中 <code>{name}</code> 为镜像名，<code>{tag}</code> 为标签。</p>
 <h3 id="_4">运行容器<a class="headerlink" href="#_4" title="Permanent link">¶</a></h3>
 <p>执行 <code>docker run -it --rm {name}:{tag}</code> 来基于指定镜像运行一个容器，镜像既可以是本地构建的也可以是在 Docker Hub 或其他 registry 中托管的。其中 <code>-i</code> 选项指定交互模式，<code>-t</code> 指定分配伪终端，<code>--rm</code> 指定运行结束后移除容器。这些选项在调试时会比较有用。</p>
+<p>你可以可选地在最后指定容器运行时执行的命令，这将会覆盖镜像中使用 <code>CMD</code> 指定的命令。例如，你可以通过 <code>docker run -it --rm nginx:1.22 bash</code> 来启动一个运行 <code>bash</code> 的 <code>nginx</code> 容器，这将使你能够探索 <code>nginx</code> 容器的内部结构并允许你在容器内部运行命令。</p>
+<p>你还可以指定 <code>-p [hostPort]:{containerPort}</code> 来将本机端口 <code>hostPort</code> 映射到容器暴露的端口 <code>containerPort</code>。</p>
 <div class="admonition note">
 <p class="admonition-title">容器的退出与移除</p>
 <p>Docker 容器退出后并不会自动被移除，将会继续留存并占用空间，因此我们在调试时通过 <code>--rm</code> 来让容器退出后自动移除。</p>
@@ -726,7 +742,7 @@ requests==2.28.1
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月11日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月12日</span>
 </small>
 </div>
 <div class="md-source-date">
