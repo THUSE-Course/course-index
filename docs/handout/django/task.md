@@ -35,8 +35,11 @@ python3 manage.py runserver
 
 - 本次作业的顶层项目名是什么？其下有哪些应用？
 - `utils` 中的三个文件中的功能函数的输入、输出分别是什么？`CheckRequire` 装饰器的作用是什么？
-- 本项目的部署经过了哪些阶段？不同阶段分别做了什么？
 
+
+
+!!! note "API 文档"
+	下面的任务推荐你对照着 API 文档完成。
 
 
 ## 添加路由
@@ -44,6 +47,8 @@ python3 manage.py runserver
 在 `board/urls.py` 中：
 
 - 为 `boards/<index>` API 添加路由到 `views.boards_index` 视图函数
+  - 注意这里不要写成 `<int:index>`，因为 API 文档里规定对于不是 int 的情况也要返回合法的 JSON 请求，而非展示 Django 的默认 404 网页
+
 - 为 `user/<userName>` API 添加路由到下面“添加视图函数”节中自定义的视图函数
 
 
