@@ -300,6 +300,7 @@
         5. `userName` 为空串或过长，此时 `info` 字段为 `"Bad length of [userName]"`
         6. `board` 长度不为 2500，此时 `info` 字段为 `"Bad length of [board]"`
         7. `board` 中含有非 `0` 或 `1` 的字符，此时 `info` 字段为 `"Invalid char in [board]"`
+    - 若请求违反唯一性约束，则错误响应的状态码为 400 Bad Request，`code` 字段为 `-2`，`info` 字段尽量携带错误信息（CI 不评测错误信息的具体内容）
     - 若读取数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，`code` 字段为 `-4`，`info` 字段尽量携带错误信息（CI 不评测该错误响应）
 
 
