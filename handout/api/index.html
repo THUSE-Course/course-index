@@ -555,7 +555,7 @@
 </div>
 <h2 id="url-boards">URL <code>/boards</code><a class="headerlink" href="#url-boards" title="Permanent link">¶</a></h2>
 <p>该 API 用于操作整体的游戏记录列表，包括获取全部游戏记录以及新增游戏记录。</p>
-<p>该 API 仅接受以 GET 与 POST 方法请求。以其他方法请求均应当设置状态码为 400 Bad Request，错误响应格式为：</p>
+<p>该 API 仅接受以 GET 与 POST 方法请求。以其他方法请求均应当设置状态码为 405 Method Not Allowed，错误响应格式为：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
@@ -612,6 +612,12 @@
 <p class="admonition-title">时间戳是有单位的</p>
 <p>UNIX 时间戳可以以秒、毫秒、微秒作为单位，不同语言和不同第三方默认的 UNIX 时间戳单位是不同的，请务必查明文档。</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">board 字段</p>
+<p>注意到这里返回的棋盘信息中没有 <code>board</code> 字段，这里是故意为之的。
+这里遵守的设计思想是只提供必要的信息给前端展示。如这里要求列出所有棋盘，显然应该是在“列表”界面出现，不需要具体的棋盘信息。这样设计可以极大地降低网络传输时延（从每个棋盘要传输 2KB 以上的具体数据到只需要传输仅仅几个字节的元信息）。
+我们可以等到用户真正要看这个棋盘的时候再去请求具体内容，也可以在棋盘元信息取回渲染在前端之后再开始在后台请求具体的数据，实现预加载机制。</p>
+</div>
 </div>
 <div class="tabbed-block">
 <p>所有错误响应的格式均为：</p>
@@ -629,10 +635,6 @@
 </div>
 </div>
 </input></input></input></div>
-<div class="admonition note">
-<p class="admonition-title">board 字段</p>
-<p>注意到这里返回的棋盘信息中没有 <code>board</code> 字段，这里是故意为之的。这里遵守的设计思想是只提供必要的信息给前端展示。如这里要求列出所有棋盘，显然应该是在“列表”界面出现，不需要具体的棋盘信息。这样设计可以极大地降低网络传输时延（从每个棋盘要传输 2KB 以上的具体数据到只需要传输仅仅几个字节的元信息）。我们可以等到用户真正要看这个棋盘的时候再去请求具体内容，也可以在棋盘元信息取回渲染在前端之后再开始在后台请求具体的数据，实现预加载机制。</p>
-</div>
 <h3 id="post">POST<a class="headerlink" href="#post" title="Permanent link">¶</a></h3>
 <p>使用 POST 方法请求该 API 即表示请求增加一条游戏记录，如果需要增加的游戏记录已存在，则更新该记录。</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><input id="__tabbed_2_3" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">请求体</label><label for="__tabbed_2_2">成功响应</label><label for="__tabbed_2_3">错误响应</label></div>
@@ -700,7 +702,7 @@
 </input></input></input></div>
 <h2 id="url-boardsid">URL <code>/boards/{id}</code><a class="headerlink" href="#url-boardsid" title="Permanent link">¶</a></h2>
 <p>该 API 用于操作具体的某一条游戏记录，包括获取该游戏记录、删除该游戏记录以及更新该游戏记录。</p>
-<p>该 API 仅接受以 GET、DELETE 与 PUT 方法请求。以其他方法请求均应当设置状态码为 400 Bad Request，错误响应格式为：</p>
+<p>该 API 仅接受以 GET、DELETE 与 PUT 方法请求。以其他方法请求均应当设置状态码为 405 Method Not Allowed，错误响应格式为：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
@@ -873,7 +875,7 @@
 </div>
 <h2 id="url-userusername">URL <code>/user/{userName}</code><a class="headerlink" href="#url-userusername" title="Permanent link">¶</a></h2>
 <p>该 API 用于操作存储在数据库中的玩家，包括获取玩家的所有游戏记录，删除玩家的所有游戏记录。</p>
-<p>该 API 仅接受以 GET 与 DELETE 方法请求。以其他方法请求均应当设置状态码为 400 Bad Request，错误响应格式为：</p>
+<p>该 API 仅接受以 GET 与 DELETE 方法请求。以其他方法请求均应当设置状态码为 405 Method Not Allowed，错误响应格式为：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
@@ -1000,12 +1002,12 @@
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月12日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月13日</span>
 </small>
 </div>
 <div class="md-source-date">
 <small>
-                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (59.56%), <a href="mailto:cc7w@foxmail.com">c7w</a> (40.44%)</span>
+                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (58.65%), <a href="mailto:cc7w@foxmail.com">c7w</a> (41.35%)</span>
 </small>
 </div>
 </article>
