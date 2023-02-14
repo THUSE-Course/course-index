@@ -594,7 +594,7 @@
 <span class="w">        </span><span class="p">{</span>
 <span class="w">            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
 <span class="w">            </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Double beehive"</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="mf">1669320727646.0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="mf">1669320727.6460</span><span class="p">,</span>
 <span class="w">            </span><span class="nt">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ashitemaru"</span><span class="p">,</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="c1">// ...</span>
@@ -613,7 +613,7 @@
 <p>UNIX 时间戳可以以秒、毫秒、微秒作为单位，不同语言和不同第三方默认的 UNIX 时间戳单位是不同的，请务必查明文档。</p>
 </div>
 <div class="admonition note">
-<p class="admonition-title">board 字段</p>
+<p class="admonition-title"><code>board</code> 字段</p>
 <p>注意到这里返回的棋盘信息中没有 <code>board</code> 字段，这里是故意为之的。
 这里遵守的设计思想是只提供必要的信息给前端展示。如这里要求列出所有棋盘，显然应该是在“列表”界面出现，不需要具体的棋盘信息。这样设计可以极大地降低网络传输时延（从每个棋盘要传输 2KB 以上的具体数据到只需要传输仅仅几个字节的元信息）。
 我们可以等到用户真正要看这个棋盘的时候再去请求具体内容，也可以在棋盘元信息取回渲染在前端之后再开始在后台请求具体的数据，实现预加载机制。</p>
@@ -868,7 +868,7 @@
 <li><code>board</code> 中含有非 <code>0</code> 或 <code>1</code> 的字符，此时 <code>info</code> 字段为 <code>"Invalid char in [board]"</code></li>
 </ol>
 </li>
-<li>若请求违反唯一性约束，则错误响应的状态码为 400 Bad Request，<code>code</code> 字段为 <code>-2</code>，<code>info</code> 字段尽量携带错误信息（CI 不评测错误信息的具体内容）</li>
+<li>若请求违反唯一性约束（即该请求欲将该游戏记录更改为已有的用户名和游戏记录名组合），则错误响应的状态码为 400 Bad Request，<code>code</code> 字段为 <code>-2</code>，<code>info</code> 字段尽量携带错误信息（CI 不评测错误信息的具体内容）</li>
 <li>若读取数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，<code>code</code> 字段为 <code>-4</code>，<code>info</code> 字段尽量携带错误信息（CI 不评测该错误响应）</li>
 </ul>
 </div>
@@ -935,7 +935,7 @@
 <span class="w">        </span><span class="p">{</span>
 <span class="w">            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span>
 <span class="w">            </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IWannaTakeABreak:("</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="mf">1669320727646.0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="mf">1669320727.6460</span><span class="p">,</span>
 <span class="w">            </span><span class="nt">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c7w"</span><span class="p">,</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="c1">// ...</span>
@@ -1003,12 +1003,12 @@
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月13日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月14日</span>
 </small>
 </div>
 <div class="md-source-date">
 <small>
-                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (58.51%), <a href="mailto:cc7w@foxmail.com">c7w</a> (41.49%)</span>
+                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (59.47%), <a href="mailto:cc7w@foxmail.com">c7w</a> (40.53%)</span>
 </small>
 </div>
 </article>
