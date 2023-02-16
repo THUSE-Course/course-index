@@ -2,13 +2,13 @@
 
 在这一部分，你将会完成 Django 小作业的 CI/CD 配置，并通过 CI/CD 将其部署到 SECoder 上。
 
-你需要在 SECoder GitLab 上新建一个项目并按要求将密钥在 CI/CD 变量中提供。
+你需要在 SECoder GitLab 上新建名为 `2023-Django-HW` 的项目并按要求将密钥在 CI/CD 变量中提供。
 
 完成这一部分后，你应当能够在 `https://backend-{id}.app.secoder.net` 访问你的后端，其中 `{id}` 为你的学号。
 
 ## 任务汇总
 
-### 完成 Dockerfile
+### 完成 Dockerfile (1 分)
 
 **需要修改的代码：**`Dockerfile` 第 2-14 行
 
@@ -22,7 +22,7 @@
 - 对外暴露 80 端口；
 - 容器运行时执行 `start.sh` 脚本。
 
-### 关闭调试开关
+### 关闭调试开关 (1 分)
 
 **需要修改的代码：**`DjangoHW/settings.py` 第 29 行
 
@@ -34,7 +34,7 @@
 
     你可以通过 Python 标准库中的 `os.getenv` 函数来读取环境变量。`os.getenv(key)` 将在环境变量 `key` 存在时返回一个 `str`，否则返回 `None`。
 
-### 使用 uWSGI 部署
+### 使用 uWSGI 部署 (1 分)
 
 **需要修改的代码：**`requirements.txt` 第 12 行，`start.sh` 第 6-14 行
 
@@ -50,7 +50,7 @@
 
 请阅读上述文档并理解我们提供的选项的作用，并修改部分参数使之能够正确运行。
 
-### 完成 GitLab CI/CD 配置
+### 完成 GitLab CI/CD 配置 (1 分)
 
 **需要修改的代码：**`.gitlab-ci.yml` 第 17-18、23、28、32-34、48-49 行
 
@@ -61,7 +61,7 @@
 - 在 `unit-test` 作业的 `before_script` 部分安装 `requirements.txt` 声明的依赖并通过换源到 TUNA 加速下载；
 - 在 `unit-test` 作业的 `script` 部分创建并执行迁移，然后运行单元测试脚本 `test.sh`。
 
-### 思考题
+### 思考题：为什么改了这个选项？ (0.5 分)
 
 在使用 uWSGI 运行的过程中，我们使用了 `--http` 选项而非上面给出的教程中的 `--socket` 选项。同时，我们监听了 `0.0.0.0` 而非 `127.0.0.1`。请查阅资料并解释 `--http` 选项与 `--socket` 选项的区别，并解释监听 `0.0.0.0` 的原因。
 
