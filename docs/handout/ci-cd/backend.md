@@ -2,7 +2,7 @@
 
 在这一部分，你将会完成 Django 小作业的 CI/CD 配置，并通过 CI/CD 将其部署到 SECoder 上。
 
-你需要在 SECoder GitLab 上新建名为 `2023-Django-HW` 的项目并按要求将密钥在 CI/CD 变量中提供。
+你需要在 SECoder GitLab 上新建一个项目并按要求将密钥在 CI/CD 变量中提供。
 
 完成这一部分后，你应当能够在 `https://backend-{id}.app.secoder.net` 访问你的后端，其中 `{id}` 为你的学号。
 
