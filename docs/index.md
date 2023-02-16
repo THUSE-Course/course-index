@@ -33,5 +33,5 @@
 - 小作业（30 points）
     - CI/CD 小作业（8 points）
     - Django 后端小作业（8 points）
-    - React 前端小作业（14 points）
+    - React (Next.js) 前端小作业（14 points）
 - 大作业（60 points）

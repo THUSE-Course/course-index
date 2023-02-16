@@ -102,7 +102,6 @@ nav:
       - Step 6 网络请求: handout/react/net.md
       - Appendix 1 可能有用的工具: handout/react/tools.md
       - Appendix 2 实验思考题题面: handout/react/questions.md
-      - Appendix 3 CI 检查项列表: handout/react/ci.md
     - CI/CD 文档:
       - handout/ci-cd/index.md
       - 后端部署: handout/ci-cd/backend.md
