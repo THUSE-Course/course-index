@@ -344,11 +344,6 @@
         Appendix 2 实验思考题题面
       </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="react/ci/">
-        Appendix 3 CI 检查项列表
-      </a>
-</li>
 </ul>
 </nav>
 </li>
@@ -403,7 +398,22 @@
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#_2">
-    提交方式
+    时间安排
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_3">
+    评分政策
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_4">
+    完成与提交方式
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_5">
+    答疑说明
   </a>
 </li>
 </ul>
@@ -414,27 +424,67 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="_1">课程小作业<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
-<p>本次课程小作业分为 CI/CD、后端（Django）、前端（Next.js）三部分，目标是帮助大家熟悉软件开发流程与常用工具，要求大家在两周内完成这三个部分。</p>
-<p>我们推荐按照下述顺序完成本次小作业：</p>
+<p>本次课程小作业分为 CI/CD、后端（Django）、前端（Next.js）三部分，目标是帮助大家熟悉软件开发流程与常用工具。本课程小作业基本覆盖了大作业所需要使用的基本技术，并且小作业框架基本可以作为大作业的起始代码。</p>
+<h2 id="_2">时间安排<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<p>小作业预计将于本学期第一周周二（2023.02.21）课后布置，截止日期为本学期第四周周四（2023.03.16）23:59。</p>
+<p>SECoder 账号等预计将于第二周下发，具体下发方式与时间见后续通知。</p>
+<p>小作业的所有迟交与成绩复议均不得晚于本学期第五周周一（2023.03.20）23:59，在此之后 SECoder 上所有涉及到小作业的资源将会被释放以服务大作业。</p>
+<p>在本学期第一、二、三周周二课堂上，将各安排一课时时间简单讲解本次小作业涉及到的知识点。讲解顺序为后端、前端、CI/CD，故我们推荐按照下述顺序完成本次小作业：</p>
 <ul>
-<li>阅读小作业需求和 API 文档</li>
-<li>完成小作业后端并部署</li>
-<li>完成小作业前端并部署</li>
-<li>完成 CI/CD、前端小作业思考题</li>
+<li>阅读小作业需求和 API 文档，学习相关知识</li>
+<li>本地完成小作业后端</li>
+<li>本地完成小作业前端</li>
+<li>完成 CI/CD 小作业，测试前后端部署与通信</li>
 </ul>
 <p>不过你可以按照任何顺序完成作业，我们只会按照文档中所述方式检查并评分。</p>
-<h2 id="_2">提交方式<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<h2 id="_3">评分政策<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<p>本小作业所有评分标准均在后续文档中详细公布，你可以在完成后自行逐项自评。</p>
+<p>涉及到迟交的小作业会有一定惩罚，其小作业成绩在折算为课程总评的时候会再乘以惩罚因子 <span class="arithmatex"><span class="MathJax_Preview">\lambda</span><script type="math/tex">\lambda</script></span>，惩罚因子定义为：</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+\lambda := \begin{cases}
+1 &amp; x \leq t_1 \\
+0.8 \cdot \dfrac{t_2 - x}{t_2 - t_1} &amp; t_1 &lt; x &lt; t_2 \\
+0 &amp; x \geq t_2
+\end{cases}
+</div>
+<script type="math/tex; mode=display">
+\lambda := \begin{cases}
+1 & x \leq t_1 \\
+0.8 \cdot \dfrac{t_2 - x}{t_2 - t_1} & t_1 < x < t_2 \\
+0 & x \geq t_2
+\end{cases}
+</script>
+</div>
+<p>其中 <span class="arithmatex"><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> 为作业提交时间，<span class="arithmatex"><span class="MathJax_Preview">t_1</span><script type="math/tex">t_1</script></span> 为作业截止时间（2023.03.16 23:59），<span class="arithmatex"><span class="MathJax_Preview">t_2</span><script type="math/tex">t_2</script></span> 为迟交最终时间（2023.03.20 23:59）。</p>
+<h2 id="_4">完成与提交方式<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<p>本次小作业采取代码填空的形式，你需要从下述链接使用 <code>git clone</code> 克隆代码仓库并完成，完成后需要使用 <code>git push</code> 将其上传到 SECoder Gitlab 仓库中供部署与查看，其中前端的项目名为 <code>2023-Next-HW</code>，后端的项目名为 <code>2023-Django-HW</code>。需要注意的是，上传至 SECoder 与部署等操作需要在第二周左右获取 SECoder 账号才可以进行：</p>
+<ul>
+<li>前端：<a href="https://git.tsinghua.edu.cn/se-2023spring/2023-next-hw/">https://git.tsinghua.edu.cn/se-2023spring/2023-next-hw/</a></li>
+<li>后端：<a href="https://git.tsinghua.edu.cn/se-2023spring/2023-django-hw/">https://git.tsinghua.edu.cn/se-2023spring/2023-django-hw/</a></li>
+</ul>
+<p>若在小作业进行期间课程组需要更新代码框架，我们将会发布公告说明，你可以从上述链接使用 <code>git pull</code> 拉取更新后的框架并使用 <code>git merge</code> 合并到自己的代码中。</p>
 <p>你需要在完成小作业后，在截止时间前在网络学堂上提交下述内容：</p>
 <ul>
-<li>文本区域为两行链接，第一行是前端 Gitlab Repo 地址，第二行则是后端 Gitlab Repo 地址</li>
-<li>附件中提交 CI/CD、前端小作业思考题，建议合并为一个 PDF 提交</li>
+<li>内容栏为四行链接，第一行是后端 Gitlab Repo 地址，第二行是前端 Gitlab Repo 地址，第三行是后端部署地址，第四行是前端部署地址</li>
+<li>附件为一个 PDF 文件，内容为 CI/CD、前端小作业的思考题</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Git Tutorial</p>
+<p>本小作业的完成与提交完全基于 Git，你可以通过 <a href="https://docs.net9.org/basic/git/">技能引导文档相关文档</a> 来学习 Git 的基本知识。</p>
+</div>
+<h2 id="_5">答疑说明<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<p>你可以在课程微信群或者网络学堂讨论区提出问题，但是有以下注意事项：</p>
+<ul>
+<li><strong>小作业截止时间前 24 小时内不接受任何小作业相关的答疑</strong></li>
+<li>有效提问。请先完整地阅读小作业文档确认该问题是否已经在文档中列出，若无，请提问时将你所做过的尝试（包括搜索引擎搜索、调整代码逻辑的方式、对问题的理解）完整地列出</li>
 </ul>
 <hr/>
 <div class="md-source-file">
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月5日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月16日</span>
 </small>
 </div>
 <div class="md-source-date">

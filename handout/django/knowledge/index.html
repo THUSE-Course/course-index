@@ -386,11 +386,6 @@
         Appendix 2 实验思考题题面
       </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../react/ci/">
-        Appendix 3 CI 检查项列表
-      </a>
-</li>
 </ul>
 </nav>
 </li>
@@ -500,7 +495,7 @@
 <p><strong>与前端交互内容</strong>包含两个方面：一方面是后端面对前端的查询请求（<strong>GET</strong> 方法）要返回相应的数据供前端渲染，比如用户点开网页后首页要进行视频推荐，用户可以查看自己的个人信息；另一方面是后端面对前端的修改请求（<strong>POST</strong> 方法、<strong>PUT</strong> 方法、<strong>DELETE </strong>方法，分别对应创建、修改、删除）要在<strong>检查</strong>后做出响应，比如用户可以上传视频、发表评论、修改个人信息、删除视频等等。做检查是很重要的一部分，因为前后端分离的开发范式中十分重要的一个思想是<strong>后端不相信前端</strong>，即后端接受到的任何请求除了是前端发来的之外，还有可能是攻击者发来的，因此必须对请求内容做出相应检查。</p>
 <p>后端与前端的交互通过网络请求的格式进行，而最常用的数据规范便是 <strong>JSON 格式</strong>（JavaScript Object Notation）。JSON 将数据组织成键值对的形式，其值涵盖的类型包括：object, array, number, string, Boolean (true / false) 和 null。很多高级语言都支持 JSON 格式与自身自带的 HashMap 容器的高效转换，比如在 Python 中，<code>json</code> 库可以将 JSON 字符串与 dict 进行转换。</p>
 <p><strong>操作与管理数据库</strong>是由于我们需要将用户的数据高效地组织起来，以供后续查询与修改。这里的“数据库”是一个相对广泛的概念：对于简单的开发需求，<strong>文件系统</strong>也可以满足这个“数据库”的要求，用户的数据可以直接存储成文件的形式；但是，面对更大体量的数据，面对更快的查询与修改需求，各种各样的<strong>数据库软件</strong>是不可或缺的。不管采用哪种数据存储方式，都是以需求和用户为中心服务的。</p>
-<p><strong>关系型数据库</strong>是数据库的一种，一个数据库应用中可以创建若干个<strong>数据库</strong>，每个数据库又可以包含若干个<strong>数据表</strong>（可以类比 Excel 的工作簿、工作表进行理解）。每个数据表中，不同列代表不同的属性，每一行代表一条记录。事实上，我们可以将数据表与一个实体类联系起来。将每一列看做是这个实体类的一个具体的成员变量，每一行看成是这个类的一个实例。换句话说，我们可以将每张数据表看做是相同类的实体构成的集合。这种观点就是 <strong>ORM 机制</strong>（Object–relational mapping）出现的基础：我们可以用操作类和对象的代码来直接操作关系型数据库，而无需裸写 SQL 语句。当然，这样做会带来一定的性能损失，但极大地有利于程序员对代码本身的理解。</p>
+<p><strong>关系型数据库</strong>是数据库的一种，一个数据库应用中可以创建若干个<strong>数据库</strong>，每个数据库又可以包含若干个<strong>数据表</strong>（可以类比 Excel 的工作簿、工作表进行理解）。每个数据表中，不同列代表不同的属性，每一行代表一条记录。事实上，我们可以将数据表与一个实体类联系起来。将每一列看做是这个实体类的一个具体的成员变量，每一行看成是这个类的一个实例。换句话说，我们可以将每张数据表看做是相同类的实体构成的集合。这种观点就是 <strong>ORM 机制</strong>（Object-relational mapping）出现的基础：我们可以用操作类和对象的代码来直接操作关系型数据库，而无需裸写 SQL 语句。当然，这样做会带来一定的性能损失，但极大地有利于程序员对代码本身的理解。</p>
 <h3 id="_5">后端的测试<a class="headerlink" href="#_5" title="Permanent link">¶</a></h3>
 <p>软件开发与之前我们在课程中写代码最不同的一点就是要多做<strong>软件测试</strong>。在软件开发中，程序的正确性是至关重要的，于是需要专人（测试工程师）来撰写相应的测试代码，涉及到一般情况与尽可能多的 Corner Cases。一方面，这能帮助开发工程师有效开发，另一方面，在一个大型项目中可能会出现改动一部分代码导致另一部分代码的原有功能失效的情况，而通过固定的测试程序与测试用例则可以保证只有稳定的版本才会最终呈现给用户。</p>
 <p>后端的单元测试往往有如下前提：</p>
@@ -525,12 +520,12 @@
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年1月14日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月16日</span>
 </small>
 </div>
 <div class="md-source-date">
 <small>
-                作者: <span class="git-page-authors git-authors"><a href="mailto:cc7w@foxmail.com">c7w</a></span>
+                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (1.47%), <a href="mailto:cc7w@foxmail.com">c7w</a> (98.53%)</span>
 </small>
 </div>
 </article>
