@@ -73,7 +73,11 @@ markdown_extensions:
 
 nav:
   - 主页: index.md
-  - 前后端分离开发基础: basic.md
+  - 前后端分离开发基础:
+    - basic/index.md
+    - Web 应用的历史: basic/history.md
+    - 前后端的交互: basic/web.md
+    - 前后端分离的安全问题: basic/cors.md
   - 部署基础:
     - deploy/index.md
     - Docker: deploy/docker.md
