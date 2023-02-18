@@ -48,7 +48,7 @@
 
     你可以在 [uWSGI Docs](https://uwsgi-docs.readthedocs.io/en/latest/index.html) 更详细地了解 uWSGI 的使用方法。
 
-请阅读上述文档并理解我们提供的选项的作用，并修改部分参数使之能够正确运行。
+请阅读上述文档并理解我们提供的选项的作用，**并修改部分参数**使之能够正确运行。
 
 ### 完成 GitLab CI/CD 配置 (1 分)
 
