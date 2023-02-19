@@ -30,8 +30,8 @@
 ## 课程评分
 
 - 课程参与与课堂小测（10 points）
-- 小作业（30 points）
-    - CI/CD 小作业（8 points）
-    - Django 后端小作业（8 points）
-    - React (Next.js) 前端小作业（14 points）
-- 大作业（60 points）
+- 小作业（25 points）
+    - CI/CD 小作业（6 points）
+    - Django 后端小作业（7 points）
+    - React (Next.js) 前端小作业（12 points）
+- 大作业（65 points）
