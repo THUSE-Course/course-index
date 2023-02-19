@@ -2,7 +2,7 @@
 
 Web 框架顾名思义，是用于创建 Web 应用的一种框架，其可以使我们很方便地编写出一个 Web 应用。常见的 Web 框架一般采取 MVC 架构：
 
-![](../../static/mvc.png)
+![](../static/mvc.png)
 
 这里 Controller 会接受其所收到的 HTTP 请求，并通过 Model 访问数据库等持久化存储，最后通过 View 渲染 HTML 页面并返回。基于 MVC 架构很容易构建一个传统的 SSR Web 应用。
 

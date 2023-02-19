@@ -38,11 +38,17 @@ export const BOARD_LENGTH = 50;
 
 本 Step 总分为 10 分。
 
-本 Step 采用自动化评分。我们会检查 Tsinghua Git CI 中是否如下显示本 Step 的通过信息。若有，则你获得本 Step 所有分数：
+Step 1 与 Step 3 的一部分采用自动化评分。在正确完成 CI/CD 小作业的基础上，你应当能在 SECoder Gitlab CI 上观察到单元测试所输出的信息。如果完全通过，显示应当类似于：
 
-【TODO：CI 通过界面】
+![](../../static/next-pass.png)
 
-我们保证 CI 判定通过的方式与你本地完全一致（即通过 `yarn test step` 命令判定）。
+如果仅通过 Step 1 与 Step 3 中的某一个，显示应当类似于：
+
+![](../../static/next-partial-pass.png)
+
+只要上述信息中显示 Step 1 测试通过，本 Step 即满分。
+
+若你未正确完成 CI/CD 小作业导致无法通过上述方式评分，我们会使用克隆仓库并本地运行单元测试等方式评分。
 
 ## 知识讲解
 
