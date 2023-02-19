@@ -242,4 +242,4 @@ EXPOSE 80
 
 如果希望更加深入地学习 Docker 的高级用法以及工作原理等，可以参考 [2022 酒井科协暑培 Docker 文档](https://liang2kl.github.io/2022-summer-training-docker-tutorial)和 [Docker 官方文档](https://docs.docker.com)。
 
-在本课程提供的[样例项目](https://git.tsinghua.edu.cn/SEG/example)仓库中也可以找到几种常见项目框架的 Dockerfile，可供配置部署时参考。需要注意的是，这些样例项目都较为老旧，请在参考时注意版本和兼容性等问题。
+在本课程提供的 [样例项目](https://git.tsinghua.edu.cn/SEG/example) 仓库中也可以找到几种常见项目框架的 Dockerfile，可供配置部署时参考。需要注意的是，这些样例项目都较为老旧，请在参考时注意版本和兼容性等问题。
