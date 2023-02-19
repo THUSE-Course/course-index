@@ -526,9 +526,12 @@
 </code></pre></div></td></tr></table></div>
 <h2 id="_4">实验评分<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
 <p>本 Step 总分为 10 分。</p>
-<p>本 Step 采用自动化评分。我们会检查 Tsinghua Git CI 中是否如下显示本 Step 的通过信息。若有，则你获得本 Step 所有分数：</p>
-<p>【TODO：CI 通过界面】</p>
-<p>我们保证 CI 判定通过的方式与你本地完全一致（即通过 <code>yarn test step</code> 命令判定）。</p>
+<p>Step 1 与 Step 3 的一部分采用自动化评分。在正确完成 CI/CD 小作业的基础上，你应当能在 SECoder Gitlab CI 上观察到单元测试所输出的信息。如果完全通过，显示应当类似于：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../../static/next-pass.png"><img alt="" src="../../../static/next-pass.png"/></a></p>
+<p>如果仅通过 Step 1 与 Step 3 中的某一个，显示应当类似于：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../../static/next-partial-pass.png"><img alt="" src="../../../static/next-partial-pass.png"/></a></p>
+<p>只要上述信息中显示 Step 1 测试通过，本 Step 即满分。</p>
+<p>若你未正确完成 CI/CD 小作业导致无法通过上述方式评分，我们会使用克隆仓库并本地运行单元测试等方式评分。</p>
 <h2 id="_5">知识讲解<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
 <p>详细的 TypeScript 语法可以参考 <a href="https://www.typescriptlang.org/docs/">TypeScript 的官方语法文档</a>。作为已经有一定 C/C++ 语言基础的计算机系同学，可以参考较为简略的 <a href="https://docs.net9.org/languages/typescript/">计算机系科协技能引导文档 TypeScript 部分</a>。</p>
 <p>如果你只想快速上手本作业，并不想完整学完 TypeScript 语法后再完成作业，这里我们提供一个更简略的 TypeScript Cheatsheet。</p>
@@ -752,7 +755,7 @@
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年1月15日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月19日</span>
 </small>
 </div>
 <div class="md-source-date">

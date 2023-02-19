@@ -533,15 +533,19 @@
 <p>其次，文件 <code>src/utils/logic.ts</code> 中我们已经写好了一个错误的 <code>badFlipCell</code> 函数，该函数是 <code>flipCell</code> 函数的一个错误实现，请思考该实现错误的原因。</p>
 <h2 id="_5">实验评分<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
 <p>本 Step 总分为 15 分。</p>
-<p>本 Step 采用自动与人工混合评分。人工评分中，我们仅会<strong>在通过 CI 检查的基础上</strong>查看最后一次部署后游戏主界面，进行如下操作并评分：</p>
+<p>本 Step 采用自动与人工混合评分。人工评分占 10 分，自动评分占 5 分。</p>
+<p>人工评分中我们会查看截止时间前最后一次部署后游戏主界面，进行如下操作并评分：</p>
 <ul>
-<li>（5 分）Tsinghua Git CI 显示如下图所示的通过信息</li>
 <li>（2 分）在初始条件下，任意点击若干个不同的细胞，这些细胞均应该变为存活状态，颜色也应该相应改变</li>
 <li>（3 分）连续点击某一个细胞，该细胞应该不断在存活与死亡状态之间切换，颜色也应该相应改变</li>
 <li>（5 分）设置某一种初始条件，不断点击棋盘下方按钮，上方棋盘应当正确展现演变情况</li>
 </ul>
-<p>【TODO：CI 通过界面】</p>
-<p>我们保证 CI 判定通过的方式与你本地完全一致（即通过 <code>yarn test flip</code> 命令判定）。</p>
+<p>Step 3 的一部分与 Step 1 采用自动化评分。在正确完成 CI/CD 小作业的基础上，你应当能在 SECoder Gitlab CI 上观察到单元测试所输出的信息。如果完全通过，显示应当类似于：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../../static/next-pass.png"><img alt="" src="../../../static/next-pass.png"/></a></p>
+<p>如果仅通过 Step 1 与 Step 3 中的某一个，显示应当类似于：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../../static/next-partial-pass.png"><img alt="" src="../../../static/next-partial-pass.png"/></a></p>
+<p>只要上述信息中显示 Step 3 测试通过，本 Step 自动评分即满分。</p>
+<p>若你未正确完成 CI/CD 小作业导致无法通过上述方式评分，我们会使用克隆仓库并本地运行单元测试等方式评分。</p>
 <h2 id="_6">知识讲解<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
 <p>我们已经讲解了一个无状态的组件如何编写，一个无状态的组件实际上类似于<strong>纯函数</strong>，即无论在什么条件下调用该组件，只要传入的参数一样，那么最后总是得到一样的结果。然而仅仅使用无状态组件显然是无法完成能够处理用户交互的 UI 的。</p>
 <p>React 是允许组件具有状态的，并且允许编写相应的代码让用户的点击等行为触发状态的改变。</p>
@@ -592,7 +596,7 @@
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月16日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月19日</span>
 </small>
 </div>
 <div class="md-source-date">
