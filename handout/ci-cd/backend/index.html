@@ -415,27 +415,27 @@
 <nav aria-label="任务汇总" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#1">
-    关闭调试开关 (1 分)
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#uwsgi-1">
-    使用 uWSGI 部署 (1 分)
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#dockerfile-1">
-    完成 Dockerfile (1 分)
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#gitlab-cicd-1">
-    完成 GitLab CI/CD 配置 (1 分)
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#05">
+    关闭调试开关 (0.5 分)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#uwsgi-05">
+    使用 uWSGI 部署 (0.5 分)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dockerfile-05">
+    完成 Dockerfile (0.5 分)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#gitlab-cicd-05">
+    完成 GitLab CI/CD 配置 (0.5 分)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#05_1">
     思考题：为什么改了这个选项？ (0.5 分)
   </a>
 </li>
@@ -487,27 +487,27 @@
 <nav aria-label="任务汇总" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#1">
-    关闭调试开关 (1 分)
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#uwsgi-1">
-    使用 uWSGI 部署 (1 分)
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#dockerfile-1">
-    完成 Dockerfile (1 分)
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#gitlab-cicd-1">
-    完成 GitLab CI/CD 配置 (1 分)
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#05">
+    关闭调试开关 (0.5 分)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#uwsgi-05">
+    使用 uWSGI 部署 (0.5 分)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dockerfile-05">
+    完成 Dockerfile (0.5 分)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#gitlab-cicd-05">
+    完成 GitLab CI/CD 配置 (0.5 分)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#05_1">
     思考题：为什么改了这个选项？ (0.5 分)
   </a>
 </li>
@@ -531,7 +531,7 @@
 <p>你需要在 SECoder GitLab 上新建名为 <code>2023-Django-HW</code> 的项目并按要求将密钥在 CI/CD 变量中提供。</p>
 <p>完成这一部分后，你应当能够在 <code>https://backend-{id}.app.secoder.net</code> 访问你的后端，其中 <code>{id}</code> 为你的学号。</p>
 <h2 id="_2">任务汇总<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
-<h3 id="1">关闭调试开关 (1 分)<a class="headerlink" href="#1" title="Permanent link">¶</a></h3>
+<h3 id="05">关闭调试开关 (0.5 分)<a class="headerlink" href="#05" title="Permanent link">¶</a></h3>
 <p><strong>需要修改的代码：</strong><code>DjangoHW/settings.py</code> 第 29 行</p>
 <p>正式部署的 Django 应用需要关闭调试开关，否则可能会带来安全问题。我们可以在 Dockerfile 中设定某一环境变量来通过它区分当前是否处于部署环境，进而决定是否打开调试开关。</p>
 <p>你需要使得环境变量 <code>DEPLOY</code> 存在时，调试开关 <code>DEBUG</code> 为 <code>False</code>，否则为 <code>True</code>。</p>
@@ -539,7 +539,7 @@
 <p class="admonition-title"><code>os.getenv</code></p>
 <p>你可以通过 Python 标准库中的 <code>os.getenv</code> 函数来读取环境变量。<code>os.getenv(key)</code> 将在环境变量 <code>key</code> 存在时返回一个 <code>str</code>，否则返回 <code>None</code>。</p>
 </div>
-<h3 id="uwsgi-1">使用 uWSGI 部署 (1 分)<a class="headerlink" href="#uwsgi-1" title="Permanent link">¶</a></h3>
+<h3 id="uwsgi-05">使用 uWSGI 部署 (0.5 分)<a class="headerlink" href="#uwsgi-05" title="Permanent link">¶</a></h3>
 <p><strong>需要修改的代码：</strong><code>requirements.txt</code> 第 12 行，<code>start.sh</code> 第 6-14 行</p>
 <p>现在项目中的 <code>start.sh</code> 通过 <code>python3 manage.py runserver</code> 启动了开发服务器，这并不适于部署。我们将会通过使用 uWSGI 进行部署来获得更好的性能和安全性。</p>
 <p>你需要添加对 uWSGI 的依赖，将应用的运行方式改为通过 uWSGI 运行并监听 80 端口。我们已经为你提供了 <code>uwsgi</code> 命令的框架，请你修改它使得它能够正常工作。</p>
@@ -549,7 +549,7 @@
 <p>你可以在 <a href="https://uwsgi-docs.readthedocs.io/en/latest/index.html">uWSGI Docs</a> 更详细地了解 uWSGI 的使用方法。</p>
 </div>
 <p>请阅读上述文档并理解我们提供的选项的作用，<strong>并修改部分参数</strong>使之能够正确运行。</p>
-<h3 id="dockerfile-1">完成 Dockerfile (1 分)<a class="headerlink" href="#dockerfile-1" title="Permanent link">¶</a></h3>
+<h3 id="dockerfile-05">完成 Dockerfile (0.5 分)<a class="headerlink" href="#dockerfile-05" title="Permanent link">¶</a></h3>
 <p><strong>需要修改的代码：</strong><code>Dockerfile</code> 第 2-14 行</p>
 <p>我们提供了 Dockerfile 的框架，现在请你补全这份 Dockerfile，使构建的镜像满足如下要求：</p>
 <ul>
@@ -566,7 +566,7 @@
 <p>由于流水线的执行需要花费不少时间，每一次修改 Dockerfile 后都上传到 GitLab 执行 CI/CD 流水线来测试效果是比较低效的。并且，小作业阶段你无法访问容器的日志和终端，这可能会对调试造成阻碍。</p>
 <p>你可以通过在本地构建镜像并运行容器来测试运行结果是否符合期望。由于 Docker 的虚拟化特性，如果在本地能够顺利运行，则理论上在部署到 SECoder 后它也一样能够顺利运行。</p>
 </div>
-<h3 id="gitlab-cicd-1">完成 GitLab CI/CD 配置 (1 分)<a class="headerlink" href="#gitlab-cicd-1" title="Permanent link">¶</a></h3>
+<h3 id="gitlab-cicd-05">完成 GitLab CI/CD 配置 (0.5 分)<a class="headerlink" href="#gitlab-cicd-05" title="Permanent link">¶</a></h3>
 <p><strong>需要修改的代码：</strong><code>.gitlab-ci.yml</code> 第 17-18、23、28、32-34、48-49 行</p>
 <p>我们将在 GitLab CI/CD 配置中声明一个有三个阶段 <code>build</code>、<code>test</code> 和 <code>deploy</code> 的流水线，其中每个阶段都只有一个作业。你需要补全配置以实现如下目标：</p>
 <ul>
@@ -575,7 +575,7 @@
 <li>在 <code>unit-test</code> 作业的 <code>before_script</code> 部分安装 <code>requirements.txt</code> 声明的依赖并通过换源到 TUNA 加速下载；</li>
 <li>在 <code>unit-test</code> 作业的 <code>script</code> 部分创建并执行迁移，然后运行单元测试脚本 <code>test.sh</code>。</li>
 </ul>
-<h3 id="05">思考题：为什么改了这个选项？ (0.5 分)<a class="headerlink" href="#05" title="Permanent link">¶</a></h3>
+<h3 id="05_1">思考题：为什么改了这个选项？ (0.5 分)<a class="headerlink" href="#05_1" title="Permanent link">¶</a></h3>
 <p>在使用 uWSGI 运行的过程中，我们使用了 <code>--http</code> 选项而非上面给出的教程中的 <code>--socket</code> 选项。同时，我们监听了 <code>0.0.0.0</code> 而非 <code>127.0.0.1</code>。请查阅资料并解释 <code>--http</code> 选项与 <code>--socket</code> 选项的区别，并解释监听 <code>0.0.0.0</code> 的原因。</p>
 <h2 id="_3">完成效果<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <p>完成任务后，你应当能够成功执行 GitLab CI/CD 流水线并能够通过 <code>https://backend-{id}.app.secoder.net</code> 访问到你部署在 SECoder 上的后端。此时你可以使用 <a href="https://curl.se">curl</a>、<a href="https://www.postman.com">Postman</a> 等工具来向它发送请求并得到正确的响应。</p>
@@ -585,7 +585,7 @@
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月18日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月19日</span>
 </small>
 </div>
 <div class="md-source-date">
