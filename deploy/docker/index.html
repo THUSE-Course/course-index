@@ -746,7 +746,7 @@ requests==2.28.1
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<p>它表明监听 80 端口，以 <code>/opt/app/dist</code> 目录作为根目录，在访问任意 URL 时首先尝试查找该 URI 的文件，再查找该 URI 的目录，最后回退到 <code>/index.html</code>。对于由前端框架处理路由的情况来说，实际上只需要反向代理到 <code>/index.html</code>，然后由前端框架处理路由即可。</p>
+<p>它表明监听 80 端口，以 <code>/opt/app/dist</code> 目录作为根目录，在访问任意 URL 时首先尝试查找该 URI 的文件，再查找该 URI 的目录，最后回退到 <code>/index.html</code>。这意味着对特定资源的请求将会直接返回该资源，而对于其他情况将会转交给前端框架，由前端框架处理路由。</p>
 <p>第二个 <code>location</code> 部分适用于需要前端服务器重写 API 请求的情况，这么做会将到前端 <code>/api/</code> 路径下的请求转发到你的后端地址 <code>https://your.backend.url/</code>。如果没有需要前端重写 API 请求的需求，则不需要这一部分。</p>
 <p>请注意在 <code>proxy_pass</code> 的 URL 末尾需要加 <code>/</code>。如果你对原因感到好奇，可以查阅相关资料了解 <code>location</code> 和 <code>proxy_pass</code> 的工作方式。</p>
 </div>
@@ -777,7 +777,7 @@ requests==2.28.1
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月18日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月19日</span>
 </small>
 </div>
 <div class="md-source-date">
