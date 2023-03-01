@@ -43,7 +43,7 @@
             // For example:
             {
                 "id": 3,
-                "name": "Double beehive",
+                "boardName": "Double beehive",
                 "createdAt": 1669320727.6460,
                 "userName": "Ashitemaru",
             },
@@ -55,7 +55,7 @@
     这里 `boards` 字段是一个数组，数组中每一项都应该包含下述字段：
     
     - `id`。表示该游戏记录在数据库中的唯一标识符，应当为正整数
-    - `name`。表示该游戏记录的名称，应当为非空字符串
+    - `boardName`。表示该游戏记录的名称，应当为非空字符串
     - `createdAt`。表示该游戏记录创建的时间，使用 UNIX 时间戳（秒）表示，应当为浮点数
     - `userName`。表示该游戏创建者的用户名，应当为非空字符串
     
@@ -357,7 +357,7 @@
             // For example:
             {
                 "id": 7,
-                "name": "IWannaTakeABreak:(",
+                "boardName": "IWannaTakeABreak:(",
                 "createdAt": 1669320727.6460,
                 "userName": "c7w",
             },
