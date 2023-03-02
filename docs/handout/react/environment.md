@@ -22,7 +22,7 @@ Node.js 是服务器端运行 JavaScript 的环境，我们需要在本地配置
 
 可以通过 [Node.js 官方中文网站](https://nodejs.org/zh-cn/) 下载并安装 Node.js，我们推荐下载**长期维护版本（Long Time Support）**，LTS 版本相较于最新版本往往更为稳定。
 
-如果你是 WSL 用户，请在[这个页面](https://nodejs.org/zh-cn/download/) 下载 Linux 二进制文件 (x64)：
+如果你是 WSL 用户，请在 [这个页面](https://nodejs.org/zh-cn/download/) 下载 Linux 二进制文件 (x64)：
 
 ```bash
 mkdir ~/workspace && cd ~/workspace
