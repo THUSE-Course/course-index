@@ -502,7 +502,26 @@
 <p>Node.js 是服务器端运行 JavaScript 的环境，我们需要在本地配置 Node.js 环境以运行我们的前端代码。</p>
 <p>对 Node.js 更为细节的介绍参考计算机系学生科协技能引导文档 <a href="https://docs.net9.org/languages/node.js/">https://docs.net9.org/languages/node.js/</a>。</p>
 <p>可以通过 <a href="https://nodejs.org/zh-cn/">Node.js 官方中文网站</a> 下载并安装 Node.js，我们推荐下载<strong>长期维护版本（Long Time Support）</strong>，LTS 版本相较于最新版本往往更为稳定。</p>
-<p>另外，为了获取更详细的安装指导，我们推荐获取安装包而非二进制文件，下载安装包后打开即可安装。</p>
+<p>如果你是 WSL 用户，请在<a href="https://nodejs.org/zh-cn/download/">这个页面</a> 下载 Linux 二进制文件 (x64)：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>mkdir ~/workspace &amp;&amp; cd ~/workspace
+wget https://nodejs.org/dist/v18.14.2/node-v18.14.2-linux-x64.tar.xz
+tar -xf node-v18.14.2-linux-x64.tar.xz
+cd node-v18.14.2-linux-x64/bin
+pwd
+</code></pre></div></td></tr></table></div>
+<p>请将这个输出的路径通过 <code>~/.bashrc</code> 手动添加到环境变量中：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code># Append to the last line
+export PATH=~/workspace/node-v18.14.0-linux-x64/bin:$PATH
+</code></pre></div></td></tr></table></div>
+<p>之后通过以下命令重载终端配置:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>source ~/.bashrc
+</code></pre></div></td></tr></table></div></p>
+<!-- 另外，为了获取更详细的安装指导，我们推荐获取安装包而非二进制文件，下载安装包后打开即可安装。 -->
 <p>为了确认是否正确安装，可以打开终端，输入指令 <code>node -v</code> 确认：</p>
 <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../../static/react/step0-node.png"><img alt="" src="../../../static/react/step0-node.png"/></a></p>
 <h2 id="yarn">yarn<a class="headerlink" href="#yarn" title="Permanent link">¶</a></h2>
@@ -600,7 +619,7 @@ yarn<span class="w"> </span>start<span class="w"> </span><span class="c1"># 运�
 </div>
 <div class="md-source-date">
 <small>
-                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (98.43%), <a href="mailto:cc7w@foxmail.com">Huan-ang Gao</a> (1.57%)</span>
+                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (83.22%), <a href="mailto:cc7w@foxmail.com">Huan-ang Gao</a> (16.78%)</span>
 </small>
 </div>
 </article>
