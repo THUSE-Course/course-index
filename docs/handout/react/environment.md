@@ -24,7 +24,7 @@ Node.js 是服务器端运行 JavaScript 的环境，我们需要在本地配置
 
 如果你是 WSL 用户，请在[这个页面](https://nodejs.org/zh-cn/download/) 下载 Linux 二进制文件 (x64)：
 
-```
+```bash
 mkdir ~/workspace && cd ~/workspace
 wget https://nodejs.org/dist/v18.14.2/node-v18.14.2-linux-x64.tar.xz
 tar -xf node-v18.14.2-linux-x64.tar.xz
@@ -32,15 +32,15 @@ cd node-v18.14.2-linux-x64/bin
 pwd
 ```
 
-请将这个输出的路径通过 `~/.bashrc` 手动添加到环境变量中：
+请将这个输出的路径通过 `~/.bashrc` 文件手动添加到环境变量中：
 
-```
+```bash
 # Append to the last line
 export PATH=~/workspace/node-v18.14.2-linux-x64/bin:$PATH
 ```
 
 之后通过以下命令重载终端配置:
-```
+```bash
 source ~/.bashrc
 ```
 
