@@ -36,7 +36,7 @@ pwd
 
 ```
 # Append to the last line
-export PATH=~/workspace/node-v18.14.0-linux-x64/bin:$PATH
+export PATH=~/workspace/node-v18.14.2-linux-x64/bin:$PATH
 ```
 
 之后通过以下命令重载终端配置:
