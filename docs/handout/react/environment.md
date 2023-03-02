@@ -12,7 +12,7 @@
 
 ---
 
-本文档截图均基于 Mac 系统与 Safari 浏览器。
+本文档截图均基于 Mac 系统与 Safari 浏览器。如果你是 Windows 用户，推荐你使用 WSL 进行环境配置。
 
 ## Node.js
 
@@ -124,4 +124,4 @@ yarn start # 运行名为 start 的脚本
 
 !!! warning "热加载机制"
 
-    React 是具有热加载机制的，即你只要修改代码并保存，代码上的变化应当立刻反应到 UI 上。然而热加载机制可能在 WSL 上失效，具体请参考 [这个 Github Issue](https://github.com/microsoft/WSL/issues/6255)。
+    React 是具有热加载机制的，即你只要修改代码并保存，代码上的变化应当立刻反应到 UI 上。**然而热加载机制可能在 WSL2 上失效**，具体请参考 [这个 Github Issue](https://github.com/microsoft/WSL/issues/6255)，只需将项目放到 WSL 自己的目录而非 /mnt/ 下即可。
