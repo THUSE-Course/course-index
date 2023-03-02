@@ -497,7 +497,7 @@
 <p>为了能够在本地正确运行我们下发的代码，请你按照本 Step 配置本地环境。</p>
 <p>在配置环境中遇到问题，请首先检查这一问题是否已经在 FAQ 部分提出。如果这一问题并未出现在 FAQ 或者 FAQ 中提供的解决方案并不能解决问题，请在微信群或者网络学堂中提出。</p>
 <hr/>
-<p>本文档截图均基于 Mac 系统与 Safari 浏览器。</p>
+<p>本文档截图均基于 Mac 系统与 Safari 浏览器。如果你是 Windows 用户，推荐你使用 WSL 进行环境配置。</p>
 <h2 id="nodejs">Node.js<a class="headerlink" href="#nodejs" title="Permanent link">¶</a></h2>
 <p>Node.js 是服务器端运行 JavaScript 的环境，我们需要在本地配置 Node.js 环境以运行我们的前端代码。</p>
 <p>对 Node.js 更为细节的介绍参考计算机系学生科协技能引导文档 <a href="https://docs.net9.org/languages/node.js/">https://docs.net9.org/languages/node.js/</a>。</p>
@@ -588,19 +588,19 @@ yarn<span class="w"> </span>start<span class="w"> </span><span class="c1"># 运�
 <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-width="100%" href="../../../static/react/step0-final.png"><img alt="" src="../../../static/react/step0-final.png"/></a></p>
 <div class="admonition warning">
 <p class="admonition-title">热加载机制</p>
-<p>React 是具有热加载机制的，即你只要修改代码并保存，代码上的变化应当立刻反应到 UI 上。然而热加载机制可能在 WSL 上失效，具体请参考 <a href="https://github.com/microsoft/WSL/issues/6255">这个 Github Issue</a>。</p>
+<p>React 是具有热加载机制的，即你只要修改代码并保存，代码上的变化应当立刻反应到 UI 上。<strong>然而热加载机制可能在 WSL2 上失效</strong>，具体请参考 <a href="https://github.com/microsoft/WSL/issues/6255">这个 Github Issue</a>，只需将项目放到 WSL 自己的目录而非 /mnt/ 下即可。</p>
 </div>
 <hr/>
 <div class="md-source-file">
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月6日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年3月2日</span>
 </small>
 </div>
 <div class="md-source-date">
 <small>
-                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a></span>
+                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (98.43%), <a href="mailto:cc7w@foxmail.com">Huan-ang Gao</a> (1.57%)</span>
 </small>
 </div>
 </article>
