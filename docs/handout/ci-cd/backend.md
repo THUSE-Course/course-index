@@ -1,8 +1,10 @@
 # 后端部署
 
-本部分答案公布，但思考题依然需要完成并提交。
+!!! error "答案公布"
+	受 SECoder 平台资源限制，本部分答案公布，但思考题依然需要完成并提交。
+	
 
-你需要在 SECoder GitLab 上新建名为 `2023-Django-HW` 的项目并提交代码以运行后端小作业 CI 供评分使用。
+你需要在 SECoder GitLab 上新建名为 `2023-Django-HW` 的个人项目并提交代码。
 
 ## 任务汇总
 
@@ -29,7 +31,7 @@
 !!! info "通过 uWSGI 运行 Django 应用"
 
     你可以通过 [How to use Django with uWSGI](https://docs.djangoproject.com/en/4.1/howto/deployment/wsgi/uwsgi/) 了解如何通过 uWSGI 运行 Django 应用。
-
+    
     你可以在 [uWSGI Docs](https://uwsgi-docs.readthedocs.io/en/latest/index.html) 更详细地了解 uWSGI 的使用方法。
 
 请阅读上述文档并理解我们提供的选项的作用，**并修改部分参数**使之能够正确运行。
