@@ -8,7 +8,7 @@
 
 ## 任务汇总
 
-### 补全 nginx 配置文件 (1 分)
+### 补全 nginx 配置文件 (1.5 分)
 
 **需要修改的代码：**`nginx/default.conf` 第 3-4、13 行
 
@@ -18,7 +18,7 @@
 - 将根目录设置为 `/opt/app/dist`；
 - 将对 `/api/` 的请求转发到你的后端地址。
 
-### 编写 Dockerfile (1 分)
+### 编写 Dockerfile (1.5 分)
 
 **需要修改的代码：**`Dockerfile` 第 2 行 (你可以任意改变这部分的代码行数)
 
@@ -41,7 +41,7 @@
     
     你可以通过在本地构建镜像并运行容器来测试运行结果是否符合期望。由于 Docker 的虚拟化特性，如果在本地能够顺利运行，则理论上在部署到 SECoder 后它也一样能够顺利运行。
 
-### 完成 GitLab CI/CD 配置 (1 分)
+### 完成 GitLab CI/CD 配置 (1.5 分)
 
 **需要修改的代码：**`.gitlab-ci.yml` 第 20 行 (你可以任意改变这部分的代码行数)
 
@@ -54,7 +54,7 @@
 - 在 `script` 中，`unit-test` 作业执行单元测试，`style-test` 执行代码风格检查；
 - 在 `unit-test` 作业的 `after-script` 中，使用 SonarScanner 将测试结果上传到 SonarQube。我们已经预先为你提供了 SonarScanner 配置，因此你不需要学习 SonarQube 的用法也能够完成此任务。
 
-### 思考题：为什么不用 `rewrites`？ (0.5 分)
+### 思考题：为什么不用 `rewrites`？ (1 分)
 
 在前端小作业的思考题中，你探究了 `rewrites` 函数的作用，并在本地进行前后端对接时将后端地址填入了 `destination` 中。但在本次作业中，我们将后端地址填入了 nginx 配置的 `location /api/` 之中。请查阅资料并解释为什么需要这么做。
 

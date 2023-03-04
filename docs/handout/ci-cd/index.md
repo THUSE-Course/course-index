@@ -1,6 +1,6 @@
 # CI/CD 小作业文档
 
-本作业目标为将前后端小作业成功部署到 SECoder 平台，并能够通过网址进行正常的访问与游玩。
+本作业目标为将前端小作业成功部署到 SECoder 平台，并能够通过网址进行正常的访问与游玩。
 
 开始 CI/CD 小作业前，请阅读课程文档“部署基础”部分中的 [Docker](../../deploy/docker)、[Deployer](../../deploy/deployer) 与 [GitLab CI/CD](../../deploy/gitlab-ci)。
 

@@ -8,7 +8,7 @@
 
 功能评分通过 SECoder Gitlab CI 进行，我们将会以作业截止时间前主分支上最后一次 commit 对应的 CI 为基准评分。功能评分占后端小作业评分的 100%，通过作业框架提供的所有单元测试即记满分。有部分单元测试不通过的酌情扣分。
 
-在已经完成了 CI/CD 作业的基础上，如果在 SECoder Gitlab CI 上查看到类似下述提示：
+如果在 SECoder Gitlab CI 上查看到类似下述提示：
 
 ![](../../static/django-pass.png)
 
