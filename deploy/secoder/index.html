@@ -712,6 +712,8 @@
 <h4 id="_11">新建容器<a class="headerlink" href="#_11" title="Permanent link">¶</a></h4>
 <p>可以在管理界面新建不与仓库绑定的容器。你可以指定所需的镜像并可选地提供 image registry 的用户名与密码。这可能被用于数据库容器等。</p>
 <h3 id="_12">配置<a class="headerlink" href="#_12" title="Permanent link">¶</a></h3>
+<p>在开发时和正式部署时使用不同的配置是一种常见做法。例如，你可以让你的后端在开发时连接本地的数据库，在部署时连接部署的数据库。然而，由于容器的易失性，一个容器在重新启动后其中所做的修改都将丢失。这意味着如果我们每次都进入容器手动修改配置将十分低效。</p>
+<p>我们可以通过配置项来简化这个流程。配置项是只读的挂载项，可以用于存放各种配置文件。配置项可以作为一个目录被挂载到容器中。这样，在部署时将会自动使用挂载的配置。</p>
 <p>可以在这里管理配置项。你可以对配置项进行新建、上传、预览、重命名和删除操作。</p>
 <div class="admonition warning">
 <p class="admonition-title">上传不是增量的</p>
@@ -764,6 +766,8 @@
 </ol>
 </details>
 <h3 id="_13">持久存储<a class="headerlink" href="#_13" title="Permanent link">¶</a></h3>
+<p>数据库容器等需要在容器内保存数据。但同样由于容器的易失性，在容器重启时其中的数据将会丢失，因此我们需要一种能够持久保存数据的方法。</p>
+<p>持久存储与配置项类似，都可以挂载到容器的某一目录。它们之间的不同点在于持久存储是可写的，并且你不需要为其提供初始内容。这样，我们就可以在容器重新启动时不致丢失数据了。</p>
 <p>可以在这里管理持久存储。你可以对持久存储进行新建、重命名和删除操作。</p>
 <div class="admonition note">
 <p class="admonition-title">可参考配置项挂载</p>
@@ -776,7 +780,7 @@
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月9日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年3月4日</span>
 </small>
 </div>
 <div class="md-source-date">
