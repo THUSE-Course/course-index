@@ -8,9 +8,9 @@
 <link href="../" rel="prev"/>
 <link href="../frontend/" rel="next"/>
 <link href="../../../assets/images/favicon.png" rel="icon"/>
-<meta content="mkdocs-1.4.2, mkdocs-material-9.0.15" name="generator"/>
+<meta content="mkdocs-1.4.2, mkdocs-material-9.1.0" name="generator"/>
 <title>后端部署 - Software Engineering Course Index</title>
-<link href="../../../assets/stylesheets/main.113286f1.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/main.402914a4.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.a0c5b2b5.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
@@ -439,6 +439,11 @@
     思考题：为什么改了这个选项？ (0.5 分)
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#0">
+    本地测试 (0 分)
+  </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -511,6 +516,11 @@
     思考题：为什么改了这个选项？ (0.5 分)
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#0">
+    本地测试 (0 分)
+  </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -527,9 +537,8 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="_1">后端部署<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
-<p>在这一部分，你将会完成 Django 小作业的 CI/CD 配置，并通过 CI/CD 将其部署到 SECoder 上。</p>
+<p>在这一部分，你将会完成 Django 小作业的 CI/CD 配置。</p>
 <p>你需要在 SECoder GitLab 上新建名为 <code>2023-Django-HW</code> 的项目并按要求将密钥在 CI/CD 变量中提供。</p>
-<p>完成这一部分后，你应当能够在 <code>https://backend-{id}.app.secoder.net</code> 访问你的后端，其中 <code>{id}</code> 为你的学号。</p>
 <h2 id="_2">任务汇总<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <h3 id="05">关闭调试开关 (0.5 分)<a class="headerlink" href="#05" title="Permanent link">¶</a></h3>
 <p><strong>需要修改的代码：</strong><code>DjangoHW/settings.py</code> 第 29 行</p>
@@ -575,17 +584,29 @@
 <li>在 <code>unit-test</code> 作业的 <code>before_script</code> 部分安装 <code>requirements.txt</code> 声明的依赖并通过换源到 TUNA 加速下载；</li>
 <li>在 <code>unit-test</code> 作业的 <code>script</code> 部分创建并执行迁移，然后运行单元测试脚本 <code>test.sh</code>。</li>
 </ul>
+<p>由于 SECoder 平台资源限制，我们无法为后端创建容器，因此 CI/CD 流水线执行过程中你的 <code>deploy</code> 阶段可能会执行失败，这是正常现象。</p>
 <h3 id="05_1">思考题：为什么改了这个选项？ (0.5 分)<a class="headerlink" href="#05_1" title="Permanent link">¶</a></h3>
 <p>在使用 uWSGI 运行的过程中，我们使用了 <code>--http</code> 选项而非上面给出的教程中的 <code>--socket</code> 选项。同时，我们监听了 <code>0.0.0.0</code> 而非 <code>127.0.0.1</code>。请查阅资料并解释 <code>--http</code> 选项与 <code>--socket</code> 选项的区别，并解释监听 <code>0.0.0.0</code> 的原因。</p>
+<h3 id="0">本地测试 (0 分)<a class="headerlink" href="#0" title="Permanent link">¶</a></h3>
+<p>由于 SECoder 平台资源限制，我们无法为后端创建容器，因此你需要在本地构建 Docker 镜像并通过 <a href="https://curl.se">curl</a>、<a href="https://www.postman.com">Postman</a> 等工具来测试能否与容器中的后端正常通信。</p>
+<p>在本地构建 Docker 镜像和运行 Docker 容器的方法可以参考 Docker 文档的 <a href="../../../deploy/docker#_2">本地运行容器</a> 部分。</p>
+<div class="admonition warning">
+<p class="admonition-title">请务必完成本任务</p>
+<p>尽管此任务并不直接计入分数，但由于无法将后端小作业部署到 SECoder 平台上，如没有在本地进行测试，很可能在小作业验收时出现问题。</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">在 SECoder 上测试</p>
+<p>你可以暂时利用前端小作业的容器来测试后端的部署，具体做法是将 <code>deployer dyno replace</code> 命令的 dyno 由 <code>backend</code> 改为 <code>frontend</code>，这之后你可以在 <code>https://frontend-{id}.app.secoder.net</code> 访问到后端并测试部署是否正常，其中 <code>{id}</code> 为你的学号。</p>
+<p>请在作业截止前检查你的容器是否运行着前端小作业，否则我们无法验收前端小作业。</p>
+</div>
 <h2 id="_3">完成效果<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
-<p>完成任务后，你应当能够成功执行 GitLab CI/CD 流水线并能够通过 <code>https://backend-{id}.app.secoder.net</code> 访问到你部署在 SECoder 上的后端。此时你可以使用 <a href="https://curl.se">curl</a>、<a href="https://www.postman.com">Postman</a> 等工具来向它发送请求并得到正确的响应。</p>
-<p>完成前端小作业后，你可以将 API 地址修改为此 URL 并测试前后端的对接。</p>
+<p>完成任务后，你应当能够成功执行 GitLab CI/CD 流水线，并能够在本地正常与容器中的后端进行通信。</p>
 <hr/>
 <div class="md-source-file">
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月19日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年3月4日</span>
 </small>
 </div>
 <div class="md-source-date">
@@ -620,7 +641,7 @@
 <div class="md-dialog__inner md-typeset"></div>
 </div>
 <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top", "navigation.tabs", "navigation.indexes"], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
-<script src="../../../assets/javascripts/bundle.2a6f1dda.min.js"></script>
+<script src="../../../assets/javascripts/bundle.ce72ebac.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
 </html>
