@@ -1,10 +1,8 @@
 # 后端部署
 
-在这一部分，你将会完成 Django 小作业的 CI/CD 配置，并通过 CI/CD 将其部署到 SECoder 上。
+在这一部分，你将会完成 Django 小作业的 CI/CD 配置。
 
 你需要在 SECoder GitLab 上新建名为 `2023-Django-HW` 的项目并按要求将密钥在 CI/CD 变量中提供。
-
-完成这一部分后，你应当能够在 `https://backend-{id}.app.secoder.net` 访问你的后端，其中 `{id}` 为你的学号。
 
 ## 任务汇总
 
@@ -67,12 +65,22 @@
 - 在 `unit-test` 作业的 `before_script` 部分安装 `requirements.txt` 声明的依赖并通过换源到 TUNA 加速下载；
 - 在 `unit-test` 作业的 `script` 部分创建并执行迁移，然后运行单元测试脚本 `test.sh`。
 
+由于 SECoder 平台资源限制，我们无法为后端创建容器，因此 CI/CD 流水线执行过程中你的 `deploy` 阶段可能会执行失败，这是正常现象。
+
 ### 思考题：为什么改了这个选项？ (0.5 分)
 
 在使用 uWSGI 运行的过程中，我们使用了 `--http` 选项而非上面给出的教程中的 `--socket` 选项。同时，我们监听了 `0.0.0.0` 而非 `127.0.0.1`。请查阅资料并解释 `--http` 选项与 `--socket` 选项的区别，并解释监听 `0.0.0.0` 的原因。
 
+### 本地测试 (0 分)
+
+由于 SECoder 平台资源限制，我们无法为后端创建容器，因此你需要在本地构建 Docker 镜像并通过 [curl](https://curl.se)、[Postman](https://www.postman.com) 等工具来测试能否与容器中的后端正常通信。
+
+在本地构建 Docker 镜像和运行 Docker 容器的方法可以参考 Docker 文档的 [本地运行容器](../../../deploy/docker#_2) 部分。
+
+!!! warning "请务必完成本任务"
+
+    尽管此任务并不直接计入分数，但由于无法将后端小作业部署到 SECoder 平台上，如没有在本地进行测试，很可能在小作业验收时出现问题。
+
 ## 完成效果
 
-完成任务后，你应当能够成功执行 GitLab CI/CD 流水线并能够通过 `https://backend-{id}.app.secoder.net` 访问到你部署在 SECoder 上的后端。此时你可以使用 [curl](https://curl.se)、[Postman](https://www.postman.com) 等工具来向它发送请求并得到正确的响应。
-
-完成前端小作业后，你可以将 API 地址修改为此 URL 并测试前后端的对接。
+完成任务后，你应当能够成功执行 GitLab CI/CD 流水线，并能够在本地正常与容器中的后端进行通信。

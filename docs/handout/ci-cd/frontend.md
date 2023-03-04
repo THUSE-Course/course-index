@@ -16,7 +16,7 @@
 
 - 修改监听的端口号，使之监听 80 端口；
 - 将根目录设置为 `/opt/app/dist`；
-- 将对 `/api/` 的请求转发到你的后端地址。
+- 将对 `/api/` 的请求转发到标准后端 URL `https://backend-std.app.secoder.net/`。
 
 ### 编写 Dockerfile (1 分)
 
