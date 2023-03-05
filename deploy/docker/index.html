@@ -517,12 +517,15 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">¶</a></h1>
-<p>SECoder 平台通过构建 Docker 镜像并运行容器进行部署。Docker 是一个应用程序容器化环境，通过将程序隔离在不同的容器中运行来提供一致的运行环境，降低运维成本。</p>
-<p>Docker 可以理解为程序级别的虚拟化，类比于虚拟机，但 Docker 容器要轻量得多，几乎不带来性能损耗。一个 Docker 容器包含了除了操作系统内核之外的整个文件系统，包括依赖的库以及应用程序本身。</p>
-<p>在进行部署之前，我们首先需要将程序运行所需的环境构建为一个<strong>镜像 (Image)</strong>。一个镜像包含与主机隔离的属于自己的文件系统。我们通过构建镜像将程序运行所需的环境放入这个文件系统中，之后基于镜像运行一个<strong>容器 (Container)</strong>。镜像与容器的关系类似于程序 (Program) 与进程 (Process) 的关系，即镜像是静态存在，而容器是基于镜像运行的动态存在。</p>
+<p>Docker 将应用及其所需要的环境打包并交付给其他人使用，使得应用能够在一致的环境下一键运行，而不需要手动配置环境。</p>
+<p>我们在<strong>部署</strong>阶段需要将我们写好的代码放到一个环境未知的服务器上运行，从而达到向公网提供服务的目的。但是，由于目标环境未知，如何在目标机器上配置程序运行环境是一大挑战。</p>
+<p>Docker 便是为了解决这个挑战而存在。Docker 是一个应用程序<strong>容器化</strong>环境，通过将程序隔离在不同的容器中运行来提供一致的运行环境，降低运维成本。</p>
+<p>应用的编写者（也就是我们）会提供在某种基环境（比如标准 Ubuntu 20.04）下将整个环境搭起来的全部流程，并将配置过程写到一个文件（即我们后续说的 Dockerfile）中，然后基于这个文件构建一个 Docker <strong>镜像</strong>（Image）。</p>
+<p>然后我们可以把这个镜像分发到世界各处的服务器上，这些也装有 Docker 的服务器会根据这些镜像运行<strong>容器 (Container)</strong> —— 镜像的实例。</p>
+<p>比如，在常见的暑期培训中，讲师可以基于 Ubuntu 20.04 环境，通过 Dockerfile 指定将一些配好的环境、出好的题目拷贝到这个环境的某个目录下，然后构建一个镜像。我们可以根据这个镜像在几台服务器上开启数以百计的容器分发给同学使用，而不需要每个同学单独再去配置任何环境。再比如，软件的开发者在软件运行环境依赖十分复杂时，也会在软件发布阶段将所有环境构建成一个镜像，而软件使用者通过实例化这个镜像得到一个容器，在容器中做出自己的修改。</p>
 <div class="admonition note">
 <p class="admonition-title">容器的易失性</p>
-<p>容器的文件系统是一个临时文件系统，因此容器重启时其中的所有数据将会丢失。我们将在后续的文档介绍如何通过配置项和持久存储来使得数据在不同容器之间保持。</p>
+<p>容器的文件系统是一个临时文件系统，因此如果容器被不小心删除，其中的所有数据将会丢失。我们将在后续的文档介绍如何通过配置项和持久存储来使得数据在不同容器之间保持。</p>
 </div>
 <h2 id="dockerfile">Dockerfile<a class="headerlink" href="#dockerfile" title="Permanent link">¶</a></h2>
 <p>我们通过 Dockerfile 文件指示构建镜像时需要执行的操作。以下是一个示例 Dockerfile：</p>
@@ -777,12 +780,12 @@ requests==2.28.1
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年3月4日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年3月5日</span>
 </small>
 </div>
 <div class="md-source-date">
 <small>
-                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (0.41%), <a href="mailto:wangbw21@mails.tsinghua.edu.cn">abmfy</a> (99.59%)</span>
+                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (0.4%), <a href="mailto:wangbw21@mails.tsinghua.edu.cn">abmfy</a> (95.24%), <a href="mailto:cc7w@foxmail.com">Huan-ang Gao</a> (4.37%)</span>
 </small>
 </div>
 </article>
