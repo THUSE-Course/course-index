@@ -33,7 +33,7 @@ const bar = (x: A | B): number => {
 
 ## Problem 3 (4 pts)
 
-在 Next.js 框架中，`pages` 目录结构如下所示，各个 `.tsx` 文件使用 `export default` 方式导出的 React 组件写在括号内。请分别回答在浏览器访问下述地址的时候，浏览器所要渲染的组件名称。若没有符合条件的组件，回答 404 Not Found。
+在 Next.js 框架中，`pages` 目录结构如下所示，各个 `.tsx` 文件使用 `export default` 方式导出的 React 组件写在括号内。请分别回答在浏览器访问下述地址的时候，浏览器所要渲染的组件名称。若访问时 Next.js 会提示 404 页面，回答 404 Not Found。
 
 ```text
 pages
