@@ -2,7 +2,14 @@
 
 本部分将收集微信群与网络学堂中提问较多、有价值的问题。
 
-
+!!! question "2. CI/CD build 阶段失败"
+    **【问题】**
+    ![build-failed](static/faq/update-template.png)
+    <center>构建阶段日志出现如图所示的错误</center>
+    **【解决方案】**请按照网络学堂公告提示更新代码模板！相关 commit 信息如下：
+    
+    + https://git.tsinghua.edu.cn/se-2023spring/2023-django-hw/-/commit/61e9aae7d36e747cacb5aeddc91190d85118f903
+    + https://git.tsinghua.edu.cn/se-2023spring/2023-next-hw/-/commit/98e1192ef7bfcfbe025f626c10a25209a726c5e3
 
 !!! question "1. 无权限拉取作业仓库"
     **【问题】**
