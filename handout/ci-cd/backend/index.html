@@ -582,7 +582,7 @@
 <li><code>build</code> 和 <code>deploy</code> 作业仅在 <code>master</code> 分支执行；</li>
 <li><code>unit-test</code> 作业在 <code>python</code> 镜像而非 <code>deployer</code> 镜像上运行，其中 Python 版本为 3.9；</li>
 <li>在 <code>unit-test</code> 作业的 <code>before_script</code> 部分安装 <code>requirements.txt</code> 声明的依赖并通过换源到 TUNA 加速下载；</li>
-<li>在 <code>unit-test</code> 作业的 <code>script</code> 部分创建并执行迁移，然后运行单元测试脚本 <code>test.sh</code>。</li>
+<li>在 <code>unit-test</code> 作业的 <code>script</code> 部分创建并执行数据库迁移计划（migrations，修改数据表结构与属性的语句），然后运行单元测试脚本 test.sh。</li>
 </ul>
 <p>由于 SECoder 平台资源限制，我们无法为后端创建容器，因此 CI/CD 流水线执行过程中你的 <code>deploy</code> 阶段可能会执行失败，这是正常现象。</p>
 <h3 id="05_1">思考题：为什么改了这个选项？ (0.5 分)<a class="headerlink" href="#05_1" title="Permanent link">¶</a></h3>
@@ -606,12 +606,12 @@
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年3月5日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年3月6日</span>
 </small>
 </div>
 <div class="md-source-date">
 <small>
-                作者: <span class="git-page-authors git-authors"><a href="mailto:wangbw21@mails.tsinghua.edu.cn">abmfy</a> (98.91%), <a href="mailto:cc7w@foxmail.com">Huan-ang Gao</a> (1.09%)</span>
+                作者: <span class="git-page-authors git-authors"><a href="mailto:wangbw21@mails.tsinghua.edu.cn">abmfy</a> (97.83%), <a href="mailto:cc7w@foxmail.com">Huan-ang Gao</a> (2.17%)</span>
 </small>
 </div>
 </article>
