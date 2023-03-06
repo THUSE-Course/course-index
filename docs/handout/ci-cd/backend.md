@@ -63,7 +63,7 @@
 - `build` 和 `deploy` 作业仅在 `master` 分支执行；
 - `unit-test` 作业在 `python` 镜像而非 `deployer` 镜像上运行，其中 Python 版本为 3.9；
 - 在 `unit-test` 作业的 `before_script` 部分安装 `requirements.txt` 声明的依赖并通过换源到 TUNA 加速下载；
-- 在 `unit-test` 作业的 `script` 部分创建并执行迁移，然后运行单元测试脚本 `test.sh`。
+- 在 `unit-test` 作业的 `script` 部分创建并执行数据库迁移计划（migrations，修改数据表结构与属性的语句），然后运行单元测试脚本 test.sh。
 
 由于 SECoder 平台资源限制，我们无法为后端创建容器，因此 CI/CD 流水线执行过程中你的 `deploy` 阶段可能会执行失败，这是正常现象。
 
