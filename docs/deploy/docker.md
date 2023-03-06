@@ -200,7 +200,7 @@ EXPOSE 80
         root /opt/app/dist;
 
         location / {
-            try_files $uri $uri/ /index.html;
+            try_files $uri $uri.html $uri/index.html /index.html;
         }
 
         location /api/ {
@@ -209,7 +209,7 @@ EXPOSE 80
     }
     ```
 
-    它表明监听 80 端口，以 `/opt/app/dist` 目录作为根目录，在访问任意 URL 时首先尝试查找该 URI 的文件，再查找该 URI 的目录，最后回退到 `/index.html`。这意味着对特定资源的请求将会直接返回该资源，而对于其他情况将会转交给前端框架，由前端框架处理路由。
+    它表明监听 80 端口，以 `/opt/app/dist` 目录作为根目录，在访问任意 URL 时首先尝试查找该 URI 的文件，再查找该 URI 后加 `.html` 的页面文件，再查找该 URI 的目录下的 `index.html`，最后回退到 `/index.html`。这意味着对特定资源的请求将会直接返回该资源，而对于其他情况将会转交给前端框架，由前端框架处理路由。
 
     第二个 `location` 部分适用于需要前端服务器重写 API 请求的情况，这么做会将到前端 `/api/` 路径下的请求转发到你的后端地址 `https://your.backend.url/`。如果没有需要前端重写 API 请求的需求，则不需要这一部分。
 
