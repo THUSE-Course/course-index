@@ -30,7 +30,7 @@
 
         ![Profile 页面](../../static/token-settings.png)
 
-    2. 在 Access Tokens 选项卡中生成密钥，名字任意，过期时间不晚于本课程结课时间，权限选择 `read_registry`，点击 “Create personal access token”
+    2. 在 Access Tokens 选项卡中生成密钥，名字任意，过期时间不早于本课程结课时间，权限选择 `read_registry`，点击 “Create personal access token”
 
         ![创建密钥](../../static/token-create.png)
 
