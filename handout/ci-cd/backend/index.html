@@ -546,7 +546,7 @@
 <p>你需要使得环境变量 <code>DEPLOY</code> 存在时，调试开关 <code>DEBUG</code> 为 <code>False</code>，否则为 <code>True</code>。</p>
 <div class="admonition info">
 <p class="admonition-title"><code>os.getenv</code></p>
-<p>你可以通过 Python 标准库中的 <code>os.getenv</code> 函数来读取环境变量。<code>os.getenv(key)</code> 将在环境变量 <code>key</code> 存在时返回一个 <code>str</code>，否则返回 <code>None</code>。</p>
+<p>你可以通过 Python 标准库中的 <code>os.getenv</code> 函数来读取环境变量。<code>os.getenv('key')</code> 将在环境变量 <code>key</code> 存在时返回一个 <code>str</code>，否则返回 <code>None</code>。</p>
 </div>
 <h3 id="uwsgi-05">使用 uWSGI 部署 (0.5 分)<a class="headerlink" href="#uwsgi-05" title="Permanent link">¶</a></h3>
 <p><strong>需要修改的代码：</strong><code>requirements.txt</code> 第 12 行，<code>start.sh</code> 第 6-14 行</p>
