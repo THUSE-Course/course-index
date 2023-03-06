@@ -16,7 +16,7 @@
 
 !!! info "`os.getenv`"
 
-    你可以通过 Python 标准库中的 `os.getenv` 函数来读取环境变量。`os.getenv(key)` 将在环境变量 `key` 存在时返回一个 `str`，否则返回 `None`。
+    你可以通过 Python 标准库中的 `os.getenv` 函数来读取环境变量。`os.getenv('key')` 将在环境变量 `key` 存在时返回一个 `str`，否则返回 `None`。
 
 ### 使用 uWSGI 部署 (0.5 分)
 
