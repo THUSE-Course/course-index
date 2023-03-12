@@ -2,6 +2,18 @@
 
 本部分将收集微信群与网络学堂中提问较多、有价值的问题。
 
+!!! question "5. 小作业部署后访问提示 502 Bad Gateway"
+
+    这可能是你没有正确设置变量导致 deployer 没有访问镜像的权限。请检查 `REGISTRY_PWD` 变量的权限是否为 `read_registry` (注意不是 `read_repository`)，并确认项目 CI/CD 中正确添加了变量，包括 `master` 分支是否被保护，以及复制粘贴 token 时是否出现错误，例如在结尾意外加入了空格等。
+
+!!! question "4. 前端小作业部署后访问提示 403 Forbidden"
+
+    这可能是你没有正确地导出静态页面文件。请阅读小作业文档中提供的链接了解如何通过 Next.js 导出静态页面文件。
+
+!!! question "3. 后端小作业部署后访问提示 500 Internal Server Error"
+
+    这可能是你没有正确地配置 uWSGI。请阅读小作业文档中提供的链接了解如何通过 uWSGI 部署 Django 应用，并注意需要修改的参数可能不止一处。
+
 !!! question "2. CI/CD build 阶段失败"
     **【问题】**
     ![build-failed](static/faq/update-template.png)
