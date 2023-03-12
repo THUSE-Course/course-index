@@ -2,6 +2,10 @@
 
 本部分将收集微信群与网络学堂中提问较多、有价值的问题。
 
+!!! question "6. 小作业部署后 CI/CD 阶段失败，提示“401: Unauthorized operation.Attach token.”"
+
+    请检查项目变量设置中 `DEPLOY_TOKEN` 是否正确设置。没有设置次变量或提供的密钥错误都可能导致此结果。
+
 !!! question "5. 小作业部署后访问提示 502 Bad Gateway"
 
     这可能是你没有正确设置变量导致 deployer 没有访问镜像的权限。请检查 `REGISTRY_PWD` 变量的权限是否为 `read_registry` (注意不是 `read_repository`)，并确认项目 CI/CD 中正确添加了变量，包括 `master` 分支是否被保护，以及复制粘贴 token 时是否出现错误，例如在结尾意外加入了空格等。
