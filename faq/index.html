@@ -432,6 +432,10 @@
 <h1 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">¶</a></h1>
 <p>本部分将收集微信群与网络学堂中提问较多、有价值的问题。</p>
 <div class="admonition question">
+<p class="admonition-title">6. 小作业部署后 CI/CD 阶段失败，提示“401: Unauthorized operation.Attach token.”</p>
+<p>请检查项目变量设置中 <code>DEPLOY_TOKEN</code> 是否正确设置。没有设置次变量或提供的密钥错误都可能导致此结果。</p>
+</div>
+<div class="admonition question">
 <p class="admonition-title">5. 小作业部署后访问提示 502 Bad Gateway</p>
 <p>这可能是你没有正确设置变量导致 deployer 没有访问镜像的权限。请检查 <code>REGISTRY_PWD</code> 变量的权限是否为 <code>read_registry</code> (注意不是 <code>read_repository</code>)，并确认项目 CI/CD 中正确添加了变量，包括 <code>master</code> 分支是否被保护，以及复制粘贴 token 时是否出现错误，例如在结尾意外加入了空格等。</p>
 </div>
@@ -471,7 +475,7 @@
 </div>
 <div class="md-source-date">
 <small>
-                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (6.67%), <a href="mailto:wangbw21@mails.tsinghua.edu.cn">abmfy</a> (40.0%), <a href="mailto:cc7w@foxmail.com">Huan-ang Gao</a> (53.33%)</span>
+                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (5.88%), <a href="mailto:wangbw21@mails.tsinghua.edu.cn">abmfy</a> (47.06%), <a href="mailto:cc7w@foxmail.com">Huan-ang Gao</a> (47.06%)</span>
 </small>
 </div>
 </article>
