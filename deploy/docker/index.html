@@ -646,6 +646,10 @@ requests==2.28.1
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">EXPOSE</span><span class="w"> </span><span class="s">80</span>
 </code></pre></div></td></tr></table></div>
 <p>暴露 80 端口。Docker 容器的网络环境与外界同样是隔离的，因此如果需要让外界能够向容器发送网络请求，就需要指定需要暴露的端口。</p>
+<div class="admonition note">
+<p class="admonition-title">这只是一个声明</p>
+<p><code>EXPOSE</code> 指令仅仅是一个声明。要在容器运行时通过这个端口与容器进行通信，还需要在容器运行时指定将容器的端口发布到本机端口，具体操作可以参照本文档运行容器部分。</p>
+</div>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"python3"</span><span class="p">,</span><span class="w"> </span><span class="s2">"main.py"</span><span class="p">]</span>
 </code></pre></div></td></tr></table></div>
 <p>指定容器运行时执行的命令。注意，与 <code>RUN</code> 指令不同，容器构建时不会执行这段命令，只有容器启动时才会。注意此指令的格式，需要将每个参数分隔为单独字符串并在最外层加方括号。这里的这条指令表明基于该镜像的容器运行时将执行 <code>python3 main.py</code>。典型地，这条指令用于启动我们的程序。不过，如果程序运行步骤比较复杂，我们一般会选择将程序运行逻辑写为一个 shell 脚本，而在 Dockerfile 中使用 <code>CMD ["sh", "run.sh"]</code> 之类的指令来执行这个脚本。</p>
@@ -780,12 +784,12 @@ requests==2.28.1
 <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年3月6日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年3月13日</span>
 </small>
 </div>
 <div class="md-source-date">
 <small>
-                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (0.4%), <a href="mailto:wangbw21@mails.tsinghua.edu.cn">abmfy</a> (95.24%), <a href="mailto:cc7w@foxmail.com">Huan-ang Gao</a> (4.37%)</span>
+                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (0.39%), <a href="mailto:wangbw21@mails.tsinghua.edu.cn">abmfy</a> (95.31%), <a href="mailto:cc7w@foxmail.com">Huan-ang Gao</a> (4.3%)</span>
 </small>
 </div>
 </article>
