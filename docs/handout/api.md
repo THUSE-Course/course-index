@@ -10,6 +10,79 @@
     
     由于小作业规模较小，故我们直接使用文字说明。对于较大规模的应用，可以使用一些工具辅助管理 API 文档，如 [Apifox](https://www.apifox.cn)。
 
+## URL `/login`
+
+该 API 用于用户注册与登陆。
+
+该 API 仅接受以 POST 方法请求。以其他方法请求均应当设置状态码为 405 Method Not Allowed，错误响应格式为：
+
+```json
+{
+    "code": -3,
+    "info": "Bad method"
+}
+```
+
+### POST
+
+使用 POST 方法请求该 API 即表示用户请求登录，若用户不存在，则表示注册该用户。
+
+=== "请求体"
+
+    请求体的格式为：
+    
+    ```json
+    {
+        "userName": "Ashitemaru",
+        "password": "123456"
+    }
+    ```
+    
+    上述字段的说明为：
+    
+    - `userName`。表示用户名，应当为非空字符串，且长度不大于 50
+    - `password`。表示用户的密码，应当为非空字符串，且长度不大于 20
+
+=== "成功响应"
+
+    当该用户不存在（用户名不存在于已有用户名列表中），即注册时，需要创建该用户。
+
+    注册成功时，需要签发 JWT 令牌，设置状态码为 200 OK，成功响应格式为：
+    
+    ```json
+    {
+        "code": 0,
+        "info": "Succeed",
+        "token": "***.***.***" // JWT
+    }
+    ```
+    
+    当该用户存在（用户名存在于已有用户名列表中），即登陆时，需要核对密码是否与数据库一致。
+
+    登陆成功时，需要签发 JWT 令牌，设置状态码为 200 OK，成功响应格式为：
+
+    ```json
+    {
+        "code": 0,
+        "info": "Succeed",
+        "token": "***.***.***" // JWT
+    }
+    ```
+
+=== "错误响应"
+
+    所有错误响应的格式均为：
+    
+    ```json
+    {
+        "code": *,
+        "info": "[Some message]"
+    }
+    ```
+
+    - 若该用户存在（用户名存在于已有用户名列表中），即登陆时，密码核对失败，错误响应的状态码为 401 Unauthorized，`code` 字段为 `2`，`info` 字段为 `Wrong password`
+    - 若读写数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，`code` 字段为 `-4`，`info` 字段尽量携带错误信息（CI 不评测该错误响应）
+
 ## URL `/boards`
 
 该 API 用于操作整体的游戏记录列表，包括获取全部游戏记录以及新增游戏记录。
@@ -86,6 +159,10 @@
 
 使用 POST 方法请求该 API 即表示请求增加一条游戏记录，如果需要增加的游戏记录已存在，则更新该记录。
 
+=== "请求头"
+
+    使用 POST 方法请求该 API 时需要携带 JWT 令牌验证身份。请求头需要将 `Authorization` 字段设置为 JWT 令牌。
+
 === "请求体"
 
     请求体的格式为：
@@ -130,6 +207,7 @@
     }
     ```
     
+    - 若请求头中携带的 JWT 令牌无法通过验证或已经过期，错误响应状态码为 401 Unauthorized，`code` 字段为 `2`，`info` 字段为 `"Invalid or expired JWT"`
     - 若请求体中数据格式不满足格式规定，错误响应的状态码为 400 Bad Request，`code` 字段为 `-2`。`info` 字段的具体内容根据具体错误确定。
         1. `board` 字段缺失或非字符串类型，此时 `info` 字段为 `"Missing or error type of [board]"`
         2. `boardName` 字段缺失或非字符串类型，此时 `info` 字段为 `"Missing or error type of [boardName]"`
@@ -140,13 +218,11 @@
         7. `board` 中含有非 `0` 或 `1` 的字符，此时 `info` 字段为 `"Invalid char in [board]"`
     - 若读写数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，`code` 字段为 `-4`，`info` 字段尽量携带错误信息（CI 不评测该错误响应）
 
-
-
 ## URL `/boards/{id}`
 
 该 API 用于操作具体的某一条游戏记录，包括获取该游戏记录、删除该游戏记录以及更新该游戏记录。
 
-该 API 仅接受以 GET、DELETE 与 PUT 方法请求。以其他方法请求均应当设置状态码为 405 Method Not Allowed，错误响应格式为：
+该 API 仅接受以 GET 与 DELETE 方法请求。以其他方法请求均应当设置状态码为 405 Method Not Allowed，错误响应格式为：
 
 ```json
 {
@@ -217,7 +293,11 @@
 
 ### DELETE
 
-使用 DELETE 方法请求该 API 即表示请求删除指定的游戏记录。
+使用 DELETE 方法请求该 API 即表示请求删除指定的游戏记录，用户仅能删除自己的游戏记录。
+
+=== "请求头"
+
+    使用 DELETE 方法请求该 API 时需要携带 JWT 令牌验证身份。请求头需要将 `Authorization` 字段设置为 JWT 令牌。
 
 === "请求体"
 
@@ -245,71 +325,15 @@
     }
     ```
     
+    - 若请求头中携带的 JWT 令牌无法通过验证或已经过期，错误响应状态码为 401 Unauthorized，`code` 字段为 `2`，`info` 字段为 `"Invalid or expired JWT"`
+    - 若用户请求删除非本人创建的游戏记录，错误响应状态码为 401 Unauthorized，`code` 字段为 `3`，`info` 字段为 `"Cannot delete board of other users"`
     - 若读取数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，`code` 字段为 `-4`，`info` 字段尽量携带错误信息（CI 不评测该错误响应）
-
-### PUT
-
-使用 PUT 方法请求该 API 即表示请求更新指定的游戏记录。该方法携带请求体，语义为申请将指定的游戏记录中的信息更新为请求体所描述的信息。
-
-=== "请求体"
-
-    请求体的格式为：
-    
-    ```json
-    {
-        "board":
-            "00010001010000...",
-        "boardName": "Double beehive",
-        "userName": "Ashitemaru"
-    }
-    ```
-    
-    上述字段的说明为：
-    
-    - `board`。表示该游戏记录，应当为长度为 2500 的、仅含有 `0` 或者 `1` 的字符串
-    - `boardName`。表示该游戏记录的名称，应当为非空字符串，且长度不大于 50
-    - `userName`。表示该游戏创建者的用户名，应当为非空字符串，且长度不大于 50
-
-=== "成功响应"
-
-    请求成功时，应当设置状态码为 200 OK，成功响应格式为：
-    
-    ```json
-    {
-        "code": 0,
-        "info": "Succeed"
-    }
-    ```
-
-=== "错误响应"
-
-    所有错误响应的格式均为：
-    
-    ```json
-    {
-        "code": *,
-        "info": "[Some message]"
-    }
-    ```
-    
-    - 若请求体中数据格式不满足格式规定，错误响应的状态码为 400 Bad Request，`code` 字段为 `-2`。`info` 字段的具体内容根据具体错误确定，各类格式错误的优先级如下：
-        1. `board` 字段缺失或非字符串类型，此时 `info` 字段为 `"Missing or error type of [board]"`
-        2. `boardName` 字段缺失或非字符串类型，此时 `info` 字段为 `"Missing or error type of [boardName]"`
-        3. `userName` 字段缺失或非字符串类型，此时 `info` 字段为 `"Missing or error type of [userName]"`
-        4. `boardName` 为空串或过长，此时 `info` 字段为 `"Bad length of [boardName]"`
-        5. `userName` 为空串或过长，此时 `info` 字段为 `"Bad length of [userName]"`
-        6. `board` 长度不为 2500，此时 `info` 字段为 `"Bad length of [board]"`
-        7. `board` 中含有非 `0` 或 `1` 的字符，此时 `info` 字段为 `"Invalid char in [board]"`
-    - 若请求违反唯一性约束（即该请求欲将该游戏记录更改为已有的用户名和游戏记录名组合），则错误响应的状态码为 400 Bad Request，`code` 字段为 `-2`，`info` 字段尽量携带错误信息（CI 不评测错误信息的具体内容）
-    - 若读取数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，`code` 字段为 `-4`，`info` 字段尽量携带错误信息（CI 不评测该错误响应）
-
-
 
 ## URL `/user/{userName}`
 
 该 API 用于操作存储在数据库中的玩家，包括获取玩家的所有游戏记录，删除玩家的所有游戏记录。
 
-该 API 仅接受以 GET 与 DELETE 方法请求。以其他方法请求均应当设置状态码为 405 Method Not Allowed，错误响应格式为：
+该 API 仅接受以 GET 方法请求。以其他方法请求均应当设置状态码为 405 Method Not Allowed，错误响应格式为：
 
 ```json
 {
@@ -370,38 +394,6 @@
     
     - `userName`。查询的用户名，应当为非空字符串，且长度不大于 50
     - `boards`。该玩家的所有对局信息，不含棋盘的具体状态。
-
-=== "错误响应"
-
-    所有错误响应的格式均为：
-    
-    ```json
-    {
-        "code": *,
-        "info": "[Some message]"
-    }
-    ```
-    
-    - 若读取数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，`code` 字段为 `-4`，`info` 字段尽量携带错误信息（CI 不评测该错误响应）
-
-### DELETE
-
-注意该接口的语义为删掉该玩家下的所有存档记录，而不是直接删掉该玩家。
-
-=== "请求体"
-
-    本方法不需要提供任何请求体。
-
-=== "成功响应"
-
-    请求成功时，应当设置状态码为 200 OK，成功响应格式为：
-    
-    ```json
-    {
-        "code": 0,
-        "info": "Succeed"
-    }
-    ```
 
 === "错误响应"
 

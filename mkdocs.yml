@@ -78,6 +78,7 @@ nav:
     - Web 应用的历史: basic/history.md
     - 前后端的交互: basic/web.md
     - 前后端分离的安全问题: basic/cors.md
+    - 前后端交互鉴权问题: basic/jwt.md
     - Web 框架: basic/framework.md
   - 部署基础:
     - deploy/index.md
