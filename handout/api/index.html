@@ -1590,13 +1590,14 @@
 <li><code>board</code> 中含有非 <code>0</code> 或 <code>1</code> 的字符，此时 <code>info</code> 字段为 <code>"Invalid char in [board]"</code></li>
 </ol>
 </li>
+<li>若请求体中 <code>userName</code> 与当前 JWT 令牌中的用户名不一致，错误响应的状态码为 403 Forbidden，<code>code</code> 字段为 <code>2</code>，<code>info</code> 字段为 <code>"Permission denied"</code></li>
 <li>若读写数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，<code>code</code> 字段为 <code>-4</code>，<code>info</code> 字段尽量携带错误信息（CI 不评测该错误响应）</li>
 </ul>
 </div>
 </div>
 </div>
 <h2 id="url-boardsid">URL <code>/boards/{id}</code><a class="headerlink" href="#url-boardsid" title="Permanent link">&para;</a></h2>
-<p>该 API 用于操作具体的某一条游戏记录，包括获取该游戏记录、删除该游戏记录以及更新该游戏记录。</p>
+<p>该 API 用于操作具体的某一条游戏记录，包括获取该游戏记录、删除该游戏记录。</p>
 <p>该 API 仅接受以 GET 与 DELETE 方法请求。以其他方法请求均应当设置状态码为 405 Method Not Allowed，错误响应格式为：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -1606,7 +1607,7 @@
 <span class="w">    </span><span class="nt">&quot;info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bad method&quot;</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<p>此外，需要检测参数 <code>id</code>，该参数必须为正整数。若参数不符合要求均应当设置状态码为 400 Bad Request，错误响应格式为：</p>
+<p>此外，需要检测参数 <code>id</code>，该参数必须为非负整数。若参数不符合要求均应当设置状态码为 400 Bad Request，错误响应格式为：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
@@ -1807,7 +1808,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年8月3日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年8月5日</span>
       
     
   </small>
@@ -1821,7 +1822,7 @@
     
         <div class="md-source-date">
             <small>
-                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (69.68%), <a href='mailto:cc7w@foxmail.com'>c7w</a> (30.32%)</span>
+                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (69.02%), <a href='mailto:cc7w@foxmail.com'>c7w</a> (30.98%)</span>
             </small>
         </div>
     
