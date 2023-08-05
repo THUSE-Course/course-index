@@ -216,11 +216,12 @@
         5. `userName` 为空串或过长，此时 `info` 字段为 `"Bad length of [userName]"`
         6. `board` 长度不为 2500，此时 `info` 字段为 `"Bad length of [board]"`
         7. `board` 中含有非 `0` 或 `1` 的字符，此时 `info` 字段为 `"Invalid char in [board]"`
+    - 若请求体中 `userName` 与当前 JWT 令牌中的用户名不一致，错误响应的状态码为 403 Forbidden，`code` 字段为 `2`，`info` 字段为 `"Permission denied"`
     - 若读写数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，`code` 字段为 `-4`，`info` 字段尽量携带错误信息（CI 不评测该错误响应）
 
 ## URL `/boards/{id}`
 
-该 API 用于操作具体的某一条游戏记录，包括获取该游戏记录、删除该游戏记录以及更新该游戏记录。
+该 API 用于操作具体的某一条游戏记录，包括获取该游戏记录、删除该游戏记录。
 
 该 API 仅接受以 GET 与 DELETE 方法请求。以其他方法请求均应当设置状态码为 405 Method Not Allowed，错误响应格式为：
 
@@ -231,7 +232,7 @@
 }
 ```
 
-此外，需要检测参数 `id`，该参数必须为正整数。若参数不符合要求均应当设置状态码为 400 Bad Request，错误响应格式为：
+此外，需要检测参数 `id`，该参数必须为非负整数。若参数不符合要求均应当设置状态码为 400 Bad Request，错误响应格式为：
 
 ```json
 {
