@@ -13,11 +13,16 @@ conda create -n django_hw python=3.9 -y
 conda activate django_hw
 ```
 
-在此环境的基础之上，你可以运行下述命令安装依赖：
+在此环境的基础之上，你可以运行下述命令安装依赖，注意请确保你的当前工作路径在克隆的小作业仓库中：
 
 ```bash
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 ```
+
+!!! note "配置环境也是软件工程的一部分"
+
+    软件工程是一门研究用工程化方法构建和维护有效的、实用的和高质量的软件的学科，而配置环境是任何工程化项目的第一步。在本次作业中，我们使用了 `conda` 作为环境管理工具，使用了 `pip` 作为依赖管理工具。这些工具的使用都是为了让你能够更加方便地配置环境，从而更加专注于实现功能。在大作业中，你也会使用到类似的工具，因此请务必熟悉这些工具的使用方法。
+
 
 然后，你可以运行如下指令检查环境配置是否成功：
 
@@ -34,7 +39,7 @@ python3 manage.py runserver
 快速阅读提供的代码框架，试着回答以下问题：
 
 - 本次作业的顶层项目名是什么？其下有哪些应用？
-- `utils` 中的三个文件中的功能函数的输入、输出分别是什么？`CheckRequire` 装饰器的作用是什么？
+- `utils` 中的四个文件中的功能函数的输入、输出分别是什么？`CheckRequire` 装饰器的作用是什么？
 
 
 
@@ -79,9 +84,11 @@ python3 manage.py runserver
 
 在 `board/views.py` 中：
 
-- 阅读 `boards` 视图函数，找出其在 API 文档中的对应项，然后补全 `check_for_board_data` 中的检查输入字段功能
-- 阅读 `boards_index` 视图函数的 GET 与 DELETE 方法，按照提示补全 PUT 方法的有关逻辑
-- 自行设计并完成 `user/<userName>` API 所对应的视图函数
+- 按照所给注释补全 `login` 登录函数
+- 阅读 API 文档中的对应项，然后补全 `check_for_board_data` 中的检查输入字段功能
+- 按照所给注释补全 `board` 视图函数
+- 阅读 API 文档中的对应项，完成 `boards_index` 的 DELETE 方法
+- 阅读 API 文档中的对应项，完成 `user/<userName>` API 所对应的视图函数
 
 
 
