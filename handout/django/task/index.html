@@ -1268,9 +1268,13 @@
 <span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>django_hw<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9<span class="w"> </span>-y
 conda<span class="w"> </span>activate<span class="w"> </span>django_hw
 </code></pre></div></td></tr></table></div>
-<p>在此环境的基础之上，你可以运行下述命令安装依赖：</p>
+<p>在此环境的基础之上，你可以运行下述命令安装依赖，注意请确保你的当前工作路径在克隆的小作业仓库中：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-i<span class="w"> </span>https://pypi.tuna.tsinghua.edu.cn/simple<span class="w"> </span>-r<span class="w"> </span>requirements.txt
 </code></pre></div></td></tr></table></div>
+<div class="admonition note">
+<p class="admonition-title">配置环境也是软件工程的一部分</p>
+<p>软件工程是一门研究用工程化方法构建和维护有效的、实用的和高质量的软件的学科，而配置环境是任何工程化项目的第一步。在本次作业中，我们使用了 <code>conda</code> 作为环境管理工具，使用了 <code>pip</code> 作为依赖管理工具。这些工具的使用都是为了让你能够更加方便地配置环境，从而更加专注于实现功能。在大作业中，你也会使用到类似的工具，因此请务必熟悉这些工具的使用方法。</p>
+</div>
 <p>然后，你可以运行如下指令检查环境配置是否成功：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>python3<span class="w"> </span>manage.py<span class="w"> </span>runserver
 </code></pre></div></td></tr></table></div>
@@ -1279,7 +1283,7 @@ conda<span class="w"> </span>activate<span class="w"> </span>django_hw
 <p>快速阅读提供的代码框架，试着回答以下问题：</p>
 <ul>
 <li>本次作业的顶层项目名是什么？其下有哪些应用？</li>
-<li><code>utils</code> 中的三个文件中的功能函数的输入、输出分别是什么？<code>CheckRequire</code> 装饰器的作用是什么？</li>
+<li><code>utils</code> 中的四个文件中的功能函数的输入、输出分别是什么？<code>CheckRequire</code> 装饰器的作用是什么？</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">API 文档</p>
@@ -1321,9 +1325,11 @@ conda<span class="w"> </span>activate<span class="w"> </span>django_hw
 <h2 id="_6">补全与添加视图函数<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>在 <code>board/views.py</code> 中：</p>
 <ul>
-<li>阅读 <code>boards</code> 视图函数，找出其在 API 文档中的对应项，然后补全 <code>check_for_board_data</code> 中的检查输入字段功能</li>
-<li>阅读 <code>boards_index</code> 视图函数的 GET 与 DELETE 方法，按照提示补全 PUT 方法的有关逻辑</li>
-<li>自行设计并完成 <code>user/&lt;userName&gt;</code> API 所对应的视图函数</li>
+<li>按照所给注释补全 <code>login</code> 登录函数</li>
+<li>阅读 API 文档中的对应项，然后补全 <code>check_for_board_data</code> 中的检查输入字段功能</li>
+<li>按照所给注释补全 <code>board</code> 视图函数</li>
+<li>阅读 API 文档中的对应项，完成 <code>boards_index</code> 的 DELETE 方法</li>
+<li>阅读 API 文档中的对应项，完成 <code>user/&lt;userName&gt;</code> API 所对应的视图函数</li>
 </ul>
 <h2 id="_7">进行单元测试<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <p>我们为你撰写的脚本 <code>test.sh</code> 包含了进行单元测试与计算覆盖率的功能。如果你只想运行单元测试，你可以运行：</p>
@@ -1336,7 +1342,7 @@ conda<span class="w"> </span>activate<span class="w"> </span>django_hw
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月21日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年8月6日</span>
       
     
   </small>
@@ -1350,7 +1356,7 @@ conda<span class="w"> </span>activate<span class="w"> </span>django_hw
     
         <div class="md-source-date">
             <small>
-                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (1.03%), <a href='mailto:cc7w@foxmail.com'>c7w</a> (98.97%)</span>
+                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (0.96%), <a href='mailto:cc7w@foxmail.com'>c7w</a> (99.04%)</span>
             </small>
         </div>
     
