@@ -102,8 +102,8 @@ nav:
       - Step 0 环境配置: handout/react/environment.md
       - Step 1 TS 初探与游戏逻辑: handout/react/logic.md
       - Step 2 绘制游戏界面: handout/react/prop.md
-      - Step 3 管理状态与处理事件: handout/react/state.md
-      - Step 4 管理全局资源: handout/react/timer.md
+      - Step 3 管理状态与全局资源: handout/react/state.md
+      - Step 4 管理全局状态: handout/react/redux.md
       - Step 5 切换页面: handout/react/router.md
       - Step 6 网络请求: handout/react/net.md
       - Appendix 1 可能有用的工具: handout/react/tools.md

@@ -154,7 +154,7 @@ build:
 
     |变量|说明|
     |-|-|
-    |`GITLAB_USER_LOGIN`|GitLab 登录用户名，在 SECoder 平台上即学号|
+    |`GITLAB_USER_LOGIN`|GitLab 登陆用户名，在 SECoder 平台上即学号|
     |`CI_PROJECT_NAME`|项目名称|
     |`CI_COMMIT_REF_SLUG`|当前分支/标签名|
     |`CI_REGISTRY_IMAGE`|项目的镜像名称|

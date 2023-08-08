@@ -63,6 +63,8 @@ const caption: string = "This is a string"; // 声明一个字符串类型的常
 let val: number = 1; // 声明一个数字类型的变量
 val = 2; // 给变量 val 赋予新值
 
+const youKnowIt = true; // 编译器能自动推测的类型可以省略类型标注
+
 val = "A string"; // ERROR! 不能给变量赋予不符合其类型声明的值
 caption = "This is another string"; // ERROR! 不能修改常量
 
