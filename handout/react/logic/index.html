@@ -987,7 +987,7 @@
   
     <li class="md-nav__item">
       <a href="../state/" class="md-nav__link">
-        Step 3 管理状态与处理事件
+        Step 3 管理状态与全局资源
       </a>
     </li>
   
@@ -1000,8 +1000,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../timer/" class="md-nav__link">
-        Step 4 管理全局资源
+      <a href="../redux/" class="md-nav__link">
+        Step 4 管理全局状态
       </a>
     </li>
   
@@ -1300,9 +1300,13 @@
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">caption</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;This is a string&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// 声明一个字符串类型的常量</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">caption</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;This is a string&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// 声明一个字符串类型的常量</span>
 <span class="kd">let</span><span class="w"> </span><span class="nx">val</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span><span class="w"> </span><span class="c1">// 声明一个数字类型的变量</span>
 <span class="nx">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span><span class="w"> </span><span class="c1">// 给变量 val 赋予新值</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">youKnowIt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"> </span><span class="c1">// 编译器能自动推测的类型可以省略类型标注</span>
 
 <span class="nx">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;A string&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// ERROR! 不能给变量赋予不符合其类型声明的值</span>
 <span class="nx">caption</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;This is another string&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// ERROR! 不能修改常量</span>
@@ -1508,7 +1512,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年2月19日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年8月8日</span>
       
     
   </small>

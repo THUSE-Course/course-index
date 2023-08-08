@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../timer/">
+        <link rel="prev" href="../redux/">
       
       
         <link rel="next" href="../net/">
@@ -912,7 +912,7 @@
   
     <li class="md-nav__item">
       <a href="../state/" class="md-nav__link">
-        Step 3 管理状态与处理事件
+        Step 3 管理状态与全局资源
       </a>
     </li>
   
@@ -925,8 +925,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../timer/" class="md-nav__link">
-        Step 4 管理全局资源
+      <a href="../redux/" class="md-nav__link">
+        Step 4 管理全局状态
       </a>
     </li>
   
@@ -1278,15 +1278,15 @@
 <h2 id="_3">实验步骤<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>首先你需要理解 Next.js 框架中如何管理页面路由，以及简单了解如何使用 <code>useRouter</code> Hook 来获取路由相关的基本信息以及实现页面跳转。</p>
 <p>本 Step 需要你完成的是游戏记录列表页面，路径为 <code>/list</code>。我们已经在游戏主界面（路径为 <code>/</code>）底部写好了一个点击后能跳转到该页面的按钮，按钮上文字应当是 Go to full list。</p>
-<p>之后，你需要在文件 <code>src/pages/list/index.tsx</code> 中的 <code>ListScreen</code> 组件内完成一处代码填空，完成游戏记录列表页面的 UI，填空的代码量在 20 行以内。在完成填空后，游戏记录列表页面应当具有下述的交互：</p>
+<p>之后，你需要在文件 <code>src/pages/list.tsx</code> 中的 <code>ListScreen</code> 组件内完成一处代码填空，完成游戏记录列表页面的 UI，填空的代码量在 20 行以内。在完成填空后，游戏记录列表页面应当具有下述的交互：</p>
 <ul>
 <li>页面加载完成后显示游戏记录的列表，若暂无游戏记录，则显示空列表提示文字</li>
-<li>点击某个记录的 Play it 按钮可以跳转到 Replay Mode 的游戏主界面回放该记录（Replay Mode 的主界面已经为你实现好了，路径为 <code>/{id}</code>）</li>
-<li>点击某个记录的 Delete it 按钮可以删除该记录，需要有弹窗提示删除成功，删除成功后列表中该记录应当立刻消失<ul>
+<li>点击某个记录的 Play it 按钮可以跳转到 Replay Mode 的游戏主界面回放该记录（Replay Mode 的主界面已经为你实现好了，路径为 <code>/?id={id}</code>）</li>
+<li>点击自己所创建的记录的 Delete it 按钮可以删除该记录（非自己的记录则不显示该按钮），需要有弹窗提示删除成功，删除成功后列表中该记录应当立刻消失<ul>
 <li>该交互由于处理删除记录的函数 <code>deleteBoard</code> 在下一个 Step 才需要填充，故仅要求将按钮展示出来即可</li>
 </ul>
 </li>
-<li>点击某个记录的 View this user 按钮可以跳转到该记录作者的所有游戏记录页面（该页面已经为你实现好了，路径为 <code>/list/{userName}</code>）</li>
+<li>点击某个记录的 View this user 按钮可以跳转到该记录作者的所有游戏记录页面（路径为 <code>/list?name={userName}</code>）</li>
 </ul>
 <p>具体的 UI 结构设计可以参考需求文档中的截图。</p>
 <p>完成本 Step 后，你的游戏记录列表的交互应当和下述 GIF 图所展示的类似：</p>
@@ -1295,38 +1295,19 @@
 <p>在渲染一个列表的时候不妨考虑一下 <code>Array.map</code> 方法，其会接受一个回调函数并且将数组中每一项按照回调函数指明的规则映射为新数组中对应项。回忆一下，React 组件的渲染，不就是将数据映射为 UI 吗？</p>
 <h3 id="_5">代码说明<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>我们已经在 <code>ListScreen</code> 组件内声明了 <code>refreshing, boardList</code> 两个组件状态，可以直接在此基础上完成你的代码。前者用于表示当前页面是否还在获取数据过程中，后者则用于存储列表页面用于展示的游戏记录。</p>
-<p>从本 Step 开始，前后端需要对接使用，这里简单叙述如何在本地对接前后端。首先你需要一个已经完全完成的后端小作业，将其启动并监听某一个端口。之后，打开前端小作业的 <code>next.config.js</code> 文件，找到下述内容：</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// ...</span>
-<span class="k">async</span><span class="w"> </span><span class="nx">rewrites</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">[{</span>
-<span class="w">        </span><span class="nx">source</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;/api/:path*&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">destination</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;http://127.0.0.1:8001/:path*&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="p">}];</span>
-<span class="p">}</span>
-<span class="c1">// ...</span>
-</code></pre></div></td></tr></table></div>
-<p>将这里的 <code>8001</code> 修改为你的后端所监听的端口号即可。</p>
+<p>此外，你可以注意到我们在解析路由中用户名参数的时候使用了 <code>decodeURIComponent</code> 函数，这是因为用户名中可能含有部分特殊字符，如 <code>?/!#@</code> 或者空格，这些字符无法直接嵌入链接中。</p>
 <h2 id="_6">实验评分<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>本 Step 总分为 15 分。</p>
 <p>本 Step 采用人工评分。我们会查看截止时间前最后一次部署是否满足：</p>
 <ul>
 <li>（2 分）最初进入游戏记录列表页面时，首先显示加载中提示文字，之后显示所有游戏记录</li>
-<li>（9 分）点击退回到主界面按钮后，随机存储若干个游戏记录，再进入游戏记录列表页面后，能够显示出这些记录</li>
+<li>（5 分）点击退回到主界面按钮后，随机存储若干个游戏记录，再进入游戏记录列表页面后，能够显示出这些记录</li>
 <li>（2 分）点击某一条记录的 Play it 按钮能够正确跳转并回放该记录</li>
 <li>（2 分）点击某一条记录的 View this user 按钮能够正确跳转并显示该用户的所有记录</li>
+<li>（4 分）记录列表中仅有自己创建的游戏记录显示有 Delete it 按钮</li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">用户名中的特殊字符</p>
-<p>由于小作业的简化，前端并未检查用户名之中的特殊字符（如斜杠等），虽然可能导致路径解析错误等问题。本次作业最终验收中并不会涉及特殊字符问题，同学们完成作业时可以不考虑。</p>
-</div>
-<p>我们会按照顺序检查上述四项，四项检查相互独立，靠前的检查项不影响靠后的检查项的评分，除非其导致检查无法继续进行（如不存在相应的按钮等）。</p>
+<p>我们会按照顺序检查上述五项，五项检查相互独立，靠前的检查项不影响靠后的检查项的评分，除非其导致检查无法继续进行（如不存在相应的按钮等）。</p>
+<p>由于本 Step 涉及到网络请求，如果出现网络错误提示弹窗或者 5 秒内页面没有反应，我们会重试一次。若重试依然不成功则判定该功能点不得分。</p>
 <h2 id="_7">知识讲解<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <p>由于本 Step 所涉及的技术要点基本都有成熟的文档介绍，这里直接引用参考文档链接。</p>
 <p>你需要了解 Next.js 是通过 <code>pages</code> 目录下的目录结构管理路由的，具体的文档参见 <a href="https://nextjs.org/docs/routing/introduction">Next.js 官方文档相关页面</a>。</p>
@@ -1342,7 +1323,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年3月5日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年8月8日</span>
       
     
   </small>
@@ -1356,7 +1337,7 @@
     
         <div class="md-source-date">
             <small>
-                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (98.73%), <a href='mailto:wangbw21@mails.tsinghua.edu.cn'>abmfy</a> (1.27%)</span>
+                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (98.46%), <a href='mailto:wangbw21@mails.tsinghua.edu.cn'>abmfy</a> (1.54%)</span>
             </small>
         </div>
     
