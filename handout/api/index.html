@@ -1590,7 +1590,7 @@
 <li><code>board</code> 中含有非 <code>0</code> 或 <code>1</code> 的字符，此时 <code>info</code> 字段为 <code>"Invalid char in [board]"</code></li>
 </ol>
 </li>
-<li>若请求体中 <code>userName</code> 与当前 JWT 令牌中的用户名不一致，错误响应的状态码为 403 Forbidden，<code>code</code> 字段为 <code>2</code>，<code>info</code> 字段为 <code>"Permission denied"</code></li>
+<li>若请求体中 <code>userName</code> 与当前 JWT 令牌中的用户名不一致，错误响应的状态码为 403 Forbidden，<code>code</code> 字段为 <code>3</code>，<code>info</code> 字段为 <code>"Permission denied"</code></li>
 <li>若读写数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，<code>code</code> 字段为 <code>-4</code>，<code>info</code> 字段尽量携带错误信息（CI 不评测该错误响应）</li>
 </ul>
 </div>
@@ -1706,7 +1706,7 @@
 </code></pre></div></td></tr></table></div>
 <ul>
 <li>若请求头中携带的 JWT 令牌无法通过验证或已经过期，错误响应状态码为 401 Unauthorized，<code>code</code> 字段为 <code>2</code>，<code>info</code> 字段为 <code>"Invalid or expired JWT"</code></li>
-<li>若用户请求删除非本人创建的游戏记录，错误响应状态码为 401 Unauthorized，<code>code</code> 字段为 <code>3</code>，<code>info</code> 字段为 <code>"Cannot delete board of other users"</code></li>
+<li>若用户请求删除非本人创建的游戏记录，错误响应状态码为 403 Forbidden，<code>code</code> 字段为 <code>3</code>，<code>info</code> 字段为 <code>"Cannot delete board of other users"</code></li>
 <li>若读取数据中途抛出错误，错误响应的状态码为 500 Internal Server Error，<code>code</code> 字段为 <code>-4</code>，<code>info</code> 字段尽量携带错误信息（CI 不评测该错误响应）</li>
 </ul>
 </div>
@@ -1808,7 +1808,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年8月8日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年8月12日</span>
       
     
   </small>
@@ -1822,7 +1822,7 @@
     
         <div class="md-source-date">
             <small>
-                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (69.02%), <a href='mailto:wangbw21@mails.tsinghua.edu.cn'>abmfy</a> (0.24%), <a href='mailto:cc7w@foxmail.com'>c7w</a> (30.73%)</span>
+                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (68.78%), <a href='mailto:wangbw21@mails.tsinghua.edu.cn'>abmfy</a> (0.73%), <a href='mailto:cc7w@foxmail.com'>c7w</a> (30.49%)</span>
             </small>
         </div>
     
