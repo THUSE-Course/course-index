@@ -83,10 +83,10 @@ nav:
   - 部署基础:
     - deploy/index.md
     - Docker: deploy/docker.md
-    - Deployer: deploy/deployer.md
     - GitLab CI/CD: deploy/gitlab-ci.md
-    - SonarQube: deploy/sonarqube.md
     - SECoder: deploy/secoder.md
+    - Deployer: deploy/deployer.md
+    - SonarQube: deploy/sonarqube.md
   - 小作业文档:
     - handout/index.md
     - 小作业需求文档: handout/requirement.md

@@ -84,7 +84,7 @@ python3 manage.py runserver
 
 在 `board/views.py` 中：
 
-- 按照所给注释补全 `login` 登陆函数
+- 按照所给注释补全 `login` 登录函数
 - 阅读 API 文档中的对应项，然后补全 `check_for_board_data` 中的检查输入字段功能
 - 按照所给注释补全 `board` 视图函数
 - 阅读 API 文档中的对应项，完成 `boards_index` 的 DELETE 方法
