@@ -1705,18 +1705,22 @@ requests==2.28.1
 <span class="normal">24</span>
 <span class="normal">25</span>
 <span class="normal">26</span>
-<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c"># Stage 0: build</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c"># Stage 0: build</span>
 <span class="k">FROM</span><span class="w"> </span><span class="s">node:18</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">build</span>
 
 <span class="k">ENV</span><span class="w"> </span><span class="nv">FRONTEND</span><span class="o">=</span>/opt/frontend
 
 <span class="k">WORKDIR</span><span class="w"> </span><span class="s">$FRONTEND</span>
 
+<span class="k">COPY</span><span class="w"> </span>package.json<span class="w"> </span>package-lock.json<span class="w"> </span>./
+
 <span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>registry<span class="w"> </span>https://registry.npmmirror.com
 
-<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
-
 <span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>install
+
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
 
 <span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>build
 
@@ -1733,7 +1737,32 @@ requests==2.28.1
 
 <span class="k">EXPOSE</span><span class="w"> </span><span class="s">80</span>
 </code></pre></div></td></tr></table></div>
-<p>可以看到，现在我们的构建过程被 <code>FROM</code> 指令分为两个阶段，其中我们把第一个阶段命名为 <code>build</code>。 (<code>#</code> 开头的行只是注释。) 在第一个阶段，我们首先将 <code>npm</code> 源更换为 <a href="https://npmmirror.com">npmmirror</a> 以加速下载，然后将主机文件系统下当前目录的文件全部复制到镜像文件系统中，再使用 <code>npm install</code> 安装需要的第三方包，最后使用 <code>npm run build</code> 生成站点的静态文件。我们的网站只需要这些文件就能提供服务，不需要我们下载的第三方包以及整个工具链。因此，我们接下来在下一个阶段构建我们真正使用的镜像。</p>
+<p>可以看到，现在我们的构建过程被 <code>FROM</code> 指令分为两个阶段，其中我们把第一个阶段命名为 <code>build</code>。 (<code>#</code> 开头的行只是注释。) </p>
+<p>在第一个阶段，我们做了以下这些事：</p>
+<ol>
+<li>
+<p>设定了工作目录；</p>
+</li>
+<li>
+<p>将 <code>package.json</code> 和 <code>package-lock.json</code> 复制到镜像中，这两个文件描述了我们的前端项目所依赖的第三方包；</p>
+</li>
+<li>
+<p>对 <code>npm</code> 换源并利用前述两个文件安装第三方依赖；</p>
+</li>
+<li>
+<p>将主机文件系统下当前目录的文件全部复制到镜像文件系统中；</p>
+</li>
+<li>
+<p>使用 <code>npm run build</code> 生成站点的静态文件。</p>
+</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">安装依赖时无需复制全部文件</p>
+<p>在这里，我们用到了一个常用的技巧：将依赖安装和构建过程分离。</p>
+<p>第一步中，我们没有直接把整个目录进行复制，而是仅仅复制了与依赖相关的两个文件。这样做的好处是，如果我们没有修改 <code>package.json</code> 和 <code>package-lock.json</code>，那么在构建镜像时将会使用缓存跳过依赖安装阶段，从而加快构建速度。而如果我们修改了这两个文件，那么将会重新安装依赖，从而保证依赖的正确性。</p>
+<p>如果不这么做而是每次都直接复制整个目录，那么只要当前目录下的任何文件发生变化，<code>COPY</code> 这一步的缓存都将失效从而导致安装依赖这一步的缓存也失效，这时就需要重新安装依赖。如果每次构建都需要重新安装依赖，这将会大大降低构建速度。</p>
+</div>
+<p>现在，我们已经构建出了网站的静态文件。我们的网站只需要这些文件就能提供服务，不需要我们下载的第三方包以及整个工具链。因此，我们接下来在下一个阶段构建我们真正使用的镜像。</p>
 <div class="admonition note">
 <p class="admonition-title">主机文件系统</p>
 <p>在 GitLab 平台上执行 CI/CD 时，这里的主机文件系统实际上是我们的仓库，因此 <code>COPY . .</code> 实际上是将仓库中的所有文件复制到了镜像的工作目录。因此，不用担心庞大的 <code>node_modules</code> 会带来什么负担。</p>
@@ -1801,7 +1830,7 @@ requests==2.28.1
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年3月13日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年9月17日</span>
       
     
   </small>
@@ -1815,7 +1844,7 @@ requests==2.28.1
     
         <div class="md-source-date">
             <small>
-                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (0.39%), <a href='mailto:wangbw21@mails.tsinghua.edu.cn'>abmfy</a> (95.31%), <a href='mailto:cc7w@foxmail.com'>c7w</a> (4.3%)</span>
+                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (0.36%), <a href='mailto:wangbw21@mails.tsinghua.edu.cn'>abmfy</a> (95.71%), <a href='mailto:cc7w@foxmail.com'>c7w</a> (3.93%)</span>
             </small>
         </div>
     
