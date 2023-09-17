@@ -39,8 +39,8 @@ $$
 
 本次小作业采取代码填空的形式，你需要从下述链接使用 `git clone` 克隆代码仓库并完成，完成后需要使用 `git push` 将其上传到 SECoder Gitlab 仓库中供部署与查看，其中前端的项目名为 `2023-Next-HW`，后端的项目名为 `2023-Django-HW`。需要注意的是，上传至 SECoder 与部署等操作需要在第一周获取 SECoder 账号才可以进行：
 
-- 前端：【TODO】
-- 后端：【TODO】
+- 前端：https://git.tsinghua.edu.cn/se-2023fall/2023-next-hw
+- 后端：https://git.tsinghua.edu.cn/se-2023fall/2023-django-hw
 
 若在小作业进行期间课程组需要更新代码框架，我们将会发布公告说明，你可以从上述链接使用 `git pull` 拉取更新后的框架并使用 `git merge` 合并到自己的代码中。
 
