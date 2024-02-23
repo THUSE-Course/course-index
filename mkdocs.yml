@@ -1,5 +1,5 @@
 site_name: Software Engineering Course Index
-repo_url: https://github.com/Ashitemaru/SE-course-index
+repo_url: https://github.com/THUSE-Course/course-index.git
 repo_name: SE Course Index
 
 theme:
@@ -94,9 +94,10 @@ nav:
     - Django 后端文档:
       - handout/django/index.md
       - 知识回顾: handout/django/knowledge.md
+      - 环境配置: handout/django/env.md
       - Django 语法: handout/django/django.md
       - 任务汇总: handout/django/task.md
-      - 作业提交: handout/django/judge.md
+      - 完成标准: handout/django/judge.md
     - React (Next.js) 前端文档:
       - handout/react/index.md
       - Step 0 环境配置: handout/react/environment.md
