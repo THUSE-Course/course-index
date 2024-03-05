@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.11">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.12">
     
     
       
@@ -1171,44 +1171,44 @@
 
 
 <h1 id="_1">环境配置<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>我们使用类Unix系统来完成本作业的环境配置。不推荐使用Windows系统完成下述设置，如果为Windows用户，建议安装 WSL2。</p>
+<p>我们使用类 Unix 系统来完成本作业的环境配置。不推荐使用 Windows 系统完成下述设置，如果为 Windows 用户，建议安装 WSL2。</p>
 <h2 id="gitlab">GitLab 公钥配置<a class="headerlink" href="#gitlab" title="Permanent link">&para;</a></h2>
-<p>首先确保你的系统已经安装了SSH客户端。大部分Linux发行版和macOS已预装SSH客户端。Windows用户可以安装Git Bash或使用Windows 10及更高版本的内置SSH客户端。</p>
-<p><strong>首先，你应该检查是否已经有了SSH密钥对，如果没有则需要生成。</strong></p>
+<p>首先确保你的系统已经安装了 SSH 客户端。大部分 Linux 发行版和 macOS 已预装 SSH 客户端。Windows 用户可以安装 Git Bash 或使用 Windows 10 及更高版本的内置 SSH 客户端。</p>
+<p><strong>首先，你应该检查是否已经有了 SSH 密钥对，如果没有则需要生成。</strong></p>
 <ol>
 <li>打开一个终端窗口。</li>
-<li>输入 <code>cd ~/.ssh</code>进入SSH目录。</li>
-<li>使用 <code>ls</code>命令查找 <code>id_rsa</code>（私钥）和 <code>id_rsa.pub</code>（公钥）文件。如果这些文件存在，说明你已经有了SSH密钥对，无需重新生成。</li>
+<li>输入 <code>cd ~/.ssh</code> 进入 SSH 目录。</li>
+<li>使用 <code>ls</code> 命令查找 <code>id_rsa</code>（私钥）和 <code>id_rsa.pub</code>（公钥）文件。如果这些文件存在，说明你已经有了 SSH 密钥对，无需重新生成。</li>
 </ol>
-<p>如果经过上述检查，你没有现成的SSH密钥对，可以按照以下步骤生成一个新的密钥对：</p>
+<p>如果经过上述检查，你没有现成的 SSH 密钥对，可以按照以下步骤生成一个新的密钥对：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa<span class="w"> </span>-b<span class="w"> </span><span class="m">4096</span><span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;your_email@example.com&quot;</span>
 </code></pre></div></td></tr></table></div>
 <ul>
-<li><code>-t rsa</code> 指定密钥类型为RSA。</li>
-<li><code>-b 4096</code> 指定密钥长度为4096位，以提高安全性。</li>
+<li><code>-t rsa</code> 指定密钥类型为 RSA。</li>
+<li><code>-b 4096</code> 指定密钥长度为 4096 位，以提高安全性。</li>
 <li><code>-C "your_email@example.com"</code> 为密钥添加一个注释，通常使用你的邮箱地址。</li>
 </ul>
-<p>按照提示操作，你可以为密钥设置一个密码（也称为"passphrase"，之后每次尝试使用私钥验证时均需提供），也可以直接按Enter键跳过，创建一个没有密码的密钥。密钥对将生成在 <code>~/.ssh</code>目录下，私钥文件为 <code>id_rsa</code>，公钥文件为 <code>id_rsa.pub</code>。</p>
+<p>按照提示操作，你可以为密钥设置一个密码（也称为 "passphrase"，之后每次尝试使用私钥验证时均需提供），也可以直接按 Enter 键跳过，创建一个没有密码的密钥。密钥对将生成在 <code>~/.ssh</code> 目录下，私钥文件为 <code>id_rsa</code>，公钥文件为 <code>id_rsa.pub</code>。</p>
 <p><strong>然后，我们把公钥配置在远端 GitLab 上，以供我们的身份验证。</strong></p>
-<p>一旦你有了SSH密钥对，下一步是将公钥添加到你的GitLab账户中。这样做可以让GitLab识别你的计算机，从而允许安全的代码推送和拉取操作，而无需每次都输入用户名和密码。</p>
-<p>使用你的用户名和密码登录到 GitLab。（注意本教程作业位于 Tsinghua Git 上，而我们之后的课程大作业将位于 SECoder Git 上，这是两个不同的 Git 源，需要分别配置公钥）</p>
-<p>登录后，选择“Edit Profile”（设置）。在左侧菜单中，选择“SSH Keys”（SSH密钥），然后选择“Add new key”。</p>
-<p>在“Key”（密钥）文本框中，粘贴你的SSH公钥。在“Title”（标题）字段中，为你的密钥添加一个描述性标题，帮助你记住这个密钥是用于哪台计算机或什么目的。然后点击“Add key”（添加密钥）。</p>
-<p>完成以上步骤后，你就成功将你的SSH公钥添加到了GitLab，现在你可以通过SSH安全地连接到GitLab，进行代码的推送、拉取等操作了，而无需每次操作时都输入用户名和密码。</p>
+<p>一旦你有了 SSH 密钥对，下一步是将公钥添加到你的 GitLab 账户中。这样做可以让 GitLab 识别你的计算机，从而允许安全的代码推送和拉取操作，而无需每次都输入用户名和密码。</p>
+<p>使用你的用户名和密码登录到 GitLab（注意本教程作业位于 Tsinghua Git 上，而我们之后的课程大作业将位于 SECoder Git 上，这是两个不同的 Git 源，需要分别配置公钥）。</p>
+<p>登录后，选择 “Edit Profile”（设置）。在左侧菜单中，选择 “SSH Keys”（SSH密钥），然后选择 “Add new key”。</p>
+<p>在 “Key”（密钥）文本框中，粘贴你的 SSH 公钥。在 “Title”（标题）字段中，为你的密钥添加一个描述性标题，帮助你记住这个密钥是用于哪台计算机或什么目的。然后点击 “Add key”（添加密钥）。</p>
+<p>完成以上步骤后，你就成功将你的 SSH 公钥添加到了 GitLab，现在你可以通过 SSH 安全地连接到 GitLab，进行代码的推送、拉取等操作了，而无需每次操作时都输入用户名和密码。</p>
 <h2 id="conda-environment">配置后端代码运行的虚拟环境 Conda Environment<a class="headerlink" href="#conda-environment" title="Permanent link">&para;</a></h2>
-<p>虚拟环境是一个独立的、隔离的目录树，允许Python用户和开发者在不同的项目之间维护<strong>隔离的开发环境</strong>。通过使用虚拟环境，你可以为每个项目安装不同版本的包和Python本身，而不必担心这些安装会相互冲突或影响到系统级的Python安装。这种隔离性是虚拟环境的核心优势，有助于保证项目的依赖关系清晰和一致，从而使得项目更容易被其他人理解、使用和维护。</p>
-<p>Miniconda是一个轻量级的Anaconda发行版，它包括了conda、Python、以及少数必要的库。相比于完整的Anaconda发行版，Miniconda提供了一个更为简洁、灵活的方式来管理Python虚拟环境和下属的包。</p>
+<p>虚拟环境是一个独立的、隔离的目录树，允许 Python 用户和开发者在不同的项目之间维护<strong>隔离的开发环境</strong>。通过使用虚拟环境，你可以为每个项目安装不同版本的包和 Python 本身，而不必担心这些安装会相互冲突或影响到系统级的 Python 安装。这种隔离性是虚拟环境的核心优势，有助于保证项目的依赖关系清晰和一致，从而使得项目更容易被其他人理解、使用和维护。</p>
+<p>Miniconda 是一个轻量级的 Anaconda 发行版，它包括了 conda、Python 以及少数必要的库。相比于完整的 Anaconda 发行版，Miniconda 提供了一个更为简洁、灵活的方式来管理 Python 虚拟环境和下属的包。</p>
 <p>首先，我们下载并安装 Miniconda。</p>
 <p>前往 Miniconda 官网 <a href="https://docs.anaconda.com/free/miniconda/index.html">https://docs.anaconda.com/free/miniconda/index.html</a>，选择 Miniconda3 Linux 64-bit 即可进行下载，复制其下载链接后，可在终端键入：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>wget<span class="w"> </span>https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 </code></pre></div></td></tr></table></div>
-<p>即可进行下载。下载完成后，输入下述命令进行安装。（注意这里前面添加了sudo，是为root用户安装）</p>
+<p>即可进行下载。下载完成后，输入下述命令进行安装（注意这里前面添加了 sudo，是为 root 用户安装）。</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>bash<span class="w"> </span>Miniconda3-latest-Linux-x86_64.sh
 </code></pre></div></td></tr></table></div>
 <p>然后一直回车，同意协议。选取合适的安装位置后（可使用默认，请记住该位置）开始解包，解包完成后选择同意初始化并添加环境变量。</p>
-<p>之后输入 <code>&lt;/path/to/installed/conda&gt;/bin/conda init &lt;bash/当前你用的shell&gt;</code> ，给 当前用户 设置环境变量。</p>
-<p>然后重启终端，或使用 <code>source ~/.bashrc</code> 刷新环境变量。这时发现终端 prompt 输入的前面就会有一个(base)，代表激活了base(默认)环境，安装完成。</p>
-<p>常用的conda命令：</p>
+<p>之后输入 <code>&lt;/path/to/installed/conda&gt;/bin/conda init &lt;bash/当前你用的 shell&gt;</code> ，给当前用户设置环境变量。</p>
+<p>然后重启终端，或使用 <code>source ~/.bashrc</code> 刷新环境变量。这时发现终端 prompt 输入的前面就会有一个 <code>(base)</code>，代表激活了默认环境，安装完成。</p>
+<p>常用的 conda 命令：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1248,7 +1248,7 @@ conda<span class="w"> </span>activate<span class="w"> </span>django_hw
 <p>之后我们使用 <code>cd</code> 命令进入新克隆的作业仓库，仓库中应该有 <code>requirements.txt</code>。在此环境的基础之上，你可以运行下述命令安装依赖：</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
 </code></pre></div></td></tr></table></div>
-<p>如果下载过慢，请参考 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/">https://mirrors.tuna.tsinghua.edu.cn/help/pypi/</a> 将PyPI设为默认源。这时教程作业环境配置已完成，可以按照教程作业的指引检查环境配置是否成功。</p>
+<p>如果下载过慢，请参考 <a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/">https://mirrors.tuna.tsinghua.edu.cn/help/pypi/</a> 将 PyPI 设为默认源。这时教程作业环境配置已完成，可以按照教程作业的指引检查环境配置是否成功。</p>
 
 
 
@@ -1269,7 +1269,7 @@ conda<span class="w"> </span>activate<span class="w"> </span>django_hw
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年2月26日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年3月5日</span>
   </span>
 
     
@@ -1280,11 +1280,12 @@ conda<span class="w"> </span>activate<span class="w"> </span>django_hw
   <span class="md-source-file__fact">
     <span class="md-icon" title="贡献者">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.536 5.536 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13v-1.75M0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20H0m24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9V20Z"/></svg>
       
     </span>
     <nav>
       
+        <a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a>, 
         <a href="mailto:cc7w@foxmail.com">c7w</a>
     </nav>
   </span>
@@ -1301,7 +1302,7 @@ conda<span class="w"> </span>activate<span class="w"> </span>django_hw
     
         <div class="md-source-date">
             <small>
-                作者: <span class='git-page-authors git-authors'><a href='mailto:cc7w@foxmail.com'>c7w</a></span>
+                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (20.39%), <a href='mailto:cc7w@foxmail.com'>c7w</a> (79.61%)</span>
             </small>
         </div>
     
@@ -1348,7 +1349,7 @@ conda<span class="w"> </span>activate<span class="w"> </span>django_hw
     <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top", "navigation.tabs", "navigation.indexes"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.8fd75fb4.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
