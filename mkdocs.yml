@@ -98,15 +98,15 @@ nav:
       - Django 语法: handout/django/django.md
       - 任务汇总: handout/django/task.md
       - 完成标准: handout/django/judge.md
-    # - React (Next.js) 前端文档:
-    #   - handout/react/index.md
-    #   - Step 0 环境配置: handout/react/environment.md
-    #   - Step 1 TS 初探与游戏逻辑: handout/react/logic.md
-    #   - Step 2 绘制游戏界面: handout/react/prop.md
-    #   - Step 3 管理状态与全局资源: handout/react/state.md
-    #   - Step 4 管理全局状态: handout/react/redux.md
-    #   - Step 5 切换页面: handout/react/router.md
-    #   - Step 6 网络请求: handout/react/net.md
+    - React (Next.js) 前端文档:
+      - handout/react/index.md
+      - Step 0 环境配置: handout/react/environment.md
+      - Step 1 TS 初探与游戏逻辑: handout/react/logic.md
+      - Step 2 绘制游戏界面: handout/react/prop.md
+      - Step 3 管理状态与全局资源: handout/react/state.md
+      - Step 4 管理全局状态: handout/react/redux.md
+      - Step 5 切换页面: handout/react/router.md
+      - Step 6 网络请求: handout/react/net.md
     #   - Appendix 1 可能有用的工具: handout/react/tools.md
     #   - Appendix 2 实验思考题题面: handout/react/questions.md
     # - CI/CD 文档:
