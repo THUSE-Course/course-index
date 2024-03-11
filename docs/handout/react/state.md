@@ -51,7 +51,19 @@ return board;
 
 `useState` Hook 的使用方式，在代码框架中以及下面的知识讲解部分有大量的示例，可以参照这些已有代码完成本 Step。
 
+---
+
+以下是关于全局状态管理的代码，你可以通过阅读这些代码了解如何使用 Redux 实现全局数据共享，据此实现登录令牌的存储与读取。
+
+1. `src/pages/login.tsx` 的组件 `LoginScreen` 中，在登录请求成功后的回调函数中发起将后端服务器所签发的 JWT 令牌存储到 Redux 的请求。
+2. `src/redux/auth.ts` 中，实现了存储 JWT 令牌的请求并更新 Redux 存储
+3. `src/utils/network.ts` 的函数 `request` 中，实现了在网络请求函数中读取 Redux 中 JWT 令牌，并将其携带在请求头中供服务器鉴权。
+
+代码框架中的函数 `request` 事实上是一个在 JWT 鉴权系统下的通用网络请求函数，虽然错误处理部分依然较为粗糙。本 Step 中你主要需要关注 `needAuth` 参数，其表示了当前的网络请求是否需要携带 JWT 供鉴权，你需要据此判断是否需要携带 JWT 令牌以及是否需要在读取令牌失败时报错等。
+
 ## 知识讲解
+
+### 状态管理
 
 我们已经讲解了一个无状态的组件如何编写，一个无状态的组件实际上类似于**纯函数**，即无论在什么条件下调用该组件，只要传入的参数一样，那么最后总是得到一样的结果。然而仅仅使用无状态组件显然是无法完成能够处理用户交互的 UI 的。
 
@@ -110,7 +122,7 @@ setCnt((cnt) => cnt + 1);
 </div>
 ```
 
----
+### 外部资源
 
 当我们需要管理一个全局资源的时候，比如说这个资源并不会因为组件重新渲染而需要重新设置等等，这个时候我们显然不能使用先前提到的 `useState` 管理这类对象，此时可以尝试使用 `useRef` Hook。
 
@@ -129,3 +141,60 @@ ref.current = /* A new value */;
 需要注意的是，对 `ref.current` 的任何修改都不会触发组件的重新渲染。
 
 `useRef` 还有一种用途是用于管理庞大的状态。比如说某个页面需要显示新闻列表，那么新闻列表将会是一个相当庞大的状态，若使用 `useState`，则可能造成较大的性能压力。那么，将新闻列表作为全局资源管理在组件外，使用 `ref.current` 的方式访问该新闻列表是一种可行的方案。而为了让修改新闻列表时触发组件重新渲染，可以使用 `useState` 将最近一次新闻列表更新时间戳作为组件状态进行管理，每次新闻列表更新则修改时间戳以触发重新渲染。
+
+### 全局状态
+
+状态可以定义在组件之中。但是，有些状态我们希望全部的组件都可以读写，例如 JWT 令牌。此时，我们可以采用 Redux 库完成任务。
+
+[Redux](https://redux.js.org) 可以理解为一个所有组件都可以访问和操作的存储，Redux 的提出是因为 React 本身仅提供了在父子组件之间传递数据的方案，对于登录状态、登录令牌、用户信息等所有组件都需要的信息则相对难以处理。
+
+编写 Redux，首先需要定义存储本身，本作业框架中 `src/redux/store.ts` 文件则完成了这一任务，其定义了 `store` 对象。Redux 的存储是由多个切片构成的，可以理解为不同用途的空间。例如本作业中用于保存用户信息的 `src/redux/auth.ts` 和临时保存棋盘信息的 `src/redux/board.ts`。这些切片最终汇总到 `store.ts` 文件中用来构成最后的 `store`。
+
+Redux 存储切片的定义以 `src/redux/board.ts` 为例：
+
+```typescript
+interface BoardState {
+    board: Board;
+}
+
+const initialState: BoardState = {
+    board: getBlankBoard(),
+};
+
+export const boardSlice = createSlice({
+    name: "board",
+    initialState,
+    reducers: {
+        setBoardCache: (state, action: PayloadAction<Board>) => {
+            state.board = action.payload;
+        },
+        resetBoardCache: (state) => {
+            state.board = getBlankBoard();
+        },
+    },
+});
+```
+
+首先通过接口定义这个切片中存储的数据格式，并且定义默认值。随后通过 `createSlice` 函数定义切片，其中定义了切片的名称，以及操作该切片中数据的方法——Reducer。Reducer 会接受当前的状态 `state` 和外部发起的修改请求 `action`，修改请求往往有一个负载 `action.payload`。Reducer 的目的则是根据 `action` 更新 `state` 之中的信息，形成新的状态。
+
+例如这里 `setBoardCache` 则会将该切片中的 `board` 字段更新为修改请求中所负载的棋盘状态。
+
+---
+
+在组件中读取 Redux 中的数据的方法为使用 `useSelector` Hook，例如 `src/pages/index.tsx` 中：
+
+```typescript
+const boardCache = useSelector((state: RootState) => state.board.board);
+const userName = useSelector((state: RootState) => state.auth.name);
+```
+
+这里读取了 Redux 存储中的 `state.board.board` 以及 `state.auth.name` 两个值。值得注意的是，`useSelector` Hook 的重要作用是，当组件中所读取的存储值发生改变的时候，该 Hook 可以令该组件重新渲染。
+
+然而由于 Hook 仅能够在组件中使用，在组件外需要获取 Redux 数据时，可以直接通过 `store.getState()` 获取到 Redux 当前所有的切片数据。
+
+在组件中修改 Redux 中的数据的方法为使用 `useDispatch` Hook，该 Hook 返回一个 `dispatch` 函数，直接用此函数发送一个 Reducer 即可发起更改：
+
+```typescript
+const dispatch = useDispatch();
+dispatch(resetBoardCache());
+```
