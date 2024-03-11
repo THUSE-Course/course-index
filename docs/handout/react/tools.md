@@ -23,8 +23,8 @@ const DemoScreen = () => {
 这些组件往往有着更多可自定义的设置，这些就留给你阅读官方文档并探索了。
 
 
-如果你阅读过 React 官方文档或技能引导文档 React 部分，其都会提到 React 的数据传递一般仅限于父子组件之间。即，父组件通过传递 props 给子组件来控制子组件的表现，而父组件也可以传递一个回调函数给子组件，让子组件有能力修改父组件状态。
+<!-- 如果你阅读过 React 官方文档或技能引导文档 React 部分，其都会提到 React 的数据传递一般仅限于父子组件之间。即，父组件通过传递 props 给子组件来控制子组件的表现，而父组件也可以传递一个回调函数给子组件，让子组件有能力修改父组件状态。
 
 然而对于大型的 Web 应用，这种仅限于父子间的数据传递显然不能满足要求，所以 Redux 出现了，其能够构建一个独立于整个组件结构的状态管理库，这些状态所有组件都可以读取和按照一定规则修改，这样就使得数据传递更为方便。
 
-Redux 官方文档在 [这里](https://cn.redux.js.org)，你可以通过 [官方教程](https://cn.redux.js.org/tutorials/essentials/part-1-overview-concepts) 入门。
+Redux 官方文档在 [这里](https://cn.redux.js.org)，你可以通过 [官方教程](https://cn.redux.js.org/tutorials/essentials/part-1-overview-concepts) 入门。 -->
