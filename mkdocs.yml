@@ -87,27 +87,27 @@ nav:
     - SECoder: deploy/secoder.md
     - Deployer: deploy/deployer.md
     - SonarQube: deploy/sonarqube.md
-  - 小作业文档:
-    - handout/index.md
-    - 小作业需求文档: handout/requirement.md
-    - 小作业 API 文档: handout/api.md
-    - Django 后端文档:
-      - handout/django/index.md
-      - 知识回顾: handout/django/knowledge.md
-      - 环境配置: handout/django/env.md
-      - Django 语法: handout/django/django.md
-      - 任务汇总: handout/django/task.md
-      - 完成标准: handout/django/judge.md
-    - React (Next.js) 前端文档:
-      - handout/react/index.md
-      - Step 0 环境配置: handout/react/environment.md
-      - Step 1 TS 初探与游戏逻辑: handout/react/logic.md
-      - Step 2 绘制游戏界面: handout/react/prop.md
-      - Step 3 管理状态与外部资源: handout/react/state.md
-      # - Step 4 管理全局状态: handout/react/redux.md
-      - 'Step 3.5 Next.js 路由': handout/react/router.md
-      - Step 4 副作用与网络请求: handout/react/net.md
-      - Appendix 1 可能有用的工具: handout/react/tools.md
+  # - 小作业文档:
+  #   - handout/index.md
+  #   - 小作业需求文档: handout/requirement.md
+  #   - 小作业 API 文档: handout/api.md
+  #   - Django 后端文档:
+  #     - handout/django/index.md
+  #     - 知识回顾: handout/django/knowledge.md
+  #     - 环境配置: handout/django/env.md
+  #     - Django 语法: handout/django/django.md
+  #     - 任务汇总: handout/django/task.md
+  #     - 完成标准: handout/django/judge.md
+  #   - React (Next.js) 前端文档:
+  #     - handout/react/index.md
+  #     - Step 0 环境配置: handout/react/environment.md
+  #     - Step 1 TS 初探与游戏逻辑: handout/react/logic.md
+  #     - Step 2 绘制游戏界面: handout/react/prop.md
+  #     - Step 3 管理状态与外部资源: handout/react/state.md
+  #     # - Step 4 管理全局状态: handout/react/redux.md
+  #     - 'Step 3.5 Next.js 路由': handout/react/router.md
+  #     - Step 4 副作用与网络请求: handout/react/net.md
+  #     - Appendix 1 可能有用的工具: handout/react/tools.md
       # - Appendix 2 实验思考题题面: handout/react/questions.md
     # - CI/CD 文档:
     #   - handout/ci-cd/index.md
