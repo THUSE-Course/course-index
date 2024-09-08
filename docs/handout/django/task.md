@@ -6,10 +6,10 @@
 
 ## 环境配置
 
-我们使用 Linux（或 WSL）环境与 `Python=3.9` 配置本次作业，推荐你使用 `conda` 创建一个新的虚拟环境：
+我们使用 Linux（或 WSL）环境与 `Python=3.11` 配置本次作业，推荐你使用 `conda` 创建一个新的虚拟环境：
 
 ```bash
-conda create -n django_hw python=3.9 -y
+conda create -n django_hw python=3.11 -y
 conda activate django_hw
 ```
 

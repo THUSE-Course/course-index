@@ -10,4 +10,4 @@
 
 本文档提供了部分可能可以使用的工具的简介文档，除此之外可以参考的文档包括：
 
-- Django 文档 https://docs.djangoproject.com/zh-hans/4.1/
+- Django 文档 https://docs.djangoproject.com/en/5.1/

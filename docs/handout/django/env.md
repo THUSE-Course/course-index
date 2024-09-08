@@ -1,6 +1,6 @@
 # 环境配置
 
-我们使用类 Unix 系统来完成本作业的环境配置。不推荐使用 Windows 系统完成下述设置，如果为 Windows 用户，建议安装 WSL2。
+我们使用类 Unix 系统来完成本作业的环境配置。**不推荐**使用 Windows 系统完成下述设置，如果为 Windows 用户，建议使用 WSL2。
 
 ## GitLab 公钥配置
 
@@ -81,10 +81,10 @@ conda deactivate
 conda env list
 ```
 
-这时我们可以开始配置我们的虚拟环境。按照文档要求，我们使用 `Python=3.9` 配置本次作业：
+这时我们可以开始配置我们的虚拟环境。按照文档要求，我们使用 `Python=3.11` 配置本次作业：
 
 ```bash
-conda create -n django_hw python=3.9 -y
+conda create -n django_hw python=3.11 -y
 conda activate django_hw
 ```
 
