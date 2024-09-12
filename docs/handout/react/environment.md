@@ -12,7 +12,7 @@
 
 ---
 
-本文档截图均基于 Mac 系统与 Safari 浏览器。如果你是 Windows 用户，推荐你使用 WSL 进行环境配置。
+本文档均基于 Mac 系统与 Safari 浏览器。如果你是 Windows 用户，推荐你使用 WSL 进行环境配置。
 
 ## Node.js
 
@@ -26,9 +26,9 @@ Node.js 是服务器端运行 JavaScript 的环境，我们需要在本地配置
 
 ```bash
 mkdir ~/workspace && cd ~/workspace
-wget https://nodejs.org/dist/v18.14.2/node-v18.14.2-linux-x64.tar.xz
-tar -xf node-v18.14.2-linux-x64.tar.xz
-cd node-v18.14.2-linux-x64/bin
+wget https://nodejs.org/dist/v20.17.0/node-v20.17.0-linux-x64.tar.xz
+tar -xf node-v20.17.0-linux-x64.tar.xz
+cd node-v20.17.0-linux-x64/bin
 pwd
 ```
 
@@ -36,7 +36,7 @@ pwd
 
 ```bash
 # Append to the last line
-export PATH=~/workspace/node-v18.14.2-linux-x64/bin:$PATH
+export PATH=~/workspace/node-v20.17.0-linux-x64/bin:$PATH
 ```
 
 之后通过以下命令重载终端配置:
@@ -46,9 +46,7 @@ source ~/.bashrc
 
 <!-- 另外，为了获取更详细的安装指导，我们推荐获取安装包而非二进制文件，下载安装包后打开即可安装。 -->
 
-为了确认是否正确安装，可以打开终端，输入指令 `node -v` 确认：
-
-![](../../static/react/step0-node.png)
+为了确认是否正确安装，可以打开终端，输入指令 `node -v` 确认，如果输出版本号则代表安装成功。
 
 ## yarn
 
@@ -56,13 +54,9 @@ Node.js 下载后会自带有包管理工具 npm 用于管理项目内所用到�
 
 对 yarn 与 npm 更为细节的介绍参考计算机系学生科协技能引导文档 <https://docs.net9.org/languages/node.js/npm/>。
 
-安装 yarn 时，你首先需要确定 npm 已经安装完毕，只需要通过 `npm -v` 确认：
+安装 yarn 时，你首先需要确定 npm 已经安装完毕，只需要通过 `npm -v` 确认，如果输出版本号则代表安装成功。
 
-![](../../static/react/step0-npm.png)
-
-之后运行指令 `npm install -g yarn` 即可安装 yarn，随后可以通过指令 `yarn -v` 来确认是否安装成功（这里如果遇到了读写权限问题，可能需要切换到管理员模式，Mac 与 Linux 系统上可以直接在指令前加 `sudo`，Windows 系统上则应在打开终端时选择“以管理员身份运行”）：
-
-![](../../static/react/step0-yarn.png)
+之后运行指令 `npm install -g yarn` 即可安装 yarn，随后可以通过指令 `yarn -v` 来确认是否安装成功（这里如果遇到了读写权限问题，可能需要切换到管理员模式，Mac 与 Linux 系统上可以直接在指令前加 `sudo`，Windows 系统上则应在打开终端时选择“以管理员身份运行”），如果输出版本号则代表安装成功。
 
 !!! note "换源"
 
@@ -76,9 +70,7 @@ TypeScript 是 JavaScript 的超集，可以将其简单理解为带有类型标
 
 可以通过 yarn 安装 TypeScript，指令为 `yarn global add typescript`。
 
-为了确定 TypeScript 是否正确安装，可以需要通过 `tsc -v` 确认：
-
-![](../../static/react/step0-ts.png)
+为了确定 TypeScript 是否正确安装，可以需要通过 `tsc -v` 确认，如果输出版本号则代表安装成功。
 
 ## 本项目的配置
 

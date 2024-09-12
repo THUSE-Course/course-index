@@ -34,6 +34,22 @@ export type Board = (0 | 1)[][];
 export const BOARD_LENGTH = 50;
 ```
 
+## 实验评分
+
+本 Step 总分为 10 分。
+
+Step 1 与 Step 3 的一部分采用自动化评分。在正确完成 CI/CD 小作业的基础上，你应当能在 SECoder Gitlab CI 上观察到单元测试所输出的信息。如果完全通过，显示应当类似于：
+
+![](../../static/next-pass.png)
+
+如果仅通过 Step 1 与 Step 3 中的某一个，显示应当类似于：
+
+![](../../static/next-partial-pass.png)
+
+只要上述信息中显示 Step 1 测试通过，本 Step 即满分。
+
+若你未正确完成 CI/CD 小作业导致无法通过上述方式评分，我们会使用克隆仓库并本地运行单元测试等方式评分。
+
 ## 知识讲解
 
 详细的 TypeScript 语法可以参考 [TypeScript 的官方语法文档](https://www.typescriptlang.org/docs/)。作为已经有一定 C/C++ 语言基础的计算机系同学，可以参考较为简略的 [计算机系科协技能引导文档 TypeScript 部分](https://docs.net9.org/languages/typescript/)。
