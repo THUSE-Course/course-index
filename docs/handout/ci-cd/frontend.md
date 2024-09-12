@@ -30,7 +30,7 @@
 在这一任务中，你将需要编写 Dockerfile 来使得构建的镜像能够通过 node 运行生成的服务端。我们对你的 Dockerfile 有如下要求：
 
 - 使用多阶段构建，最终的镜像仅包含必须的环境、需要提供的页面文件与构建的服务端，不包含开发依赖。
-- Node.js 版本为 18；
+- Node.js 版本为 20；
 - 使用 Yarn 而非 npm 作为包管理器；
 - 将 Yarn 换源到 [npmmirror](https://npmmirror.com) (https://registry.npmmirror.com) 以加速下载；
 - 通过 Next.js 构建独立服务端;

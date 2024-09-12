@@ -22,7 +22,7 @@ Docker 便是为了解决这个挑战而存在。Docker 是一个应用程序**�
 我们通过 Dockerfile 文件指示构建镜像时需要执行的操作。以下是一个示例 Dockerfile：
 
 ```dockerfile
-FROM python:3.9
+FROM python:3.11
 
 ENV HOME=/opt/app
 
@@ -42,14 +42,14 @@ CMD ["python3", "main.py"]
 我们将会通过逐句讲解此 Dockerfile 中每条指令的作用来让你对 Docker 镜像的构建过程有一个快速了解。
 
 ```dockerfile
-FROM python:3.9
+FROM python:3.11
 ```
 
 指定当前镜像基于什么镜像进行构建。你可以在 [Docker Hub](https://hub.docker.com) 上找到各种各样的镜像。像 Docker Hub 这样的网站被称为 Image Registry，在配置 CI 时我们将会看到除了默认的 Docker Hub 之外，也可以指定其他 registry 作为镜像来源，例如 SECoder 自己的 registry。
 
 一般来说，一个镜像只包含能够满足功能需求的最小环境。例如，我们在这里所使用的 `python` 镜像就包含了能够运行 Python 的最小环境。这样做的好处是使镜像充分精简，同时允许通过基于已有镜像构建新镜像的方法获得所需的功能。
 
-在镜像名后可以加上以冒号分隔的标签。标签一般指定镜像的版本，例如这里是 `3.9`，代表此镜像的 Python 版本为 3.9。如果不指定标签，默认获取标签为 `latest` 的版本。
+在镜像名后可以加上以冒号分隔的标签。标签一般指定镜像的版本，例如这里是 `3.11`，代表此镜像的 Python 版本为 3.11。如果不指定标签，默认获取标签为 `latest` 的版本。
 
 !!! note "本课程中你也许会需要的镜像"
 
@@ -156,7 +156,7 @@ CMD ["python3", "main.py"]
 
 ```dockerfile
 # Stage 0: build
-FROM node:18 AS build
+FROM node:20 AS build
 
 ENV FRONTEND=/opt/frontend
 
