@@ -1674,7 +1674,7 @@
 <p><strong>需要修改的代码：</strong><code>Dockerfile</code> 第 2-14 行</p>
 <p>我们提供了 Dockerfile 的框架，现在请你补全这份 Dockerfile，使构建的镜像满足如下要求：</p>
 <ul>
-<li>Python 版本为 3.9；</li>
+<li>Python 版本为 3.11；</li>
 <li>设定 <code>DEPLOY</code> 环境变量为 <code>1</code>；</li>
 <li>工作目录为 <code>/app</code>；</li>
 <li>将源代码复制到工作目录；</li>
@@ -1692,7 +1692,7 @@
 <p>我们将在 GitLab CI/CD 配置中声明一个有三个阶段 <code>build</code>、<code>test</code> 和 <code>deploy</code> 的流水线，其中每个阶段都只有一个作业。你需要补全配置以实现如下目标：</p>
 <ul>
 <li><code>build</code> 和 <code>deploy</code> 作业仅在 <code>master</code> 分支执行；</li>
-<li><code>unit-test</code> 作业在 <code>python</code> 镜像而非 <code>deployer</code> 镜像上运行，其中 Python 版本为 3.9；</li>
+<li><code>unit-test</code> 作业在 <code>python</code> 镜像而非 <code>deployer</code> 镜像上运行，其中 Python 版本为 3.11；</li>
 <li>在 <code>unit-test</code> 作业的 <code>before_script</code> 部分安装 <code>requirements.txt</code> 声明的依赖并通过换源到 TUNA 加速下载；</li>
 <li>在 <code>unit-test</code> 作业的 <code>script</code> 部分创建并执行数据库迁移计划（migrations，修改数据表结构与属性的语句），然后运行单元测试脚本 test.sh。</li>
 </ul>
