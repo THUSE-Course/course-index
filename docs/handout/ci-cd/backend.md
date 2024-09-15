@@ -60,7 +60,7 @@
 
 我们将在 GitLab CI/CD 配置中声明一个有三个阶段 `build`、`test` 和 `deploy` 的流水线，其中每个阶段都只有一个作业。你需要补全配置以实现如下目标：
 
-- `build` 和 `deploy` 作业仅在 `master` 分支执行；
+- `build` 和 `deploy` 作业仅在 `main` 分支执行；
 - `unit-test` 作业在 `python` 镜像而非 `deployer` 镜像上运行，其中 Python 版本为 3.11；
 - 在 `unit-test` 作业的 `before_script` 部分安装 `requirements.txt` 声明的依赖并通过换源到 TUNA 加速下载；
 - 在 `unit-test` 作业的 `script` 部分创建并执行数据库迁移计划（migrations，修改数据表结构与属性的语句），然后运行单元测试脚本 test.sh。

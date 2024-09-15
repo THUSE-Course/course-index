@@ -24,7 +24,7 @@
 
 !!! question "5. 小作业部署后访问提示 502 Bad Gateway"
 
-    这可能是你没有正确设置变量导致 deployer 没有访问镜像的权限。请检查 `REGISTRY_PWD` 变量的权限是否为 `read_registry` (注意不是 `read_repository`)，并确认项目 CI/CD 中正确添加了变量，包括 `master` 分支是否被保护，以及复制粘贴 token 时是否出现错误，例如在结尾意外加入了空格等。
+    这可能是你没有正确设置变量导致 deployer 没有访问镜像的权限。请检查 `REGISTRY_PWD` 变量的权限是否为 `read_registry` (注意不是 `read_repository`)，并确认项目 CI/CD 中正确添加了变量，包括 `main` 分支是否被保护，以及复制粘贴 token 时是否出现错误，例如在结尾意外加入了空格等。
 
     对于后端小作业，若你是 Windows 用户，则还可能是 `start.sh` 的换行序列是 CRLF 导致的。由于 Docker 容器运行在 Linux 环境下，而 Linux 使用 LF 作为换行序列，这可能导致 `start.sh` 运行失败使得容器无法正常运行。你可以通过将换行序列从 CRLF 改为 LF 来解决此问题。
 
