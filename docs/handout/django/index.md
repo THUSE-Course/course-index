@@ -8,7 +8,7 @@
 
 ## 代码地址
 
-后端小作业代码框架地址为【TODO】。
+后端小作业代码框架地址为 https://git.tsinghua.edu.cn/se-2024fall/2024-django-hw。
 
 ## 作业评分
 
