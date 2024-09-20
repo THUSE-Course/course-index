@@ -13,7 +13,34 @@ const f3 = () => { return foo(); }
 const f4 = async () => foo();
 ```
 
-## Problem 2 (6 pts)
+## Problem 2 (2 pts)
+
+阅读下述代码：
+
+```typescript
+interface A {
+    foo: () => void;
+    foobar: () => void;
+}
+
+interface B {
+    foo: () => void;
+    barfoo: () => void;
+}
+
+const bar = (x: A | B): number => {
+    if (x instanceof A) {
+        return 0;
+    }
+
+    x.barfoo();
+    return 1;
+};
+```
+
+这段代码 TypeScript 是否会报编译错误？请说明原因。
+
+## Problem 3 (4 pts)
 
 阅读框架中 `src/pages/index.tsx` 中的代码：
 
@@ -27,7 +54,11 @@ id !== undefined && (
 
 这句语句使得 Free Mode 下 Undo all changes 按钮不被渲染，请解释该写法的工作原理。
 
-## Problem 3 (10 pts)
+## Problem 4 (2 pts)
+
+在 Step 3 中我们提供了 `flipCell` 的一个错误实现 `badFlipCell`，请简述其错误的原因。
+
+## Problem 5 (10 pts)
 
 阅读框架中 `src/pages/index.tsx` 中的代码：
 
@@ -50,18 +81,21 @@ useEffect(() => {
 - 分析 `setBoardCache` 和 `resetBoardCache` 这两个 Redux Reducer 的调用时机
 - 分析这个 `useEffect` Hook 所完成的功能（可以描述一个用户故事，说明这个 Hook 起到了什么样的作用）
 
-## Problem 4 (4 pts)
+## Problem 6 (4 pts)
 
 小明是某一家互联网公司的全栈开发工程师，他为公司设计的 JWT 鉴权系统为，将用户名和密码负载在 JWT 上供后端鉴权服务器判断。现在有黑客拦截到了某一条 JWT 信息，但是没能成功获得该 JWT 加密后的签名部分（即第三部分）。请问该黑客有没有成功劫持该 JWT 代表的用户，请说明理由。
 
-## Problem 5 (6 pts)
+## Problem 7 (4 pts)
 
-在完成小作业后，请尝试下述流程：
+小作业框架中 `next.config.js` 中有下述函数：
 
-- 打开小作业前端页面，登录一个用户
-- 关闭这个页面
-- 再次打开小作业前端页面，观察该用户是否还登录
+```javascript
+async function rewrites() {
+    return [{
+        source: "/api/:path*",
+        destination: "http://127.0.0.1:8001/:path*",
+    }];
+}
+```
 
-此时，你应当发现用户未登录，请解释理由。
-
-为了在多次访问之间保持用户登录状态，我们可以使用 [Persisted Redux](https://www.npmjs.com/package/redux-persist)，请尝试解释该依赖能够实现这一功能的理由。
+请分别叙述 `source, destination` 字段的含义，并简要叙述该函数的作用。
