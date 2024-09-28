@@ -22,7 +22,7 @@
 
 **需要修改的代码：**`requirements.txt` 第 12 行，`start.sh` 第 6-14 行
 
-现在项目中的 `start.sh` 通过 `python3 manage.py runserver` 启动了开发服务器，这并不适于部署。我们将会通过使用 uWSGI 进行部署来获得更好的性能和安全性。
+现在项目中的 `start.sh` 通过 `python3 manage.py runserver` 启动了开发服务器，这并不适于部署。我们将会通过使用 uWSGI 服务器进行部署来获得更好的性能和安全性。
 
 你需要添加对 uWSGI 的依赖，将应用的运行方式改为通过 uWSGI 运行并监听 80 端口。我们已经为你提供了 `uwsgi` 命令的框架，请你修改它使得它能够正常工作。
 
@@ -31,6 +31,14 @@
     你可以通过 [How to use Django with uWSGI](https://docs.djangoproject.com/en/4.1/howto/deployment/wsgi/uwsgi/) 了解如何通过 uWSGI 运行 Django 应用。
 
     你可以在 [uWSGI Docs](https://uwsgi-docs.readthedocs.io/en/latest/index.html) 更详细地了解 uWSGI 的使用方法。
+
+!!! note "WSL 本地安装 uWSGI"
+
+    如果你是 WSL 用户，直接使用 `pip` 安装 uWSGI 时可能因为编译工具链版本问题而构建失败。你可以尝试通过 Conda 安装 uWSGI：
+
+    ```bash
+    conda install uwsgi
+    ```
 
 请阅读上述文档并理解我们提供的选项的作用，**并修改部分参数**使之能够正确运行。
 
