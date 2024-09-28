@@ -47,9 +47,9 @@ FROM python:3.11
 
 指定当前镜像基于什么镜像进行构建。你可以在 [Docker Hub](https://hub.docker.com) 上找到各种各样的镜像。像 Docker Hub 这样的网站被称为 Image Registry，在配置 CI 时我们将会看到除了默认的 Docker Hub 之外，也可以指定其他 registry 作为镜像来源，例如 SECoder 自己的 registry。
 
-!!! note "Docker Hub 镜像"
+!!! note "Docker Hub 镜像源"
 
-    若使用 Docker Hub 时遇到网络问题，可以尝试使用国内的镜像源，例如 [Docker Pull](https://dockerpull.com).
+    若使用 Docker Hub 时遇到网络问题，可以尝试使用国内的镜像源，例如 [Docker Pull](https://dockerpull.com)。
 
 一般来说，一个镜像只包含能够满足功能需求的最小环境。例如，我们在这里所使用的 `python` 镜像就包含了能够运行 Python 的最小环境。这样做的好处是使镜像充分精简，同时允许通过基于已有镜像构建新镜像的方法获得所需的功能。
 
@@ -255,11 +255,17 @@ EXPOSE 80
 
 !!! note "Docker Desktop"
 
-    在 Windows 和 macOS 下，你需要通过 [Docker Desktop](https://www.docker.com/products/docker-desktop/) 来使用 Docker。不过，在 Windows 下更推荐的方法是通过 WSL 来使用 Docker。
+    在 Windows 和 macOS 下，你需要通过 [Docker Desktop](https://www.docker.com/products/docker-desktop/) 来使用 Docker。不过，在 Windows 下更推荐的方法是在 WSL 中使用 Docker，参考 [WSL | Docker Docs](https://docs.docker.com/desktop/wsl/)。
+    
+    
 
 ### 构建镜像
 
 在包含 Dockerfile 的目录下，执行 `docker build . --tag {name}:{tag}` 即可构建镜像，其中 `{name}` 为镜像名，`{tag}` 为标签。
+
+!!! note "Docker Hub 镜像源"
+
+    若使用 Docker Hub 时遇到网络问题，可以尝试使用国内的镜像源，例如 [Docker Pull](https://dockerpull.com)。
 
 ### 运行容器
 
