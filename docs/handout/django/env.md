@@ -50,10 +50,10 @@ Miniconda 是一个轻量级的 Anaconda 发行版，它包括了 conda、Python
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 ```
 
-即可进行下载。下载完成后，输入下述命令进行安装（注意这里前面添加了 sudo，是为 root 用户安装）。
+即可进行下载。下载完成后，输入下述命令进行安装。
 
 ```bash
-sudo bash Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
 ```
 
 然后一直回车，同意协议。选取合适的安装位置后（可使用默认，请记住该位置）开始解包，解包完成后选择同意初始化并添加环境变量。
