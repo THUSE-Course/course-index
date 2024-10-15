@@ -4,6 +4,21 @@
 
 SECoder 平台的 GitLab 提供了集成的 CI/CD 系统，可以通过项目仓库的 `.gitlab-ci.yml` 配置 CI/CD 流程，在特定时机自动执行。
 
+!!! warn "在大作业中使用小作业框架时请注意"
+
+    在大作业阶段，部署需要使用的环境变量将由 SECoder 预设，你不需要手动设置。在本次小作业中为你预设了个人 deployer 环境，在大作业中请移去 `.gitlab-ci.yml` 中 `deploy` 作业的 `export DEPLOY_ENV=...` 命令以使用团队环境。
+
+    简单来说，你可以直接使用如下的 `deploy` 阶段：
+
+    ```yaml
+    deploy:
+      stage: deploy
+      script:
+        - deployer dyno replace $CI_PROJECT_NAME "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" "$REGISTRY_USER" "$REGISTRY_PWD"
+      only:
+        - main
+    ```
+
 ## 基本概念
 
 以下是一个 GitLab CI/CD 流水线，我们将以它为例说明 GitLab CI/CD 中的一些基本概念。

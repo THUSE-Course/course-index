@@ -56,4 +56,17 @@
 
     你需要在前端与后端两个项目**都**添加这些变量以正常部署。
     
-    **注意：**在大作业阶段，这些变量将由 SECoder 预设，你不需要手动设置。同时，我们在本次小作业中为你预设了个人 deployer 环境，在大作业中请移去 `.gitlab-ci.yml` 中 `deploy` 作业的 `export DEPLOY_ENV=...` 命令以使用团队环境。
+!!! warn "在大作业中使用小作业框架时请注意"
+
+    在大作业阶段，前面提到的环境变量将由 SECoder 预设，你不需要手动设置。同时，我们在本次小作业中为你预设了个人 deployer 环境，在大作业中请移去 `.gitlab-ci.yml` 中 `deploy` 作业的 `export DEPLOY_ENV=...` 命令以使用团队环境。
+
+    简单来说，大作业中你可以直接使用如下的 `deploy` 阶段：
+
+    ```yaml
+    deploy:
+      stage: deploy
+      script:
+        - deployer dyno replace $CI_PROJECT_NAME "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" "$REGISTRY_USER" "$REGISTRY_PWD"
+      only:
+        - main
+    ```
