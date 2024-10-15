@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
     
     
       
@@ -1750,6 +1750,23 @@
 <h1 id="gitlab-cicd">GitLab CI/CD<a class="headerlink" href="#gitlab-cicd" title="Permanent link">&para;</a></h1>
 <p><strong>持续集成</strong> (Continuous Integration, CI) 指在代码构建过程中持续地进行代码的集成、构建、测试等。通过 CI，我们可以在开发过程中尽早发现引入的错误，并进行代码的静态检查和部署镜像的构建等等。<strong>持续部署</strong> (Continuous Deployment, CD) 指代码构建完毕之后，将构建的版本部署上线的流程。通过 CD，我们可以快速对应用进行迭代和交付。</p>
 <p>SECoder 平台的 GitLab 提供了集成的 CI/CD 系统，可以通过项目仓库的 <code>.gitlab-ci.yml</code> 配置 CI/CD 流程，在特定时机自动执行。</p>
+<div class="admonition warn">
+<p class="admonition-title">在大作业中使用小作业框架时请注意</p>
+<p>在大作业阶段，部署需要使用的环境变量将由 SECoder 预设，你不需要手动设置。在本次小作业中为你预设了个人 deployer 环境，在大作业中请移去 <code>.gitlab-ci.yml</code> 中 <code>deploy</code> 作业的 <code>export DEPLOY_ENV=...</code> 命令以使用团队环境。</p>
+<p>简单来说，你可以直接使用如下的 <code>deploy</code> 阶段：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">deploy</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deploy</span>
+<span class="w">  </span><span class="nt">script</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deployer dyno replace $CI_PROJECT_NAME &quot;$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG&quot; &quot;$REGISTRY_USER&quot; &quot;$REGISTRY_PWD&quot;</span>
+<span class="w">  </span><span class="nt">only</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span>
+</code></pre></div></td></tr></table></div>
+</div>
 <h2 id="_1">基本概念<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>以下是一个 GitLab CI/CD 流水线，我们将以它为例说明 GitLab CI/CD 中的一些基本概念。</p>
 <p><a class="glightbox" href="../../static/pipeline.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="GitLab CI/CD 流水线" src="../../static/pipeline.png" /></a></p>
@@ -2095,7 +2112,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月12日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年10月15日</span>
   </span>
 
     
@@ -2128,7 +2145,7 @@
     
         <div class="md-source-date">
             <small>
-                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (0.4%), <a href='mailto:wangbw21@mails.tsinghua.edu.cn'>abmfy</a> (99.6%)</span>
+                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (0.38%), <a href='mailto:wangbw21@mails.tsinghua.edu.cn'>abmfy</a> (99.62%)</span>
             </small>
         </div>
     
