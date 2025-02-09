@@ -10,18 +10,21 @@
 
 ## 课程团队
 
-- 任课教师
+[TODO]
+
+<!-- - 任课教师
     - 王建勇（计算机系网络所）
 - 本文档维护者 & 小作业助教
     - 钱厚德（前端、[Ashitemaru](https://ashitemaru.github.io)）
     - 高焕昂（后端、[c7w](https://c7w.tech)）
-    - 王博文（CICD、[abmfy](https://abmfy.github.io)）
+    - 王博文（CICD、[abmfy](https://abmfy.github.io)） -->
 
 ## 课程评分
 
-- （25%）课程小作业
+[TODO]
+<!-- - （25%）课程小作业
     - （8%）后端小作业
     - （12%）前端小作业
     - （5%）CI/CD 小作业
 - （65%）课程大作业
-- （10%）随堂测试及平时分
+- （10%）随堂测试及平时分 -->
