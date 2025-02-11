@@ -2,7 +2,7 @@
 
 在这一部分，你将会完成 Django 小作业的 CI/CD 配置。
 
-你需要在 SECoder GitLab 上新建名为 `2024-Django-HW` 的项目并按要求将密钥在 CI/CD 变量中提供。
+你需要在 SECoder GitLab 上新建名为 `2025-Django-HW` 的项目并按要求将密钥在 CI/CD 变量中提供。
 
 ## 任务汇总
 

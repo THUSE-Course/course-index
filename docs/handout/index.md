@@ -4,9 +4,15 @@
 
 ## 时间安排
 
-小作业截止日期为第五周周五（2024.10.11）晚 23:59。
+【TODO】小作业时间待定。
 
-小作业的所有迟交与成绩复议均不得晚于第六周周三（2024.10.16）晚 23:59，在此之后 SECoder 上所有涉及到小作业的资源将会被释放以服务大作业。
+<!--
+
+小作业截止日期为第五周周五（2025.10.11）晚 23:59。
+
+小作业的所有迟交与成绩复议均不得晚于第六周周三（2025.10.16）晚 23:59，在此之后 SECoder 上所有涉及到小作业的资源将会被释放以服务大作业。
+
+-->
 
 我们推荐按照下述顺序完成本次小作业：
 
@@ -31,14 +37,20 @@ $$
 \end{cases}
 $$
 
-其中 $x$ 为作业提交时间，$t_1$ 为作业截止时间（2024.10.11 23:59），$t_2$ 为迟交最终时间（2024.10.16 23:59）。
+【TODO】时间待定。
+
+<!--
+
+其中 $x$ 为作业提交时间，$t_1$ 为作业截止时间（2025.10.11 23:59），$t_2$ 为迟交最终时间（2025.10.16 23:59）。
+
+-->
 
 ## 完成与提交方式
 
-本次小作业采取代码填空的形式，你需要从下述链接使用 `git clone` 克隆代码仓库并完成，完成后需要使用 `git push` 将其上传到 SECoder Gitlab 仓库中供部署与查看，其中前端的项目名为 `2024-Next-HW`，后端的项目名为 `2024-Django-HW`。需要注意的是，上传至 SECoder 与部署等操作需要在第一周获取 SECoder 账号才可以进行：
+本次小作业采取代码填空的形式，你需要从下述链接使用 `git clone` 克隆代码仓库并完成，完成后需要使用 `git push` 将其上传到 SECoder Gitlab 仓库中供部署与查看，其中前端的项目名为 `2025-Next-HW`，后端的项目名为 `2025-Django-HW`。需要注意的是，上传至 SECoder 与部署等操作需要在第一周获取 SECoder 账号才可以进行：
 
-- 前端：https://git.tsinghua.edu.cn/se-2024fall/2024-next-hw
-- 后端：https://git.tsinghua.edu.cn/se-2024fall/2024-django-hw
+- 前端：https://git.tsinghua.edu.cn/se-2025spring/2025-next-hw
+- 后端：https://git.tsinghua.edu.cn/se-2025spring/2025-django-hw
 
 若在小作业进行期间课程组需要更新代码框架，我们将会发布公告说明，你可以从上述链接使用 `git pull` 拉取更新后的框架并使用 `git merge` 合并到自己的代码中。
 
@@ -52,8 +64,8 @@ $$
     请模仿下述样例在网络学堂内容栏提交，无需添加任何其他内容，仅需要三行链接：
 
     ```text
-    https://gitlab.secoder.net/202xxxxxxx/2024-django-hw
-    https://gitlab.secoder.net/202xxxxxxx/2024-next-hw
+    https://gitlab.secoder.net/202xxxxxxx/2025-django-hw
+    https://gitlab.secoder.net/202xxxxxxx/2025-next-hw
     http://frontend-202xxxxxxx.app.secoder.net/
     ```
 
