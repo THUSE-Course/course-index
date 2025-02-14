@@ -1361,24 +1361,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#problem-2-2-pts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Problem 2 (2 pts)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#problem-3-4-pts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Problem 3 (4 pts)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#problem-4-2-pts" class="md-nav__link">
     <span class="md-ellipsis">
       Problem 4 (2 pts)
@@ -1400,15 +1382,6 @@
   <a href="#problem-6-4-pts" class="md-nav__link">
     <span class="md-ellipsis">
       Problem 6 (4 pts)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#problem-7-4-pts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Problem 7 (4 pts)
     </span>
   </a>
   
@@ -1606,24 +1579,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#problem-2-2-pts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Problem 2 (2 pts)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#problem-3-4-pts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Problem 3 (4 pts)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#problem-4-2-pts" class="md-nav__link">
     <span class="md-ellipsis">
       Problem 4 (2 pts)
@@ -1645,15 +1600,6 @@
   <a href="#problem-6-4-pts" class="md-nav__link">
     <span class="md-ellipsis">
       Problem 6 (4 pts)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#problem-7-4-pts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Problem 7 (4 pts)
     </span>
   </a>
   
@@ -1694,58 +1640,6 @@
 <span class="kd">const</span><span class="w"> </span><span class="nx">f3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">foo</span><span class="p">();</span><span class="w"> </span><span class="p">}</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">f4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">foo</span><span class="p">();</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="problem-2-2-pts">Problem 2 (2 pts)<a class="headerlink" href="#problem-2-2-pts" title="Permanent link">&para;</a></h2>
-<p>阅读下述代码：</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
-<span class="w">    </span><span class="nx">foobar</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kd">interface</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
-<span class="w">    </span><span class="nx">barfoo</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kd">const</span><span class="w"> </span><span class="nx">bar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="kt">A</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">B</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">x</span><span class="w"> </span><span class="ow">instanceof</span><span class="w"> </span><span class="nx">A</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="nx">x</span><span class="p">.</span><span class="nx">barfoo</span><span class="p">();</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div></td></tr></table></div>
-<p>这段代码 TypeScript 是否会报编译错误？请说明原因。</p>
-<h2 id="problem-3-4-pts">Problem 3 (4 pts)<a class="headerlink" href="#problem-3-4-pts" title="Permanent link">&para;</a></h2>
-<p>阅读框架中 <code>src/pages/index.tsx</code> 中的代码：</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nx">id</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="kc">undefined</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span>
-<span class="w">    </span><span class="o">&lt;</span><span class="nx">button</span><span class="w"> </span><span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">setBoard</span><span class="p">(</span><span class="nx">initBoard</span><span class="p">)}</span><span class="w"> </span><span class="nx">disabled</span><span class="o">=</span><span class="p">{</span><span class="nx">autoPlay</span><span class="p">}</span><span class="o">&gt;</span>
-<span class="w">        </span><span class="nx">Undo</span><span class="w"> </span><span class="nx">all</span><span class="w"> </span><span class="nx">changes</span>
-<span class="w">    </span><span class="o">&lt;</span><span class="err">/button&gt;</span>
-<span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-<p>这句语句使得 Free Mode 下 Undo all changes 按钮不被渲染，请解释该写法的工作原理。</p>
 <h2 id="problem-4-2-pts">Problem 4 (2 pts)<a class="headerlink" href="#problem-4-2-pts" title="Permanent link">&para;</a></h2>
 <p>在 Step 3 中我们提供了 <code>flipCell</code> 的一个错误实现 <code>badFlipCell</code>，请简述其错误的原因。</p>
 <h2 id="problem-5-10-pts">Problem 5 (10 pts)<a class="headerlink" href="#problem-5-10-pts" title="Permanent link">&para;</a></h2>
@@ -1779,21 +1673,6 @@
 </ul>
 <h2 id="problem-6-4-pts">Problem 6 (4 pts)<a class="headerlink" href="#problem-6-4-pts" title="Permanent link">&para;</a></h2>
 <p>小明是某一家互联网公司的全栈开发工程师，他为公司设计的 JWT 鉴权系统为，将用户名和密码负载在 JWT 上供后端鉴权服务器判断。现在有黑客拦截到了某一条 JWT 信息，但是没能成功获得该 JWT 加密后的签名部分（即第三部分）。请问该黑客有没有成功劫持该 JWT 代表的用户，请说明理由。</p>
-<h2 id="problem-7-4-pts">Problem 7 (4 pts)<a class="headerlink" href="#problem-7-4-pts" title="Permanent link">&para;</a></h2>
-<p>小作业框架中 <code>next.config.js</code> 中有下述函数：</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">rewrites</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">[{</span>
-<span class="w">        </span><span class="nx">source</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;/api/:path*&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">destination</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;http://127.0.0.1:8001/:path*&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="p">}];</span>
-<span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<p>请分别叙述 <code>source, destination</code> 字段的含义，并简要叙述该函数的作用。</p>
 
 
 
@@ -1814,7 +1693,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月20日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年2月14日</span>
   </span>
 
     
