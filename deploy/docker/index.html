@@ -698,10 +698,43 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Dockerfile">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      反例1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      反例2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何解决
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       多阶段构建
     </span>
@@ -710,7 +743,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       本地运行容器
     </span>
@@ -720,7 +753,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       构建镜像
     </span>
@@ -729,7 +762,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       运行容器
     </span>
@@ -743,7 +776,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       参考资料
     </span>
@@ -1598,10 +1631,43 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Dockerfile">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      反例1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      反例2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何解决
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       多阶段构建
     </span>
@@ -1610,7 +1676,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       本地运行容器
     </span>
@@ -1620,7 +1686,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       构建镜像
     </span>
@@ -1629,7 +1695,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       运行容器
     </span>
@@ -1643,7 +1709,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       参考资料
     </span>
@@ -1677,7 +1743,7 @@
 <p>Docker 便是为了解决这个挑战而存在。Docker 是一个应用程序<strong>容器化</strong>环境，通过将程序隔离在不同的容器中运行来提供一致的运行环境，降低运维成本。</p>
 <p>应用的编写者（也就是我们）会提供在某种基环境（比如标准 Ubuntu 20.04）下将整个环境搭起来的全部流程，并将配置过程写到一个文件（即我们后续说的 Dockerfile）中，然后基于这个文件构建一个 Docker <strong>镜像</strong>（Image）。</p>
 <p>然后我们可以把这个镜像分发到世界各处的服务器上，这些也装有 Docker 的服务器会根据这些镜像运行<strong>容器 (Container)</strong> —— 镜像的实例。</p>
-<p>比如，在常见的暑期培训中，讲师可以基于 Ubuntu 20.04 环境，通过 Dockerfile 指定将一些配好的环境、出好的题目拷贝到这个环境的某个目录下，然后构建一个镜像。我们可以根据这个镜像在几台服务器上开启数以百计的容器分发给同学使用，而不需要每个同学单独再去配置任何环境。再比如，软件的开发者在软件运行环境依赖十分复杂时，也会在软件发布阶段将所有环境构建成一个镜像，而软件使用者通过实例化这个镜像得到一个容器，在容器中做出自己的修改。</p>
+<p>比如，在去年的科协暑期培训中，讲师可以基于 Ubuntu 20.04 环境，通过 Dockerfile 指定将一些配好的环境、出好的题目拷贝到这个环境的某个目录下，然后构建一个镜像。我们可以根据这个镜像在几台服务器上开启数以百计的容器分发给同学使用，或者给出容器的链接让同学们自己安装 Docker 后使用，而不需要每个同学单独再去配置任何环境（除了安装 Docker）。再比如，软件的开发者在软件运行环境依赖十分复杂时，也会在软件发布阶段将所有环境构建成一个镜像，而软件使用者通过实例化这个镜像得到一个容器，在容器中做出自己的修改。</p>
 <div class="admonition note">
 <p class="admonition-title">容器的易失性</p>
 <p>容器的文件系统是一个临时文件系统，因此如果容器被不小心删除，其中的所有数据将会丢失。我们将在后续的文档介绍如何通过配置项和持久存储来使得数据在不同容器之间保持。</p>
@@ -1720,7 +1786,7 @@
 <p>指定当前镜像基于什么镜像进行构建。你可以在 <a href="https://hub.docker.com">Docker Hub</a> 上找到各种各样的镜像。像 Docker Hub 这样的网站被称为 Image Registry，在配置 CI 时我们将会看到除了默认的 Docker Hub 之外，也可以指定其他 registry 作为镜像来源，例如 SECoder 自己的 registry。</p>
 <div class="admonition note">
 <p class="admonition-title">Docker Hub 镜像源</p>
-<p>若使用 Docker Hub 时遇到网络问题，可以尝试使用国内的镜像源，例如 <a href="https://dockerpull.com">Docker Pull</a>。</p>
+<p>若使用 Docker Hub 时遇到网络问题（你一定会遇到网络问题），可以尝试使用国内的镜像源，例如 <a href="https://docker.1panel.dev/">1Panel Docker Proxy</a>。系科协有自己的 Docker 镜像源 <a href="https://docker.net9.org">docker.net9.org</a>，但不保证可用性。</p>
 </div>
 <p>一般来说，一个镜像只包含能够满足功能需求的最小环境。例如，我们在这里所使用的 <code>python</code> 镜像就包含了能够运行 Python 的最小环境。这样做的好处是使镜像充分精简，同时允许通过基于已有镜像构建新镜像的方法获得所需的功能。</p>
 <p>在镜像名后可以加上以冒号分隔的标签。标签一般指定镜像的版本，例如这里是 <code>3.11</code>，代表此镜像的 Python 版本为 3.11。如果不指定标签，默认获取标签为 <code>latest</code> 的版本。</p>
@@ -1766,6 +1832,14 @@
 </tbody>
 </table>
 </div>
+<div class="admonition note">
+<p class="admonition-title">如何使用镜像源</p>
+<p>你可以以两种方式使用镜像源:</p>
+<ul>
+<li>更改 <code>daemon.json</code> (具体用法详见 <a href="https://docs.docker.com/reference/cli/dockerd/#daemon-configuration-file">文档</a>). 这能够全局地应用更改, 在重启 Docker 后生效.</li>
+<li>在 <code>docker pull</code> 或 <code>docker run</code> 或 <code>FROM</code> 时显式指定. 这不会全局应用, 但你无需重启 Docker (无需 root 权限). 需要注意的是, 在这时, 官方镜像如 <code>FROM debian</code> 需要改为 <code>FROM docker.net9.org/library/debian</code> 而第三方的镜像无需添加 <code>library</code>.</li>
+</ul>
+</div>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">ENV</span><span class="w"> </span><span class="nv">HOME</span><span class="o">=</span>/opt/app
 </code></pre></div></td></tr></table></div>
 <p>设定一个环境变量。注意环境变量不仅可以在后续指令中使用，也会保留到容器运行时。</p>
@@ -1783,11 +1857,17 @@
 requests==2.28.1
 </code></pre></div></td></tr></table></div>
 <p>这表明程序需要 <code>django</code> 以及版本为 <code>2.28.1</code> 的 <code>requests</code> 库来运行。</p>
+<p>另外, 可以参考 <a href="https://pip.pypa.io/en/latest/reference/requirements-file-format/">文件格式</a></p>
 </div>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-i<span class="w"> </span>https://pypi.tuna.tsinghua.edu.cn/simple<span class="w"> </span>-r<span class="w"> </span>requirements.txt
 </code></pre></div></td></tr></table></div>
 <p><code>RUN</code> 指令在镜像环境中执行一段命令。在这里，我们在镜像中通过 <code>pip</code> 安装 <code>requirements.txt</code> 指定的第三方库，其中 <code>-i</code> 选项将索引源更换到 TUNA 以加快下载速度。<code>RUN</code> 指令的影响将会在镜像中保留。因此，最终构建的镜像将包含有我们安装的第三方库。</p>
-<p><code>RUN</code> 是一个构建时的指令，这意味着运行容器时将不会重新执行这段命令。</p>
+<div class="admonition warning">
+<p class="admonition-title">应该在构建时安装依赖而非运行时</p>
+<p>请注意 (尤其是在大规模部署时) 一定要在构建时即安装依赖, 而非在部署 (Container 启动时) 安装. 对于任何大规模部署任务都是这样.</p>
+<p><strong>反例:</strong> 某学长在大规模部署 conda 环境时因为在电脑上创建 10k+ 的 conda 环境, 创建后使用 pip install 从 TUNA 源拉 pip 包而遭到 TUNA 封禁 (笑) 正确的方式是使用 conda 安装 pip 包 (可以利用本机的 conda cache) 或自建带 cache 的 pip 镜像源.</p>
+</div>
+<p><code>RUN</code> 是一个构建时的指令，这意味着运行容器时将 <strong>不会重新执行这段命令</strong>。</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">COPY</span><span class="w"> </span>src<span class="w"> </span><span class="nv">$HOME</span>
 </code></pre></div></td></tr></table></div>
 <p>将主机文件系统中的 <code>src</code> 目录下的文件复制到镜像文件系统的 <code>$HOME</code> 目录。</p>
@@ -1809,17 +1889,27 @@ requests==2.28.1
 <p class="admonition-title">这只是一个声明</p>
 <p><code>EXPOSE</code> 指令仅仅是一个声明。要在容器运行时通过这个端口与容器进行通信，还需要在容器运行时指定将容器的端口发布到本机端口，具体操作可以参照本文档运行容器部分。</p>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">在运行时一定要注意防火墙问题!!!</p>
+<p>在使用如 <code>docker run -p 80:80 xxx</code> 时, Docker 容器内的 80 端口会在宿主的 80 端口 <strong>向 0.0.0.0</strong> 监听 (这意味着任何人都能访问此端口, <strong>这可能会带来严重的安全问题!!!</strong>). 如果你使用 <a href="https://docs.docker.com/compose/"><code>docker compose</code></a> 也是如此.</p>
+<h4 id="1">反例1<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
+<p>某学长在本地部署 <a href="https://dify.ai/">Dify</a> 时没有检查 <code>docker-compose.yaml</code> 文件, 导致 <strong>暴露了 3128 SOCKS5 代理端口</strong>, 遭到 <strong>its 封号</strong>.</p>
+<h4 id="2">反例2<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<p><del>某学长</del> 我在部署某服务时在 Linux 上配置防火墙在 INPUT 上, 但是 Docker 更改 iptables 在 PREROUTING 时进行了 DNAT, 导致 <strong>防火墙没有生效</strong>. 所幸在发现并更正之前没有造成严重后果.</p>
+<h4 id="_1">如何解决<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<p>可以考虑监听在特定端口 (如 127.0.0.1) 或正确配置防火墙或 (对于 Linux) 干脆禁止 Docker 更改防火墙.</p>
+</div>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;python3&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;main.py&quot;</span><span class="p">]</span>
 </code></pre></div></td></tr></table></div>
-<p>指定容器运行时执行的命令。注意，与 <code>RUN</code> 指令不同，容器构建时不会执行这段命令，只有容器启动时才会。注意此指令的格式，需要将每个参数分隔为单独字符串并在最外层加方括号。这里的这条指令表明基于该镜像的容器运行时将执行 <code>python3 main.py</code>。典型地，这条指令用于启动我们的程序。不过，如果程序运行步骤比较复杂，我们一般会选择将程序运行逻辑写为一个 shell 脚本，而在 Dockerfile 中使用 <code>CMD ["sh", "run.sh"]</code> 之类的指令来执行这个脚本。</p>
+<p>指定容器运行时执行的命令。注意，与 <code>RUN</code> 指令不同，<strong>容器构建时 <em>不</em> 会执行这段命令，只有容器启动时才会</strong>。注意此指令的格式，需要将每个参数分隔为单独字符串并在最外层加方括号。这里的这条指令表明基于该镜像的容器运行时将执行 <code>python3 main.py</code>。典型地，这条指令用于启动我们的程序。不过，如果程序运行步骤比较复杂，我们一般会选择将程序运行逻辑写为一个 shell 脚本，而在 Dockerfile 中使用 <code>CMD ["sh", "run.sh"]</code> 之类的指令来执行这个脚本。</p>
 <div class="admonition warning">
 <p class="admonition-title">不要将开发配置作为正式部署</p>
-<p>开发环境的配置往往没有针对部署场景进行安全性和性能方面的检查，因此请不要在正式部署中使用开发配置。例如，如果你直接使用 <code>python3 manage.py runserver</code> 作为容器的运行命令，这将启动一个开发服务器，它并没有针对高并发场景进行优化。同时，若你没有在 Django 项目的 <code>settings.py</code> 中将 <code>DEBUG</code> 设置为 <code>False</code>，在发生异常时程序的调用栈将会直接展示给用户，这将带来极大的危险性。</p>
+<p>开发环境的配置往往没有针对部署场景进行安全性和性能方面的检查，因此请不要在正式部署中使用开发配置。例如，如果你直接使用 <code>python3 manage.py runserver</code> 作为容器的运行命令，这将启动一个开发服务器，它并没有针对高并发场景进行优化。同时，若你没有在 Django 项目的 <code>settings.py</code> 中将 <code>DEBUG</code> 设置为 <code>False</code>，在发生异常时程序的调用栈、局部变量等将会直接展示给用户，这将带来极大的危险性。</p>
 <p>正确的部署方式可以参考你所使用的框架的文档。例如，<a href="https://docs.djangoproject.com/en/4.1/howto/deployment/">How to deploy Django</a> 文档说明了应该如何部署 Django，包括使用 Gunicorn 和 uWSGI 等方式。</p>
 </div>
 <hr />
 <p>到此，该镜像的构建过程就结束了，之后我们就可以使用 SECoder 的 deployer 工具基于构建的镜像运行一个容器。</p>
-<h2 id="_1">多阶段构建<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="_2">多阶段构建<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>前面我们提到，Python 等解释型语言只需要将源文件直接复制到镜像中，在容器运行时解释运行源文件即可。但对于 C++/Go/Rust 等编译型语言来说，我们通常不会在容器运行时再进行编译，而是在镜像构建时就执行编译，在容器运行时直接执行可执行文件即可。但是，我们通常希望镜像尽可能精简，为此我们希望最终的镜像只包含可执行文件，不包含源文件。我们可以使用多阶段构建来实现这一点。</p>
 <p>结合本课程的特点，下面我们以前端镜像的构建为例说明多阶段构建。前端的部署过程与编译型语言有些类似：我们首先生成网站所提供的静态文件，然后再通过 nginx 反向代理使网站向访问者提供这些文件。</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1946,19 +2036,19 @@ requests==2.28.1
 <p>请注意在 <code>proxy_pass</code> 的 URL 末尾需要加 <code>/</code>。如果你对原因感到好奇，可以查阅相关资料了解 <code>location</code> 和 <code>proxy_pass</code> 的工作方式。</p>
 </div>
 <p>我们基于 <code>nginx</code> 镜像构建我们这一阶段的镜像。不同构建阶段的镜像是互相独立的，不共享文件系统。因此，我们在希望从之前的阶段复制文件时，需要使用 <code>COPY --from={stage}</code> 指令，其中 <code>{stage}</code> 为阶段名称或编号。在这里，我们将前一阶段生成的位于 <code>/opt/frontend/dist</code> 目录下的静态文件复制到当前镜像的 <code>dist</code> 目录，再将主机文件系统 <code>nginx</code> 目录下的配置文件复制到镜像中 nginx 的配置目录 <code>/etc/nginx/conf.d</code>。最后，我们暴露 80 端口。由于没有显式指定 <code>CMD</code> 指令，这一镜像将使用 <code>nginx</code> 镜像的 <code>CMD</code> 指令，运行 nginx 服务器。</p>
-<h2 id="_2">本地运行容器<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="_3">本地运行容器<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>在安装 <a href="https://www.docker.com">Docker</a> 后，你可以通过在本地构建镜像和运行容器来进行调试。</p>
 <div class="admonition note">
 <p class="admonition-title">Docker Desktop</p>
 <p>在 Windows 和 macOS 下，你需要通过 <a href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a> 来使用 Docker。不过，在 Windows 下更推荐的方法是在 WSL 中使用 Docker，参考 <a href="https://docs.docker.com/desktop/wsl/">WSL | Docker Docs</a>。</p>
 </div>
-<h3 id="_3">构建镜像<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<h3 id="_4">构建镜像<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>在包含 Dockerfile 的目录下，执行 <code>docker build . --tag {name}:{tag}</code> 即可构建镜像，其中 <code>{name}</code> 为镜像名，<code>{tag}</code> 为标签。</p>
 <div class="admonition note">
 <p class="admonition-title">Docker Hub 镜像源</p>
-<p>若使用 Docker Hub 时遇到网络问题，可以尝试使用国内的镜像源，例如 <a href="https://dockerpull.com">Docker Pull</a>。</p>
+<p>若使用 Docker Hub 时遇到网络问题，可以尝试使用国内的镜像源。</p>
 </div>
-<h3 id="_4">运行容器<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h3 id="_5">运行容器<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>执行 <code>docker run -it --rm {name}:{tag}</code> 来基于指定镜像运行一个容器，镜像既可以是本地构建的也可以是在 Docker Hub 或其他 registry 中托管的。其中 <code>-i</code> 选项指定交互模式，<code>-t</code> 指定分配伪终端，<code>--rm</code> 指定运行结束后移除容器。这些选项在调试时会比较有用。</p>
 <p>你可以可选地在最后指定容器运行时执行的命令，这将会覆盖镜像中使用 <code>CMD</code> 指定的命令。例如，你可以通过 <code>docker run -it --rm nginx:1.22 bash</code> 来启动一个运行 <code>bash</code> 的 <code>nginx</code> 容器，这将使你能够探索 <code>nginx</code> 容器的内部结构并允许你在容器内部运行命令。</p>
 <p>你还可以指定 <code>-p [hostPort]:{containerPort}</code> 来将本机端口 <code>hostPort</code> 映射到容器暴露的端口 <code>containerPort</code>。</p>
@@ -1967,9 +2057,9 @@ requests==2.28.1
 <p>Docker 容器退出后并不会自动被移除，将会继续留存并占用空间，因此我们在调试时通过 <code>--rm</code> 来让容器退出后自动移除。</p>
 <p>我们也可以使用 <code>docker ps --all</code> 命令来查看所有容器 (包括已退出的)，并使用 <code>docker rm</code> 命令来移除不再需要的容器。</p>
 </div>
-<h2 id="_5">参考资料<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="_6">参考资料<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>以上我们简要介绍了 Docker 的使用，包括如何通过 Dockerfile 来声明镜像的构建步骤以及如何在本地构建镜像和运行容器等等。</p>
-<p>如果希望更加深入地学习 Docker 的高级用法以及工作原理等，可以参考 <a href="https://liang2kl.github.io/2022-summer-training-docker-tutorial">2022 酒井科协暑培 Docker 文档</a>和 <a href="https://docs.docker.com">Docker 官方文档</a>。</p>
+<p>如果希望更加深入地学习 Docker 的高级用法以及工作原理等，可以参考 <a href="https://liang2kl.github.io/2022-summer-training-docker-tutorial">2022 酒井科协暑培 Docker 文档</a>, <a href="https://summer23.net9.org/backend/docker/">2023 暑培 Docker 文档</a>, <a href="https://summer24.net9.org/backend/docker/handout/">2024 暑培 Docker 文档</a> 和 <a href="https://docs.docker.com">Docker 官方文档</a>。</p>
 <p>在本课程提供的 <a href="https://git.tsinghua.edu.cn/SEG/example">样例项目</a> 仓库中也可以找到几种常见项目框架的 Dockerfile，可供配置部署时参考。需要注意的是，这些样例项目都较为老旧，请在参考时注意版本和兼容性等问题。</p>
 
 
@@ -1991,7 +2081,7 @@ requests==2.28.1
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月28日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年2月15日</span>
   </span>
 
     
@@ -2009,7 +2099,8 @@ requests==2.28.1
       
         <a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a>, 
         <a href="mailto:wangbw21@mails.tsinghua.edu.cn">abmfy</a>, 
-        <a href="mailto:cc7w@foxmail.com">c7w</a>
+        <a href="mailto:cc7w@foxmail.com">c7w</a>, 
+        <a href="mailto:ajax-dong@outlook.com">ajax</a>
     </nav>
   </span>
 
@@ -2025,7 +2116,7 @@ requests==2.28.1
     
         <div class="md-source-date">
             <small>
-                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (0.34%), <a href='mailto:wangbw21@mails.tsinghua.edu.cn'>abmfy</a> (95.86%), <a href='mailto:cc7w@foxmail.com'>c7w</a> (3.79%)</span>
+                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (0.31%), <a href='mailto:wangbw21@mails.tsinghua.edu.cn'>abmfy</a> (84.74%), <a href='mailto:cc7w@foxmail.com'>c7w</a> (3.12%), <a href='mailto:ajax-dong@outlook.com'>ajax</a> (11.84%)</span>
             </small>
         </div>
     

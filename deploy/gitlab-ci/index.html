@@ -1809,7 +1809,11 @@
 <p>以下是一个 GitLab CI/CD 流水线，我们将以它为例说明 GitLab CI/CD 中的一些基本概念。</p>
 <p><a class="glightbox" href="../../static/pipeline.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="GitLab CI/CD 流水线" src="../../static/pipeline.png" /></a></p>
 <h3 id="job">作业 (Job)<a class="headerlink" href="#job" title="Permanent link">&para;</a></h3>
-<p>作业是 CI/CD 流程的最小执行单元，一个作业包含了一系列需要执行的命令。每个作业需要指定一个 Docker 镜像，在执行 CI/CD 时将会基于此镜像运行一个容器，在其中执行命令。例如，上图中的 <code>test_all</code> 和 <code>build_image</code> 等就是一些作业。</p>
+<p>作业是 CI/CD 流程的最小执行单元，一个作业包含了一系列需要执行的命令。每个作业需要指定一个 <strong>Docker 镜像</strong>，在执行 CI/CD 时将会基于此镜像运行一个容器，在其中执行命令。例如，上图中的 <code>test_all</code> 和 <code>build_image</code> 等就是一些作业。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>由于这里的 image 也是 Docker 镜像, 它也会受到 Docker 默认 Registry 无法使用的影响. 不过助教团队会尽量减轻此问题.</p>
+</div>
 <p>作业的成功状态将取决于其命令的执行结果。若执行过程中某条命令返回值非零，则此作业执行失败。所有命令返回值均为零时作业执行成功。在 GitLab 的 CI/CD 界面可以查看每个作业的状态以及运行过程的输出。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2127,8 +2131,12 @@
 </code></pre></div></td></tr></table></div>
 <p><code>deploy</code> 作业通过调用 <code>deployer</code> 将 SECoder 平台上该项目部署的容器替换为以我们在 <code>build</code> 作业中构建的镜像运行的容器。<code>REGISTRY_USER</code> 与 <code>REGISTRY_PWD</code> 环境变量是 SECoder 预定义的，它拥有对当前团队镜像的只读访问权限。</p>
 <p>我们还通过 <code>only</code> 属性指定仅在 <code>main</code> 分支执行这一作业。这样，我们就可以在其他分支进行开发，而不影响应用部署的版本。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Gitlab CI 是可以取消的. 如果 CI 时间过长 (比如忘记配置 npm mirror 导致的网络缓慢问题), 可以直接取消此次 CI. 如果 CI 因为奇怪的问题 (如网络问题) 运行失败, 也可以 Rerun CI.</p>
+</div>
 <h2 id="_2">参考资料<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>你可以在 <a href="https://gitlab.secoder.net/help/ci/README.md">GitLab CI/CD</a> 更详细地学习 GitLab CI/CD 系统的使用方法。</p>
+<p>你可以在 <a href="https://gitlab.spring25a.secoder.net/help/ci/README.md">GitLab CI/CD</a> 更详细地学习 GitLab CI/CD 系统的使用方法。(或者 <a href="https://gitlab.spring25b.secoder.net/help/ci/README.md">Spring 25 B</a>, <a href="https://git.tsinghua.edu.cn/help/ci/yaml/index.md">Tsinghua Git</a>)</p>
 <p>在本课程提供的<a href="https://git.tsinghua.edu.cn/SEG/example">样例项目</a>仓库中也可以找到几种常见项目框架的 CI/CD 配置，可供配置部署时参考。需要注意的是，这些样例项目都较为老旧，请在参考时注意版本和兼容性等问题。</p>
 
 
@@ -2150,7 +2158,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年10月15日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年2月15日</span>
   </span>
 
     
@@ -2167,7 +2175,8 @@
     <nav>
       
         <a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a>, 
-        <a href="mailto:wangbw21@mails.tsinghua.edu.cn">abmfy</a>
+        <a href="mailto:wangbw21@mails.tsinghua.edu.cn">abmfy</a>, 
+        <a href="mailto:ajax-dong@outlook.com">ajax</a>
     </nav>
   </span>
 
@@ -2183,7 +2192,7 @@
     
         <div class="md-source-date">
             <small>
-                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (0.38%), <a href='mailto:wangbw21@mails.tsinghua.edu.cn'>abmfy</a> (99.62%)</span>
+                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (0.37%), <a href='mailto:wangbw21@mails.tsinghua.edu.cn'>abmfy</a> (95.97%), <a href='mailto:ajax-dong@outlook.com'>ajax</a> (3.66%)</span>
             </small>
         </div>
     
