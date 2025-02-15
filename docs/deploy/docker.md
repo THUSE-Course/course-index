@@ -10,7 +10,7 @@ Docker 便是为了解决这个挑战而存在。Docker 是一个应用程序**�
 
 然后我们可以把这个镜像分发到世界各处的服务器上，这些也装有 Docker 的服务器会根据这些镜像运行**容器 (Container)** —— 镜像的实例。
 
-比如，在常见的暑期培训中，讲师可以基于 Ubuntu 20.04 环境，通过 Dockerfile 指定将一些配好的环境、出好的题目拷贝到这个环境的某个目录下，然后构建一个镜像。我们可以根据这个镜像在几台服务器上开启数以百计的容器分发给同学使用，而不需要每个同学单独再去配置任何环境。再比如，软件的开发者在软件运行环境依赖十分复杂时，也会在软件发布阶段将所有环境构建成一个镜像，而软件使用者通过实例化这个镜像得到一个容器，在容器中做出自己的修改。
+比如，在去年的科协暑期培训中，讲师可以基于 Ubuntu 20.04 环境，通过 Dockerfile 指定将一些配好的环境、出好的题目拷贝到这个环境的某个目录下，然后构建一个镜像。我们可以根据这个镜像在几台服务器上开启数以百计的容器分发给同学使用，或者给出容器的链接让同学们自己安装 Docker 后使用，而不需要每个同学单独再去配置任何环境（除了安装 Docker）。再比如，软件的开发者在软件运行环境依赖十分复杂时，也会在软件发布阶段将所有环境构建成一个镜像，而软件使用者通过实例化这个镜像得到一个容器，在容器中做出自己的修改。
 
 
 !!! note "容器的易失性"
@@ -49,7 +49,7 @@ FROM python:3.11
 
 !!! note "Docker Hub 镜像源"
 
-    若使用 Docker Hub 时遇到网络问题，可以尝试使用国内的镜像源，例如 [Docker Pull](https://dockerpull.com)。
+    若使用 Docker Hub 时遇到网络问题（你一定会遇到网络问题），可以尝试使用国内的镜像源，例如 [1Panel Docker Proxy](https://docker.1panel.dev/)。系科协有自己的 Docker 镜像源 [docker.net9.org](https://docker.net9.org)，但不保证可用性。
 
 一般来说，一个镜像只包含能够满足功能需求的最小环境。例如，我们在这里所使用的 `python` 镜像就包含了能够运行 Python 的最小环境。这样做的好处是使镜像充分精简，同时允许通过基于已有镜像构建新镜像的方法获得所需的功能。
 
@@ -68,6 +68,13 @@ FROM python:3.11
     |[nginx](https://hub.docker.com/_/nginx)|nginx 镜像，用于前端网站的反向代理|
     |[mysql](https://hub.docker.com/_/mysql)|MySQL 镜像，用于数据库容器|
     |[postgres](https://hub.docker.com/_/postgres)|PostgreSQL 镜像，用于数据库容器|
+
+!!! note "如何使用镜像源"
+
+    你可以以两种方式使用镜像源:
+
+    - 更改 `daemon.json` (具体用法详见 [文档](https://docs.docker.com/reference/cli/dockerd/#daemon-configuration-file)). 这能够全局地应用更改, 在重启 Docker 后生效.
+    - 在 `docker pull` 或 `docker run` 或 `FROM` 时显式指定. 这不会全局应用, 但你无需重启 Docker (无需 root 权限). 需要注意的是, 在这时, 官方镜像如 `FROM debian` 需要改为 `FROM docker.net9.org/library/debian` 而第三方的镜像无需添加 `library`.
 
 ```dockerfile
 ENV HOME=/opt/app
@@ -97,6 +104,8 @@ COPY requirements.txt .
     ```
 
     这表明程序需要 `django` 以及版本为 `2.28.1` 的 `requests` 库来运行。
+    
+    另外, 可以参考 [文件格式](https://pip.pypa.io/en/latest/reference/requirements-file-format/)
 
 ```dockerfile
 RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
@@ -104,7 +113,13 @@ RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 
 `RUN` 指令在镜像环境中执行一段命令。在这里，我们在镜像中通过 `pip` 安装 `requirements.txt` 指定的第三方库，其中 `-i` 选项将索引源更换到 TUNA 以加快下载速度。`RUN` 指令的影响将会在镜像中保留。因此，最终构建的镜像将包含有我们安装的第三方库。
 
-`RUN` 是一个构建时的指令，这意味着运行容器时将不会重新执行这段命令。
+!!! warning "应该在构建时安装依赖而非运行时"
+
+    请注意 (尤其是在大规模部署时) 一定要在构建时即安装依赖, 而非在部署 (Container 启动时) 安装. 对于任何大规模部署任务都是这样.
+
+    **反例:** 某学长在大规模部署 conda 环境时因为在电脑上创建 10k+ 的 conda 环境, 创建后使用 pip install 从 TUNA 源拉 pip 包而遭到 TUNA 封禁 (笑) 正确的方式是使用 conda 安装 pip 包 (可以利用本机的 conda cache) 或自建带 cache 的 pip 镜像源.
+
+`RUN` 是一个构建时的指令，这意味着运行容器时将 **不会重新执行这段命令**。
 
 ```dockerfile
 COPY src $HOME
@@ -136,15 +151,31 @@ EXPOSE 80
 
     `EXPOSE` 指令仅仅是一个声明。要在容器运行时通过这个端口与容器进行通信，还需要在容器运行时指定将容器的端口发布到本机端口，具体操作可以参照本文档运行容器部分。
 
+!!! warning "在运行时一定要注意防火墙问题!!!"
+
+    在使用如 `docker run -p 80:80 xxx` 时, Docker 容器内的 80 端口会在宿主的 80 端口 **向 0.0.0.0** 监听 (这意味着任何人都能访问此端口, **这可能会带来严重的安全问题!!!**). 如果你使用 [`docker compose`](https://docs.docker.com/compose/) 也是如此.
+
+    #### 反例1
+
+    某学长在本地部署 [Dify](https://dify.ai/) 时没有检查 `docker-compose.yaml` 文件, 导致 **暴露了 3128 SOCKS5 代理端口**, 遭到 **its 封号**.
+
+    #### 反例2
+
+    ~~某学长~~ 我在部署某服务时在 Linux 上配置防火墙在 INPUT 上, 但是 Docker 更改 iptables 在 PREROUTING 时进行了 DNAT, 导致 **防火墙没有生效**. 所幸在发现并更正之前没有造成严重后果.
+
+    #### 如何解决
+
+    可以考虑监听在特定端口 (如 127.0.0.1) 或正确配置防火墙或 (对于 Linux) 干脆禁止 Docker 更改防火墙.
+
 ```dockerfile
 CMD ["python3", "main.py"]
 ```
 
-指定容器运行时执行的命令。注意，与 `RUN` 指令不同，容器构建时不会执行这段命令，只有容器启动时才会。注意此指令的格式，需要将每个参数分隔为单独字符串并在最外层加方括号。这里的这条指令表明基于该镜像的容器运行时将执行 `python3 main.py`。典型地，这条指令用于启动我们的程序。不过，如果程序运行步骤比较复杂，我们一般会选择将程序运行逻辑写为一个 shell 脚本，而在 Dockerfile 中使用 `CMD ["sh", "run.sh"]` 之类的指令来执行这个脚本。
+指定容器运行时执行的命令。注意，与 `RUN` 指令不同，**容器构建时 *不* 会执行这段命令，只有容器启动时才会**。注意此指令的格式，需要将每个参数分隔为单独字符串并在最外层加方括号。这里的这条指令表明基于该镜像的容器运行时将执行 `python3 main.py`。典型地，这条指令用于启动我们的程序。不过，如果程序运行步骤比较复杂，我们一般会选择将程序运行逻辑写为一个 shell 脚本，而在 Dockerfile 中使用 `CMD ["sh", "run.sh"]` 之类的指令来执行这个脚本。
 
 !!! warning "不要将开发配置作为正式部署"
 
-    开发环境的配置往往没有针对部署场景进行安全性和性能方面的检查，因此请不要在正式部署中使用开发配置。例如，如果你直接使用 `python3 manage.py runserver` 作为容器的运行命令，这将启动一个开发服务器，它并没有针对高并发场景进行优化。同时，若你没有在 Django 项目的 `settings.py` 中将 `DEBUG` 设置为 `False`，在发生异常时程序的调用栈将会直接展示给用户，这将带来极大的危险性。
+    开发环境的配置往往没有针对部署场景进行安全性和性能方面的检查，因此请不要在正式部署中使用开发配置。例如，如果你直接使用 `python3 manage.py runserver` 作为容器的运行命令，这将启动一个开发服务器，它并没有针对高并发场景进行优化。同时，若你没有在 Django 项目的 `settings.py` 中将 `DEBUG` 设置为 `False`，在发生异常时程序的调用栈、局部变量等将会直接展示给用户，这将带来极大的危险性。
 
     正确的部署方式可以参考你所使用的框架的文档。例如，[How to deploy Django](https://docs.djangoproject.com/en/4.1/howto/deployment/) 文档说明了应该如何部署 Django，包括使用 Gunicorn 和 uWSGI 等方式。
 
@@ -265,7 +296,7 @@ EXPOSE 80
 
 !!! note "Docker Hub 镜像源"
 
-    若使用 Docker Hub 时遇到网络问题，可以尝试使用国内的镜像源，例如 [Docker Pull](https://dockerpull.com)。
+    若使用 Docker Hub 时遇到网络问题，可以尝试使用国内的镜像源。
 
 ### 运行容器
 
@@ -285,6 +316,6 @@ EXPOSE 80
 
 以上我们简要介绍了 Docker 的使用，包括如何通过 Dockerfile 来声明镜像的构建步骤以及如何在本地构建镜像和运行容器等等。
 
-如果希望更加深入地学习 Docker 的高级用法以及工作原理等，可以参考 [2022 酒井科协暑培 Docker 文档](https://liang2kl.github.io/2022-summer-training-docker-tutorial)和 [Docker 官方文档](https://docs.docker.com)。
+如果希望更加深入地学习 Docker 的高级用法以及工作原理等，可以参考 [2022 酒井科协暑培 Docker 文档](https://liang2kl.github.io/2022-summer-training-docker-tutorial), [2023 暑培 Docker 文档](https://summer23.net9.org/backend/docker/), [2024 暑培 Docker 文档](https://summer24.net9.org/backend/docker/handout/) 和 [Docker 官方文档](https://docs.docker.com)。
 
 在本课程提供的 [样例项目](https://git.tsinghua.edu.cn/SEG/example) 仓库中也可以找到几种常见项目框架的 Dockerfile，可供配置部署时参考。需要注意的是，这些样例项目都较为老旧，请在参考时注意版本和兼容性等问题。

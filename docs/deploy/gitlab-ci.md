@@ -27,7 +27,11 @@ SECoder 平台的 GitLab 提供了集成的 CI/CD 系统，可以通过项目仓
 
 ### 作业 (Job)
 
-作业是 CI/CD 流程的最小执行单元，一个作业包含了一系列需要执行的命令。每个作业需要指定一个 Docker 镜像，在执行 CI/CD 时将会基于此镜像运行一个容器，在其中执行命令。例如，上图中的 `test_all` 和 `build_image` 等就是一些作业。
+作业是 CI/CD 流程的最小执行单元，一个作业包含了一系列需要执行的命令。每个作业需要指定一个 **Docker 镜像**，在执行 CI/CD 时将会基于此镜像运行一个容器，在其中执行命令。例如，上图中的 `test_all` 和 `build_image` 等就是一些作业。
+
+!!! note
+
+    由于这里的 image 也是 Docker 镜像, 它也会受到 Docker 默认 Registry 无法使用的影响. 不过助教团队会尽量减轻此问题.
 
 作业的成功状态将取决于其命令的执行结果。若执行过程中某条命令返回值非零，则此作业执行失败。所有命令返回值均为零时作业执行成功。在 GitLab 的 CI/CD 界面可以查看每个作业的状态以及运行过程的输出。
 
@@ -258,8 +262,12 @@ deploy:
 
 我们还通过 `only` 属性指定仅在 `main` 分支执行这一作业。这样，我们就可以在其他分支进行开发，而不影响应用部署的版本。
 
+!!! note
+
+    Gitlab CI 是可以取消的. 如果 CI 时间过长 (比如忘记配置 npm mirror 导致的网络缓慢问题), 可以直接取消此次 CI. 如果 CI 因为奇怪的问题 (如网络问题) 运行失败, 也可以 Rerun CI.
+
 ## 参考资料
 
-你可以在 [GitLab CI/CD](https://gitlab.secoder.net/help/ci/README.md) 更详细地学习 GitLab CI/CD 系统的使用方法。
+你可以在 [GitLab CI/CD](https://gitlab.spring25a.secoder.net/help/ci/README.md) 更详细地学习 GitLab CI/CD 系统的使用方法。(或者 [Spring 25 B](https://gitlab.spring25b.secoder.net/help/ci/README.md), [Tsinghua Git](https://git.tsinghua.edu.cn/help/ci/yaml/index.md))
 
 在本课程提供的[样例项目](https://git.tsinghua.edu.cn/SEG/example)仓库中也可以找到几种常见项目框架的 CI/CD 配置，可供配置部署时参考。需要注意的是，这些样例项目都较为老旧，请在参考时注意版本和兼容性等问题。

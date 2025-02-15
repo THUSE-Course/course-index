@@ -2,7 +2,9 @@
 
 SECoder 平台提供了托管 Web 应用的服务，可以通过运行 Docker 容器来使应用向外界提供服务。SECoder 平台提供了 deployer 工具来进行部署镜像的构建、容器的运行、配置文件和持久存储的挂载等操作。
 
-可以通过 `registry.secoder.net/tool/deployer` 镜像访问 deployer 工具。一般情况下，你不需要在本地运行 deployer，而是在 GitLab CI/CD 环境中通过配置的流水线运行 deployer 或者通过 SECoder 的部署管理工具间接使用 deployer。
+可以通过 `registry.<course_name>.secoder.net/tool/deployer` 镜像访问 deployer 工具。一般情况下，你不需要在本地运行 deployer，而是在 GitLab CI/CD 环境中通过配置的流水线运行 deployer 或者通过 SECoder 的部署管理工具间接使用 deployer。
+
+Course Name 在裴丹老师的班上是 spring25a；在李丹老师的班上是 spring25b。
 
 !!! tip "Deployer Cheat Sheet"
 
