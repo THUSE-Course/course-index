@@ -2,13 +2,13 @@
 
 SECoder 提供了可视化的界面来进行[项目管理](https://sep.secoder.net/#/manage/general)。
 
-!!! warning "Secoder 域名变更"
+!!! warning "SECoder 域名变更"
 
     2025 春季软工的裴丹老师课堂的域名为 `*.spring25a.secoder.net`; 李丹老师课堂为 `*.spring25b.secoder.net`. 请自行修改为你们对应课堂的对应域名.
 
     同样的, 由于此次域名变更, 部分服务可能有 Bug, 如果遇到了奇怪的 Bug 请向助教反馈, 我们会尽快解决.
 
-    由于 Secoder 经历了多年各个助教的修修补补, 现在 ~~日薄西山, 气息奄奄, 人命危浅, 朝不虑夕~~ Bug 确实不少, 还希望大家理解.
+    由于 SECoder 经历了多年各个助教的修修补补, 现在 ~~日薄西山, 气息奄奄, 人命危浅, 朝不虑夕~~ Bug 确实不少, 还希望大家理解.
 
 ## 项目管理
 
@@ -30,7 +30,7 @@ SECoder 提供了可视化的界面来进行[项目管理](https://sep.secoder.n
 
 ### 容器 (相当于 Docker Container)
 
-Secoder 实际使用了 k8s 来管理容器，但为了简单起见，我们以 Docker 类比来帮助理解。
+SECoder 实际使用了 k8s 来管理容器，但为了简单起见，我们以 Docker 类比来帮助理解。
 
 在这里可以管理环境中的容器。立方体的颜色表明容器的状态：
 
