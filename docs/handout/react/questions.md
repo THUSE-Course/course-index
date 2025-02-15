@@ -34,7 +34,7 @@ const ComponentDemo = () => {
 };
 ```
 
-## Problem 2 (15 pts)
+## Problem 3 (15 pts)
 
 阅读框架中 `src/pages/index.tsx` 中的代码：
 
@@ -57,6 +57,6 @@ useEffect(() => {
 - 分析 `setBoardCache` 和 `resetBoardCache` 这两个 Redux Reducer 的调用时机
 - 分析这个 `useEffect` Hook 所完成的功能（可以描述一个用户故事，说明这个 Hook 起到了什么样的作用）
 
-## Problem 3 (6 pts)
+## Problem 4 (6 pts)
 
 小明是某一家互联网公司的全栈开发工程师，他为公司设计的 JWT 鉴权系统为，将用户名和密码负载在 JWT 上供后端鉴权服务器判断。现在有黑客拦截到了某一条 JWT 信息，但是没能成功获得该 JWT 加密后的签名部分（即第三部分）。请问该黑客有没有成功劫持该 JWT 代表的用户，请说明理由。
