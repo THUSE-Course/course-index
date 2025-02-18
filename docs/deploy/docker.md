@@ -1,5 +1,21 @@
 # Docker
 
+!!! warning "国内换源"
+
+    本课程开设了 PyPI 源以及 NPM 源供大家遇到网络问题时使用：
+
+    - PyPI: https://pypi-cache-sepi.app.spring25a.secoder.net/simple
+    - NPM: https://npm-cache-sepi.app.spring25a.secoder.net/
+
+    使用方法：
+
+    ```shell
+    pip install [dep] -i https://pypi-cache-sepi.app.spring25a.secoder.net/simple
+    yarn add [dep] --registry https://npm-cache-sepi.app.spring25a.secoder.net/
+    ```
+
+    包括 Docker 构建命令等均可使用。
+
 Docker 将应用及其所需要的环境打包并交付给其他人使用，使得应用能够在一致的环境下一键运行，而不需要手动配置环境。
 
 我们在**部署**阶段需要将我们写好的代码放到一个环境未知的服务器上运行，从而达到向公网提供服务的目的。但是，由于目标环境未知，如何在目标机器上配置程序运行环境是一大挑战。
