@@ -21,9 +21,11 @@
 接下来，你需要完成下列任务：
 
 - 修改 Next.js 的输出模式，使之能够构建出独立的最小服务端，并尝试在本地运行这一服务端，测试能否正常访问；
-- 将对 `/api/` 的请求重写到标准后端 URL `https://backend-std.app.secoder.net/`。
+- 将对 `/api/` 的请求重写到标准后端 URL `https://backend-sepi.app.spring25a.secoder.net/`。
 
 ### 编写 Dockerfile (1 分)
+
+TODO： 换源到 https://npm-cache-sepi.app.spring25a.secoder.net/；pnpm； （@Ashitemaru）
 
 **需要修改的代码：**`Dockerfile` 第 2 行 (你可以任意改变这部分的代码行数)
 

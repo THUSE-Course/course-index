@@ -18,6 +18,16 @@
 
     你可以通过 Python 标准库中的 `os.getenv` 函数来读取环境变量。`os.getenv('key')` 将在环境变量 `key` 存在时返回一个 `str`，否则返回 `None`。
 
+### 更改 SECRET_KEY 和 SALT (0 分)
+
+**需要修改的代码：**`DjangoHW/settings.py` 第 24 行；`utils/utils_jwt.py` 第 11 行
+
+你应该在正式部署时将 `SECRET_KEY` 以更安全的方式存储，比如存储在环境变量中然后通过 `os.getenv` 读取。在小作业（和大作业？）中我们不要求一定要这么做，但应该了解这种做法的必要性。
+
+!!! warn "一定要保护好 SECRET_KEY"
+
+    Secret Key 用于生成签名等，泄露之可能导致可以伪造用户身份等严重安全后果。在正式部署时，一定要保护好 SECRET_KEY。
+
 ### 使用 uWSGI 部署 (0.5 分)
 
 **需要修改的代码：**`requirements.txt` 第 12 行，`start.sh` 第 6-14 行
@@ -52,7 +62,7 @@
 - 设定 `DEPLOY` 环境变量为 `1`；
 - 工作目录为 `/app`；
 - 将源代码复制到工作目录；
-- 安装 `requirements.txt` 声明的依赖并通过换源到 TUNA 加速下载；
+- 安装 `requirements.txt` 声明的依赖并通过换源到 `https://pypi-cache-sepi.app.spring25a.secoder.net/` 加速下载；
 - 对外暴露 80 端口；
 - 容器运行时执行 `start.sh` 脚本。
 
@@ -62,9 +72,13 @@
     
     你可以通过在本地构建镜像并运行容器来测试运行结果是否符合期望。由于 Docker 的虚拟化特性，如果在本地能够顺利运行，则理论上在部署到 SECoder 后它也一样能够顺利运行。
 
+!!! tip "Secoder Pypi 镜像"
+
+    你可以通过 `https://pypi-cache-sepi.app.spring25a.secoder.net/` 镜像下载 Python 包。这个镜像是对 TUNA 镜像的本地缓存，这样做可以显著减轻 Secoder 对 TUNA 镜像的访问压力，同时能够进一步加速下载（常常在 3s 内可以完成依赖下载的步骤）。
+
 ### 完成 GitLab CI/CD 配置 (0.5 分)
 
-**需要修改的代码：**`.gitlab-ci.yml` 第 17-18、23、28、32-34、48-49 行
+**需要修改的代码：**`.gitlab-ci.yml` 第 2、19-21、25、30、34-36、41、51、56-57 行
 
 我们将在 GitLab CI/CD 配置中声明一个有三个阶段 `build`、`test` 和 `deploy` 的流水线，其中每个阶段都只有一个作业。你需要补全配置以实现如下目标：
 
@@ -73,7 +87,7 @@
 - 在 `unit-test` 作业的 `before_script` 部分安装 `requirements.txt` 声明的依赖并通过换源到 TUNA 加速下载；
 - 在 `unit-test` 作业的 `script` 部分创建并执行数据库迁移计划（migrations，修改数据表结构与属性的语句），然后运行单元测试脚本 test.sh。
 
-由于 SECoder 平台资源限制，我们无法为后端创建容器，因此 CI/CD 流水线执行过程中你的 `deploy` 阶段可能会执行失败，这是正常现象。
+为了让大家进行本地测试，我们不会为大家创建 Secoder 上的容器，因此 CI/CD 流水线执行过程中你的 `deploy` 阶段可能会执行失败，这是正常现象。
 
 ### 思考题：为什么改了这个选项？ (0.5 分)
 
@@ -81,7 +95,7 @@
 
 ### 本地测试 (0 分)
 
-由于 SECoder 平台资源限制，我们无法为后端创建容器，因此你需要在本地构建 Docker 镜像并通过 [curl](https://curl.se)、[Postman](https://www.postman.com) 等工具来测试能否与容器中的后端正常通信。
+你需要在本地构建 Docker 镜像并通过 [curl](https://curl.se)、[Postman](https://www.postman.com) 等工具来测试能否与容器中的后端正常通信。
 
 在本地构建 Docker 镜像和运行 Docker 容器的方法可以参考 Docker 文档的 [本地运行容器](../../../deploy/docker#_2) 部分。
 
