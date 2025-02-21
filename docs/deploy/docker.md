@@ -11,7 +11,7 @@
 
     ```shell
     pip install [dep] -i https://pypi-cache-sepi.app.spring25a.secoder.net/simple
-    yarn add [dep] --registry https://npm-cache-sepi.app.spring25a.secoder.net/
+    pnpm add [dep] --registry=https://npm-cache-sepi.app.spring25a.secoder.net/
     ```
 
     包括 Docker 构建命令等均可使用。

@@ -10,9 +10,7 @@
 
 在配置环境中遇到问题，请首先检查这一问题是否已经在 FAQ 部分提出。如果这一问题并未出现在 FAQ 或者 FAQ 中提供的解决方案并不能解决问题，请在微信群或者网络学堂中提出。
 
----
-
-本文档均基于 Mac 系统与 Safari 浏览器。如果你是 Windows 用户，推荐你使用 WSL 进行环境配置。
+我们推荐使用 Windows 系统的同学使用 WSL，配置 WSL 的方式请自行查阅相关资料。
 
 ## Node.js
 
@@ -26,9 +24,9 @@ Node.js 是服务器端运行 JavaScript 的环境，我们需要在本地配置
 
 ```bash
 mkdir ~/workspace && cd ~/workspace
-wget https://nodejs.org/dist/v20.17.0/node-v20.17.0-linux-x64.tar.xz
-tar -xf node-v20.17.0-linux-x64.tar.xz
-cd node-v20.17.0-linux-x64/bin
+wget https://nodejs.org/dist/v22.14.0/node-v22.14.0-linux-x64.tar.xz
+tar -xf node-v22.14.0-linux-x64.tar.xz
+cd node-v22.14.0-linux-x64/bin
 pwd
 ```
 
@@ -36,10 +34,11 @@ pwd
 
 ```bash
 # Append to the last line
-export PATH=~/workspace/node-v20.17.0-linux-x64/bin:$PATH
+export PATH=~/workspace/node-v22.14.0-linux-x64/bin:$PATH
 ```
 
-之后通过以下命令重载终端配置:
+之后通过以下命令重载终端配置：
+
 ```bash
 source ~/.bashrc
 ```
@@ -48,75 +47,68 @@ source ~/.bashrc
 
 为了确认是否正确安装，可以打开终端，输入指令 `node -v` 确认，如果输出版本号则代表安装成功。
 
-## yarn
+## corepack & pnpm
 
-Node.js 下载后会自带有包管理工具 npm 用于管理项目内所用到的第三方依赖。这里我们更推荐使用 yarn 作为后续开发的包管理工具，因为 yarn 相对于 npm 具有更快的下载速度、更清晰的命令行输出。
+目前 Node.js 上可以使用的包管理工具至少有三个主流选择，即默认的 npm 以及基于此优化的 yarn 和 pnpm，本课程通过对这三种包管理工具测试，推荐大家使用 pnpm。
 
-对 yarn 与 npm 更为细节的介绍参考计算机系学生科协技能引导文档 <https://docs.net9.org/languages/node.js/npm/>。
+然而由于包管理工具选择多样，所以 Node.js 官方使用了 corepack 工具来帮助大家管理包管理工具<del>（一层套一层没完了）</del>。然而由于 corepack 并不是默认启用，所以首先需要大家在下载 Node.js 后通过下述命令手动开启：
 
-安装 yarn 时，你首先需要确定 npm 已经安装完毕，只需要通过 `npm -v` 确认，如果输出版本号则代表安装成功。
+```bash
+corepack enable
+```
 
-之后运行指令 `npm install -g yarn` 即可安装 yarn，随后可以通过指令 `yarn -v` 来确认是否安装成功（这里如果遇到了读写权限问题，可能需要切换到管理员模式，Mac 与 Linux 系统上可以直接在指令前加 `sudo`，Windows 系统上则应在打开终端时选择“以管理员身份运行”），如果输出版本号则代表安装成功。
+!!! warning "权限问题"
 
-!!! note "换源"
+    你可能会遇到权限问题（比如提示你无权访问某些目录，多见于 Windows 系统），那么你可以在启动终端的时候右键选择“以管理员身份运行”并始终在这个终端内操作。
 
-    由于 yarn 默认从国外服务器请求数据，其很有可能因为一些魔法因素而下载速度极慢，这个时候推荐将 yarn 换源到国内镜像保证下载速度。
+在项目的配置文件 `package.json` 中，会有 `packageManager` 字段指示 corepack 该项目使用具体那个版本的包管理工具：
 
-    yarn 换源可以参考 [这篇博客](https://learnku.com/articles/15976/yarn-accelerate-and-modify-mirror-source-in-china)。
+```json
+{
+    "name": "conway-game",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "preinstall": "npx only-allow pnpm",
+        // ...
+    },
+    "dependencies": { /* something */ },
+    "devDependencies": { /* something */ },
+    "packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af"
+}
+```
 
-## TypeScript
+本小作业推荐大家使用 pnpm，使用的版本固定为 10.4.1。在启用 corepack 之后，只要直接使用 `pnpm install` 之类的命令即可，corepack 会自动为你安装相应版本的 pnpm。
 
-TypeScript 是 JavaScript 的超集，可以将其简单理解为带有类型标注的 JavaScript。TypeScript 的编译器会在编译时检查变量类型是否满足标注要求，若满足则会编译生成 JavaScript 代码。
-
-可以通过 yarn 安装 TypeScript，指令为 `yarn global add typescript`。
-
-为了确定 TypeScript 是否正确安装，可以需要通过 `tsc -v` 确认，如果输出版本号则代表安装成功。
+当然，本小作业也配置了 `scripts-preinstall` 字段，禁止大家使用 npm、yarn 之类的包管理工具。
 
 ## 本项目的配置
 
 在配置完最基本的环境后，下一步可以将本次小作业 `git clone` 到本地，进入该项目的根目录作最后的配置。
 
-下面我们简单讲解 yarn 的使用方法：
+下面我们简单讲解 pnpm 的使用方法：
 
 ```shell
-yarn install # 自动安装依赖
-yarn add lodash # 添加名为 lodash 的依赖
-yarn add -D lodash # 添加开发环境下名为 lodash 的依赖（即生产环境下不使用该依赖）
-yarn remove lodash # 删除名为 lodash 的依赖
-yarn start # 运行名为 start 的脚本
+pnpm install  # 自动安装依赖
+pnpm add lodash  # 添加名为 lodash 的依赖
+pnpm add -D lodash  # 添加开发环境下名为 lodash 的依赖（即生产环境下不使用该依赖）
+pnpm remove lodash  # 删除名为 lodash 的依赖
+pnpm dev  # 运行名为 dev 的脚本
 ```
 
-而 yarn 如何确定怎么自动安装依赖或者应当运行什么样的脚本，均会在项目根目录下 `package.json` 文件内定义。本次小作业的 `package.json` 文件节选为：
+而 pnpm 如何确定怎么自动安装依赖或者应当运行什么样的脚本，均会在项目根目录下 `package.json` 文件内定义。本次小作业的 `package.json` 文件节选为：
 
 ```json
 {
     "name": "conway-game",
-    // ...
-    "scripts": {
-        // ...
-        "fix": "eslint src --ext .js,.jsx,.ts,.tsx --fix",
-        // ...
-    },
-    "dependencies": {
-        "axios": "^1.2.0",
-        // ...
-    },
-    "devDependencies": {
-        "@testing-library/jest-dom": "^5.14.1",
-        // ...
-    }
+    "dependencies": { /* something */ },
+    "devDependencies": { /* something */ },
 }
 ```
 
-其中 `dependencies` 与 `devDependencies` 字段定义了本项目所有的依赖名称以及版本要求，而 `devDependencies` 字段下的是开发环境的依赖。此时，在本项目根目录下运行 `yarn install` 即会安装这里所列举的所有依赖。
+其中 `dependencies` 与 `devDependencies` 字段定义了本项目所有的依赖名称以及版本要求，而 `devDependencies` 字段下的是开发环境的依赖。此时，在本项目根目录下运行 `pnpm install` 即会安装这里所列举的所有依赖。
 
-另外，`scripts` 字段定义了所有可以运行的脚本，这里运行 `yarn fix` 相当于运行 `eslint src --ext .js,.jsx,.ts,.tsx --fix`。
-
----
-
-在配置好 yarn 的基础上，现在运行 `yarn install` 安装第三方依赖。本次小作业不需要在我们提供的第三方（已经列在 `package.json` 中）之外额外安装其他第三方依赖即可完成：
-
-![](../../static/react/step0-yarn-install.png)
+现在运行 `pnpm install` 安装第三方依赖。本次小作业不需要在我们提供的第三方（已经列在 `package.json` 中）之外额外安装其他第三方依赖即可完成。
 
 所有的第三方依赖将会安装在 `node_modules` 目录下，该目录应当已经被 `.gitignore` 忽略。
 
@@ -126,15 +118,17 @@ yarn start # 运行名为 start 的脚本
 
     另外，**切记在 `.gitignore` 内忽略该目录**，否则软工大作业刚开始一周内就在仓库里写了十几万行代码的，就有可能是你的小组。
 
-之后，运行 `yarn dev` 启动本次项目：
-
-![](../../static/react/step0-yarn-dev.png)
-
-项目启动后应当能在本地端口上访问到前端页面，默认端口号为 3000。上述截图中因为默认端口 3000 被占用，故采用了 3001 端口。
+之后，运行 `pnpm dev` 启动本次项目，项目启动后应当能在本地端口上访问到前端页面，默认端口号为 3000。
 
 打开浏览器并在地址栏输入 `http://localhost:3000`（默认端口占用时需要替换端口号），即可访问到本次小作业前端页面。若能够看到类似于下图的界面，就说明环境配置完成，可以继续完成小作业了🎉：
 
 ![](../../static/react/step0-final.png)
+
+!!! note "代码风格"
+
+    本项目另外配置了 ESLint（所有规则基于 TypeScript 官方，详细配置文件见 `eslint.config.mjs`）用于诊断和修复代码风格，你可以在代码编辑器内安装 ESLint 插件以在编码的时候收到实时的编码风格提醒，或者在编码完成后运行 `pnpm fix` 命令修复所有代码风格。
+
+    需要注意的是，在前端部署的时候我们会监测代码风格，不通过的话可能会部署失败，请务必注意。
 
 !!! warning "热加载机制"
 

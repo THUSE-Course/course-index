@@ -6,7 +6,7 @@
 
     这是 Next.js 的一个 bug，已在更新版本的 Next.js 被修复。由于此问题不影响小作业的完成与评分，你可以忽略此问题。
     
-    你可以使用 `yarn add next` 更新到新版本的 Next.js 来解决此问题。
+    你可以使用 `pnpm add next` 更新到新版本的 Next.js 来解决此问题。
 
 !!! question "8. 部署的前端在 `/list` 页面刷新会出现 403 Forbidden"
 
