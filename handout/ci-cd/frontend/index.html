@@ -1702,7 +1702,9 @@
 <p>你可以通过在本地构建镜像并运行容器来测试运行结果是否符合期望。由于 Docker 的虚拟化特性，如果在本地能够顺利运行，则理论上在部署到 SECoder 后它也一样能够顺利运行。</p>
 </div>
 <h3 id="gitlab-cicd-1">完成 GitLab CI/CD 配置 (1 分)<a class="headerlink" href="#gitlab-cicd-1" title="Permanent link">&para;</a></h3>
-<p><strong>需要修改的代码：</strong><code>.gitlab-ci.yml</code> 第 20 行 (你可以任意改变这部分的代码行数)</p>
+<p><strong>需要修改的代码：</strong></p>
+<p><code>.gitlab-ci.yml</code> 第 2 行，把 Deployer Image 设置成对应 SECoder 的镜像；第 30 行把 Deployer Server 设置成对应的地址。</p>
+<p><code>.gitlab-ci.yml</code> 第 22 行 (你可以任意改变这部分的代码行数)</p>
 <p>在这一任务中，我们将在 GitLab CI/CD 配置中声明一个有三个阶段 <code>build</code>、<code>test</code> 和 <code>deploy</code> 的流水线，其中 <code>build</code> 与 <code>deploy</code> 阶段已为你实现完成。你需要补全配置以完成 <code>test</code> 阶段，这一阶段包含 <code>unit-test</code> 与 <code>style-test</code> 两个作业。我们对这两个作业的配置有如下要求：</p>
 <ul>
 <li>利用作业模板简化配置；</li>
@@ -1768,7 +1770,7 @@
     
         <div class="md-source-date">
             <small>
-                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (1.41%), <a href='mailto:wangbw21@mails.tsinghua.edu.cn'>abmfy</a> (81.69%), <a href='mailto:ajax-dong@outlook.com'>ajax</a> (16.9%)</span>
+                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (1.33%), <a href='mailto:wangbw21@mails.tsinghua.edu.cn'>abmfy</a> (76.0%), <a href='mailto:ajax-dong@outlook.com'>ajax</a> (22.67%)</span>
             </small>
         </div>
     
