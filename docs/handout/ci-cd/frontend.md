@@ -63,7 +63,7 @@
 - 在 `node` 镜像上运行，Node.js 版本为 22；
 - 使用 pnpm 而非 npm 作为包管理器；
 - 在 `before_script` 中将 pnpm 换源到 https://npm-cache-sepi.app.spring25a.secoder.net/ 以加速下载，然后安装依赖；
-- 在 `script` 中，分别通过 Yarn 脚本 `test` 和 `lint` 在 `unit-test` 作业执行单元测试，`style-test` 作业执行代码风格检查；
+- 在 `script` 中，分别通过 pnpm 脚本 `test` 和 `lint` 在 `unit-test` 作业执行单元测试，`style-test` 作业执行代码风格检查；
 - 在 `unit-test` 作业的 `after_script` 中，使用 SonarScanner 将测试结果上传到 SonarQube。我们已经预先为你提供了 SonarScanner 配置，因此你不需要学习 SonarQube 的用法也能够完成此任务。
 
 ## 完成效果
