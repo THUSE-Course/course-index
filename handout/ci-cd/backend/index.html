@@ -1770,7 +1770,7 @@
 <li>设定 <code>DEPLOY</code> 环境变量为 <code>1</code>；</li>
 <li>工作目录为 <code>/app</code>；</li>
 <li>将源代码复制到工作目录；</li>
-<li>安装 <code>requirements.txt</code> 声明的依赖并通过换源到 <code>https://pypi-cache-sepi.app.spring25a.secoder.net/</code> 加速下载；</li>
+<li>安装 <code>requirements.txt</code> 声明的依赖并通过换源到 <code>https://pypi-cache-sepi.app.spring25a.secoder.net/simple</code> 加速下载；</li>
 <li>对外暴露 80 端口；</li>
 <li>容器运行时执行 <code>start.sh</code> 脚本。</li>
 </ul>
@@ -1781,7 +1781,7 @@
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Secoder Pypi 镜像</p>
-<p>你可以通过 <code>https://pypi-cache-sepi.app.spring25a.secoder.net/</code> 镜像下载 Python 包。这个镜像是对 TUNA 镜像的本地缓存，这样做可以显著减轻 Secoder 对 TUNA 镜像的访问压力，同时能够进一步加速下载（常常在 3s 内可以完成依赖下载的步骤）。</p>
+<p>你可以通过 <code>https://pypi-cache-sepi.app.spring25a.secoder.net/simple</code> 镜像下载 Python 包。这个镜像是对 TUNA 镜像的本地缓存，这样做可以显著减轻 Secoder 对 TUNA 镜像的访问压力，同时能够进一步加速下载（常常在 3s 内可以完成依赖下载的步骤）。</p>
 </div>
 <h3 id="gitlab-cicd-05">完成 GitLab CI/CD 配置 (0.5 分)<a class="headerlink" href="#gitlab-cicd-05" title="Permanent link">&para;</a></h3>
 <p><strong>需要修改的代码：</strong><code>.gitlab-ci.yml</code> 第 2、19-21、25、30、34-36、41、51、56-57 行</p>
