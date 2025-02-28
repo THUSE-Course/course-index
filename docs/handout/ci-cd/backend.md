@@ -62,7 +62,7 @@
 - 设定 `DEPLOY` 环境变量为 `1`；
 - 工作目录为 `/app`；
 - 将源代码复制到工作目录；
-- 安装 `requirements.txt` 声明的依赖并通过换源到 `https://pypi-cache-sepi.app.spring25a.secoder.net/` 加速下载；
+- 安装 `requirements.txt` 声明的依赖并通过换源到 `https://pypi-cache-sepi.app.spring25a.secoder.net/simple` 加速下载；
 - 对外暴露 80 端口；
 - 容器运行时执行 `start.sh` 脚本。
 
@@ -74,7 +74,7 @@
 
 !!! tip "Secoder Pypi 镜像"
 
-    你可以通过 `https://pypi-cache-sepi.app.spring25a.secoder.net/` 镜像下载 Python 包。这个镜像是对 TUNA 镜像的本地缓存，这样做可以显著减轻 Secoder 对 TUNA 镜像的访问压力，同时能够进一步加速下载（常常在 3s 内可以完成依赖下载的步骤）。
+    你可以通过 `https://pypi-cache-sepi.app.spring25a.secoder.net/simple` 镜像下载 Python 包。这个镜像是对 TUNA 镜像的本地缓存，这样做可以显著减轻 Secoder 对 TUNA 镜像的访问压力，同时能够进一步加速下载（常常在 3s 内可以完成依赖下载的步骤）。
 
 ### 完成 GitLab CI/CD 配置 (0.5 分)
 
