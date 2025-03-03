@@ -7,6 +7,8 @@
     - PyPI: https://pypi-cache-sepi.app.spring25a.secoder.net/simple
     - NPM: https://npm-cache-sepi.app.spring25a.secoder.net/
 
+    (两个老师的班级都可以用这个源, 不需要把 25a 改成 25b.)
+
     使用方法：
 
     ```shell
