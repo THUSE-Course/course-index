@@ -1,0 +1,24 @@
+image: registry.spring25b.secoder.net/tool/deployer
+
+stages:
+  - build
+  - deploy
+
+build-master:
+  stage: build
+  script:
+    - export BUILD_IMAGE_NAME=$CI_REGISTRY_IMAGE
+    - export BUILD_IMAGE_TAG=$CI_COMMIT_REF_SLUG
+    - export BUILD_IMAGE_USERNAME=$CI_REGISTRY_USER
+    - export BUILD_IMAGE_PASSWORD=$CI_REGISTRY_PASSWORD
+    - deployer build
+  only:
+    - master
+
+deploy:
+  stage: deploy
+  script:
+    - export API_SERVER=https://deployer.spring25b.secoder.net/api
+    - deployer dyno replace $CI_PROJECT_NAME "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" "$REGISTRY_USER" "$REGISTRY_PWD"
+  only:
+    - master
