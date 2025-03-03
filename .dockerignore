@@ -1,0 +1,6 @@
+/site/*
+.venv
+.DS_Store
+/__pycache__/*
+.github/*
+deploy.sh
