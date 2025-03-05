@@ -4,7 +4,7 @@
 
 你需要在 SECoder GitLab 上新建名为 `2025-Next-HW` 的项目并按要求将密钥在 CI/CD 变量中提供。
 
-完成这一部分后，你应当能够在 `https://frontend-{id}.app.apring25{a|b}.secoder.net` 访问你的前端，其中 `{id}` 为你的学号。
+完成这一部分后，你应当能够在 `https://frontend-{id}.app.spring25{a|b}.secoder.net` 访问你的前端，其中 `{id}` 为你的学号。
 
 ## 任务汇总
 
