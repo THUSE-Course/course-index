@@ -1508,6 +1508,30 @@
 <h1 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h1>
 <p>本部分将收集微信群与网络学堂中提问较多、有价值的问题。</p>
 <div class="admonition question">
+<p class="admonition-title">13. 交到网络学堂的链接要加 spring25b 吗</p>
+<p>要. 我们期望三行链接分别可以复制粘贴到浏览器地址栏以访问</p>
+<ul>
+<li>后端小作业仓库</li>
+<li>前端小作业仓库</li>
+<li>前端部署 URL</li>
+</ul>
+<p>只要你提交的内容符合此要求, 啥链接都行. (不要跟我杠说交别人的仓库链接行不行, 当然是不行)</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">12. 我刚刚发现我的仓库是 Public / Internal, 这会影响评分吗</p>
+<p>如果没人抄你的小作业, 那无所谓. 否则我们将不得不考虑扣 1 分. (当然, 如果发现了, 那么抄袭的人肯定更惨)</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">11. 我的 corepack 没法换源, 一定要到官方源下载 pnpm, 很慢, 怎么办呢</p>
+<p>助教也没找到什么好办法. 可以考虑放弃 corepack, 直接用 <code>npm install -g pnpm</code> 解决 (?)</p>
+<p>此问题不影响小作业评分. 如果懒得研究可以忽略.</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">10. 我的部署通过了, 但是网页没有更新, 这是为什么呢?</p>
+<p>首先尝试 Ctrl+F5 刷新以清除浏览器缓存.</p>
+<p>其次他<strong><em>*</em></strong>的 Deployer 即便返回了 0 值也不一定真的部署了. 检查 DEPLOY_ENV, DEPLOY_TOKEN 等环境变量是否设置正确. 助教调试了 4h 才发现这个问题.</p>
+</div>
+<div class="admonition question">
 <p class="admonition-title">9. 部署的前端在回放页面刷新会出现 Application error: client-side exception</p>
 <p>这是 Next.js 的一个 bug，已在更新版本的 Next.js 被修复。由于此问题不影响小作业的完成与评分，你可以忽略此问题。</p>
 <p>你可以使用 <code>pnpm add next</code> 更新到新版本的 Next.js 来解决此问题。</p>
@@ -1527,8 +1551,9 @@
 </div>
 <div class="admonition question">
 <p class="admonition-title">5. 小作业部署后访问提示 502 Bad Gateway 或访问显示 nginx 默认界面</p>
-<p>这可能是你没有正确设置变量导致 deployer 没有访问镜像的权限。请检查 <code>REGISTRY_PWD</code> 变量的权限是否为 <code>read_registry</code> (注意不是 <code>read_repository</code>)，并确认项目 CI/CD 中正确添加了变量，包括 <code>main</code> 分支是否被保护，以及复制粘贴 token 时是否出现错误，例如在结尾意外加入了空格等。若你无法确定是否正确设置了变量，请尝试重新生成 token 并重新设置变量。</p>
+<p>先确认 CI / CD 的 Deploy 阶段是否通过. 如果没有通过, 这可能是你没有正确设置变量导致 deployer 没有访问镜像的权限。请检查 <code>REGISTRY_PWD</code> 变量的权限是否为 <code>read_registry</code> (注意不是 <code>read_repository</code>)，并确认项目 CI/CD 中正确添加了变量，包括 <code>main</code> 分支是否被保护，以及复制粘贴 token 时是否出现错误，例如在结尾意外加入了空格等。若你无法确定是否正确设置了变量，请尝试重新生成 token 并重新设置变量。</p>
 <p>对于后端小作业，若你是 Windows 用户，则还可能是 <code>start.sh</code> 的换行序列是 CRLF 导致的。由于 Docker 容器运行在 Linux 环境下，而 Linux 使用 LF 作为换行序列，这可能导致 <code>start.sh</code> 运行失败使得容器无法正常运行。你可以通过将换行序列从 CRLF 改为 LF 来解决此问题。</p>
+<p>然后, 检查你是否监听的是 <strong>80</strong> 端口.</p>
 </div>
 <div class="admonition question">
 <p class="admonition-title">4. 前端小作业部署后访问提示 403 Forbidden</p>
@@ -1538,17 +1563,16 @@
 <p class="admonition-title">3. 后端小作业部署后访问提示 500 Internal Server Error</p>
 <p>这可能是你没有正确地配置 uWSGI。请阅读小作业文档中提供的链接了解如何通过 uWSGI 部署 Django 应用，并注意需要修改的参数可能不止一处。</p>
 </div>
-<div class="admonition question">
-<p class="admonition-title">2. CI/CD build 阶段失败</p>
-<p><strong>【问题】</strong>
-<a class="glightbox" href="../static/faq/update-template.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="build-failed" src="../static/faq/update-template.png" /></a>
-<center>构建阶段日志出现如图所示的错误</center>
-<strong>【解决方案】</strong>请按照网络学堂公告提示更新代码模板！相关 commit 信息如下：</p>
-<ul>
-<li><a href="https://git.tsinghua.edu.cn/se-2023spring/2023-django-hw/-/commit/61e9aae7d36e747cacb5aeddc91190d85118f903">https://git.tsinghua.edu.cn/se-2023spring/2023-django-hw/-/commit/61e9aae7d36e747cacb5aeddc91190d85118f903</a></li>
-<li><a href="https://git.tsinghua.edu.cn/se-2023spring/2023-next-hw/-/commit/98e1192ef7bfcfbe025f626c10a25209a726c5e3">https://git.tsinghua.edu.cn/se-2023spring/2023-next-hw/-/commit/98e1192ef7bfcfbe025f626c10a25209a726c5e3</a></li>
-</ul>
-</div>
+<p>!!! question "2. CI/CD build 阶段失败" (Obsolete)
+    <strong>【问题】</strong>
+    <a class="glightbox" href="../static/faq/update-template.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="build-failed" src="../static/faq/update-template.png" /></a>
+    <center>构建阶段日志出现如图所示的错误</center>
+    <strong>【解决方案】</strong>请按照网络学堂公告提示更新代码模板！相关 commit 信息如下：</p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>+ https://git.tsinghua.edu.cn/se-2023spring/2023-django-hw/-/commit/61e9aae7d36e747cacb5aeddc91190d85118f903
++ https://git.tsinghua.edu.cn/se-2023spring/2023-next-hw/-/commit/98e1192ef7bfcfbe025f626c10a25209a726c5e3
+</code></pre></div></td></tr></table></div>
+
 <div class="admonition question">
 <p class="admonition-title">1. 无权限拉取作业仓库</p>
 <p><strong>【问题】</strong>
@@ -1576,7 +1600,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年2月21日 08:40:14">2025年2月21日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月9日 03:37:56">2025年3月9日</span>
   </span>
 
     
@@ -1595,6 +1619,7 @@
         <a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a>, 
         <a href="mailto:wangbw21@mails.tsinghua.edu.cn">abmfy</a>, 
         <a href="mailto:cc7w@foxmail.com">c7w</a>, 
+        <a href="mailto:ajax-dong@outlook.com">ajax</a>, 
         <a href="mailto:holderqian@tencent.com">holderqian</a>
     </nav>
   </span>
@@ -1611,7 +1636,7 @@
     
         <div class="md-source-date">
             <small>
-                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (3.85%), <a href='mailto:wangbw21@mails.tsinghua.edu.cn'>abmfy</a> (63.46%), <a href='mailto:cc7w@foxmail.com'>c7w</a> (30.77%), <a href='mailto:holderqian@tencent.com'>holderqian</a> (1.92%)</span>
+                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (2.5%), <a href='mailto:wangbw21@mails.tsinghua.edu.cn'>abmfy</a> (40.0%), <a href='mailto:cc7w@foxmail.com'>c7w</a> (18.75%), <a href='mailto:ajax-dong@outlook.com'>ajax</a> (37.5%), <a href='mailto:holderqian@tencent.com'>holderqian</a> (1.25%)</span>
             </small>
         </div>
     
