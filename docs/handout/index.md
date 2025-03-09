@@ -56,9 +56,9 @@ $$
     请模仿下述样例在网络学堂内容栏提交，无需添加任何其他内容，仅需要三行链接：
 
     ```text
-    https://gitlab.secoder.net/202xxxxxxx/2025-django-hw
-    https://gitlab.secoder.net/202xxxxxxx/2025-next-hw
-    http://frontend-202xxxxxxx.app.secoder.net/
+    https://gitlab.spring25{a|b}.secoder.net/202xxxxxxx/2025-django-hw
+    https://gitlab.spring25{a|b}.secoder.net/202xxxxxxx/2025-next-hw
+    http://frontend-202xxxxxxx.app.spring25{a|b}.secoder.net/
     ```
 
     由于助教会使用自动化脚本分析网络学堂提交内容，请务必遵守该格式提交。若格式错误，后果自负。
