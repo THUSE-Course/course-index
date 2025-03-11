@@ -1451,9 +1451,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#05" class="md-nav__link">
+  <a href="#02" class="md-nav__link">
     <span class="md-ellipsis">
-      关闭调试开关 (0.5 分)
+      关闭调试开关 (0.2 分)
     </span>
   </a>
   
@@ -1469,36 +1469,36 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#uwsgi-05" class="md-nav__link">
+  <a href="#uwsgi-02" class="md-nav__link">
     <span class="md-ellipsis">
-      使用 uWSGI 部署 (0.5 分)
+      使用 uWSGI 部署 (0.2 分)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dockerfile-05" class="md-nav__link">
+  <a href="#dockerfile-02" class="md-nav__link">
     <span class="md-ellipsis">
-      完成 Dockerfile (0.5 分)
+      完成 Dockerfile (0.2 分)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#gitlab-cicd-05" class="md-nav__link">
+  <a href="#gitlab-cicd-02" class="md-nav__link">
     <span class="md-ellipsis">
-      完成 GitLab CI/CD 配置 (0.5 分)
+      完成 GitLab CI/CD 配置 (0.2 分)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#05_1" class="md-nav__link">
+  <a href="#02_1" class="md-nav__link">
     <span class="md-ellipsis">
-      思考题：为什么改了这个选项？ (0.5 分)
+      思考题：为什么改了这个选项？ (0.2 分)
     </span>
   </a>
   
@@ -1631,9 +1631,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#05" class="md-nav__link">
+  <a href="#02" class="md-nav__link">
     <span class="md-ellipsis">
-      关闭调试开关 (0.5 分)
+      关闭调试开关 (0.2 分)
     </span>
   </a>
   
@@ -1649,36 +1649,36 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#uwsgi-05" class="md-nav__link">
+  <a href="#uwsgi-02" class="md-nav__link">
     <span class="md-ellipsis">
-      使用 uWSGI 部署 (0.5 分)
+      使用 uWSGI 部署 (0.2 分)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dockerfile-05" class="md-nav__link">
+  <a href="#dockerfile-02" class="md-nav__link">
     <span class="md-ellipsis">
-      完成 Dockerfile (0.5 分)
+      完成 Dockerfile (0.2 分)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#gitlab-cicd-05" class="md-nav__link">
+  <a href="#gitlab-cicd-02" class="md-nav__link">
     <span class="md-ellipsis">
-      完成 GitLab CI/CD 配置 (0.5 分)
+      完成 GitLab CI/CD 配置 (0.2 分)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#05_1" class="md-nav__link">
+  <a href="#02_1" class="md-nav__link">
     <span class="md-ellipsis">
-      思考题：为什么改了这个选项？ (0.5 分)
+      思考题：为什么改了这个选项？ (0.2 分)
     </span>
   </a>
   
@@ -1731,7 +1731,7 @@
 <p>在这一部分，你将会完成 Django 小作业的 CI/CD 配置。</p>
 <p>你需要在 SECoder GitLab 上新建名为 <code>2025-Django-HW</code> 的项目并按要求将密钥在 CI/CD 变量中提供。</p>
 <h2 id="_2">任务汇总<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<h3 id="05">关闭调试开关 (0.5 分)<a class="headerlink" href="#05" title="Permanent link">&para;</a></h3>
+<h3 id="02">关闭调试开关 (0.2 分)<a class="headerlink" href="#02" title="Permanent link">&para;</a></h3>
 <p><strong>需要修改的代码：</strong><code>DjangoHW/settings.py</code> 第 28 行</p>
 <p>正式部署的 Django 应用需要关闭调试开关，否则可能会带来安全问题。我们可以在 Dockerfile 中设定某一环境变量来通过它区分当前是否处于部署环境，进而决定是否打开调试开关。</p>
 <p>你需要使得环境变量 <code>DEPLOY</code> 存在时，调试开关 <code>DEBUG</code> 为 <code>False</code>，否则为 <code>True</code>。</p>
@@ -1746,7 +1746,7 @@
 <p class="admonition-title">一定要保护好 SECRET_KEY</p>
 <p>Secret Key 用于生成签名等，泄露之可能导致可以伪造用户身份等严重安全后果。在正式部署时，一定要保护好 SECRET_KEY。</p>
 </div>
-<h3 id="uwsgi-05">使用 uWSGI 部署 (0.5 分)<a class="headerlink" href="#uwsgi-05" title="Permanent link">&para;</a></h3>
+<h3 id="uwsgi-02">使用 uWSGI 部署 (0.2 分)<a class="headerlink" href="#uwsgi-02" title="Permanent link">&para;</a></h3>
 <p><strong>需要修改的代码：</strong><code>requirements.txt</code> 第 12 行，<code>start.sh</code> 第 6-14 行</p>
 <p>现在项目中的 <code>start.sh</code> 通过 <code>python3 manage.py runserver</code> 启动了开发服务器，这并不适于部署。我们将会通过使用 uWSGI 服务器进行部署来获得更好的性能和安全性。</p>
 <p>你需要添加对 uWSGI 的依赖，将应用的运行方式改为通过 uWSGI 运行并监听 80 端口。我们已经为你提供了 <code>uwsgi</code> 命令的框架，请你修改它使得它能够正常工作。</p>
@@ -1762,7 +1762,7 @@
 </code></pre></div></td></tr></table></div>
 </div>
 <p>请阅读上述文档并理解我们提供的选项的作用，<strong>并修改部分参数</strong>使之能够正确运行。</p>
-<h3 id="dockerfile-05">完成 Dockerfile (0.5 分)<a class="headerlink" href="#dockerfile-05" title="Permanent link">&para;</a></h3>
+<h3 id="dockerfile-02">完成 Dockerfile (0.2 分)<a class="headerlink" href="#dockerfile-02" title="Permanent link">&para;</a></h3>
 <p><strong>需要修改的代码：</strong><code>Dockerfile</code> 第 2-14 行</p>
 <p>我们提供了 Dockerfile 的框架，现在请你补全这份 Dockerfile，使构建的镜像满足如下要求：</p>
 <ul>
@@ -1783,7 +1783,7 @@
 <p class="admonition-title">Secoder Pypi 镜像</p>
 <p>你可以通过 <code>https://pypi-cache-sepi.app.spring25a.secoder.net/simple</code> 镜像下载 Python 包。这个镜像是对 TUNA 镜像的本地缓存，这样做可以显著减轻 Secoder 对 TUNA 镜像的访问压力，同时能够进一步加速下载（常常在 3s 内可以完成依赖下载的步骤）。</p>
 </div>
-<h3 id="gitlab-cicd-05">完成 GitLab CI/CD 配置 (0.5 分)<a class="headerlink" href="#gitlab-cicd-05" title="Permanent link">&para;</a></h3>
+<h3 id="gitlab-cicd-02">完成 GitLab CI/CD 配置 (0.2 分)<a class="headerlink" href="#gitlab-cicd-02" title="Permanent link">&para;</a></h3>
 <p><strong>需要修改的代码：</strong><code>.gitlab-ci.yml</code> 第 2、19-21、25、30、34-36、41、51、56-57 行</p>
 <p>我们将在 GitLab CI/CD 配置中声明一个有三个阶段 <code>build</code>、<code>test</code> 和 <code>deploy</code> 的流水线，其中每个阶段都只有一个作业。你需要补全配置以实现如下目标：</p>
 <ul>
@@ -1793,7 +1793,7 @@
 <li>在 <code>unit-test</code> 作业的 <code>script</code> 部分创建并执行数据库迁移计划（migrations，修改数据表结构与属性的语句），然后运行单元测试脚本 test.sh。</li>
 </ul>
 <p>为了让大家进行本地测试，我们不会为大家创建 Secoder 上的容器，因此 CI/CD 流水线执行过程中你的 <code>deploy</code> 阶段可能会执行失败，这是正常现象。</p>
-<h3 id="05_1">思考题：为什么改了这个选项？ (0.5 分)<a class="headerlink" href="#05_1" title="Permanent link">&para;</a></h3>
+<h3 id="02_1">思考题：为什么改了这个选项？ (0.2 分)<a class="headerlink" href="#02_1" title="Permanent link">&para;</a></h3>
 <p>在使用 uWSGI 运行的过程中，我们使用了 <code>--http</code> 选项而非上面给出的教程中的 <code>--socket</code> 选项。同时，我们监听了 <code>0.0.0.0</code> 而非 <code>127.0.0.1</code>。请查阅资料并解释 <code>--http</code> 选项与 <code>--socket</code> 选项的区别，并解释监听 <code>0.0.0.0</code> 的原因。</p>
 <h3 id="0">本地测试 (0 分)<a class="headerlink" href="#0" title="Permanent link">&para;</a></h3>
 <p>你需要在本地构建 Docker 镜像并通过 <a href="https://curl.se">curl</a>、<a href="https://www.postman.com">Postman</a> 等工具来测试能否与容器中的后端正常通信。</p>
@@ -1829,7 +1829,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年2月28日 13:28:14">2025年2月28日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年3月11日 08:49:45">2025年3月11日</span>
   </span>
 
     
@@ -1848,7 +1848,8 @@
         <a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a>, 
         <a href="mailto:wangbw21@mails.tsinghua.edu.cn">abmfy</a>, 
         <a href="mailto:cc7w@foxmail.com">c7w</a>, 
-        <a href="mailto:ajax-dong@outlook.com">ajax</a>
+        <a href="mailto:ajax-dong@outlook.com">ajax</a>, 
+        <a href="mailto:holderqian@tencent.com">holderqian</a>
     </nav>
   </span>
 
@@ -1864,7 +1865,7 @@
     
         <div class="md-source-date">
             <small>
-                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (0.88%), <a href='mailto:wangbw21@mails.tsinghua.edu.cn'>abmfy</a> (80.7%), <a href='mailto:cc7w@foxmail.com'>c7w</a> (1.75%), <a href='mailto:ajax-dong@outlook.com'>ajax</a> (16.67%)</span>
+                作者: <span class='git-page-authors git-authors'><a href='mailto:qhd19@mails.tsinghua.edu.cn'>Ashitemaru</a> (0.88%), <a href='mailto:wangbw21@mails.tsinghua.edu.cn'>abmfy</a> (76.32%), <a href='mailto:cc7w@foxmail.com'>c7w</a> (1.75%), <a href='mailto:ajax-dong@outlook.com'>ajax</a> (16.67%), <a href='mailto:holderqian@tencent.com'>holderqian</a> (4.39%)</span>
             </small>
         </div>
     
