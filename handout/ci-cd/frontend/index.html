@@ -1706,7 +1706,7 @@
 <h1 id="_1">前端部署<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
 <p>在这一部分，你将会完成 React (Next.js) 小作业的 CI/CD 配置，并通过 CI/CD 将其部署到 SECoder 上。</p>
 <p>你需要在 SECoder GitLab 上新建名为 <code>2025-Next-HW</code> 的项目并按要求将密钥在 CI/CD 变量中提供。</p>
-<p>完成这一部分后，你应当能够在 <code>https://frontend-{id}.app.spring25{a|b}.secoder.net</code> 访问你的前端，其中 <code>{id}</code> 为你的学号。</p>
+<p>完成这一部分后，你应当能够在 <code>https://frontend-{id}.app.secoder.net</code> 访问你的前端，其中 <code>{id}</code> 为你的学号。</p>
 <h2 id="_2">任务汇总<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <h3 id="nextjs-05">修改 Next.js 配置 (0.5 分)<a class="headerlink" href="#nextjs-05" title="Permanent link">¶</a></h3>
 <p><strong>需要修改的代码：</strong><code>next.config.js</code> 第 4, 13 行</p>
@@ -1718,7 +1718,7 @@
 <p>接下来，你需要完成下列任务：</p>
 <ul>
 <li>修改 Next.js 的输出模式，使之能够构建出独立的最小服务端，并尝试在本地运行这一服务端，测试能否正常访问；</li>
-<li>将对 <code>/api/</code> 的请求重写到标准后端 URL <code>https://backend-sepi.app.spring25{a|b}.secoder.net/</code>。</li>
+<li>将对 <code>/api/</code> 的请求重写到标准后端 URL <code>https://backend-sepi.app.secoder.net/</code>。</li>
 </ul>
 <h3 id="dockerfile-1">编写 Dockerfile (1 分)<a class="headerlink" href="#dockerfile-1" title="Permanent link">¶</a></h3>
 <p><strong>需要修改的代码：</strong><code>Dockerfile</code> 第 2 行 (你可以任意改变这部分的代码行数)</p>
@@ -1727,7 +1727,7 @@
 <li>使用多阶段构建，最终的镜像仅包含必须的环境、需要提供的页面文件与构建的服务端，不包含开发依赖。</li>
 <li>Node.js 版本为 22；</li>
 <li>使用 pnpm 而非 npm 作为包管理器；</li>
-<li>将 pnpm 换源到本地源 <a href="https://npm-cache-sepi.app.spring25a.secoder.net/">https://npm-cache-sepi.app.spring25a.secoder.net/</a> 以加速下载；</li>
+<li>将 pnpm 换源到本地源 <a href="https://npm-cache-sepi.app.secoder.net/">https://npm-cache-sepi.app.secoder.net/</a> 以加速下载；</li>
 <li>通过 Next.js 构建独立服务端 (standalone);</li>
 <li>最终镜像中，服务端位于 <code>/app</code> 目录下。</li>
 </ul>
@@ -1758,12 +1758,12 @@
 <li>利用作业模板简化配置；</li>
 <li>在 <code>node</code> 镜像上运行，Node.js 版本为 22；</li>
 <li>使用 pnpm 而非 npm 作为包管理器；</li>
-<li>在 <code>before_script</code> 中将 pnpm 换源到 <a href="https://npm-cache-sepi.app.spring25a.secoder.net/">https://npm-cache-sepi.app.spring25a.secoder.net/</a> 以加速下载，然后安装依赖；</li>
+<li>在 <code>before_script</code> 中将 pnpm 换源到 <a href="https://npm-cache-sepi.app.secoder.net/">https://npm-cache-sepi.app.secoder.net/</a> 以加速下载，然后安装依赖；</li>
 <li>在 <code>script</code> 中，分别通过 pnpm 脚本 <code>test</code> 和 <code>lint</code> 在 <code>unit-test</code> 作业执行单元测试，<code>style-test</code> 作业执行代码风格检查；</li>
 <li>在 <code>unit-test</code> 作业的 <code>after_script</code> 中，使用 SonarScanner 将测试结果上传到 SonarQube。我们已经预先为你提供了 SonarScanner 配置，因此你不需要学习 SonarQube 的用法也能够完成此任务。</li>
 </ul>
 <h2 id="_3">完成效果<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
-<p>完成任务后，你应当能够成功执行 GitLab CI/CD 流水线并能够通过 <code>https://frontend-{id}.app.spring25{a|b}.secoder.net</code> 访问到你部署在 SECoder 上的前端。此时你可以直接通过浏览器访问它并进行正常的游玩。</p>
+<p>完成任务后，你应当能够成功执行 GitLab CI/CD 流水线并能够通过 <code>https://frontend-{id}.app.secoder.net</code> 访问到你部署在 SECoder 上的前端。此时你可以直接通过浏览器访问它并进行正常的游玩。</p>
 
 
 
@@ -1784,7 +1784,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年9月14日 13:50:36 UTC">2025年9月14日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年9月14日 13:56:56 UTC">2025年9月14日</span>
   </span>
 
     
@@ -1802,6 +1802,7 @@
       
         <a href="mailto:wangbw21@mails.tsinghua.edu.cn">abmfy</a>, 
         <a href="mailto:ajax-dong@outlook.com">ajax</a>, 
+        <a href="mailto:i@aajax.top">Ajax Dong</a>, 
         <a href="mailto:ashitemaru.holder@gmail.com">Ashitemaru</a>, 
         <a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a>
     </nav>
@@ -1819,7 +1820,7 @@
     
         <div class="md-source-date">
             <small>
-                作者: <span class="git-page-authors git-authors"><a href="mailto:wangbw21@mails.tsinghua.edu.cn">abmfy</a> (72.0%), <a href="mailto:ajax-dong@outlook.com">ajax</a> (22.67%), <a href="mailto:ashitemaru.holder@gmail.com">Ashitemaru</a> (4.0%), <a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (1.33%)</span>
+                作者: <span class="git-page-authors git-authors"><a href="mailto:wangbw21@mails.tsinghua.edu.cn">abmfy</a> (72.0%), <a href="mailto:ajax-dong@outlook.com">ajax</a> (16.0%), <a href="mailto:i@aajax.top">Ajax Dong</a> (6.67%), <a href="mailto:ashitemaru.holder@gmail.com">Ashitemaru</a> (4.0%), <a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (1.33%)</span>
             </small>
         </div>
     
