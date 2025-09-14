@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY requirements.txt .
 
-RUN pip install -i https://pypi-cache-sepi.app.spring25a.secoder.net/simple --no-cache-dir -r requirements.txt
+RUN pip install -i https://pypi-cache-sepi.app.secoder.net/simple --no-cache-dir -r requirements.txt
 
 COPY . .
 

@@ -14,7 +14,7 @@
     - 王建勇（计算机系网络所）
 - 本文档维护者 & 小作业助教
     - 钱厚德（前端、[Ashitemaru](https://ashitemaru.github.io)）
-    - 董业恺（后端、CICD）
+    - 董业恺（后端、CICD、[Ajax](https://aajax.top)）
     - 高焕昂（[c7w](https://c7w.tech)）
 
 ## 课程评分

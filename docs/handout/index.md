@@ -2,10 +2,6 @@
 
 本次课程小作业分为 CI/CD、后端（Django）、前端（Next.js）三部分，目标是帮助大家熟悉软件开发流程与常用工具。本课程小作业基本覆盖了大作业所需要使用的基本技术，并且小作业框架基本可以作为大作业的起始代码。
 
-!!! note "今年分课堂进行"
-
-    小作业文档中所有有关截止时间、评分政策等的内容均仅对李丹老师课堂有效。
-
 ## 时间安排
 
 小作业截止日期为第五周周一（2025.10.13）晚 23:59。
@@ -56,9 +52,9 @@ $$
     请模仿下述样例在网络学堂内容栏提交，无需添加任何其他内容，仅需要三行链接：
 
     ```text
-    https://gitlab.spring25{a|b}.secoder.net/202xxxxxxx/2025-django-hw
-    https://gitlab.spring25{a|b}.secoder.net/202xxxxxxx/2025-next-hw
-    http://frontend-202xxxxxxx.app.spring25{a|b}.secoder.net/
+    https://gitlab.secoder.net/202xxxxxxx/2025-django-hw
+    https://gitlab.secoder.net/202xxxxxxx/2025-next-hw
+    http://frontend-202xxxxxxx.app.secoder.net/
     ```
 
     由于助教会使用自动化脚本分析网络学堂提交内容，请务必遵守该格式提交。若格式错误，后果自负。

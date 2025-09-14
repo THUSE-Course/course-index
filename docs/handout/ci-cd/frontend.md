@@ -4,7 +4,7 @@
 
 你需要在 SECoder GitLab 上新建名为 `2025-Next-HW` 的项目并按要求将密钥在 CI/CD 变量中提供。
 
-完成这一部分后，你应当能够在 `https://frontend-{id}.app.spring25{a|b}.secoder.net` 访问你的前端，其中 `{id}` 为你的学号。
+完成这一部分后，你应当能够在 `https://frontend-{id}.app.secoder.net` 访问你的前端，其中 `{id}` 为你的学号。
 
 ## 任务汇总
 
@@ -21,7 +21,7 @@
 接下来，你需要完成下列任务：
 
 - 修改 Next.js 的输出模式，使之能够构建出独立的最小服务端，并尝试在本地运行这一服务端，测试能否正常访问；
-- 将对 `/api/` 的请求重写到标准后端 URL `https://backend-sepi.app.spring25{a|b}.secoder.net/`。
+- 将对 `/api/` 的请求重写到标准后端 URL `https://backend-sepi.app.secoder.net/`。
 
 ### 编写 Dockerfile (1 分)
 
@@ -32,7 +32,7 @@
 - 使用多阶段构建，最终的镜像仅包含必须的环境、需要提供的页面文件与构建的服务端，不包含开发依赖。
 - Node.js 版本为 22；
 - 使用 pnpm 而非 npm 作为包管理器；
-- 将 pnpm 换源到本地源 https://npm-cache-sepi.app.spring25a.secoder.net/ 以加速下载；
+- 将 pnpm 换源到本地源 https://npm-cache-sepi.app.secoder.net/ 以加速下载；
 - 通过 Next.js 构建独立服务端 (standalone);
 - 最终镜像中，服务端位于 `/app` 目录下。
 
@@ -66,10 +66,10 @@
 - 利用作业模板简化配置；
 - 在 `node` 镜像上运行，Node.js 版本为 22；
 - 使用 pnpm 而非 npm 作为包管理器；
-- 在 `before_script` 中将 pnpm 换源到 https://npm-cache-sepi.app.spring25a.secoder.net/ 以加速下载，然后安装依赖；
+- 在 `before_script` 中将 pnpm 换源到 https://npm-cache-sepi.app.secoder.net/ 以加速下载，然后安装依赖；
 - 在 `script` 中，分别通过 pnpm 脚本 `test` 和 `lint` 在 `unit-test` 作业执行单元测试，`style-test` 作业执行代码风格检查；
 - 在 `unit-test` 作业的 `after_script` 中，使用 SonarScanner 将测试结果上传到 SonarQube。我们已经预先为你提供了 SonarScanner 配置，因此你不需要学习 SonarQube 的用法也能够完成此任务。
 
 ## 完成效果
 
-完成任务后，你应当能够成功执行 GitLab CI/CD 流水线并能够通过 `https://frontend-{id}.app.spring25{a|b}.secoder.net` 访问到你部署在 SECoder 上的前端。此时你可以直接通过浏览器访问它并进行正常的游玩。
+完成任务后，你应当能够成功执行 GitLab CI/CD 流水线并能够通过 `https://frontend-{id}.app.secoder.net` 访问到你部署在 SECoder 上的前端。此时你可以直接通过浏览器访问它并进行正常的游玩。

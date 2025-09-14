@@ -4,16 +4,14 @@
 
     本课程开设了 PyPI 源以及 NPM 源供大家遇到网络问题时使用：
 
-    - PyPI: https://pypi-cache-sepi.app.spring25a.secoder.net/simple
-    - NPM: https://npm-cache-sepi.app.spring25a.secoder.net/
-
-    (两个老师的班级都可以用这个源, 不需要把 25a 改成 25b.)
+    - PyPI: https://pypi-cache-sepi.app.secoder.net/simple
+    - NPM: https://npm-cache-sepi.app.secoder.net/
 
     使用方法：
 
     ```shell
-    pip install [dep] -i https://pypi-cache-sepi.app.spring25a.secoder.net/simple
-    pnpm add [dep] --registry=https://npm-cache-sepi.app.spring25a.secoder.net/
+    pip install [dep] -i https://pypi-cache-sepi.app.secoder.net/simple
+    pnpm add [dep] --registry=https://npm-cache-sepi.app.secoder.net/
     ```
 
     包括 Docker 构建命令等均可使用。
@@ -67,7 +65,7 @@ FROM python:3.11
 
 !!! note "Docker Hub 镜像源"
 
-    若使用 Docker Hub 时遇到网络问题（你一定会遇到网络问题），可以尝试使用国内的镜像源，例如 [1Panel Docker Proxy](https://docker.1panel.dev/)。系科协有自己的 Docker 镜像源 [docker.net9.org](https://docker.net9.org)，但不保证可用性。
+    若使用 Docker Hub 时遇到网络问题（你一定会遇到网络问题），可以尝试使用国内的镜像源，例如 [1Panel Docker Proxy](https://docker.1panel.dev/)。系科协有自己的 Docker 镜像源 [docker-mirror.net9.org](https://docker-mirror.net9.org)，但不保证可用性。
 
 一般来说，一个镜像只包含能够满足功能需求的最小环境。例如，我们在这里所使用的 `python` 镜像就包含了能够运行 Python 的最小环境。这样做的好处是使镜像充分精简，同时允许通过基于已有镜像构建新镜像的方法获得所需的功能。
 
@@ -92,7 +90,7 @@ FROM python:3.11
     你可以以两种方式使用镜像源:
 
     - 更改 `daemon.json` (具体用法详见 [文档](https://docs.docker.com/reference/cli/dockerd/#daemon-configuration-file)). 这能够全局地应用更改, 在重启 Docker 后生效.
-    - 在 `docker pull` 或 `docker run` 或 `FROM` 时显式指定. 这不会全局应用, 但你无需重启 Docker (无需 root 权限). 需要注意的是, 在这时, 官方镜像如 `FROM debian` 需要改为 `FROM docker.net9.org/library/debian` 而第三方的镜像无需添加 `library`.
+    - 在 `docker pull` 或 `docker run` 或 `FROM` 时显式指定. 这不会全局应用, 但你无需重启 Docker (无需 root 权限). 需要注意的是, 在这时, 官方镜像如 `FROM debian` 需要改为 `FROM docker-mirror.net9.org/library/debian` 而第三方的镜像无需添加 `library`.
 
 ```dockerfile
 ENV HOME=/opt/app

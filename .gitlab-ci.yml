@@ -1,4 +1,4 @@
-image: registry.spring25b.secoder.net/tool/deployer
+image: registry.secoder.net/tool/deployer
 
 stages:
   - build
@@ -18,7 +18,7 @@ build-master:
 deploy:
   stage: deploy
   script:
-    - export API_SERVER=https://deployer.spring25b.secoder.net/api
+    - export API_SERVER=https://deployer.secoder.net/api
     - deployer dyno replace $CI_PROJECT_NAME "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" "$REGISTRY_USER" "$REGISTRY_PWD"
   only:
     - master

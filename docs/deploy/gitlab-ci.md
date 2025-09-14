@@ -14,7 +14,7 @@ SECoder 平台的 GitLab 提供了集成的 CI/CD 系统，可以通过项目仓
     deploy:
       stage: deploy
       script:
-        - export API_SERVER=https://deployer.spring25{a|b}.secoder.net/api
+        - export API_SERVER=https://deployer.secoder.net/api
         - deployer dyno replace $CI_PROJECT_NAME "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" "$REGISTRY_USER" "$REGISTRY_PWD"
       only:
         - main
@@ -269,6 +269,6 @@ deploy:
 
 ## 参考资料
 
-你可以在 [GitLab CI/CD](https://gitlab.spring25a.secoder.net/help/ci/README.md) 更详细地学习 GitLab CI/CD 系统的使用方法。(或者 [Spring 25 B](https://gitlab.spring25b.secoder.net/help/ci/README.md), [Tsinghua Git](https://git.tsinghua.edu.cn/help/ci/yaml/index.md))
+你可以在 [GitLab CI/CD](https://gitlab.secoder.net/help/ci/README.md) 更详细地学习 GitLab CI/CD 系统的使用方法, [Tsinghua Git](https://git.tsinghua.edu.cn/help/ci/yaml/index.md) 也有相应的文档
 
 在本课程提供的[样例项目](https://git.tsinghua.edu.cn/SEG/example)仓库中也可以找到几种常见项目框架的 CI/CD 配置，可供配置部署时参考。需要注意的是，这些样例项目都较为老旧，请在参考时注意版本和兼容性等问题。
