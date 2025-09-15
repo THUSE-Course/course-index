@@ -36,26 +36,45 @@ const ComponentDemo = () => {
 
 ## Problem 3 (15 pts)
 
-阅读框架中 `src/pages/index.tsx` 中的代码：
+阅读下述简易并发控制 wrapper 的代码：
 
 ```typescript
-useEffect(() => {
-    if (id === undefined) {
-        dispatch(resetBoardCache());
-    }
+import { Mutex } from 'async-mutex';
 
-    return () => {
-        if (id === undefined) {
-            dispatch(setBoardCache(board));
-        }
-    };
-}, [board, id, dispatch]);
+const MAX_CONCURRENCY = {
+    ["QwenVLMax"]: 20,
+    // ...
+} as const;
+type ConcurrencyLimitGroup = keyof typeof MAX_CONCURRENCY;
+const concurrencyLimitGroups = Object.fromEntries(
+    Object
+        .entries(MAX_CONCURRENCY)
+        .map(([group, limit]) => [group, Array(limit).fill(0).map((_, idx) => Promise.resolve(idx))]),
+) as Record<ConcurrencyLimitGroup, Promise<number>[]>;
+const mutexes = Object.fromEntries(
+    Object
+        .entries(MAX_CONCURRENCY)
+        .map(([group]) => [group, new Mutex()]),
+) as Record<ConcurrencyLimitGroup, Mutex>;
+const runWithConcurrencyLimit = async <T>(group: ConcurrencyLimitGroup, task: () => Promise<T>) => {
+    const mutex = mutexes[group];
+    await mutex.acquire();
+    const concurrencyLimitGroup = concurrencyLimitGroups[group];
+    const idx = await Promise.race(concurrencyLimitGroup);
+    const promise = task();
+    concurrencyLimitGroup[idx] = /* TODO */;
+    mutex.release();
+    return promise;
+};
+
+export default runWithConcurrencyLimit;
 ```
 
-回答：
+这一 wrapper 的功能是接受异步任务，并按照各个控制组所设定的最大并发数量控制并发。
 
-- 分析 `setBoardCache` 和 `resetBoardCache` 这两个 Redux Reducer 的调用时机
-- 分析这个 `useEffect` Hook 所完成的功能（可以描述一个用户故事，说明这个 Hook 起到了什么样的作用）
+(1) 通过查阅 API 文档或者利用 LLM 等方式了解 `Promise.race`，叙述 `idx` 表示的是什么意思。
+(2) 在 `TODO` 处填写合适的代码完成 wrapper 的实现
+(3) 如果去除掉 `mutex` 锁，可能会导致什么问题？
 
 ## Problem 4 (6 pts)
 
