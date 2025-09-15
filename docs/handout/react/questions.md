@@ -73,7 +73,9 @@ export default runWithConcurrencyLimit;
 这一 wrapper 的功能是接受异步任务，并按照各个控制组所设定的最大并发数量控制并发。
 
 (1) 通过查阅 API 文档或者利用 LLM 等方式了解 `Promise.race`，叙述 `idx` 表示的是什么意思。
-(2) 在 `TODO` 处填写合适的代码完成 wrapper 的实现
+
+(2) 在 `TODO` 处填写合适的代码完成 wrapper 的实现。
+
 (3) 如果去除掉 `mutex` 锁，可能会导致什么问题？
 
 ## Problem 4 (6 pts)
