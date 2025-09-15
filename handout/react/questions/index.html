@@ -1719,7 +1719,7 @@
 <span class="p">};</span>
 </code></pre></div></td></tr></tbody></table></div>
 <h2 id="problem-3-15-pts">Problem 3 (15 pts)<a class="headerlink" href="#problem-3-15-pts" title="Permanent link">¶</a></h2>
-<p>阅读框架中 <code>src/pages/index.tsx</code> 中的代码：</p>
+<p>阅读下述简易并发控制 wrapper 的代码：</p>
 <div class="highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1730,23 +1730,58 @@
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nx">useEffect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">undefined</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">dispatch</span><span class="p">(</span><span class="nx">resetBoardCache</span><span class="p">());</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Mutex</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'async-mutex'</span><span class="p">;</span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">undefined</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nx">dispatch</span><span class="p">(</span><span class="nx">setBoardCache</span><span class="p">(</span><span class="nx">board</span><span class="p">));</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">};</span>
-<span class="p">},</span><span class="w"> </span><span class="p">[</span><span class="nx">board</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">dispatch</span><span class="p">]);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">MAX_CONCURRENCY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">[</span><span class="s2">"QwenVLMax"</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="mf">20</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="kd">const</span><span class="p">;</span>
+<span class="kr">type</span><span class="w"> </span><span class="nx">ConcurrencyLimitGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">keyof</span><span class="w"> </span><span class="ow">typeof</span><span class="w"> </span><span class="nx">MAX_CONCURRENCY</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">concurrencyLimitGroups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">fromEntries</span><span class="p">(</span>
+<span class="w">    </span><span class="nb">Object</span>
+<span class="w">        </span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">MAX_CONCURRENCY</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="nx">map</span><span class="p">(([</span><span class="nx">group</span><span class="p">,</span><span class="w"> </span><span class="nx">limit</span><span class="p">])</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">[</span><span class="nx">group</span><span class="p">,</span><span class="w"> </span><span class="nb">Array</span><span class="p">(</span><span class="nx">limit</span><span class="p">).</span><span class="nx">fill</span><span class="p">(</span><span class="mf">0</span><span class="p">).</span><span class="nx">map</span><span class="p">((</span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">idx</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">idx</span><span class="p">))]),</span>
+<span class="p">)</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">Record</span><span class="o">&lt;</span><span class="nx">ConcurrencyLimitGroup</span><span class="p">,</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">number</span><span class="o">&gt;</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">mutexes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">fromEntries</span><span class="p">(</span>
+<span class="w">    </span><span class="nb">Object</span>
+<span class="w">        </span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">MAX_CONCURRENCY</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="nx">map</span><span class="p">(([</span><span class="nx">group</span><span class="p">])</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">[</span><span class="nx">group</span><span class="p">,</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Mutex</span><span class="p">()]),</span>
+<span class="p">)</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">Record</span><span class="o">&lt;</span><span class="nx">ConcurrencyLimitGroup</span><span class="p">,</span><span class="w"> </span><span class="nx">Mutex</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">runWithConcurrencyLimit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">group</span><span class="o">:</span><span class="w"> </span><span class="kt">ConcurrencyLimitGroup</span><span class="p">,</span><span class="w"> </span><span class="nx">task</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">mutex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">mutexes</span><span class="p">[</span><span class="nx">group</span><span class="p">];</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">mutex</span><span class="p">.</span><span class="nx">acquire</span><span class="p">();</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">concurrencyLimitGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">concurrencyLimitGroups</span><span class="p">[</span><span class="nx">group</span><span class="p">];</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">race</span><span class="p">(</span><span class="nx">concurrencyLimitGroup</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">task</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">concurrencyLimitGroup</span><span class="p">[</span><span class="nx">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="cm">/* TODO */</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">mutex</span><span class="p">.</span><span class="nx">release</span><span class="p">();</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">promise</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">runWithConcurrencyLimit</span><span class="p">;</span>
 </code></pre></div></td></tr></tbody></table></div>
-<p>回答：</p>
-<ul>
-<li>分析 <code>setBoardCache</code> 和 <code>resetBoardCache</code> 这两个 Redux Reducer 的调用时机</li>
-<li>分析这个 <code>useEffect</code> Hook 所完成的功能（可以描述一个用户故事，说明这个 Hook 起到了什么样的作用）</li>
-</ul>
+<p>这一 wrapper 的功能是接受异步任务，并按照各个控制组所设定的最大并发数量控制并发。</p>
+<p>(1) 通过查阅 API 文档或者利用 LLM 等方式了解 <code>Promise.race</code>，叙述 <code>idx</code> 表示的是什么意思。
+(2) 在 <code>TODO</code> 处填写合适的代码完成 wrapper 的实现
+(3) 如果去除掉 <code>mutex</code> 锁，可能会导致什么问题？</p>
 <h2 id="problem-4-6-pts">Problem 4 (6 pts)<a class="headerlink" href="#problem-4-6-pts" title="Permanent link">¶</a></h2>
 <p>小明是某一家互联网公司的全栈开发工程师，他为公司设计的 JWT 鉴权系统为，将用户名和密码负载在 JWT 上供后端鉴权服务器判断。现在有黑客拦截到了某一条 JWT 信息，但是没能成功获得该 JWT 加密后的签名部分（即第三部分）。请问该黑客有没有成功劫持该 JWT 代表的用户，请说明理由。</p>
 
@@ -1769,7 +1804,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年2月15日 20:48:57 UTC">2025年2月15日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年9月15日 07:24:21 UTC">2025年9月15日</span>
   </span>
 
     
@@ -1780,12 +1815,13 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="贡献者">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"></path></svg>
       
     </span>
     <nav>
       
-        <a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a>
+        <a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a>, 
+        <a href="mailto:qianhoude@qianhoudes-macbook-pro.local">qianhoude</a>
     </nav>
   </span>
 
@@ -1801,7 +1837,7 @@
     
         <div class="md-source-date">
             <small>
-                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a></span>
+                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (59.26%), <a href="mailto:qianhoude@qianhoudes-macbook-pro.local">qianhoude</a> (40.74%)</span>
             </small>
         </div>
     
