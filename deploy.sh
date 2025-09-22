@@ -1,6 +1,10 @@
 #/bin/bash
 set -e
-set -x
+# set -x
+
+echo "We now use GitHub Webhook to deploy to lab.cs., this script is deprecated."
+
+exit 1
 
 ### A reminder of how to deploy the course index to the remote `gitlab` repository
 # https://lab.cs.tsinghua.edu.cn/software-engineering/
