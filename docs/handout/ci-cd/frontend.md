@@ -57,9 +57,7 @@
 
 **需要修改的代码：**
 
-`.gitlab-ci.yml` 第 2 行，把 Deployer Image 设置成对应 SECoder 的镜像；第 30 行把 Deployer Server 设置成对应的地址。
-
-`.gitlab-ci.yml` 第 22 行 (你可以任意改变这部分的代码行数)
+`.gitlab-ci.yml` 第 20 行 (你可以任意改变这部分的代码行数)
 
 在这一任务中，我们将在 GitLab CI/CD 配置中声明一个有三个阶段 `build`、`test` 和 `deploy` 的流水线，其中 `build` 与 `deploy` 阶段已为你实现完成。你需要补全配置以完成 `test` 阶段，这一阶段包含 `unit-test` 与 `style-test` 两个作业。我们对这两个作业的配置有如下要求：
 
