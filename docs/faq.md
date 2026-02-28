@@ -2,9 +2,19 @@
 
 本部分将收集微信群与网络学堂中提问较多、有价值的问题。
 
-!!! question "13. `conda activate` 之后 python3 会默认启动系统的 python 而不是 conda 环境里的 python"
+!!! question "14. `conda activate` 之后 python3 会默认启动系统的 python 而不是 conda 环境里的 python"
 
     我不知道, 我在本地无法复现. 如果出现这样的问题, 那就写 python 罢. 这可能是 WSL 的问题 (?) 或者 conda 没有安装好 (?)
+
+!!! question "13. 交到网络学堂的链接要加 spring26b 吗"
+
+    要. 我们期望三行链接分别可以复制粘贴到浏览器地址栏以访问
+
+    - 后端小作业仓库
+    - 前端小作业仓库
+    - 前端部署 URL
+
+    只要你提交的内容符合此要求, 啥链接都行. (不要跟我杠说交别人的仓库链接行不行, 当然是不行)
 
 !!! question "12. 我刚刚发现我的仓库是 Public / Internal, 这会影响评分吗"
 
