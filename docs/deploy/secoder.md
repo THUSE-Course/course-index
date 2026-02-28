@@ -4,7 +4,7 @@ SECoder 提供了可视化的界面来进行[项目管理](https://sep.secoder.n
 
 !!! warning "SECoder 域名变更"
 
-    2025 春季软工的裴丹老师课堂的域名为 `*.spring26a.secoder.net`; 李丹老师课堂为 `*.spring26b.secoder.net`. 请自行修改为你们对应课堂的对应域名.
+    2026 春季软工的裴丹老师课堂的域名为 `*.spring26a.secoder.net`; 李丹老师课堂为 `*.spring26b.secoder.net`. 请自行修改为你们对应课堂的对应域名.
 
     同样的, 由于此次域名变更, 部分服务可能有 Bug, 如果遇到了奇怪的 Bug 请向助教反馈, 我们会尽快解决.
 
