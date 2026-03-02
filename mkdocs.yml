@@ -98,6 +98,8 @@ nav:
       - Django 语法: handout/django/django.md
       - 任务汇总: handout/django/task.md
       - 完成标准: handout/django/judge.md
+    - FastAPI 后端文档:
+      - handout/fastapi/index.md
     - React (Next.js) 前端文档:
       - handout/react/index.md
       - Step 0 环境配置: handout/react/environment.md
