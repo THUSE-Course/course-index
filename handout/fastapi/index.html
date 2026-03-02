@@ -2032,16 +2032,20 @@
 <p>以下是一些在 FastAPI 应用中常见的工具和库, 你可以根据项目需求选择使用. 对于小作业, <code>uvicorn</code> + <code>pydantic-settings</code> + <code>SQLAlchemy</code> with sqlite3 即可.</p>
 <h3 id="web">Web 框架<a class="headerlink" href="#web" title="Permanent link">¶</a></h3>
 <ul>
-<li>ASGI Server</li>
-<li><code>uvicorn</code>: FastAPI 官方示例默认使用的 ASGI 服务器, 性能不错, 支持 HTTP/1.1 和 HTTP/2</li>
 <li>
-<p><code>hypercorn</code>: 另一个 ASGI 服务器, 支持 HTTP/2 和 QUIC, 适合需要这些协议的场景</p>
+<p>ASGI Server</p>
+<ul>
+<li><code>uvicorn</code>: FastAPI 官方示例默认使用的 ASGI 服务器, 性能不错, 支持 HTTP/1.1 和 HTTP/2</li>
+<li><code>hypercorn</code>: 另一个 ASGI 服务器, 支持 HTTP/2 和 QUIC, 适合需要这些协议的场景</li>
+</ul>
 </li>
 <li>
 <p>进程管理 / 多 worker</p>
-</li>
+<ul>
 <li><code>gunicorn</code> + <code>uvicorn.workers.UvicornWorker</code></li>
 <li><code>uvicorn --workers N</code>: 更简单直接, 但能力比 gunicorn 少一点</li>
+</ul>
+</li>
 </ul>
 <h3 id="_2">配置与环境变量<a class="headerlink" href="#_2" title="Permanent link">¶</a></h3>
 <ul>
@@ -2050,70 +2054,86 @@
 </ul>
 <h3 id="orm">数据库与 ORM<a class="headerlink" href="#orm" title="Permanent link">¶</a></h3>
 <ul>
-<li>驱动</li>
+<li>
+<p>驱动</p>
+<ul>
 <li><code>asyncpg</code>: PostgreSQL 的异步驱动, 性能很好</li>
 <li><code>sqlite3</code>: Python 标准库自带的 SQLite 驱动, 适合小型项目或测试环境</li>
 <li><code>motor</code>: MongoDB 的异步驱动</li>
-<li>
-<p><code>asyncmy</code>: MySQL 的异步驱动</p>
+<li><code>asyncmy</code>: MySQL 的异步驱动</li>
+</ul>
 </li>
 <li>
 <p>ORM</p>
-</li>
+<ul>
 <li><code>SQLAlchemy</code>: 最流行的 Python ORM, 支持多种数据库后端和异步</li>
-<li>
-<p><code>SQLModel</code>: 基于 SQLAlchemy 和 Pydantic 的 ORM</p>
+<li><code>SQLModel</code>: 基于 SQLAlchemy 和 Pydantic 的 ORM</li>
+</ul>
 </li>
 <li>
 <p>Migration</p>
-</li>
+<ul>
 <li><code>alembic</code>: SQLAlchemy 官方推荐的迁移工具, 支持异步迁移 (和 Django 的 migration 类似)</li>
+</ul>
+</li>
 </ul>
 <h3 id="_3">缓存与消息队列<a class="headerlink" href="#_3" title="Permanent link">¶</a></h3>
 <ul>
-<li>缓存</li>
 <li>
-<p><code>redis</code>: 异步的 Redis 客户端</p>
+<p>缓存</p>
+<ul>
+<li><code>redis</code>: 异步的 Redis 客户端</li>
+</ul>
 </li>
 <li>
 <p>队列</p>
-</li>
+<ul>
 <li><code>celery</code>: 经典的分布式任务队列, 支持多种 broker 和后端, 包括 Redis</li>
 <li><code>aio-pika</code>: RabbitMQ 的异步客户端, 适合需要消息队列但不想引入 Celery</li>
 <li><code>aio-kafka</code>: Kafka 的异步客户端</li>
 </ul>
+</li>
+</ul>
 <h3 id="_4">认证与安全<a class="headerlink" href="#_4" title="Permanent link">¶</a></h3>
 <ul>
-<li>JWT</li>
-<li><code>pyjwt</code>: 常见的 JWT 库, 支持多种算法</li>
 <li>
-<p><code>python-jose</code>: 另一个常见的 JWT 库, 适合 OAuth2/JWK 场景</p>
+<p>JWT</p>
+<ul>
+<li><code>pyjwt</code>: 常见的 JWT 库, 支持多种算法</li>
+<li><code>python-jose</code>: 另一个常见的 JWT 库, 适合 OAuth2/JWK 场景</li>
+</ul>
 </li>
 <li>
 <p>哈希</p>
-</li>
+<ul>
 <li><code>hashlib</code>: Python 标准库自带的哈希库, 适合简单的哈希需求</li>
-<li>
-<p><code>passlib</code>: 更全面的密码哈希库, 支持多种算法, 包括 bcrypt 和 argon2</p>
+<li><code>passlib</code>: 更全面的密码哈希库, 支持多种算法, 包括 bcrypt 和 argon2</li>
+</ul>
 </li>
 <li>
 <p>OAuth / 第三方登录</p>
-</li>
+<ul>
 <li><code>authlib</code>: OAuth/OIDC 的常见选型</li>
+</ul>
+</li>
 </ul>
 <h3 id="_5">日志与可观测性<a class="headerlink" href="#_5" title="Permanent link">¶</a></h3>
 <ul>
-<li>日志</li>
+<li>
+<p>日志</p>
+<ul>
 <li><code>logging</code>: Python 标准库自带的日志模块, 适合简单的日志需求</li>
 <li><code>structlog</code>: 结构化日志的常见选型, 适合需要输出 JSON 格式日志的场景</li>
-<li>
-<p><code>loguru</code>: 易用的日志库, 适合中小项目</p>
+<li><code>loguru</code>: 易用的日志库, 适合中小项目</li>
+</ul>
 </li>
 <li>
 <p>监控</p>
-</li>
+<ul>
 <li><code>prometheus-client</code>: Prometheus 指标库, 适合需要暴露指标的场景</li>
 <li><code>opentelemetry-api</code> / <code>opentelemetry-sdk</code>: OpenTelemetry 的核心库, 适合需要分布式追踪和指标的场景</li>
+</ul>
+</li>
 </ul>
 <h3 id="_6">测试<a class="headerlink" href="#_6" title="Permanent link">¶</a></h3>
 <ul>
@@ -2154,7 +2174,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年3月2日 12:27:38 UTC">2026年3月2日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年3月2日 12:32:31 UTC">2026年3月2日</span>
   </span>
 
     
