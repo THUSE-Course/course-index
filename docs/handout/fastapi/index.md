@@ -25,12 +25,12 @@ FastAPI 的核心优势包括:
 ### Web 框架
 
 - ASGI Server
-  - `uvicorn`: FastAPI 官方示例默认使用的 ASGI 服务器, 性能不错, 支持 HTTP/1.1 和 HTTP/2
-  - `hypercorn`: 另一个 ASGI 服务器, 支持 HTTP/2 和 QUIC, 适合需要这些协议的场景
+    - `uvicorn`: FastAPI 官方示例默认使用的 ASGI 服务器, 性能不错, 支持 HTTP/1.1 和 HTTP/2
+    - `hypercorn`: 另一个 ASGI 服务器, 支持 HTTP/2 和 QUIC, 适合需要这些协议的场景
 
 - 进程管理 / 多 worker
-  - `gunicorn` + `uvicorn.workers.UvicornWorker`
-  - `uvicorn --workers N`: 更简单直接, 但能力比 gunicorn 少一点
+    - `gunicorn` + `uvicorn.workers.UvicornWorker`
+    - `uvicorn --workers N`: 更简单直接, 但能力比 gunicorn 少一点
 
 ### 配置与环境变量
 
@@ -40,51 +40,51 @@ FastAPI 的核心优势包括:
 ### 数据库与 ORM
 
 - 驱动
-  - `asyncpg`: PostgreSQL 的异步驱动, 性能很好
-  - `sqlite3`: Python 标准库自带的 SQLite 驱动, 适合小型项目或测试环境
-  - `motor`: MongoDB 的异步驱动
-  - `asyncmy`: MySQL 的异步驱动
+    - `asyncpg`: PostgreSQL 的异步驱动, 性能很好
+    - `sqlite3`: Python 标准库自带的 SQLite 驱动, 适合小型项目或测试环境
+    - `motor`: MongoDB 的异步驱动
+    - `asyncmy`: MySQL 的异步驱动
 
 - ORM
-  - `SQLAlchemy`: 最流行的 Python ORM, 支持多种数据库后端和异步
-  - `SQLModel`: 基于 SQLAlchemy 和 Pydantic 的 ORM
+    - `SQLAlchemy`: 最流行的 Python ORM, 支持多种数据库后端和异步
+    - `SQLModel`: 基于 SQLAlchemy 和 Pydantic 的 ORM
 
 - Migration
-  - `alembic`: SQLAlchemy 官方推荐的迁移工具, 支持异步迁移 (和 Django 的 migration 类似)
+    - `alembic`: SQLAlchemy 官方推荐的迁移工具, 支持异步迁移 (和 Django 的 migration 类似)
 
 ### 缓存与消息队列
 
 - 缓存
-  - `redis`: 异步的 Redis 客户端
+    - `redis`: 异步的 Redis 客户端
 
 - 队列
-  - `celery`: 经典的分布式任务队列, 支持多种 broker 和后端, 包括 Redis
-  - `aio-pika`: RabbitMQ 的异步客户端, 适合需要消息队列但不想引入 Celery
-  - `aio-kafka`: Kafka 的异步客户端
+    - `celery`: 经典的分布式任务队列, 支持多种 broker 和后端, 包括 Redis
+    - `aio-pika`: RabbitMQ 的异步客户端, 适合需要消息队列但不想引入 Celery
+    - `aio-kafka`: Kafka 的异步客户端
 
 ### 认证与安全
 
 - JWT
-  - `pyjwt`: 常见的 JWT 库, 支持多种算法
-  - `python-jose`: 另一个常见的 JWT 库, 适合 OAuth2/JWK 场景
+    - `pyjwt`: 常见的 JWT 库, 支持多种算法
+    - `python-jose`: 另一个常见的 JWT 库, 适合 OAuth2/JWK 场景
 
 - 哈希
-  - `hashlib`: Python 标准库自带的哈希库, 适合简单的哈希需求
-  - `passlib`: 更全面的密码哈希库, 支持多种算法, 包括 bcrypt 和 argon2
+    - `hashlib`: Python 标准库自带的哈希库, 适合简单的哈希需求
+    - `passlib`: 更全面的密码哈希库, 支持多种算法, 包括 bcrypt 和 argon2
 
 - OAuth / 第三方登录
-  - `authlib`: OAuth/OIDC 的常见选型
+    - `authlib`: OAuth/OIDC 的常见选型
 
 ### 日志与可观测性
 
 - 日志
-  - `logging`: Python 标准库自带的日志模块, 适合简单的日志需求
-  - `structlog`: 结构化日志的常见选型, 适合需要输出 JSON 格式日志的场景
-  - `loguru`: 易用的日志库, 适合中小项目
+    - `logging`: Python 标准库自带的日志模块, 适合简单的日志需求
+    - `structlog`: 结构化日志的常见选型, 适合需要输出 JSON 格式日志的场景
+    - `loguru`: 易用的日志库, 适合中小项目
 
 - 监控
-  - `prometheus-client`: Prometheus 指标库, 适合需要暴露指标的场景
-  - `opentelemetry-api` / `opentelemetry-sdk`: OpenTelemetry 的核心库, 适合需要分布式追踪和指标的场景
+    - `prometheus-client`: Prometheus 指标库, 适合需要暴露指标的场景
+    - `opentelemetry-api` / `opentelemetry-sdk`: OpenTelemetry 的核心库, 适合需要分布式追踪和指标的场景
 
 ### 测试
 
