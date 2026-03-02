@@ -1429,7 +1429,7 @@
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        实验评分
+        自测检查
       
     </span>
   </a>
@@ -1896,7 +1896,7 @@
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        实验评分
+        自测检查
       
     </span>
   </a>
@@ -1943,7 +1943,7 @@
 <p>本 Step 的代码量大约为 20 - 40 行。</p>
 <p>在编写完成后，你可以在项目根目录下，运行命令 <code>pnpm test step</code> 执行我们编写好的单元测试，如果显示下述提示信息则代表你完成了 Step 1：</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../static/react/step1-test-pass.png" data-desc-position="bottom"><img alt="" src="../../../static/react/step1-test-pass.png"></a></p>
-<p>如果你在编写游戏的核心逻辑上遇到了困难，可以打开 <code>src/tests/step.test.ts</code> 文件，其中的 <code>stepBoardGT</code> 函数是我们提供的样例实现，也是最后评分所使用的对拍基准实现，可供本 Step 的参考。</p>
+<p>如果你在编写游戏的核心逻辑上遇到了困难，可以打开 <code>src/tests/step.test.ts</code> 文件，其中的 <code>stepBoardGT</code> 函数是我们提供的样例实现和对拍基准实现，可供本 Step 的参考。</p>
 <h3 id="_3">代码说明<a class="headerlink" href="#_3" title="Permanent link">¶</a></h3>
 <p>在 <code>src/utils/types.ts</code> 文件中，我们规定了表示棋盘的类型如下：</p>
 <div class="highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="nx">Board</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">0</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mf">1</span><span class="p">)[][];</span>
@@ -1953,14 +1953,13 @@
 <p>在完成本 Step 的时候可以使用在 <code>src/constants/constants.ts</code> 文件中定义的常量，如描述棋盘尺寸的常量：</p>
 <div class="highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">BOARD_LENGTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">50</span><span class="p">;</span>
 </code></pre></div></td></tr></tbody></table></div>
-<h2 id="_4">实验评分<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
-<p>本 Step 总分为 10 分。</p>
-<p>Step 1 与 Step 3 的一部分采用自动化评分。在正确完成 CI/CD 小作业的基础上，你应当能在 SECoder Gitlab CI 上观察到单元测试所输出的信息。如果完全通过，显示应当类似于：</p>
+<h2 id="_4">自测检查<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<p>Step 1 与 Step 3 的一部分可以通过自动化测试进行检查。在正确完成 CI/CD 小作业的基础上，你应当能在 SECoder Gitlab CI 上观察到单元测试所输出的信息。如果完全通过，显示应当类似于：</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../static/next-pass.png" data-desc-position="bottom"><img alt="" src="../../../static/next-pass.png"></a></p>
 <p>如果仅通过 Step 1 与 Step 3 中的某一个，显示应当类似于：</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../static/next-partial-pass.png" data-desc-position="bottom"><img alt="" src="../../../static/next-partial-pass.png"></a></p>
-<p>只要上述信息中显示 Step 1 测试通过，本 Step 即满分。</p>
-<p>若你未正确完成 CI/CD 小作业导致无法通过上述方式评分，我们会使用克隆仓库并本地运行单元测试等方式评分。</p>
+<p>只要上述信息中显示 Step 1 测试通过，即表示本 Step 的核心逻辑已经通过自动化检查。</p>
+<p>若你未正确完成 CI/CD 小作业导致无法通过上述方式检查，可以克隆仓库并在本地运行单元测试进行自测。</p>
 <h2 id="_5">知识讲解<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
 <p>详细的 TypeScript 语法可以参考 <a href="https://www.typescriptlang.org/docs/">TypeScript 的官方语法文档</a>。作为已经有一定 C/C++ 语言基础的计算机系同学，可以参考较为简略的 <a href="https://docs.net9.org/languages/typescript/">计算机系科协技能引导文档 TypeScript 部分</a>。</p>
 <p>如果你只想快速上手本作业，并不想完整学完 TypeScript 语法后再完成作业，这里我们提供一个更简略的 TypeScript Cheatsheet。</p>
@@ -2203,7 +2202,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年2月21日 08:40:14 UTC">2025年2月21日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年3月2日 08:58:22 UTC">2026年3月2日</span>
   </span>
 
     
@@ -2220,6 +2219,7 @@
     <nav>
       
         <a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a>, 
+        <a href="mailto:i@aajax.top">Ajax Dong</a>, 
         <a href="mailto:holderqian@tencent.com">holderqian</a>
     </nav>
   </span>
@@ -2236,7 +2236,7 @@
     
         <div class="md-source-date">
             <small>
-                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (99.49%), <a href="mailto:holderqian@tencent.com">holderqian</a> (0.51%)</span>
+                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (96.89%), <a href="mailto:i@aajax.top">Ajax Dong</a> (2.59%), <a href="mailto:holderqian@tencent.com">holderqian</a> (0.52%)</span>
             </small>
         </div>
     
