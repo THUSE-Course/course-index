@@ -18,6 +18,30 @@ FastAPI 的核心优势包括:
 - **自动生成接口文档**: 它会根据你的路由和参数定义生成 OpenAPI 规范, 并提供可交互的文档页面, 便于自测和联调
 - **对异步友好**: 可以用 `async def` 编写接口, 适合处理高并发 I/O 场景 (例如大量请求 / 调用外部服务 / WebSocket 等)
 
+## 为什么选择 FastAPI
+
+FastAPI 非常简单. 对于一个简单服务 (如 Hello World), 你只需要一个文件和几行代码就能完成. 其结构类似:
+
+```python
+from fastapi import FastAPI
+import uvicorn
+
+# 创建 FastAPI 应用实例
+app = FastAPI()
+
+# 定义一个 GET 路由
+@app.get("/")
+async def read_root():
+    # 可以直接返回 object, FastAPI 会自动转换成 JSON
+    return {"Hello": "World"}
+
+if __name__ == "__main__":
+    # 启动 Uvicorn 服务器来运行 FastAPI 应用
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+```
+
+相比与 Django, FastAPI 的 boilerplate 更少, 对代码结构的要求也更灵活. 这使得它非常适合快速开发和迭代.
+
 ## FastAPI 应用的常见选型
 
 以下是一些在 FastAPI 应用中常见的工具和库, 你可以根据项目需求选择使用. 对于小作业, `uvicorn` + `pydantic-settings` + `SQLAlchemy` with sqlite3 即可.
