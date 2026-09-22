@@ -36,6 +36,7 @@ plugins:
 
 markdown_extensions:
   - admonition
+  - md_in_html
   - codehilite:
       guess_lang: false
       linenums: true

@@ -10,43 +10,55 @@ Cookie 是存储在浏览器之中的一段信息。Cookie 属于域名，即每
 
 回忆一下身边的 Web 应用（例如 info 网站），大多都需要我们先登录账号，在登录的基础上，应用中的信息都是和这个账号相关的了。然而先前提到过，Web 应用常用的 HTTP 协议是无状态的。具体来说，后端服务器基于 HTTP 协议无法分辨发出登录和请求数据的是否是同一个用户。
 
-<center>
-    ![](../static/jwt-http.svg)
-</center>
+<div align="center" markdown>
+
+![HTTP 请求无法关联用户身份的时序图](../static/jwt-http.svg)
+
+</div>
 
 为了让后续请求具体数据的 HTTP 请求能够识别身份，基于令牌的身份认证是一种常见的方法。这一方案的原理是后端服务器在处理登录请求的时候向浏览器返还一个令牌（Token），浏览器收到令牌之后将其存放在浏览器的 Cookie 缓存（当然其他本地存储实际上也是可行的）中，并且在之后的每一次 HTTP 请求中均携带该令牌以证明身份。
 
-<center>
-    ![](../static/jwt-token.svg)
-</center>
+<div align="center" markdown>
+
+![通过令牌关联用户身份的时序图](../static/jwt-token.svg)
+
+</div>
 
 在更一般的实践中，后端服务器所负担的用户认证（上例中的令牌签发）与实际数据处理（上例中的数据应答）往往可以分离。即分设一个认证服务器和一个数据服务器，认证服务器专用于接受用户的登录请求和签发令牌，数据服务器则仅在提供有效令牌的基础上返回相应的数据。
 
 以 info 网站为例，在登录 info 网站之后，可以在控制台的应用程序-存储标签页找到 Cookie 信息。可以看到 Cookie 是按照域名分类的：
 
-<center>
-    ![](../static/jwt-cookie.png)
-</center>
+<div align="center" markdown>
+
+![浏览器开发者工具中的 Cookie 信息](../static/jwt-cookie.png)
+
+</div>
 
 而如果观察网络标签页中的网络请求，会发现部分涉及到登录的请求的应答中包含了 `Set-Cookie` 字段，浏览器据此设置了该域名下的 Cookie。这里展现的是综合教务平台的登录请求：
 
-<center>
-    ![](../static/jwt-setcookie.jpg)
-</center>
+<div align="center" markdown>
+
+![登录响应中的 Set-Cookie 响应头](../static/jwt-setcookie.jpg)
+
+</div>
 
 而之后所有涉及到综合教务平台的数据请求均会在请求头中发现这一段 Cookie。这里可以看到请求头中存在一条 `Cookie` 字段，而这个字段的内容应当和先前登录应答的应答头中 `Set-Cookie` 字段以及浏览器的 Cookie 存储相一致：
 
-<center>
-    ![](../static/jwt-sendcookie.jpg)
-</center>
+<div align="center" markdown>
+
+![数据请求中的 Cookie 请求头](../static/jwt-sendcookie.jpg)
+
+</div>
 
 ### CSRF 攻击
 
 现在我们讨论通过 Cookie 实现的基于令牌的身份认证系统的缺陷。事实上，后端服务器所签发的令牌完整地代表了用户的身份，而这一点使得伪造请求变得容易。CSRF 攻击（**C**ross **S**ite **R**equest **F**orgery，跨网站请求伪造）则利用了这一点，只需要在其提供的恶意网站中嵌入读取 Cookie 的 JavaScript 代码并据此发送非用户本意的 HTTP 请求即可。
 
-<center>
-    ![](../static/jwt-csrf.svg)
-</center>
+<div align="center" markdown>
+
+![CSRF 攻击流程图](../static/jwt-csrf.svg)
+
+</div>
 
 为了防御 CSRF 攻击，最简单的方式就是禁止通过 JavaScript 脚本读取 Cookie 信息，这个可以通过在 Cookie 的内容中将 `HttpOnly` 字段设置为 `true` 完成。若如此设置，那么通过 JavaScript 脚本是无法获取到该 Cookie 内容的。
 
@@ -71,9 +83,11 @@ Cookie 是存储在浏览器之中的一段信息。Cookie 属于域名，即每
 
 我们来简单叙述一个令牌的例子，即 JWT（**J**SON **W**eb **T**oken）。一个 JWT 是使用 `.` 分割为三部分的一串字符串：
 
-<center>
-    ![](../static/jwt.png)
-</center>
+<div align="center" markdown>
+
+![JWT 的头部、载荷和签名结构](../static/jwt.png)
+
+</div>
 
 第一部分是**头部**。这一部分主要包含两个信息：
 
