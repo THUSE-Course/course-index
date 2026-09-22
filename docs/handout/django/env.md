@@ -28,7 +28,7 @@ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 
 一旦你有了 SSH 密钥对，下一步是将公钥添加到你的 GitLab 账户中。这样做可以让 GitLab 识别你的计算机，从而允许安全的代码推送和拉取操作，而无需每次都输入用户名和密码。
 
-使用你的用户名和密码登录到 GitLab（注意本教程作业位于 Tsinghua Git 上，而我们之后的课程大作业将位于 SECoder Git 上，这是两个不同的 Git 源，需要分别配置公钥）。
+作业框架从 Tsinghua Git 获取，完成后的项目推送到 SECoder GitLab。这是两个不同的 Git 服务；如果使用 SSH，需要分别添加公钥并使用各自项目页面提供的远程地址。
 
 登录后，选择 “Edit Profile”（设置）。在左侧菜单中，选择 “SSH Keys”（SSH密钥），然后选择 “Add new key”。
 

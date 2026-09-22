@@ -1,274 +1,184 @@
 # GitLab CI/CD
 
-**持续集成** (Continuous Integration, CI) 指在代码构建过程中持续地进行代码的集成、构建、测试等。通过 CI，我们可以在开发过程中尽早发现引入的错误，并进行代码的静态检查和部署镜像的构建等等。**持续部署** (Continuous Deployment, CD) 指代码构建完毕之后，将构建的版本部署上线的流程。通过 CD，我们可以快速对应用进行迭代和交付。
+**持续集成**（Continuous Integration，CI）是在代码发生变化时自动完成依赖安装、构建、测试和静态检查。**持续部署**（Continuous Deployment，CD）是在这些检查通过后，把指定版本的应用发布到运行环境。
 
-SECoder 平台的 GitLab 提供了集成的 CI/CD 系统，可以通过项目仓库的 `.gitlab-ci.yml` 配置 CI/CD 流程，在特定时机自动执行。
-
-!!! warn "在大作业中使用小作业框架时请注意"
-
-    在大作业阶段，部署需要使用的环境变量将由 SECoder 预设，你不需要手动设置。在本次小作业中为你预设了个人 deployer 环境，在大作业中请移去 `.gitlab-ci.yml` 中 `deploy` 作业的 `export DEPLOY_ENV=...` 命令以使用团队环境。
-
-    简单来说，你可以直接使用如下的 `deploy` 阶段：
-
-    ```yaml
-    deploy:
-      stage: deploy
-      script:
-        - export API_SERVER=https://deployer.spring26{a|b}.secoder.net/api
-        - deployer dyno replace $CI_PROJECT_NAME "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" "$REGISTRY_USER" "$REGISTRY_PWD"
-      only:
-        - main
-    ```
+SECoder GitLab 会读取仓库根目录的 `.gitlab-ci.yml`，并在提交代码或创建合并请求时运行流水线。
 
 ## 基本概念
 
-以下是一个 GitLab CI/CD 流水线，我们将以它为例说明 GitLab CI/CD 中的一些基本概念。
+### Job
 
-![GitLab CI/CD 流水线](../static/pipeline.png)
-
-### 作业 (Job)
-
-作业是 CI/CD 流程的最小执行单元，一个作业包含了一系列需要执行的命令。每个作业需要指定一个 **Docker 镜像**，在执行 CI/CD 时将会基于此镜像运行一个容器，在其中执行命令。例如，上图中的 `test_all` 和 `build_image` 等就是一些作业。
-
-!!! note
-
-    由于这里的 image 也是 Docker 镜像, 它也会受到 Docker 默认 Registry 无法使用的影响. 不过助教团队会尽量减轻此问题.
-
-作业的成功状态将取决于其命令的执行结果。若执行过程中某条命令返回值非零，则此作业执行失败。所有命令返回值均为零时作业执行成功。在 GitLab 的 CI/CD 界面可以查看每个作业的状态以及运行过程的输出。
-
-!!! note
-
-    Shell 脚本即使其中某一条命令返回值非零仍会继续执行之后的命令，脚本的返回值取决于最后一条命令的返回值，这与 GitLab CI/CD 作业的逻辑不同。
-
-### 阶段 (Stage)
-
-CI/CD 流程划分为多个阶段分别进行，每个阶段可以包含一个或多个作业。同一个阶段的多个作业可以并行执行。只有一个阶段的所有作业均成功执行后，才会执行下一个阶段的作业。上图中 `Build_image` 和 `Deploy_integration` 等就是不同的阶段，只有 `Deploy_integration` 阶段的三个作业全部成功后才会执行 `Deploy_staging` 阶段。
-
-### 流水线 (Pipeline)
-
-多个阶段顺序连接组成一个流水线。将代码推送到远程仓库或是发起合并请求时，GitLab 会基于该版本的代码执行流水线。
-
-## `.gitlab-ci.yml`
-
-GitLab 会通过仓库根目录下的 `.gitlab-ci.yml` 读取 CI/CD 配置，并基于此建立流水线。
-
-??? note "YAML 速览"
-
-    **YAML** (YAML Ain't Markup Language) 是一种人类友好的数据序列化语言，也常被用于配置文件。关于其具体格式，可以参考 [YAML 官网](https://yaml.org)和 [YAML 入门教程](https://www.runoob.com/w3cnote/yaml-intro.html)。在这里，我们简要介绍 YAML 最常用的要素。
-
-    - **对象**：一个对象由一系列冒号分隔的键值对组成。键和值都可以由任何类型的值组成，包括嵌套的子对象。整个文件定义了一个对象，因此文件顶层的键值对就是该对象的属性。
-    - **子对象**：YAML 使用缩进层级来表明对象的嵌套层级。因此，在一个键之后的缩进一级的行会被认为是该键对应的值。
-    - **字符串**：与 JSON 不同，多数情况下，字符串不需要加引号。字符串可以是多行的，换行会被转换为空格。
-    - **数组**：以 `- ` (连字符 + 空格) 开头的一系列行表示一个数组，每行是一个数组元素。
-
-    下面是一份样例 YAML 文件：
-
-    ```yaml
-    foo: Hello, world!
-    bar:
-      software: engineering
-    hw:
-      - next
-      - django
-      - ci-cd
-    ```
-
-    以下是上述 YAML 定义的对象的 JSON 表示：
-
-    ```json
-    {
-        "foo": "Hello, world!",
-        "bar": {
-            "software": "engineering"
-        },
-        "hw": ["next", "django", "ci-cd"]
-    }
-    ```
-
-以下是一个 Python 项目的样例 CI/CD 配置，它包含了 GitLab CI/CD 配置的基本要素。我们将以它为例来讲解 CI/CD 配置的格式。
+Job 是流水线的最小执行单元，包含执行环境、命令和产物。例如：
 
 ```yaml
-image: registry.secoder.net/tool/deployer
+unit-test:
+  image: python:3.11
+  stage: test
+  script:
+    - pip install -r requirements.txt
+    - pytest
+```
 
+任意一条 `script` 命令返回非零状态时，Job 默认失败。不要在测试命令后追加一个必定成功的命令来掩盖错误。
+
+### Stage
+
+Stage 决定 Job 的执行顺序。同一 Stage 的 Job 可以并行运行；当前 Stage 全部成功后，流水线才进入下一阶段。
+
+```yaml
+stages:
+  - build
+  - test
+  - deploy
+```
+
+### Pipeline
+
+一次 Pipeline 是某个提交对应的完整执行过程。可以在 GitLab 项目的 **Build → Pipelines** 中查看每个 Job 的状态和日志。
+
+网络波动导致的偶发失败可以重试；配置或测试错误应先修复代码，不能依靠反复重试碰运气。
+
+## YAML 速览
+
+YAML 使用缩进表示层级，并用 `-` 表示数组元素：
+
+```yaml
+job-name:
+  image: node:22
+  stage: test
+  before_script:
+    - corepack enable
+    - pnpm install --frozen-lockfile
+  script:
+    - pnpm test
+```
+
+只能使用空格缩进，不能混用 Tab。包含 `:`、`#` 或其他特殊字符的字符串无法按预期解析时，应显式加引号。
+
+## 隐藏 Job 与继承
+
+以 `.` 开头的 Job 不会直接运行，可作为模板被其他 Job 继承：
+
+```yaml
+.node-test:
+  image: node:22
+  stage: test
+  before_script:
+    - corepack enable
+    - pnpm config set registry https://npm-registry.t.secoder.net/
+    - pnpm install --frozen-lockfile
+
+unit-test:
+  extends: .node-test
+  script:
+    - pnpm test
+
+style-test:
+  extends: .node-test
+  script:
+    - pnpm lint
+```
+
+课程提供的 BuildKit 和 Kustomize 配置同样通过隐藏 Job 复用。完整内容见 [Kubernetes 部署](deployer.md#gitlab-cicd)。请直接把模板内容放入项目的 `.gitlab-ci.yml`，不要使用远程 `include:`。
+
+## 组成完整流水线
+
+将 `.buildkit`、`.kustomize` 与测试 Job 放入同一个文件后，可以定义实际执行的构建和部署 Job：
+
+```yaml
 stages:
   - build
   - test
   - deploy
 
-build:
+build-image:
+  extends: .buildkit
   stage: build
-  script:
-    - export BUILD_IMAGE_NAME=$CI_REGISTRY_IMAGE
-    - export BUILD_IMAGE_TAG=$CI_COMMIT_REF_SLUG
-    - export BUILD_IMAGE_USERNAME=$CI_REGISTRY_USER
-    - export BUILD_IMAGE_PASSWORD=$CI_REGISTRY_PASSWORD
-    - deployer build
-
-.test:
-  image: python:3.11
-  stage: test
-
-  before_script:
-    - pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
-      coverage pytest pycodestyle pylint
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
 
 unit-test:
-  extends: .test
-
+  extends: .node-test
+  stage: test
   script:
-    - coverage run --source app -m pytest --junit-xml=xunit-reports/xunit-result.xml
-    - ret=$?
-    - coverage xml -o coverage-reports/coverage.xml
-    - coverage report
-    - exit $ret
-  after_script:
-    - SUFFIX=$RANDOM
-    - curl "http://api.secoder.net/static/sonar-scanner.tar.gz" -s -o "/tmp/sonar-$SUFFIX.tar.gz"
-    - tar -xf "/tmp/sonar-$SUFFIX.tar.gz"  -C /opt
-    - /opt/sonar-scanner/bin/sonar-scanner
+    - pnpm test
 
 style-test:
-  extends: .test
-  allow_failure: true
-
+  extends: .node-test
+  stage: test
   script:
-    - pycodestyle app tests
-    - PYCODESTYLE_RET=$?
-    - pylint app tests
-    - PYLINT_RET=$?
-    - if [ $PYCODESTYLE_RET \> 0 ]; then exit $PYCODESTYLE_RET; fi;
-    - exit $PYLINT_RET
+    - pnpm lint
 
 deploy:
+  extends: .kustomize
   stage: deploy
-  script:
-    - deployer dyno replace $CI_PROJECT_NAME "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" "$REGISTRY_USER" "$REGISTRY_PWD"
-  only:
-    - main
+  variables:
+    KUSTOMIZE_PATH: deploy
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
 ```
 
-可以看到，该配置首先指定了 SECoder 的 image registry 中的 `deployer` 镜像作为默认镜像。当没有在作业中显式指定镜像时，就会使用这个镜像。例如，这个流水线的 `build` 和 `image` 作业将使用 `deployer` 镜像进行项目的镜像构建与部署。
+实际项目的 `deploy` Job 还需要创建私有镜像拉取 Secret，并把 Deployment 中的镜像替换为 `${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}`。不要在多个页面之间拼猜命令，直接以 [Kubernetes 部署](deployer.md#gitlab-cicd)中的完整示例为基础修改资源名。
 
-接下来，我们定义了 `build`、`test` 和 `deploy` 三个阶段。该配置将会形成如下图所示的流水线：
+## 变量
 
-![Example Django Pipeline](../static/pipeline-django.png)
+GitLab 自动提供常用的预定义变量：
 
-### `build`
+|变量|说明|
+|-|-|
+|`CI_DEFAULT_BRANCH`|项目默认分支|
+|`CI_COMMIT_SHA`|当前提交的完整 Git SHA|
+|`CI_PROJECT_PATH_SLUG`|适合用于资源名的项目路径|
+|`CI_REGISTRY`|GitLab Container Registry 地址|
+|`CI_REGISTRY_IMAGE`|当前项目的镜像仓库地址|
+|`CI_REGISTRY_USER`|当前构建 Job 使用的 Registry 用户名|
+|`CI_REGISTRY_PASSWORD`|当前构建 Job 使用的 Registry 密码|
+
+SECoder 部署还需要项目变量：
+
+|变量|来源|
+|-|-|
+|`TOKEN`|SECoder 个人资料页面中的 Kubernetes API 令牌|
+|`NAMESPACE`|个人命名空间 `u-<学号>`|
+|`GITLAB_REGISTRY_USER`|长期 Registry 凭据对应的 GitLab 用户名|
+|`GITLAB_PAT`|具有 `read_registry` 权限的 Token|
+
+`TOKEN` 与 `GITLAB_PAT` 必须设为 Masked，不应出现在 `.gitlab-ci.yml`、仓库文件或 Job 日志中。轮换 SECoder API 令牌后，要同步更新所有项目中的 `TOKEN`。
+
+## Rules
+
+使用 `rules` 限制 Job 在哪些提交上运行。例如只在默认分支构建和部署：
 
 ```yaml
-build:
-  stage: build
-  script:
-    - export BUILD_IMAGE_NAME=$CI_REGISTRY_IMAGE
-    - export BUILD_IMAGE_TAG=$CI_COMMIT_REF_SLUG
-    - export BUILD_IMAGE_USERNAME=$CI_REGISTRY_USER
-    - export BUILD_IMAGE_PASSWORD=$CI_REGISTRY_PASSWORD
-    - deployer build
+rules:
+  - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
 ```
 
-在作业中，我们通过 `stage` 属性指定作业所属的阶段。这里，`build` 作业属于 `build` 阶段。`script` 属性是一个数组，指定作业执行的命令，每个数组元素表示一条命令。
+测试通常应在分支和 Merge Request 中运行，而部署应只在默认分支运行。这样可以在合并前发现问题，同时避免开发分支覆盖线上应用。
 
-!!! note "预定义环境变量"
+## 测试报告和产物
 
-    GitLab 在执行流水线时，会定义一系列 CI/CD 相关的环境变量。完整的列表可以在 [Predefined environment variables reference](https://gitlab.secoder.net/help/ci/variables/predefined_variables.md) 找到。这里我们列出一些常用的预定义环境变量：
-
-    |变量|说明|
-    |-|-|
-    |`GITLAB_USER_LOGIN`|GitLab 登录用户名，在 SECoder 平台上即学号|
-    |`CI_PROJECT_NAME`|项目名称|
-    |`CI_COMMIT_REF_SLUG`|当前分支/标签名|
-    |`CI_REGISTRY_IMAGE`|项目的镜像名称|
-    |`CI_REGISTRY_USER`|Registry 用户名|
-    |`CI_REGISTRY_PASSWORD`|Registry 密码|
-
-SECoder GitLab 配置了 image registry，因此在执行流水线时，将能够通过预定义的环境变量访问 registry 的用户名与密码。密码实际上是访问当前项目镜像的 token，因此你将只能够写入到项目对应的镜像中。在 `build` 作业中，我们将这些信息通过环境变量传递给 deployer，deployer 会根据项目的 Dockerfile 构建镜像并上传到 SECoder Image Registry 中。
-
-### `test`
-
-```yaml
-.test:
-  image: python:3.11
-  stage: test
-
-  before_script:
-    - pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
-      coverage pytest pycodestyle pylint
-```
-
-`test` 阶段定义了 `unit-test` 和 `style-test` 两个作业。
-
-由于这两个作业有一些共同之处，我们首先定义了一个作业模板 `.test`。以 `.` 开头的作业将不会真正执行。在 `unit-test` 和 `style-test` 作业中，我们使用 `extends` 属性指定模板，这将继承模板的属性，除非在当前作业中显式覆盖。
-
-我们首先通过 `image` 属性指定镜像为 `python:3.11`，这会覆盖全局的镜像设置。
-
-`before_script` 将会在作业的 `script` 之前执行。在 `before_script` 中，我们根据项目的 `requirements.txt` 安装依赖，同时还安装了测试和代码风格检查需要的 `coverage`、`pytest`、`pycodestyle`、`pylint` 等库。
-
-#### `unit-test`
+测试工具可以生成 JUnit、覆盖率等报告，再通过 `artifacts` 上传给 GitLab 或 SonarQube：
 
 ```yaml
 unit-test:
-  extends: .test
-
+  stage: test
   script:
-    - coverage run --source app -m pytest --junit-xml=xunit-reports/xunit-result.xml
-    - ret=$?
-    - coverage xml -o coverage-reports/coverage.xml
-    - coverage report
-    - exit $ret
-  after_script:
-    - SUFFIX=$RANDOM
-    - curl "http://api.secoder.net/static/sonar-scanner.tar.gz" -s -o "/tmp/sonar-$SUFFIX.tar.gz"
-    - tar -xf "/tmp/sonar-$SUFFIX.tar.gz" -C /opt
-    - /opt/sonar-scanner/bin/sonar-scanner
+    - pytest --junitxml=xunit-reports/xunit-result.xml
+  artifacts:
+    when: always
+    reports:
+      junit: xunit-reports/xunit-result.xml
 ```
 
-这一作业执行单元测试。
+即使上传报告，也必须保留测试命令的失败状态。报告用于解释失败，不能把失败的测试变成成功。
 
-在 `script` 中，我们利用 `coverage` 和 `pytest` 执行单元测试并生成测试报告和覆盖率报告。生成的报告会被 SonarQube 用于代码质量分析，这一点我们将在介绍 SonarQube 时展开介绍。
+## 排查流水线
 
-`after-script` 会在 `script` 之后执行，注意作业的执行成功状态仍取决于 `script` 最后一条命令的执行结果。在 `after-script` 中，我们通过 SonarScanner 扫描项目，使单元测试结果和代码静态检查结果能够被 SonarQube 记录。为了兼容性，我们将直接下载 SECoder 提供的 SonarScanner。
+1. 先确定失败属于 build、test 还是 deploy 阶段。
+2. 从 Job 日志中找到第一条实际错误，不要只看最后的 `exit code 1`。
+3. build 失败时，在本地运行相同的 Docker 构建。
+4. test 失败时，在相同语言版本和锁文件下运行测试。
+5. deploy 失败时，检查 CI 变量是否存在，再使用 [kubectl](kubectl.md)查看资源和事件。
 
-#### `style-test`
-
-```yaml
-style-test:
-  extends: .test
-  allow_failure: true
-
-  script:
-    - pycodestyle app tests
-    - PYCODESTYLE_RET=$?
-    - pylint app tests
-    - PYLINT_RET=$?
-    - if [ $PYCODESTYLE_RET \> 0 ]; then exit $PYCODESTYLE_RET; fi;
-    - exit $PYLINT_RET
-```
-
-这一作业执行代码风格检查。`script` 通过 `pycodestyle` 和 `pylint` 两种代码风格检查工具进行了检查。实际开发中，可以根据团队的开发规范选择自己需要的工具进行配置。
-
-我们可以为作业指定 `allow_failure` 属性来允许这一作业的失败，即使作业失败也能够执行下一阶段。
-
-### `deploy`
-
-```yaml
-deploy:
-  stage: deploy
-  script:
-    - deployer dyno replace $CI_PROJECT_NAME "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" "$REGISTRY_USER" "$REGISTRY_PWD"
-  only:
-    - main
-```
-
-`deploy` 作业通过调用 `deployer` 将 SECoder 平台上该项目部署的容器替换为以我们在 `build` 作业中构建的镜像运行的容器。`REGISTRY_USER` 与 `REGISTRY_PWD` 环境变量是 SECoder 预定义的，它拥有对当前团队镜像的只读访问权限。
-
-我们还通过 `only` 属性指定仅在 `main` 分支执行这一作业。这样，我们就可以在其他分支进行开发，而不影响应用部署的版本。
-
-!!! note
-
-    Gitlab CI 是可以取消的. 如果 CI 时间过长 (比如忘记配置 npm mirror 导致的网络缓慢问题), 可以直接取消此次 CI. 如果 CI 因为奇怪的问题 (如网络问题) 运行失败, 也可以 Rerun CI.
-
-## 参考资料
-
-你可以在 [GitLab CI/CD](https://gitlab.spring26a.secoder.net/help/ci/README.md) 更详细地学习 GitLab CI/CD 系统的使用方法。(或者 [Spring 25 B](https://gitlab.spring26b.secoder.net/help/ci/README.md), [Tsinghua Git](https://git.tsinghua.edu.cn/help/ci/yaml/index.md))
-
-在本课程提供的[样例项目](https://git.tsinghua.edu.cn/SEG/example)仓库中也可以找到几种常见项目框架的 CI/CD 配置，可供配置部署时参考。需要注意的是，这些样例项目都较为老旧，请在参考时注意版本和兼容性等问题。
+更多 GitLab CI/CD 语法见 [GitLab CI/CD documentation](https://docs.gitlab.com/ci/)。

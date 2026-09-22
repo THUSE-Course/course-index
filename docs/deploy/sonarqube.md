@@ -4,7 +4,7 @@ SonarQube 是一个自动代码评审工具，能够对代码进行静态分析�
 
 ## `sonar-project.properties`
 
-在 [GitLab CI/CD](../gitlab-ci) 文档中，我们在执行完测试之后运行了 SonarScanner。SonarScanner 会从根目录下的 `sonar-project.properties` 读取项目配置，进行代码分析后将结果上传到 SECoder 平台。不同语言项目的配置也不尽相同，这里我们以 Python 的配置为例讲解基本的配置项目。
+在 [GitLab CI/CD](gitlab-ci.md) 文档中，我们在执行完测试之后运行了 SonarScanner。SonarScanner 会从根目录下的 `sonar-project.properties` 读取项目配置，进行代码分析后将结果上传到 SECoder 平台。不同语言项目的配置也不尽相同，这里我们以 Python 的配置为例讲解基本的配置项目。
 
 ```properties
 sonar.inclusions=app/**/*,tests/**/*
@@ -27,19 +27,17 @@ sonar.coverage.exclusions=tests/**/*
 
 测试报告分为两部分：测试覆盖率报告和测试执行报告。测试覆盖率报告检查被测试了的源代码占所有源代码的比例，并分析哪些代码还没有被测试覆盖。测试执行报告则会具体地给出每一个测试的执行结果。
 
-接下来我们指定测试报告路径。`python.coverage.reportPaths` 指定了测试覆盖率报告的路径，在这里即我们在 [GitLab CI/CD](../gitlab-ci) 文档中使用 `coverage` 命令生成的报告。`python.xunit.reportPath` 指定测试执行报告的路径，在这里即我们在 [GitLab CI/CD](../gitlab-ci) 文档中使用 `coverage` 命令运行 `pytest` 测试时指定的报告路径。
+接下来我们指定测试报告路径。`python.coverage.reportPaths` 指定了测试覆盖率报告的路径，在这里即我们在 [GitLab CI/CD](gitlab-ci.md) 文档中使用 `coverage` 命令生成的报告。`python.xunit.reportPath` 指定测试执行报告的路径，在这里即我们在 [GitLab CI/CD](gitlab-ci.md) 文档中使用 `coverage` 命令运行 `pytest` 测试时指定的报告路径。
 
 最后，由于我们不会要求测试代码也被测试覆盖 (套娃)，我们将测试代码排除在覆盖率计算之外。
 
 !!! note "其他语言的配置"
 
-    你可以在 [Test Coverage & Execution](https://sonarqube.secoder.net/documentation/analysis/coverage/) 查看每种语言的测试报告如何配置。
+    你可以在 [Test Coverage & Execution](https://docs.sonarsource.com/sonarqube-server/analyzing-source-code/test-coverage/overview/) 查看每种语言的测试覆盖率如何配置。
 
 ## SonarQube 平台
 
-在代码分析完毕后，我们就可以在 SECoder 的 [SonarQube](https://sonarqube.secoder.net/) 平台上查看代码分析结果了。下面是一个示例：
-
-![SonarQube Project](../static/sonarqube.png)
+在代码分析完毕后，我们就可以在 SECoder 的 [SonarQube](https://sonar.t.secoder.net/) 平台上查看代码分析结果。
 
 我们可以进入项目来查看更详细的分析，这些分析有助于你更好地开发出符合软件工程规范的应用。
 
@@ -63,6 +61,6 @@ SonarQube 会检查项目中潜在的安全问题，例如 SQL 注入、拒绝�
 
 ## 参考资料
 
-你可以在 [SonarQube Documentation](https://sonarqube.secoder.net/documentation) 更详细地学习 SonarQube 的使用方法。SonarScanner 更具体的配置方法可以在 [Analyzing Source Code](https://sonarqube.secoder.net/documentation/analysis/overview/) 一节中找到。
+你可以在 [SonarQube Server Documentation](https://docs.sonarsource.com/sonarqube-server/) 更详细地学习 SonarQube 的使用方法。SonarScanner 的配置方法见 [Analyzing source code](https://docs.sonarsource.com/sonarqube-server/analyzing-source-code/overview/)。
 
 在本课程提供的[样例项目](https://git.tsinghua.edu.cn/SEG/example)仓库中也可以找到几种常见项目框架的 SonarQube 配置，可供配置部署时参考。需要注意的是，这些样例项目都较为老旧，请在参考时注意版本和兼容性等问题。

@@ -4,16 +4,16 @@
 
     本课程开设了 PyPI 源以及 NPM 源供大家遇到网络问题时使用：
 
-    - PyPI: https://pypi-cache-sepi.app.spring26a.secoder.net/simple
-    - NPM: https://npm-cache-sepi.app.spring26a.secoder.net/
+    - PyPI: https://pypi.t.secoder.net/+simple
+    - NPM: https://npm-registry.t.secoder.net/
 
-    (两个老师的班级都可以用这个源, 不需要把 25a 改成 25b.)
+    两个课堂使用同一组镜像地址，不需要修改域名。
 
     使用方法：
 
     ```shell
-    pip install [dep] -i https://pypi-cache-sepi.app.spring26a.secoder.net/simple
-    pnpm add [dep] --registry=https://npm-cache-sepi.app.spring26a.secoder.net/
+    pip install [dep] -i https://pypi.t.secoder.net/+simple
+    pnpm add [dep] --registry=https://npm-registry.t.secoder.net/
     ```
 
     包括 Docker 构建命令等均可使用。
@@ -199,7 +199,7 @@ CMD ["python3", "main.py"]
 
 ---
 
-到此，该镜像的构建过程就结束了，之后我们就可以使用 SECoder 的 deployer 工具基于构建的镜像运行一个容器。
+到此，该镜像的构建过程就结束了。接下来可以将镜像推送到 GitLab Container Registry，并通过 [Kubernetes 部署](deployer.md)中的 Deployment 运行它。
 
 ## 多阶段构建
 

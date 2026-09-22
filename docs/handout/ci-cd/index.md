@@ -1,72 +1,85 @@
-# CI/CD 小作业文档
+# CI/CD 小作业
 
-本作业目标为将前后端小作业成功部署到 SECoder 平台，并能够通过网址进行正常的访问与游玩。
+本部分的目标是将前后端小作业推送到 SECoder GitLab，通过流水线完成测试、镜像构建和 Kubernetes 部署，并能够从浏览器访问应用。
 
-开始 CI/CD 小作业前，请阅读课程文档“部署基础”部分中的 [Docker](../../deploy/docker)、[Deployer](../../deploy/deployer) 与 [GitLab CI/CD](../../deploy/gitlab-ci)。
+开始前请阅读：
 
-## 提交方式
+- [Docker](../../deploy/docker.md)
+- [SECoder](../../deploy/secoder.md)
+- [kubectl](../../deploy/kubectl.md)
+- [Kubernetes 部署](../../deploy/deployer.md)
+- [GitLab CI/CD](../../deploy/gitlab-ci.md)
 
-本次作业需要在 SECoder GitLab 上完成，请按各任务说明实现并提交。
+## 项目准备
 
-请你自行完成后端 CI/CD 小作业自查：检查代码，并在本地构建和运行镜像，测试能否正常与容器中的后端通信。
+在自己的 SECoder GitLab 命名空间中创建两个 Private 项目：
 
-前端小作业建议基于 SECoder 上的部署结果进行自查。若部署可正常访问，再对照文档核对代码是否按要求完成（包括是否仅修改限定部分、是否完成各任务额外要求等）；若部署暂时不可访问，则先通过代码与本地运行结果确认各任务完成情况。
+- `2026-Django-HW`
+- `2026-Next-HW`
 
-本次作业中会有一些思考题，请将你的答案提交到网络学堂。
+完成 SECoder 注册和 GitLab 登录后，在 SECoder **个人资料**页面点击一次 **同步 GitLab 子组**。如果看不到自己的 GitLab 命名空间或项目权限不正确，先重新同步再刷新 GitLab。
 
-!!! note "需要修改的代码"
+## CI/CD 变量
 
-    在本次小作业的每个任务中，都会有“需要修改的代码”部分来提示你需要修改的文件及行号，你只需要修改这些代码即可完成任务。
+前端和后端项目都需要在 **Settings → CI/CD → Variables** 中添加：
 
-    除非特别声明，你可以在不改动这些部分的行数的情况下完成任务。任意地扩充或缩减 TODO 部分的行数是被允许的，不过这可能造成同一文件后续的 TODO 部分的行号与作业文档中提供的不一致。
+|Key|Value|设置|
+|-|-|-|
+|`TOKEN`|SECoder 个人资料页面中的 Kubernetes API 令牌|Masked|
+|`NAMESPACE`|`u-<学号>`|普通变量|
+|`GITLAB_REGISTRY_USER`|Registry Token 对应的 GitLab 用户名|普通变量|
+|`GITLAB_PAT`|具有 `read_registry` 权限的 Token|Masked|
 
-!!! note "部署密钥和 registry 密钥"
+Registry Token 用于让 Kubernetes 在 CI 作业结束后仍能从私有 Registry 拉取镜像。它只需要 `read_registry` 权限，不要为完成本作业授予 `api`、`write_repository` 等无关权限。
 
-    由于小作业为个人项目，我们会为每位同学创建 deployer 环境并将部署密钥通过网络学堂下发。
-    
-    除此之外，你还需要自己生成拥有 SECoder Image Registry 读取权限的 registry 密钥。生成方法如下：
+!!! warning "不要提交凭据"
 
-    1. 进入 GitLab 的 Settings 页面
+    不要把 Token、kubeconfig 或包含凭据的 Docker 配置提交到仓库。截图和答疑日志中也必须隐藏完整值。
 
-        ![Profile 页面](../../static/token-settings.png)
+## 仓库中的部署文件
 
-    2. 在 Access Tokens 选项卡中生成密钥，名字任意，过期时间不早于本课程结课时间，权限选择 `read_registry`，点击 “Create personal access token”
+每个项目都应包含：
 
-        ![创建密钥](../../static/token-create.png)
+```text
+.gitlab-ci.yml
+Dockerfile
+deploy/
+├── deployment.yaml
+├── service.yaml
+├── httproute.yaml
+└── kustomization.yaml
+```
 
-    3. 妥善保存生成的密钥
+前后端必须使用不同的资源名、HTTPRoute 名和 Registry Secret 名。域名都以个人命名空间开头，例如：
 
-        ![获取密钥](../../static/token-store.png)
+- `u-2026000000-2026-django-hw.t.secoder.net`
+- `u-2026000000-2026-next-hw.t.secoder.net`
 
-    接下来，你需要将 **registry 密钥**和**下发的部署密钥**加入到项目的 CI/CD 变量中。
+## 流水线结果
 
-    1. 进入项目设置的 “CI/CD” 部分
+正常的默认分支流水线应依次完成：
 
-        ![CI/CD](../../static/token-ci-cd.png)
+1. 运行单元测试和代码风格检查。
+2. 使用 BuildKit 构建 Docker 镜像。
+3. 使用提交 SHA 作为镜像标签并推送到 GitLab Container Registry。
+4. 创建或更新 Registry 拉取 Secret。
+5. 使用 Kustomize 更新 Deployment、Service 和 HTTPRoute。
+6. 等待工作负载 Ready，并通过外部域名访问应用。
 
-    2. 点击 “Add variable”，Key 填写 `REGISTRY_PWD`，Value 填写你的 registry 密钥，点击 “Add variable”
+## 自查
 
-        ![CI/CD](../../static/token-variable.png)
+在推送前，至少完成以下检查：
 
-    3.  点击 “Add variable”，Key 填写 `DEPLOY_TOKEN`，Value 填写网络学堂下发的部署密钥，点击 “Add variable”
+```bash
+docker build -t homework-local .
+kubectl kustomize deploy
+```
 
-        ![CI/CD](../../static/token-variable-2.png)
+部署后检查：
 
-    请注意，默认情况下只有受保护的分支才能够在 CI/CD 流水线中获得这些变量，因此你需要将 `main` 分支设为受保护才能正常部署。
+```bash
+kubectl get deployment,pod,service,httproute
+kubectl get events --sort-by=.metadata.creationTimestamp
+```
 
-    你需要在前端与后端两个项目**都**添加这些变量以正常部署。
-    
-!!! warn "在大作业中使用小作业框架时请注意"
-
-    在大作业阶段，前面提到的环境变量将由 SECoder 预设，你不需要手动设置。同时，我们在本次小作业中为你预设了个人 deployer 环境，在大作业中请移去 `.gitlab-ci.yml` 中 `deploy` 作业的 `export DEPLOY_ENV=...` 命令以使用团队环境。
-
-    简单来说，大作业中你可以直接使用如下的 `deploy` 阶段：
-
-    ```yaml
-    deploy:
-      stage: deploy
-      script:
-        - deployer dyno replace $CI_PROJECT_NAME "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" "$REGISTRY_USER" "$REGISTRY_PWD"
-      only:
-        - main
-    ```
+若出现错误，先确定失败发生在测试、镜像构建还是 Kubernetes 部署阶段，再按照 [kubectl 排查应用](../../deploy/kubectl.md#troubleshooting)逐层检查。提问时提供已隐藏凭据的 Job 日志和资源状态。

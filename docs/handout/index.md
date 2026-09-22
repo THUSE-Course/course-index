@@ -1,42 +1,71 @@
 # 课程小作业
 
-本次课程小作业分为 CI/CD、后端（Django）、前端（Next.js）三部分，目标是帮助大家熟悉软件开发流程与常用工具。本课程小作业基本覆盖了大作业所需要使用的基本技术，并且小作业框架基本可以作为大作业的起始代码。
+本次课程小作业分为 CI/CD、后端（Django 或 FastAPI）和前端（Next.js）三部分，目标是帮助大家熟悉前后端开发、容器构建、自动化测试与 Kubernetes 部署。本课程小作业覆盖了大作业常用的基本技术，代码框架也可以作为后续项目的参考。
 
 !!! note "小作业为可选练习"
 
-    本学期小作业不计入课程成绩，仅供同学们练习使用。
+    本学期小作业不计入课程成绩，仅供同学们练习使用。建议亲自完成环境配置、测试和部署过程，不要只以生成代码能够运行为目标。
 
-    **请注意**：这个小作业是为了帮助大家熟悉开发环境和工具链。虽然现在使用 AI 工具可能在 5 分钟内就能完成，但毕竟是选作作业，希望大家还是亲自动手实践，不要自欺欺人。只有真正动手做一遍，才能为后续的大作业打下坚实的基础。
+## 使用上学期的代码仓库
 
-## 时间安排
+2026 秋季继续使用 2026 春季发布的小作业代码框架：
 
-第五周周一晚 23:59 之后 SECoder 上所有涉及到小作业的资源将会被释放以服务大作业。
+- 前端：[2026-next-hw](https://git.tsinghua.edu.cn/se-2026spring/2026-next-hw)
+- 后端：[2026-django-hw](https://git.tsinghua.edu.cn/se-2026spring/2026-django-hw)
 
-我们推荐按照下述顺序完成本次小作业：
+这些仓库提供业务代码和 TODO 框架；部署部分以本网站当前文档为准。
 
-- 阅读小作业需求和 API 文档，学习相关知识
-- 本地完成小作业后端
-- 本地完成小作业前端
-- 完成 CI/CD 小作业，测试前后端部署与通信
+前端项目名使用 `2026-Next-HW`，后端项目名使用 `2026-Django-HW`。
 
-不过你可以按照任何顺序完成作业。
+## 推荐顺序
 
-## 完成与提交方式
+1. 阅读[需求文档](requirement.md)和 [API 文档](api.md)。
+2. 在本地完成后端并运行测试。
+3. 在本地完成前端并运行测试。
+4. 阅读 [SECoder](../deploy/secoder.md)、[kubectl](../deploy/kubectl.md)和
+   [Kubernetes 部署](../deploy/deployer.md)。
+5. 将前后端项目推送到 SECoder GitLab，配置 CI/CD 并完成部署。
 
-本次小作业采取代码填空的形式，你需要从下述链接使用 `git clone` 克隆代码仓库并完成，完成后需要使用 `git push` 将其上传到 SECoder Gitlab 仓库中供部署与查看，其中前端的项目名为 `2026-Next-HW`，后端的项目名为 `2026-Django-HW`。需要注意的是，上传至 SECoder 与部署等操作需要在第一周获取 SECoder 账号才可以进行：
+## 获取和推送代码
 
-- 前端：https://git.tsinghua.edu.cn/se-2026spring/2026-next-hw
-- 后端：https://git.tsinghua.edu.cn/se-2026spring/2026-django-hw
+先从 Tsinghua Git 克隆代码：
 
-若在小作业进行期间课程组需要更新代码框架，我们将会发布公告说明，你可以从上述链接使用 `git pull` 拉取更新后的框架并使用 `git merge` 合并到自己的代码中。
+```bash
+git clone https://git.tsinghua.edu.cn/se-2026spring/2026-next-hw.git
+git clone https://git.tsinghua.edu.cn/se-2026spring/2026-django-hw.git
+```
 
-!!! note "Git Tutorial"
+然后完成以下准备：
 
-    本小作业的完成与提交完全基于 Git，你可以通过 [技能引导文档相关文档](https://docs.net9.org/basic/git/) 来学习 Git 的基本知识。
+1. 在 [SECoder](https://t.secoder.net) 激活账号。
+2. 通过 SECoder 登录 [GitLab](https://gitlab.t.secoder.net)，并在个人资料页面执行一次 **同步 GitLab 子组**。
+3. 在自己的 GitLab 命名空间中创建 `2026-Next-HW` 和 `2026-Django-HW` 项目。
+4. 将项目的 Git remote 指向新建的 GitLab 仓库并推送默认分支。
+5. 按 [CI/CD 小作业文档](ci-cd/index.md)配置 Kubernetes 与 Registry 凭据。
+
+添加远程仓库时，以 GitLab 项目页面给出的地址为准。例如：
+
+```bash
+git remote rename origin upstream
+git remote add origin <SECoder GitLab 项目地址>
+git push -u origin main
+```
+
+如果默认分支不是 `main`，请使用仓库实际的默认分支名。
+
+若课程组更新代码框架，会另行发布公告。此时可以从 `upstream` 获取更新，再通过 merge 或 rebase 将其整合到自己的分支中。
+
+!!! note "Git 教程"
+
+    小作业使用 Git 管理和提交代码。可以通过[技能引导文档](https://docs.net9.org/basic/git/)学习 Git 基础。
 
 ## 答疑说明
 
-你可以在课程微信群或者网络学堂讨论区提出问题，但是有以下注意事项：
+你可以在课程微信群或网络学堂讨论区提问。提问前请先完整阅读小作业文档和 [FAQ](../faq.md)，并提供：
 
-- **小作业截止时间前 24 小时内不接受任何小作业相关的答疑**
-- 有效提问。请先完整地阅读小作业文档确认该问题是否已经在文档中列出，若无，请提问时将你所做过的尝试（包括搜索引擎搜索、调整代码逻辑的方式、对问题的理解）完整地列出
+- 执行的命令或操作步骤；
+- 完整且已隐藏凭据的错误信息；
+- 已经尝试的排查方法；
+- 对问题所在阶段的判断。
+
+不要在提问中发送 SECoder 密码、GitLab Token、Kubernetes API 令牌或 kubeconfig。

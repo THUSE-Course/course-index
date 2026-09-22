@@ -1,88 +1,73 @@
 # FAQ
 
-本部分将收集微信群与网络学堂中提问较多、有价值的问题。
+本部分收集与本地环境、代码框架和通用开发工具有关的常见问题。SECoder 与 Kubernetes 问题请优先查阅[部署基础](deploy/index.md)。
 
-!!! question "14. `conda activate` 之后 python3 会默认启动系统的 python 而不是 conda 环境里的 python"
+!!! question "`conda activate` 后，`python3` 仍然启动系统 Python"
 
-    我不知道, 我在本地无法复现. 如果出现这样的问题, 那就写 python 罢. 这可能是 WSL 的问题 (?) 或者 conda 没有安装好 (?)
+    先执行 `which python`、`which python3` 和 `python --version`，确认当前 shell 实际解析到的可执行文件。常见原因包括 Conda 尚未为当前 shell 初始化、激活脚本没有生效，或 PATH 中存在优先级更高的 Python。
 
-!!! question "13. 交到网络学堂的链接要加 spring26b 吗"
+    可以重新打开终端并执行 `conda init <你的 shell>`，再激活环境。若 `python` 已经指向 Conda 环境而 `python3` 没有，可以在该环境中统一使用 `python`，但仍应先确认依赖确实安装在当前环境中。
 
-    要. 我们期望三行链接分别可以复制粘贴到浏览器地址栏以访问
+!!! question "Corepack 无法从官方源下载 pnpm"
 
-    - 后端小作业仓库
-    - 前端小作业仓库
-    - 前端部署 URL
+    可以不使用 Corepack，改用已经安装的 npm：
 
-    只要你提交的内容符合此要求, 啥链接都行. (不要跟我杠说交别人的仓库链接行不行, 当然是不行)
+    ```bash
+    npm install -g pnpm
+    ```
 
-!!! question "12. 我刚刚发现我的仓库是 Public / Internal, 会有影响吗"
+    安装后运行 `pnpm --version` 检查是否成功。这个问题只影响本地工具安装，不影响作业代码本身。
 
-    建议尽快改为私有仓库，避免代码被他人直接复制。
+!!! question "无法从 Tsinghua Git 克隆作业仓库"
 
-!!! question "11. 我的 corepack 没法换源, 一定要到官方源下载 pnpm, 很慢, 怎么办呢"
+    使用 HTTPS 地址时，先确认浏览器能够访问仓库且自己的账号具有读取权限。
 
-    助教也没找到什么好办法. 可以考虑放弃 corepack, 直接用 `npm install -g pnpm` 解决 (?)
+    使用 SSH 地址时，检查 `~/.ssh/id_ed25519.pub` 等公钥文件是否存在；如不存在，可使用 `ssh-keygen` 创建密钥对，然后把公钥添加到 Tsinghua Git 的 SSH Keys 页面。不要上传或发送没有 `.pub` 后缀的私钥文件。
 
-    此问题不影响小作业完成. 如果懒得研究可以忽略.
+!!! question "作业仓库设为 Public 或 Internal 会有影响吗"
 
-!!! question "10. 我的部署通过了, 但是网页没有更新, 这是为什么呢?"
+    建议将个人作业仓库设为 Private，避免未完成的代码或答案被其他人直接复制。除非课程要求明确允许，不要通过公开仓库分享作业实现。
 
-    首先尝试 Ctrl+F5 刷新以清除浏览器缓存.
-    
-    其次他*******的 Deployer 即便返回了 0 值也不一定真的部署了. 检查 DEPLOY_ENV, DEPLOY_TOKEN 等环境变量是否设置正确. 助教调试了 4h 才发现这个问题.
+!!! question "构建或 CI 无法执行 `.sh` 脚本"
 
-!!! question "9. 部署的前端在回放页面刷新会出现 Application error: client-side exception"
+    先检查脚本是否具有可执行权限：
 
-    这是 Next.js 的一个 bug，已在更新版本的 Next.js 被修复。由于此问题不影响小作业的完成，你可以忽略此问题。
-    
-    你可以使用 `pnpm add next` 更新到新版本的 Next.js 来解决此问题。
+    ```bash
+    chmod +x start.sh test.sh
+    git add start.sh test.sh
+    git commit
+    ```
 
-!!! question "8. 部署的前端在 `/list` 页面刷新会出现 403 Forbidden"
+    也可以显式使用 `sh start.sh`，但脚本若依赖 Bash 语法，应使用 `bash start.sh`。
 
-    这是由于代码模板中的 nginx 配置没有考虑周全。由于此问题不影响小作业的完成，你可以忽略此问题。
-    
-    要解决此问题，你可以将 nginx 配置中 `try_files` 一行改为 `try_files $uri $uri.html $uri/index.html /index.html;`。
+    Windows 用户还应检查文件换行符。容器内通常使用 Linux，脚本应保存为 LF，而不是 CRLF。
 
-!!! question "7. 镜像构建过程或 CI/CD 流程无法正常执行 .sh 脚本"
+!!! question "Next.js 回放页面刷新后出现 client-side exception"
 
-    由于代码模板仓库中的 `start.sh` 与 `test.sh` 并没有设置执行权限，若你需要在 Docker 构建过程或 CI/CD 流程中执行这两个脚本，请为它们添加可执行权限或是使用 `sh start.sh` 与 `sh test.sh`。
+    先查看浏览器开发者工具中的 Console 和 Network，确认是代码异常、静态资源路径还是旧版本框架问题。若问题来自已修复的 Next.js 缺陷，可以在兼容现有项目的前提下更新依赖：
 
-!!! question "6. 小作业部署后 CI/CD 阶段失败，提示“401: Unauthorized operation.Attach token.”"
+    ```bash
+    pnpm add next
+    ```
 
-    请检查项目变量设置中 `DEPLOY_TOKEN` 是否正确设置。没有设置此变量或提供的密钥错误都可能导致此结果。
+    更新后应重新运行单元测试、构建和本地服务，不能只根据开发模式判断修复成功。
 
-!!! question "5. 小作业部署后访问提示 502 Bad Gateway 或访问显示 nginx 默认界面"
+!!! question "Next.js 在 `/list` 等前端路由刷新后返回 403 或 404"
 
-    先确认 CI / CD 的 Deploy 阶段是否通过. 如果没有通过, 这可能是你没有正确设置变量导致 deployer 没有访问镜像的权限。请检查 `REGISTRY_PWD` 变量的权限是否为 `read_registry` (注意不是 `read_repository`)，并确认项目 CI/CD 中正确添加了变量，包括 `main` 分支是否被保护，以及复制粘贴 token 时是否出现错误，例如在结尾意外加入了空格等。若你无法确定是否正确设置了变量，请尝试重新生成 token 并重新设置变量。
+    这通常是静态文件服务器不知道前端路由应回退到入口页面。若使用 nginx 提供静态站点，可以检查 `try_files`：
 
-    对于后端小作业，若你是 Windows 用户，则还可能是 `start.sh` 的换行序列是 CRLF 导致的。由于 Docker 容器运行在 Linux 环境下，而 Linux 使用 LF 作为换行序列，这可能导致 `start.sh` 运行失败使得容器无法正常运行。你可以通过将换行序列从 CRLF 改为 LF 来解决此问题。
+    ```nginx
+    try_files $uri $uri.html $uri/index.html /index.html;
+    ```
 
-    然后, 检查你是否监听的是 **80** 端口.
+    如果使用 Next.js standalone 服务端，则应检查构建输出、路由配置和启动命令，而不是直接套用静态站点的 nginx 配置。
 
-!!! question "4. 前端小作业部署后访问提示 403 Forbidden"
+!!! question "前端构建后只能看到 403 Forbidden"
 
-    这可能是你没有正确地导出静态页面文件。请阅读小作业文档中提供的链接了解如何通过 Next.js 导出静态页面文件。你可以在本地先运行对应的指令观察生成的页面文件的位置。
+    检查 Docker 镜像中是否真正包含构建产物，以及 Web 服务器的根目录是否指向这些文件。可以先在本地运行镜像，并进入容器查看目标目录。使用 Next.js 静态导出时，还要确认 `public` 和生成的 HTML、JavaScript 文件均被复制到最终镜像。
 
-!!! question "3. 后端小作业部署后访问提示 500 Internal Server Error"
+!!! question "Django 启动后返回 500 Internal Server Error"
 
-    这可能是你没有正确地配置 uWSGI。请阅读小作业文档中提供的链接了解如何通过 uWSGI 部署 Django 应用，并注意需要修改的参数可能不止一处。
+    500 表示请求已经到达 Django 进程，但应用处理失败。首先查看服务端日志和异常栈，再检查 uWSGI 启动参数、Django settings、数据库迁移以及必需的环境变量。
 
-!!! question "2. CI/CD build 阶段失败 (Obsolete)"
-
-    **【问题】**
-    ![build-failed](static/faq/update-template.png)
-    <center>构建阶段日志出现如图所示的错误</center>
-
-    **【解决方案】**请按照网络学堂公告提示更新代码模板！相关 commit 信息如下：
-    
-    + https://git.tsinghua.edu.cn/se-2023spring/2023-django-hw/-/commit/61e9aae7d36e747cacb5aeddc91190d85118f903
-    + https://git.tsinghua.edu.cn/se-2023spring/2023-next-hw/-/commit/98e1192ef7bfcfbe025f626c10a25209a726c5e3
-
-!!! question "1. 无权限拉取作业仓库"
-
-    **【问题】**
-    ![no-access](static/faq/no-access.png)
-    <center>拉取作业 Repo 时出现如图所示的错误</center>
-
-    **【解决方案】**在 Tsinghua Git 上需要首先配置自己的公钥。请查看 `C:\Users\[YourUserName]\.ssh\id_rsa.pub` (Windows 系统) 或 `~/.ssh/id_rsa.pub` (类 Unix 系统) 文件是否存在，若不存在请使用 `ssh-keygen` 命令生成。之后，将该文件的内容添加到 Tsinghua Git 中，你可以使用这个链接：https://git.tsinghua.edu.cn/-/profile/keys 快速导航到公钥添加面板。之后，请重新拉取小作业仓库。
+    部署时不要使用 `manage.py runserver`。阅读 [Django 的 uWSGI 文档](https://docs.djangoproject.com/en/4.1/howto/deployment/wsgi/uwsgi/)，确认模块路径、HTTP 监听地址和端口均与项目一致。

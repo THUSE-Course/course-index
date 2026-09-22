@@ -1,73 +1,92 @@
 # 前端部署
 
-在这一部分，你将会完成 React (Next.js) 小作业的 CI/CD 配置，并通过 CI/CD 将其部署到 SECoder 上。
+本部分将 Next.js 小作业构建为容器镜像，通过 GitLab CI/CD 部署到个人 Kubernetes 命名空间。
 
-你需要在 SECoder GitLab 上新建名为 `2026-Next-HW` 的项目并按要求将密钥在 CI/CD 变量中提供。
+项目名使用 `2026-Next-HW`，示例访问地址为：
 
-完成这一部分后，你应当能够在 `https://frontend-{id}.app.spring26{a|b}.secoder.net` 访问你的前端，其中 `{id}` 为你的学号。
+```text
+https://u-<学号>-2026-next-hw.t.secoder.net
+```
 
-## 任务汇总
+## Next.js 运行配置
 
-### 修改 Next.js 配置 (0.5 分)
+使用 Next.js 的 `standalone` 输出构建最小服务端，并确认最终镜像包含运行所需的 `.next/standalone`、`.next/static` 和 `public` 内容。
 
-**需要修改的代码：**`next.config.js` 第 4, 13 行
+容器中的服务必须监听：
 
-在这一任务中，你将需要修改 Next.js 配置文件来使得前端网站能够在 80 端口提供正确的页面文件。首先，你需要阅读 [next.config.js Options: output | Next.js](https://nextjs.org/docs/app/api-reference/next-config-js/output) 来了解 Next.js 配置中可选的构建输出选项。
+```text
+HOSTNAME=0.0.0.0
+PORT=80
+```
 
-!!! warning "阅读文档"
+如果浏览器需要直接访问后端，后端地址应使用自己的外部域名：
 
-    阅读文档是实际开发中一项非常重要的技能，搜索和阅读官方文档往往是找到某一问题解决方案的最快方法之一。这一页面提供了许多关于 Next.js 构建过程的说明，其中也包含了许多你将在本次作业中用到的信息，因此请仔细阅读。
+```text
+https://u-<学号>-2026-django-hw.t.secoder.net
+```
 
-接下来，你需要完成下列任务：
+只有运行在 Kubernetes 集群内部的服务端请求才能使用 Service 地址，例如 `http://app-2026-django-hw`。浏览器无法解析集群内 Service 名称。
 
-- 修改 Next.js 的输出模式，使之能够构建出独立的最小服务端，并尝试在本地运行这一服务端，测试能否正常访问；
-- 将对 `/api/` 的请求重写到标准后端 URL `https://backend-sepi.app.spring26{a|b}.secoder.net/`。
+参考 [Next.js output 配置](https://nextjs.org/docs/app/api-reference/config/next-config-js/output)了解 standalone 输出。
 
-### 编写 Dockerfile (1 分)
+## Dockerfile
 
-**需要修改的代码：**`Dockerfile` 第 2 行 (你可以任意改变这部分的代码行数)
+Dockerfile 应满足：
 
-在这一任务中，你将需要编写 Dockerfile 来使得构建的镜像能够通过 node 运行生成的服务端。我们对你的 Dockerfile 有如下要求：
-
-- 使用多阶段构建，最终的镜像仅包含必须的环境、需要提供的页面文件与构建的服务端，不包含开发依赖。
 - Node.js 版本为 22；
-- 使用 pnpm 而非 npm 作为包管理器；
-- 将 pnpm 换源到本地源 https://npm-cache-sepi.app.spring26a.secoder.net/ 以加速下载；
-- 通过 Next.js 构建独立服务端 (standalone);
-- 最终镜像中，服务端位于 `/app` 目录下。
+- 使用 pnpm 和锁文件安装依赖；
+- 使用多阶段构建，最终镜像不包含开发依赖和源代码缓存；
+- 使用 `https://npm-registry.t.secoder.net/` 作为 SECoder NPM 镜像；
+- 把 standalone 服务端、静态资源和 `public` 复制到最终镜像；
+- 在 80 端口启动服务。
 
-!!! warning
+示例换源命令：
 
-    由于 SECoder 上容器的运行环境与本地 Docker 环境略有不同，请直接使用默认的 `root` 用户运行命令，而不是使用新建的用户。
+```dockerfile
+RUN corepack enable \
+    && pnpm config set registry https://npm-registry.t.secoder.net/ \
+    && pnpm install --frozen-lockfile
+```
 
-??? tip "一些提示。仅在你需要帮助时再来查看！"
+提交前在本地构建并运行镜像：
 
-    - 开发过程中，我们一般使用 `pnpm dev` 在本地启动开发服务器，但这需要包含庞大的开发依赖，而我们希望构建出最小化的独立服务端，因此这不再可行。你可以通过 `pnpm build` 命令来构建服务端。这些脚本在 `package.json` 中被定义，你也可以自定义所需的脚本。
-    - 如果你仔细阅读 `output` 选项的文档，你会注意到 `public` 等静态文件默认不会被复制到 `standalone` 目录中。你需要将这些文件复制到 `standalone` 目录中，否则你的网站将无法正常加载静态资源。
-    - 默认情况下，Next.js 服务器会监听 3000 端口，你需要在运行服务器前使用环境变量 `PORT` 来指定监听的端口。HTTP 服务的端口为 80，这也是在浏览器中通过 `http://` 访问网站时的默认端口。
-    - 如果你还是觉得无从下手，可以试着从 Next.js 官方的 [Docker 示例项目](https://github.com/vercel/next.js/tree/canary/examples/with-docker) 获取一些灵感。
+```bash
+docker build -t 2026-next-hw:local .
+docker run --rm -p 3000:80 2026-next-hw:local
+```
 
-!!! note "在本地测试"
+通过浏览器访问 `http://127.0.0.1:3000`，并直接刷新 `/list` 等前端路由，确认页面和静态资源均能加载。
 
-    由于流水线的执行需要花费不少时间，每一次修改 Dockerfile 后都上传到 GitLab 执行 CI/CD 流水线来测试效果是比较低效的。并且，小作业阶段你无法访问容器的日志和终端，这可能会对调试造成阻碍。
-    
-    你可以通过在本地构建镜像并运行容器来测试运行结果是否符合期望。由于 Docker 的虚拟化特性，如果在本地能够顺利运行，则理论上在部署到 SECoder 后它也一样能够顺利运行。
+## Kubernetes 资源
 
-### 完成 GitLab CI/CD 配置 (1 分)
+在 `deploy/` 中为前端创建：
 
-**需要修改的代码：**
+- Deployment，容器名和标签使用 `app-2026-next-hw`；
+- Service，将 80 端口转发到容器的 HTTP 端口；
+- HTTPRoute，hostname 使用 `u-<学号>-2026-next-hw.t.secoder.net`；
+- Kustomization，包含上述三个资源。
 
-`.gitlab-ci.yml` 第 20 行 (你可以任意改变这部分的代码行数)
+Deployment 应配置 Registry 拉取 Secret、资源 request/limit 和针对 `/` 的 HTTP readiness probe。完整示例见 [Kubernetes 部署](../../deploy/deployer.md)。
 
-在这一任务中，我们将在 GitLab CI/CD 配置中声明一个有三个阶段 `build`、`test` 和 `deploy` 的流水线，其中 `build` 与 `deploy` 阶段已为你实现完成。你需要补全配置以完成 `test` 阶段，这一阶段包含 `unit-test` 与 `style-test` 两个作业。我们对这两个作业的配置有如下要求：
+## GitLab CI/CD
 
-- 利用作业模板简化配置；
-- 在 `node` 镜像上运行，Node.js 版本为 22；
-- 使用 pnpm 而非 npm 作为包管理器；
-- 在 `before_script` 中将 pnpm 换源到 https://npm-cache-sepi.app.spring26a.secoder.net/ 以加速下载，然后安装依赖；
-- 在 `script` 中，分别通过 pnpm 脚本 `test` 和 `lint` 在 `unit-test` 作业执行单元测试，`style-test` 作业执行代码风格检查；
-- 在 `unit-test` 作业的 `after_script` 中，使用 SonarScanner 将测试结果上传到 SonarQube。我们已经预先为你提供了 SonarScanner 配置，因此你不需要学习 SonarQube 的用法也能够完成此任务。
+前端流水线包含 `build`、`test` 和 `deploy` 阶段：
 
-## 完成效果
+- 测试 Job 使用 Node.js 22；
+- 使用 pnpm 和 `--frozen-lockfile` 安装依赖；
+- 分别运行单元测试与 lint；
+- BuildKit 构建镜像并推送到项目 Registry；
+- Kustomize 将 `${CI_COMMIT_SHA}` 对应的镜像部署到个人命名空间；
+- 构建和部署只在默认分支执行，测试在普通分支和 Merge Request 中也应运行。
 
-完成任务后，你应当能够成功执行 GitLab CI/CD 流水线并能够通过 `https://frontend-{id}.app.spring26{a|b}.secoder.net` 访问到你部署在 SECoder 上的前端。此时你可以直接通过浏览器访问它并进行正常的游玩。
+代码风格检查是否允许失败以仓库题面为准；单元测试不能设置为 `allow_failure`。
+
+## 完成标准
+
+- 本地测试、lint 和生产构建均通过。
+- 本地 Docker 镜像能够在 80 端口提供服务。
+- GitLab 流水线的测试、构建和部署 Job 均成功。
+- `kubectl get pods` 显示前端 Pod Ready。
+- HTTPRoute 的 `Accepted` 和 `ResolvedRefs` 条件为 True。
+- 从校园网打开前端域名，并刷新各前端路由，页面均能正常显示。
+- 前端能够通过配置的后端外部域名访问后端 API。
