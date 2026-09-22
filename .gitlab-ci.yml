@@ -1,24 +1,41 @@
-image: registry.spring26b.secoder.net/tool/deployer
-
 stages:
   - build
-  - deploy
 
-build-master:
+.buildkit:
+  image:
+    name: moby/buildkit:rootless
+    entrypoint: [""]
   stage: build
+  variables:
+    BUILDKITD_CONFIG: /tmp/buildkitd.toml
+    BUILDKITD_FLAGS: --oci-worker-no-process-sandbox --config /tmp/buildkitd.toml
+    BUILDKIT_FRONTEND: dockerfile.v0
+    BUILDKIT_CONTEXT: .
+    BUILDKIT_DOCKERFILE_DIR: .
+    BUILDKIT_IMAGE_NAME: $CI_REGISTRY_IMAGE
+    BUILDKIT_IMAGE_TAG: $CI_COMMIT_SHA
+    BUILDKIT_OUTPUT_TYPE: image
+    BUILDKIT_PUSH: "true"
+    BUILDKIT_CACHE_REF: $CI_REGISTRY_IMAGE:buildcache
+  before_script:
+    - mkdir -p ~/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > ~/.docker/config.json
+    - |
+      cat > "$BUILDKITD_CONFIG" <<'EOF'
+      [registry."docker.io"]
+        insecure = true
+      EOF
   script:
-    - export BUILD_IMAGE_NAME=$CI_REGISTRY_IMAGE
-    - export BUILD_IMAGE_TAG=$CI_COMMIT_REF_SLUG
-    - export BUILD_IMAGE_USERNAME=$CI_REGISTRY_USER
-    - export BUILD_IMAGE_PASSWORD=$CI_REGISTRY_PASSWORD
-    - deployer build
-  only:
-    - master
+    - |
+      buildctl-daemonless.sh build \
+        --frontend "${BUILDKIT_FRONTEND}" \
+        --local context="${BUILDKIT_CONTEXT}" \
+        --local dockerfile="${BUILDKIT_DOCKERFILE_DIR}" \
+        --import-cache type=registry,ref="${BUILDKIT_CACHE_REF}" \
+        --export-cache type=registry,ref="${BUILDKIT_CACHE_REF}",mode=max \
+        --output type="${BUILDKIT_OUTPUT_TYPE}",name="${BUILDKIT_IMAGE_NAME}:${BUILDKIT_IMAGE_TAG}",push="${BUILDKIT_PUSH}"
 
-deploy:
-  stage: deploy
-  script:
-    - export API_SERVER=https://deployer.spring26b.secoder.net/api
-    - deployer dyno replace $CI_PROJECT_NAME "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" "$REGISTRY_USER" "$REGISTRY_PWD"
-  only:
-    - master
+build-image:
+  extends: .buildkit
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

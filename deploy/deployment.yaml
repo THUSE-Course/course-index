@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: course-index
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: course-index
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: course-index
+    spec:
+      containers:
+        - name: nginx
+          image: registry.t.secoder.net/root/course-index:replace-me
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            requests:
+              cpu: 25m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
