@@ -2017,37 +2017,31 @@
 <h2 id="cookie">Cookie 与基于令牌的身份认证<a class="headerlink" href="#cookie" title="Permanent link">¶</a></h2>
 <p>Cookie 是存储在浏览器之中的一段信息。Cookie 属于域名，即每一个 Cookie 在其所属的域名的所有网页中有效。当某域名的后端服务器返回的 HTTP 应答的应答头中包含 <code>Set-Cookie</code> 字段时，浏览器会据此设定该域名下的 Cookie 信息。此外，当访问某一个域名时，浏览器会<strong>无条件地自动</strong>将该域名的 Cookie 信息携带在 HTTP 请求之中。</p>
 <p>回忆一下身边的 Web 应用（例如 info 网站），大多都需要我们先登录账号，在登录的基础上，应用中的信息都是和这个账号相关的了。然而先前提到过，Web 应用常用的 HTTP 协议是无状态的。具体来说，后端服务器基于 HTTP 协议无法分辨发出登录和请求数据的是否是同一个用户。</p>
-<center>
-    ![](../static/jwt-http.svg)
-</center>
-
+<div align="center">
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/jwt-http.svg" data-desc-position="bottom"><img alt="HTTP 请求无法关联用户身份的时序图" src="../../static/jwt-http.svg"></a></p>
+</div>
 <p>为了让后续请求具体数据的 HTTP 请求能够识别身份，基于令牌的身份认证是一种常见的方法。这一方案的原理是后端服务器在处理登录请求的时候向浏览器返还一个令牌（Token），浏览器收到令牌之后将其存放在浏览器的 Cookie 缓存（当然其他本地存储实际上也是可行的）中，并且在之后的每一次 HTTP 请求中均携带该令牌以证明身份。</p>
-<center>
-    ![](../static/jwt-token.svg)
-</center>
-
+<div align="center">
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/jwt-token.svg" data-desc-position="bottom"><img alt="通过令牌关联用户身份的时序图" src="../../static/jwt-token.svg"></a></p>
+</div>
 <p>在更一般的实践中，后端服务器所负担的用户认证（上例中的令牌签发）与实际数据处理（上例中的数据应答）往往可以分离。即分设一个认证服务器和一个数据服务器，认证服务器专用于接受用户的登录请求和签发令牌，数据服务器则仅在提供有效令牌的基础上返回相应的数据。</p>
 <p>以 info 网站为例，在登录 info 网站之后，可以在控制台的应用程序-存储标签页找到 Cookie 信息。可以看到 Cookie 是按照域名分类的：</p>
-<center>
-    ![](../static/jwt-cookie.png)
-</center>
-
+<div align="center">
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/jwt-cookie.png" data-desc-position="bottom"><img alt="浏览器开发者工具中的 Cookie 信息" src="../../static/jwt-cookie.png"></a></p>
+</div>
 <p>而如果观察网络标签页中的网络请求，会发现部分涉及到登录的请求的应答中包含了 <code>Set-Cookie</code> 字段，浏览器据此设置了该域名下的 Cookie。这里展现的是综合教务平台的登录请求：</p>
-<center>
-    ![](../static/jwt-setcookie.jpg)
-</center>
-
+<div align="center">
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/jwt-setcookie.jpg" data-desc-position="bottom"><img alt="登录响应中的 Set-Cookie 响应头" src="../../static/jwt-setcookie.jpg"></a></p>
+</div>
 <p>而之后所有涉及到综合教务平台的数据请求均会在请求头中发现这一段 Cookie。这里可以看到请求头中存在一条 <code>Cookie</code> 字段，而这个字段的内容应当和先前登录应答的应答头中 <code>Set-Cookie</code> 字段以及浏览器的 Cookie 存储相一致：</p>
-<center>
-    ![](../static/jwt-sendcookie.jpg)
-</center>
-
+<div align="center">
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/jwt-sendcookie.jpg" data-desc-position="bottom"><img alt="数据请求中的 Cookie 请求头" src="../../static/jwt-sendcookie.jpg"></a></p>
+</div>
 <h3 id="csrf">CSRF 攻击<a class="headerlink" href="#csrf" title="Permanent link">¶</a></h3>
 <p>现在我们讨论通过 Cookie 实现的基于令牌的身份认证系统的缺陷。事实上，后端服务器所签发的令牌完整地代表了用户的身份，而这一点使得伪造请求变得容易。CSRF 攻击（<strong>C</strong>ross <strong>S</strong>ite <strong>R</strong>equest <strong>F</strong>orgery，跨网站请求伪造）则利用了这一点，只需要在其提供的恶意网站中嵌入读取 Cookie 的 JavaScript 代码并据此发送非用户本意的 HTTP 请求即可。</p>
-<center>
-    ![](../static/jwt-csrf.svg)
-</center>
-
+<div align="center">
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/jwt-csrf.svg" data-desc-position="bottom"><img alt="CSRF 攻击流程图" src="../../static/jwt-csrf.svg"></a></p>
+</div>
 <p>为了防御 CSRF 攻击，最简单的方式就是禁止通过 JavaScript 脚本读取 Cookie 信息，这个可以通过在 Cookie 的内容中将 <code>HttpOnly</code> 字段设置为 <code>true</code> 完成。若如此设置，那么通过 JavaScript 脚本是无法获取到该 Cookie 内容的。</p>
 <p>此外，CSRF 攻击还有一个重要特征，即伪造的请求（通常）是从攻击者网页的域发起的。那么，有两种常用的阻止方式：</p>
 <ul>
@@ -2064,10 +2058,9 @@
 <p>由于在令牌系统的基础上，我们访问实际的数据 API 都需要携带令牌。如果我们在实际后端服务器之前另设一个网关来负责检验令牌和识别身份，那么这个网关完全具有能力以记录每个用户的访问轨迹，并据此控制访问频率，一定程度上限制流量以平衡后端服务器负载。</p>
 <h2 id="jwt">令牌的一个例子——JWT<a class="headerlink" href="#jwt" title="Permanent link">¶</a></h2>
 <p>我们来简单叙述一个令牌的例子，即 JWT（<strong>J</strong>SON <strong>W</strong>eb <strong>T</strong>oken）。一个 JWT 是使用 <code>.</code> 分割为三部分的一串字符串：</p>
-<center>
-    ![](../static/jwt.png)
-</center>
-
+<div align="center">
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/jwt.png" data-desc-position="bottom"><img alt="JWT 的头部、载荷和签名结构" src="../../static/jwt.png"></a></p>
+</div>
 <p>第一部分是<strong>头部</strong>。这一部分主要包含两个信息：</p>
 <ul>
 <li>令牌类型，这里固定为 <code>"typ": "JWT"</code></li>
@@ -2145,7 +2138,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2023年9月15日 15:15:17 UTC">2023年9月15日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年9月22日 09:21:07 UTC">2026年9月22日</span>
   </span>
 
     
@@ -2156,12 +2149,13 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="贡献者">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"></path></svg>
       
     </span>
     <nav>
       
-        <a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a>
+        <a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a>, 
+        <a href="mailto:i@aajax.top">Ajax Dong</a>
     </nav>
   </span>
 
@@ -2177,7 +2171,7 @@
     
         <div class="md-source-date">
             <small>
-                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a></span>
+                作者: <span class="git-page-authors git-authors"><a href="mailto:qhd19@mails.tsinghua.edu.cn">Ashitemaru</a> (77.56%), <a href="mailto:i@aajax.top">Ajax Dong</a> (22.44%)</span>
             </small>
         </div>
     
