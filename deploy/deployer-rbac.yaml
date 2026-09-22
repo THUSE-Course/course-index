@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: course-index-deployer
+  namespace: prod
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: course-index-deployer
+  namespace: prod
+rules:
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+    resourceNames:
+      - course-index
+    verbs:
+      - get
+      - patch
+      - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: course-index-deployer
+  namespace: prod
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: course-index-deployer
+subjects:
+  - kind: ServiceAccount
+    name: course-index-deployer
+    namespace: prod

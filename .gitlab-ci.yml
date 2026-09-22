@@ -1,5 +1,6 @@
 stages:
   - build
+  - deploy
 
 .buildkit:
   image:
@@ -37,5 +38,65 @@ stages:
 
 build-image:
   extends: .buildkit
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+deploy-production:
+  image:
+    name: alpine/k8s:1.35.1
+    entrypoint: [""]
+  stage: deploy
+  needs:
+    - build-image
+  resource_group: course-index-production
+  environment:
+    name: production
+    url: https://course-index.t.secoder.net
+  variables:
+    DEPLOY_NAMESPACE: prod
+    DEPLOYMENT_NAME: course-index
+    CONTAINER_NAME: nginx
+  script:
+    - |
+      set -eu
+      unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY ALL_PROXY all_proxy NO_PROXY no_proxy
+      : "${KUBE_TOKEN:?KUBE_TOKEN is required}"
+      : "${KUBERNETES_SERVICE_HOST:?not running in Kubernetes}"
+      : "${KUBERNETES_SERVICE_PORT:?not running in Kubernetes}"
+
+      kube() {
+        kubectl --token="${KUBE_TOKEN}" --namespace="${DEPLOY_NAMESPACE}" "$@"
+      }
+
+      wait_for_rollout() {
+        attempt=0
+        while [ "${attempt}" -lt 60 ]; do
+          rollout_state="$(kube get deployment "${DEPLOYMENT_NAME}" -o custom-columns='GEN:.metadata.generation,OBS:.status.observedGeneration,DESIRED:.spec.replicas,UPDATED:.status.updatedReplicas,READY:.status.readyReplicas,AVAILABLE:.status.availableReplicas' --no-headers)"
+          set -- ${rollout_state}
+          if [ "$#" -eq 6 ] && [ "$1" = "$2" ] && [ "$3" = "$4" ] && [ "$3" = "$5" ] && [ "$3" = "$6" ]; then
+            echo "Rollout ready: ${rollout_state}"
+            return 0
+          fi
+          attempt=$((attempt + 1))
+          sleep 5
+        done
+        echo "Rollout timed out: ${rollout_state}" >&2
+        return 1
+      }
+
+      target_image="${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}"
+      previous_image="$(kube get deployment "${DEPLOYMENT_NAME}" -o jsonpath="{.spec.template.spec.containers[?(@.name=='${CONTAINER_NAME}')].image}")"
+      test -n "${previous_image}"
+
+      kube set image deployment/"${DEPLOYMENT_NAME}" "${CONTAINER_NAME}=${target_image}"
+      if ! wait_for_rollout; then
+        echo "Rollout failed; restoring ${previous_image}"
+        kube set image deployment/"${DEPLOYMENT_NAME}" "${CONTAINER_NAME}=${previous_image}"
+        wait_for_rollout || echo "Rollback did not become ready within five minutes" >&2
+        exit 1
+      fi
+
+      deployed_image="$(kube get deployment "${DEPLOYMENT_NAME}" -o jsonpath="{.spec.template.spec.containers[?(@.name=='${CONTAINER_NAME}')].image}")"
+      test "${deployed_image}" = "${target_image}"
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
