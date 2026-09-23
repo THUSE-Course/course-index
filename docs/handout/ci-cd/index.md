@@ -27,10 +27,14 @@
 |-|-|-|
 |`TOKEN`|SECoder 个人资料页面中的 Kubernetes API 令牌|Masked|
 |`NAMESPACE`|`u-<学号>`|普通变量|
-|`GITLAB_REGISTRY_USER`|Registry Token 对应的 GitLab 用户名|普通变量|
-|`GITLAB_PAT`|具有 `read_registry` 权限的 Token|Masked|
+|`GITLAB_REGISTRY_USER`|当前项目 Deploy Token 的用户名|普通变量|
+|`GITLAB_DEPLOY_TOKEN`|当前项目 Deploy Token 的值|Masked|
 
-Registry Token 用于让 Kubernetes 在 CI 作业结束后仍能从私有 Registry 拉取镜像。它只需要 `read_registry` 权限，不要为完成本作业授予 `api`、`write_repository` 等无关权限。
+### 创建项目 Deploy Token
+
+前后端两个 Private 项目需要分别创建 Deploy Token：进入各项目的 **Settings → Repository → Deploy tokens**，点击 **Add token**，填写名称（例如 `registry-pull`）并按需设置到期日期；权限只勾选 `read_registry`，然后创建。创建后立即复制页面显示的用户名和 Token，分别填入该项目的 `GITLAB_REGISTRY_USER` 和 `GITLAB_DEPLOY_TOKEN`；离开页面后无法再次查看 Token。
+
+这个凭据供 Kubernetes 在 CI 作业结束后继续拉取私有镜像，不需要 `read_repository` 或镜像推送权限。到期或轮换后，更新对应项目的 CI 变量并重新运行部署流水线，以更新 Kubernetes 中的拉取 Secret。详见 [GitLab Deploy Token 文档](https://docs.gitlab.com/user/project/deploy_tokens/)。
 
 !!! warning "不要提交凭据"
 

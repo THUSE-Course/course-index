@@ -140,10 +140,10 @@ SECoder 部署还需要项目变量：
 |-|-|
 |`TOKEN`|SECoder 个人资料页面中的 Kubernetes API 令牌|
 |`NAMESPACE`|个人命名空间 `u-<学号>`|
-|`GITLAB_REGISTRY_USER`|长期 Registry 凭据对应的 GitLab 用户名|
-|`GITLAB_PAT`|具有 `read_registry` 权限的 Token|
+|`GITLAB_REGISTRY_USER`|当前项目 Deploy Token 的用户名|
+|`GITLAB_DEPLOY_TOKEN`|当前项目具有 `read_registry` 权限的 Deploy Token|
 
-`TOKEN` 与 `GITLAB_PAT` 必须设为 Masked，不应出现在 `.gitlab-ci.yml`、仓库文件或 Job 日志中。轮换 SECoder API 令牌后，要同步更新所有项目中的 `TOKEN`。
+`TOKEN` 与 `GITLAB_DEPLOY_TOKEN` 必须设为 Masked，不应出现在 `.gitlab-ci.yml`、仓库文件或 Job 日志中。轮换 SECoder API 令牌后，要同步更新所有项目中的 `TOKEN`。项目 Deploy Token 的创建和轮换步骤见 [CI/CD 小作业](../handout/ci-cd/index.md#deploy-token)。
 
 ## Rules
 

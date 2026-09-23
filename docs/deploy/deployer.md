@@ -163,10 +163,12 @@ kubectl kustomize deploy
 |-|-|-|
 |`TOKEN`|SECoder 个人资料页面中的 Kubernetes API 令牌|Masked|
 |`NAMESPACE`|个人命名空间，例如 `u-2026000000`|普通变量|
-|`GITLAB_REGISTRY_USER`|创建 Registry Token 的 GitLab 用户名|普通变量|
-|`GITLAB_PAT`|具有 `read_registry` 权限的长期有效 Token|Masked|
+|`GITLAB_REGISTRY_USER`|当前项目 Deploy Token 的用户名|普通变量|
+|`GITLAB_DEPLOY_TOKEN`|当前项目具有 `read_registry` 权限的 Deploy Token|Masked|
 
 `CI_REGISTRY`、`CI_REGISTRY_IMAGE`、`CI_REGISTRY_USER`、`CI_REGISTRY_PASSWORD` 和 `CI_COMMIT_SHA` 由 GitLab 自动提供，用于在当前 CI 作业中构建并推送镜像。
+
+Deploy Token 的创建和轮换步骤见 [CI/CD 小作业](../handout/ci-cd/index.md#deploy-token)。
 
 ## GitLab CI/CD
 
@@ -235,12 +237,12 @@ deploy:
     - |
       set -eu
       : "${GITLAB_REGISTRY_USER:?GITLAB_REGISTRY_USER is required}"
-      : "${GITLAB_PAT:?GITLAB_PAT is required}"
+      : "${GITLAB_DEPLOY_TOKEN:?GITLAB_DEPLOY_TOKEN is required}"
       kubectl --token="${TOKEN}" -n "${NAMESPACE}" \
         create secret docker-registry gitlab-registry-2026-next-hw \
         --docker-server="${CI_REGISTRY}" \
         --docker-username="${GITLAB_REGISTRY_USER}" \
-        --docker-password="${GITLAB_PAT}" \
+        --docker-password="${GITLAB_DEPLOY_TOKEN}" \
         --dry-run=client -o yaml | \
         kubectl --token="${TOKEN}" -n "${NAMESPACE}" apply -f -
     - sed -i "s|registry.example.invalid/2026-next-hw:latest|${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}|" deploy/deployment.yaml
