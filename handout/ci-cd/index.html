@@ -857,7 +857,7 @@
   <span class="md-ellipsis">
     
   
-    SonarQube
+    代码质量检查（SonarQube）
   
 
     
@@ -1947,6 +1947,7 @@
 <li><a href="../../deploy/kubectl/">kubectl</a></li>
 <li><a href="../../deploy/deployer/">Kubernetes 部署</a></li>
 <li><a href="../../deploy/gitlab-ci/">GitLab CI/CD</a></li>
+<li><a href="../../deploy/sonarqube/">代码质量检查（SonarQube）</a></li>
 </ul>
 <h2 id="_1">项目准备<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
 <p>在自己的 SECoder GitLab 命名空间中创建两个 Private 项目：</p>
@@ -1988,6 +1989,7 @@
 </tr>
 </tbody>
 </table>
+<p>后端接入质量门禁时，再添加 <code>SONAR_HOST_URL=https://sonar.t.secoder.net</code> 和 SonarQube 项目分析令牌 <code>SONAR_TOKEN</code>。后者设置为 Masked and hidden、Protected，并关闭变量展开；默认分支设为受保护分支。具体创建步骤见<a href="../../deploy/sonarqube/">代码质量检查</a>。</p>
 <h3 id="deploy-token">创建项目 Deploy Token<a class="headerlink" href="#deploy-token" title="Permanent link">¶</a></h3>
 <p>前后端两个 Private 项目需要分别创建 Deploy Token：进入各项目的 <strong>Settings → Repository → Deploy tokens</strong>，点击 <strong>Add token</strong>，填写名称（例如 <code>registry-pull</code>）并按需设置到期日期；权限只勾选 <code>read_registry</code>，然后创建。创建后立即复制页面显示的用户名和 Token，分别填入该项目的 <code>GITLAB_REGISTRY_USER</code> 和 <code>GITLAB_DEPLOY_TOKEN</code>；离开页面后无法再次查看 Token。</p>
 <p>这个凭据供 Kubernetes 在 CI 作业结束后继续拉取私有镜像，不需要 <code>read_repository</code> 或镜像推送权限。到期或轮换后，更新对应项目的 CI 变量并重新运行部署流水线，以更新 Kubernetes 中的拉取 Secret。详见 <a href="https://docs.gitlab.com/user/project/deploy_tokens/">GitLab Deploy Token 文档</a>。</p>
@@ -2020,6 +2022,7 @@ deploy/
 <p>正常的默认分支流水线应依次完成：</p>
 <ol>
 <li>运行单元测试和代码风格检查。</li>
+<li>后端运行 SonarQube 分析并等待质量门禁通过，扫描失败时阻断后续构建与部署。</li>
 <li>使用 BuildKit 构建 Docker 镜像。</li>
 <li>使用提交 SHA 作为镜像标签并推送到 GitLab Container Registry。</li>
 <li>创建或更新 Registry 拉取 Secret。</li>
@@ -2037,7 +2040,7 @@ kubectl<span class="w"> </span>kustomize<span class="w"> </span>deploy
 <span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>deployment,pod,service,httproute
 kubectl<span class="w"> </span>get<span class="w"> </span>events<span class="w"> </span>--sort-by<span class="o">=</span>.metadata.creationTimestamp
 </code></pre></div></td></tr></tbody></table></div>
-<p>若出现错误，先确定失败发生在测试、镜像构建还是 Kubernetes 部署阶段，再按照 <a href="../../deploy/kubectl/#troubleshooting">kubectl 排查应用</a>逐层检查。提问时提供已隐藏凭据的 Job 日志和资源状态。</p>
+<p>若出现错误，先确定失败发生在测试、质量检查、镜像构建还是 Kubernetes 部署阶段。质量检查问题见 <a href="../../deploy/sonarqube/">SonarQube 排查说明</a>，部署问题按照 <a href="../../deploy/kubectl/#troubleshooting">kubectl 排查应用</a>逐层检查。提问时提供已隐藏凭据的 Job 日志和资源状态。</p>
 
 
 
@@ -2058,7 +2061,7 @@ kubectl<span class="w"> </span>get<span class="w"> </span>events<span class="w">
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年9月23日 10:59:04 UTC">2026年9月23日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年10月18日 04:25:53 UTC">2026年10月18日</span>
   </span>
 
     
@@ -2091,7 +2094,7 @@ kubectl<span class="w"> </span>get<span class="w"> </span>events<span class="w">
     
         <div class="md-source-date">
             <small>
-                作者: <span class="git-page-authors git-authors"><a href="mailto:i@aajax.top">Ajax Dong</a> (69.66%), <a href="mailto:wangbw21@mails.tsinghua.edu.cn">abmfy</a> (30.34%)</span>
+                作者: <span class="git-page-authors git-authors"><a href="mailto:i@aajax.top">Ajax Dong</a> (70.97%), <a href="mailto:wangbw21@mails.tsinghua.edu.cn">abmfy</a> (29.03%)</span>
             </small>
         </div>
     
