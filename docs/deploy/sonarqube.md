@@ -1,66 +1,223 @@
-# SonarQube
+# 代码质量检查（SonarQube）
 
-SonarQube 是一个自动代码评审工具，能够对代码进行静态分析并发现潜在的问题。SECoder 使用 SonarQube 对源代码和测试报告进行分析。
+SonarQube 会分析源代码和测试报告, 帮助你发现潜在错误、安全问题与维护成本较高的写法. 本章以 Django 后端为例, 将分析接入 GitLab CI/CD: 测试通过后执行扫描, 质量门禁通过后再构建和部署.
 
-## `sonar-project.properties`
+## 登录并导入项目
 
-在 [GitLab CI/CD](gitlab-ci.md) 文档中，我们在执行完测试之后运行了 SonarScanner。SonarScanner 会从根目录下的 `sonar-project.properties` 读取项目配置，进行代码分析后将结果上传到 SECoder 平台。不同语言项目的配置也不尽相同，这里我们以 Python 的配置为例讲解基本的配置项目。
+1. 从 SECoder 概览页进入 [SonarQube](https://sonar.t.secoder.net), 点击 **Log in with GitLab**. 首次使用时先完成 GitLab 的 SECoder 登录.
+
+    ![通过 GitLab 登录 SonarQube](../static/sonarqube/sonar-desktop-01.png)
+
+2. 在 SonarQube 的项目页选择 **Create Project → From GitLab**. 页面提示提供 GitLab Personal Access Token 时, 到 GitLab 的 **头像菜单 → Edit profile → Access → Personal access tokens** 创建令牌.
+
+    当前 GitLab 的入口为 **Generate token → Legacy token**. 填写名称和到期日期, 权限只勾选 **read_api**, 创建后立即复制令牌. 该令牌用于读取仓库列表并导入项目.
+
+    ![创建用于仓库导入的 GitLab 只读令牌](../static/sonarqube/sonar-desktop-02.png)
+
+3. 将令牌填写到 SonarQube 的导入页面并保存. 搜索自己的仓库, 核对 **See on GitLab** 的地址, 勾选后点击 **Import**.
+
+    ![搜索并选择要导入的 Django 仓库](../static/sonarqube/sonar-desktop-03.png)
+
+4. 新代码定义选择 **Follows the instance’s default**, 再点击 **Create project**. 创建完成后选择 **With GitLab CI**, 语言选择 **Python**.
+
+截图中的 `django-backend` 是演示项目. 配置自己的项目时, 使用自己的仓库和导入后生成的 Project Key.
+
+## 配置分析令牌
+
+在 GitLab CI 引导页点击 **Generate a token**, 为当前项目生成 Project Analysis Token, 设置名称和合适的有效期. 令牌只用于分析当前项目; 页面只显示一次, 创建后立即复制到 CI/CD 变量中.
+
+![生成当前项目的 SonarQube 分析令牌](../static/sonarqube/sonar-desktop-04.png)
+
+进入 GitLab 项目的 **Settings → CI/CD → Variables**, 添加:
+
+| Key | Value | 设置 |
+| --- | --- | --- |
+| `SONAR_HOST_URL` | `https://sonar.t.secoder.net` | 普通变量 |
+| `SONAR_TOKEN` | 刚生成的 SonarQube Project Analysis Token | Masked and hidden, Protected; 关闭变量展开 |
+
+本章只扫描默认分支. 默认分支需要在 **Settings → Repository → Branch rules** 中设为 Protected, 才能读取 Protected 的分析令牌. 若引导页建议取消 Protect Variable, 以本章的分支规则与变量设置为准.
+
+![项目中的 SonarQube CI/CD 变量](../static/sonarqube/sonar-desktop-05.png)
+
+GitLab PAT 用于导入仓库, `SONAR_TOKEN` 用于上传分析结果, 部署使用的 `TOKEN` 则是 Kubernetes API 令牌. 分别保存它们, 到期或轮换后更新对应位置. 截图、仓库和日志中都应隐藏完整凭据.
+
+## 生成测试报告
+
+SonarQube 读取测试工具生成的报告. Django 示例使用 Python 3.11、pytest 和 Coverage.py, 先安装项目依赖, 再执行测试.
+
+在仓库根目录增加 `.coveragerc`:
+
+```ini
+[run]
+relative_files = True
+source = .
+omit =
+    manage.py
+    */tests.py
+    */migrations/*
+
+[xml]
+output = coverage-reports/coverage.xml
+```
+
+`source = .` 使报告中的文件名保留 `board/`、`DjangoHW/` 等目录前缀, 避免多个 `__init__.py` 产生歧义. 相对路径也便于扫描作业在下载产物后找到同一份源码.
+
+在现有 `pytest.ini` 中增加:
+
+```ini
+junit_family = xunit1
+```
+
+这样生成的 JUnit 报告包含文件位置信息, 便于 SonarQube 对应到测试文件. 保留原有的 Django settings 和测试文件匹配规则.
+
+`test.sh` 使用:
+
+```sh
+coverage run -m pytest --junit-xml=xunit-reports/xunit-result.xml
+ret=$?
+coverage xml -o coverage-reports/coverage.xml
+coverage report
+exit "$ret"
+```
+
+脚本会输出覆盖率与测试执行报告, 并保留 pytest 的退出状态. 测试失败时, 流水线应停止.
+
+## 配置扫描范围
+
+在根目录的 `sonar-project.properties` 中填写:
 
 ```properties
-sonar.inclusions=app/**/*,tests/**/*
+sonar.projectKey=替换为导入项目时生成的ProjectKey
+sonar.projectName=django-backend
+sonar.sources=DjangoHW,board,utils
+sonar.tests=board
+sonar.test.inclusions=board/tests.py
+sonar.inclusions=DjangoHW/**/*.py,board/**/*.py,utils/**/*.py
+sonar.exclusions=**/__pycache__/**,**/migrations/**,board/tests.py
+sonar.python.version=3.11
 
 sonar.python.coverage.reportPaths=coverage-reports/coverage.xml
 sonar.python.xunit.reportPath=xunit-reports/xunit-result.xml
-
-sonar.coverage.exclusions=tests/**/*
 ```
 
-### 需要分析的代码
+- `sonar.sources` 指定业务源码根目录, 注意属性名末尾有 **s**.
+- `sonar.tests` 与 `sonar.test.inclusions` 指定测试文件. `board/tests.py` 从业务源码中排除后, 仍作为测试代码参与分析.
+- `sonar.inclusions` 和 `sonar.exclusions` 控制源码分析范围; `**` 匹配任意层级目录.
+- 两个报告路径必须对应测试作业实际生成并上传的文件.
 
-我们可以通过 `inclusions` 指定需要分析的代码。这一项是一个逗号分隔的路径列表，允许使用 `*` 和 `**` 通配符，其中 `**` 代表任意层级的目录。
+这个示例对应 `board/tests.py` 的目录结构. 项目的测试放在其他位置时, 应同时调整测试分类、Coverage.py 配置与报告路径.
 
-在这里，我们通过 `inclusions` 指定了代码分析需要包含 `app` 和 `tests` 以及它们的子目录下的所有文件。不在其中的代码将不会被 SonarQube 检查。一般来说，我们会将所有自己编写的代码 (包括测试代码) 纳入分析，而将框架生成的代码和第三方库如 Django 生成的项目框架、`node_modules` 等排除在分析外。
+## 将质量门禁加入流水线
 
-此外，我们也可以使用 `exclusions` 指明需要排除的代码。默认情况下，整个项目目录都会被纳入分析，因此只指定 `exclusions` 时将会分析除了 `exclusions` 外的所有其他代码。
+在现有 `.gitlab-ci.yml` 中合入下面的质量检查配置. 构建和部署继续使用项目已有的 BuildKit 与 Kustomize 配置.
 
-### 测试报告
+```yaml
+stages:
+  - test
+  - quality
+  - build
+  - deploy
 
-测试报告分为两部分：测试覆盖率报告和测试执行报告。测试覆盖率报告检查被测试了的源代码占所有源代码的比例，并分析哪些代码还没有被测试覆盖。测试执行报告则会具体地给出每一个测试的执行结果。
+sonarqube-check:
+  image:
+    name: sonarsource/sonar-scanner-cli:11
+    entrypoint: [""]
+  stage: quality
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+    GIT_DEPTH: "0"
+  cache:
+    key: "sonar-cache-$CI_COMMIT_REF_SLUG"
+    paths:
+      - .sonar/cache
+  needs:
+    - job: unit-test
+      artifacts: true
+  script:
+    - test -s coverage-reports/coverage.xml
+    - test -s xunit-reports/xunit-result.xml
+    - sonar-scanner -Dsonar.host.url="${SONAR_HOST_URL}" -Dsonar.qualitygate.wait=true -Dsonar.qualitygate.timeout=300
+  allow_failure: false
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+```
 
-接下来我们指定测试报告路径。`python.coverage.reportPaths` 指定了测试覆盖率报告的路径，在这里即我们在 [GitLab CI/CD](gitlab-ci.md) 文档中使用 `coverage` 命令生成的报告。`python.xunit.reportPath` 指定测试执行报告的路径，在这里即我们在 [GitLab CI/CD](gitlab-ci.md) 文档中使用 `coverage` 命令运行 `pytest` 测试时指定的报告路径。
+测试作业 `unit-test` 应通过 `sh test.sh` 生成报告, 并配置产物:
 
-最后，由于我们不会要求测试代码也被测试覆盖 (套娃)，我们将测试代码排除在覆盖率计算之外。
+```yaml
+  artifacts:
+    when: always
+    reports:
+      junit: xunit-reports/xunit-result.xml
+    paths:
+      - coverage-reports/coverage.xml
+      - xunit-reports/xunit-result.xml
+```
 
-!!! note "其他语言的配置"
+`needs: artifacts: true` 让扫描作业下载这些文件. `GIT_DEPTH: "0"` 保留分析所需的提交历史. `sonar.qualitygate.wait=true` 会等待服务端计算质量门禁; 门禁不通过或等待超时, 扫描作业都会失败.
 
-    你可以在 [Test Coverage & Execution](https://docs.sonarsource.com/sonarqube-server/analyzing-source-code/test-coverage/overview/) 查看每种语言的测试覆盖率如何配置。
+镜像构建放在 `build` 阶段, 通过阶段顺序等待质量检查. 部署作业还应显式依赖扫描成功, 将以下依赖合入已有配置:
 
-## SonarQube 平台
+```yaml
+deploy:
+  stage: deploy
+  needs:
+    - job: build-image
+      artifacts: true
+    - job: sonarqube-check
+      artifacts: false
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+```
 
-在代码分析完毕后，我们就可以在 SECoder 的 [SonarQube](https://sonar.t.secoder.net/) 平台上查看代码分析结果。
+GitLab 的 `needs` 可以跨越阶段直接调度作业, 因此已有依赖列表也必须纳入质量检查. 扫描与部署使用相同的默认分支规则, 避免部署依赖一个未被创建的作业.
 
-我们可以进入项目来查看更详细的分析，这些分析有助于你更好地开发出符合软件工程规范的应用。
+课程扫描模板需要直接内联到项目中. 模板默认的 `allow_failure: true` 应改为本章使用的 `false`, 才能形成严格门禁.
 
-### 代码异味 (Code Smell)
+## 查看扫描与门禁结果
 
-代码异味指不符合开发规范，可能带来潜在问题的代码。例如，过于庞大复杂的函数、多次重复的代码段或魔法数字、空的代码块等等都可能造成代码异味。SonarQube 会为每个代码异味评估风险等级以及预计修复时间，可以在 SonarQube 平台上检查这些代码异味并进行解决。
+提交并推送后, 在 GitLab **Build → Pipelines** 检查 `unit-test`、`sonarqube-check`、`build-image`、`deploy` 的状态. 扫描日志末尾应出现 `QUALITY GATE STATUS: PASSED`, 并提供项目结果链接.
 
-!!! tip "可以手动确认并忽略 SonarQube 认定的代码异味"
+![首次扫描的作业日志](../static/sonarqube/sonar-desktop-06.png)
 
-    如果确认某些被认定的代码异味有其存在的必要 / 是 SonarQube 误判了, 则可以手动确认并忽略这些异味. 但 **这并不意味着你可以通过这种方式逃避检查**.
+在 SonarQube 项目中查看:
 
-    安全热点也同理.
+- **Overview**: 质量门禁与主要指标.
+- **Issues**: 问题的规则、严重程度、代码位置与修复建议.
+- **Security Hotspots**: 需要结合业务场景审核的安全敏感代码.
+- **Measures**: 覆盖率、测试结果、重复率与复杂度等数据.
 
-### 安全热点 (Security Hotspot)
+![问题详情与规则说明](../static/sonarqube/sonar-desktop-07.png)
 
-SonarQube 会检查项目中潜在的安全问题，例如 SQL 注入、拒绝服务攻击 (DoS) 以及跨站请求伪造 (CSRF) 等。SonarQube 会指出可能带来隐患的代码，解释为什么这是有风险的，并提供可能的解决方案。
+当前实例的 `Sonar way` 主要检查新代码: 新增问题为 0、覆盖率至少 80%、重复率不超过 3%、安全热点审核率达到 100%. 小规模变更的覆盖率和重复率可能按实例规则豁免, 实际判定以项目 **Quality gate** 页面为准.
 
-### 统计
+**New Code** 与 **Overall Code** 的范围不同. 首次分析用于建立基线, 门禁通过后整体代码中仍可能有历史问题. 阅读结果时应同时检查整体指标和问题列表, 并在后续提交中持续整改; 门禁通过不能替代对整个项目的检查.
 
-在统计界面可以查看项目的各种数据，包括测试覆盖率、代码重复率、代码复杂度 (圈复杂度和认知复杂度) 等。SonarQube 会基于各种数据对项目的可靠性、安全性、可维护性进行评估，在开发过程中可以参考这些数据改进项目的开发流程。
+![质量检查通过后的完整流水线](../static/sonarqube/sonar-desktop-08.png)
+
+![项目的质量门禁和整体分析结果](../static/sonarqube/sonar-desktop-09.png)
+
+## 常见问题
+
+| 现象 | 检查方式 |
+| --- | --- |
+| 导入页面看不到仓库 | 核对 GitLab 登录账号、项目成员权限和 PAT 的 `read_api` scope; 令牌到期后重新配置 |
+| 扫描鉴权失败 | 核对 `SONAR_TOKEN` 的类型、项目、有效期, 以及扫描分支是否能读取 Protected 变量 |
+| 报告不存在或覆盖率无数据 | 先检查测试产物, 再核对 `needs`、报告路径、XML 中的 source 和文件名 |
+| 日志提示文件路径有歧义 | 保留相对于仓库根目录的完整路径, 尤其注意多个同名文件 |
+| 质量门禁失败 | 查看失败条件和新代码范围, 修复问题后重新提交; 安全热点按实际用途审核 |
+| 扫描失败仍执行部署 | 检查 `allow_failure`、阶段顺序和部署作业的 `needs` |
+
+本例用一条单独的验收流水线覆盖为无效的 `SONAR_TOKEN`, 验证扫描鉴权失败后, `build-image` 和 `deploy` 都被跳过. 该变量仅对这条验收流水线生效; 随后的正常流水线继续使用项目原有分析令牌.
+
+![扫描失败时构建和部署被阻断](../static/sonarqube/sonar-desktop-10.png)
+
+配置成功后, 应能看到与当前提交 SHA 对应的分析记录、正确的测试数量和覆盖率, 且扫描失败时构建和部署被阻断.
 
 ## 参考资料
 
-你可以在 [SonarQube Server Documentation](https://docs.sonarsource.com/sonarqube-server/) 更详细地学习 SonarQube 的使用方法。SonarScanner 的配置方法见 [Analyzing source code](https://docs.sonarsource.com/sonarqube-server/analyzing-source-code/overview/)。
+- [SonarQube GitLab CI 配置](https://docs.sonarsource.com/sonarqube-community-build/devops-platform-integration/gitlab-integration/adding-analysis-to-gitlab-ci-cd)
+- [Python 测试覆盖率](https://docs.sonarsource.com/sonarqube-community-build/analyzing-source-code/test-coverage/python-test-coverage)
+- [测试执行报告参数](https://docs.sonarsource.com/sonarqube-community-build/analyzing-source-code/test-coverage/test-execution-parameters)
 
-在本课程提供的[样例项目](https://git.tsinghua.edu.cn/SEG/example)仓库中也可以找到几种常见项目框架的 SonarQube 配置，可供配置部署时参考。需要注意的是，这些样例项目都较为老旧，请在参考时注意版本和兼容性等问题。
+流水线基础见 [GitLab CI/CD](gitlab-ci.md), 应用发布配置见 [Kubernetes 部署](deployer.md), 后端作业要求见[后端部署](../handout/ci-cd/backend.md).

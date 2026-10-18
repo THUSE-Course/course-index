@@ -27,8 +27,9 @@ Stage 决定 Job 的执行顺序。同一 Stage 的 Job 可以并行运行；当
 
 ```yaml
 stages:
-  - build
   - test
+  - quality
+  - build
   - deploy
 ```
 
@@ -87,8 +88,9 @@ style-test:
 
 ```yaml
 stages:
-  - build
   - test
+  - quality
+  - build
   - deploy
 
 build-image:
@@ -120,6 +122,26 @@ deploy:
 
 实际项目的 `deploy` Job 还需要创建私有镜像拉取 Secret，并把 Deployment 中的镜像替换为 `${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}`。不要在多个页面之间拼猜命令，直接以 [Kubernetes 部署](deployer.md#gitlab-cicd)中的完整示例为基础修改资源名。
 
+### 加入代码质量门禁
+
+接入 SonarQube 时，将扫描作业放在 `quality` 阶段，等待单元测试完成并下载其报告。完整的 Django 扫描作业和报告生成方法见[代码质量检查](sonarqube.md)。配置 `sonar.qualitygate.wait=true`、`allow_failure: false`，扫描作业才能根据服务端质量门禁结果失败。
+
+默认分支的执行顺序为 `test → quality → build → deploy`。`needs` 可以绕过阶段等待，因此已有的部署依赖也要增加扫描作业：
+
+```yaml
+deploy:
+  extends: .kustomize
+  needs:
+    - job: build-image
+      artifacts: true
+    - job: sonarqube-check
+      artifacts: false
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+```
+
+将上述依赖合入已有部署作业，并保留原有变量与部署前准备。扫描作业同样只在默认分支运行；普通分支和 Merge Request 继续运行测试。当前 Community Build 的这套配置使用主分支分析。
+
 ## 变量
 
 GitLab 自动提供常用的预定义变量：
@@ -145,6 +167,8 @@ SECoder 部署还需要项目变量：
 
 `TOKEN` 与 `GITLAB_DEPLOY_TOKEN` 必须设为 Masked，不应出现在 `.gitlab-ci.yml`、仓库文件或 Job 日志中。轮换 SECoder API 令牌后，要同步更新所有项目中的 `TOKEN`。项目 Deploy Token 的创建和轮换步骤见 [CI/CD 小作业](../handout/ci-cd/index.md#deploy-token)。
 
+接入 SonarQube 的项目还需要 `SONAR_HOST_URL=https://sonar.t.secoder.net` 和当前项目的 `SONAR_TOKEN`。分析令牌设置为 Masked and hidden、Protected，并关闭变量展开；扫描默认分支必须受保护。GitLab 导入用的 PAT 与 SonarQube 分析令牌用途不同，创建与轮换步骤见[代码质量检查](sonarqube.md)。
+
 ## Rules
 
 使用 `rules` 限制 Job 在哪些提交上运行。例如只在默认分支构建和部署：
@@ -164,14 +188,17 @@ rules:
 unit-test:
   stage: test
   script:
-    - pytest --junitxml=xunit-reports/xunit-result.xml
+    - sh test.sh
   artifacts:
     when: always
     reports:
       junit: xunit-reports/xunit-result.xml
+    paths:
+      - coverage-reports/coverage.xml
+      - xunit-reports/xunit-result.xml
 ```
 
-即使上传报告，也必须保留测试命令的失败状态。报告用于解释失败，不能把失败的测试变成成功。
+这个 Django 示例的 `test.sh` 同时生成覆盖率和测试执行报告，具体脚本见[代码质量检查](sonarqube.md)。扫描作业通过 `needs` 中的 `artifacts: true` 下载报告。即使上传报告，也必须保留测试命令的失败状态。
 
 ## 排查流水线
 
@@ -179,6 +206,7 @@ unit-test:
 2. 从 Job 日志中找到第一条实际错误，不要只看最后的 `exit code 1`。
 3. build 失败时，在本地运行相同的 Docker 构建。
 4. test 失败时，在相同语言版本和锁文件下运行测试。
-5. deploy 失败时，检查 CI 变量是否存在，再使用 [kubectl](kubectl.md)查看资源和事件。
+5. quality 失败时，检查分析令牌、报告路径与 SonarQube 的质量门禁条件。
+6. deploy 失败时，检查 CI 变量是否存在，再使用 [kubectl](kubectl.md)查看资源和事件。
 
 更多 GitLab CI/CD 语法见 [GitLab CI/CD documentation](https://docs.gitlab.com/ci/)。

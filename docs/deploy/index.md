@@ -7,6 +7,6 @@
 3. [kubectl](kubectl.md)：查看集群资源、日志和发布状态。
 4. [Kubernetes 部署](deployer.md)：编写资源清单并通过 CI/CD 发布应用。
 5. [GitLab CI/CD](gitlab-ci.md)：理解流水线、作业、变量与测试报告。
-6. [SonarQube](sonarqube.md)：查看代码质量与安全分析结果。
+6. [代码质量检查（SonarQube）](sonarqube.md)：导入项目、配置扫描，并使用质量门禁控制部署。
 
 课程项目的正常发布入口是 GitLab CI/CD。Headlamp 和 kubectl 用于观察资源、定位错误，以及在有明确目的时进行调试或恢复。

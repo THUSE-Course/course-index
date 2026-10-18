@@ -9,6 +9,7 @@
 - [kubectl](../../deploy/kubectl.md)
 - [Kubernetes 部署](../../deploy/deployer.md)
 - [GitLab CI/CD](../../deploy/gitlab-ci.md)
+- [代码质量检查（SonarQube）](../../deploy/sonarqube.md)
 
 ## 项目准备
 
@@ -29,6 +30,8 @@
 |`NAMESPACE`|`u-<学号>`|普通变量|
 |`GITLAB_REGISTRY_USER`|当前项目 Deploy Token 的用户名|普通变量|
 |`GITLAB_DEPLOY_TOKEN`|当前项目 Deploy Token 的值|Masked|
+
+后端接入质量门禁时，再添加 `SONAR_HOST_URL=https://sonar.t.secoder.net` 和 SonarQube 项目分析令牌 `SONAR_TOKEN`。后者设置为 Masked and hidden、Protected，并关闭变量展开；默认分支设为受保护分支。具体创建步骤见[代码质量检查](../../deploy/sonarqube.md)。
 
 ### 创建项目 Deploy Token
 
@@ -64,11 +67,12 @@ deploy/
 正常的默认分支流水线应依次完成：
 
 1. 运行单元测试和代码风格检查。
-2. 使用 BuildKit 构建 Docker 镜像。
-3. 使用提交 SHA 作为镜像标签并推送到 GitLab Container Registry。
-4. 创建或更新 Registry 拉取 Secret。
-5. 使用 Kustomize 更新 Deployment、Service 和 HTTPRoute。
-6. 等待工作负载 Ready，并通过外部域名访问应用。
+2. 后端运行 SonarQube 分析并等待质量门禁通过，扫描失败时阻断后续构建与部署。
+3. 使用 BuildKit 构建 Docker 镜像。
+4. 使用提交 SHA 作为镜像标签并推送到 GitLab Container Registry。
+5. 创建或更新 Registry 拉取 Secret。
+6. 使用 Kustomize 更新 Deployment、Service 和 HTTPRoute。
+7. 等待工作负载 Ready，并通过外部域名访问应用。
 
 ## 自查
 
@@ -86,4 +90,4 @@ kubectl get deployment,pod,service,httproute
 kubectl get events --sort-by=.metadata.creationTimestamp
 ```
 
-若出现错误，先确定失败发生在测试、镜像构建还是 Kubernetes 部署阶段，再按照 [kubectl 排查应用](../../deploy/kubectl.md#troubleshooting)逐层检查。提问时提供已隐藏凭据的 Job 日志和资源状态。
+若出现错误，先确定失败发生在测试、质量检查、镜像构建还是 Kubernetes 部署阶段。质量检查问题见 [SonarQube 排查说明](../../deploy/sonarqube.md)，部署问题按照 [kubectl 排查应用](../../deploy/kubectl.md#troubleshooting)逐层检查。提问时提供已隐藏凭据的 Job 日志和资源状态。

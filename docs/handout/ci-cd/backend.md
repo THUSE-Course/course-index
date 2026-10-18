@@ -80,21 +80,25 @@ Deployment 至少应配置：
 
 ## GitLab CI/CD
 
-后端流水线包含 `build`、`test` 和 `deploy` 阶段：
+后端流水线依次包含 `test`、`quality`、`build` 和 `deploy` 阶段：
 
 - `unit-test` 使用 Python 3.11 镜像；
 - `before_script` 安装项目依赖；
 - `script` 创建并检查迁移，然后运行测试；
+- 测试作业上传覆盖率 XML 与 JUnit 报告，SonarQube 扫描作业下载这些产物并等待质量门禁通过；
 - BuildKit 构建并推送镜像；
 - Kustomize 将指定提交的镜像部署到个人命名空间；
 - 构建和部署只在默认分支执行，测试在普通分支和 Merge Request 中也应运行。
 
 不要把单元测试设为 `allow_failure`，也不要通过修改脚本返回值掩盖失败。
 
+按照[代码质量检查（SonarQube）](../../deploy/sonarqube.md)导入后端仓库，配置 `SONAR_TOKEN`、`SONAR_HOST_URL` 和 `sonar-project.properties`。扫描作业使用 `allow_failure: false`，部署作业显式依赖 `sonarqube-check`；扫描失败时停止构建与部署。
+
 ## 完成标准
 
 - 本地测试通过，Docker 镜像能够独立启动。
-- GitLab 流水线的测试、构建和部署 Job 均成功。
+- GitLab 流水线的测试、质量检查、构建和部署 Job 均成功。
+- SonarQube 中能看到当前提交的分析记录、测试数量和覆盖率，质量门禁通过；同时检查整体代码中的历史问题。
 - `kubectl get pods` 显示后端 Pod Ready。
 - Service 存在可用 EndpointSlice。
 - HTTPRoute 的 `Accepted` 和 `ResolvedRefs` 条件为 True。

@@ -89,7 +89,7 @@ nav:
     - kubectl: deploy/kubectl.md
     - Kubernetes 部署: deploy/deployer.md
     - GitLab CI/CD: deploy/gitlab-ci.md
-    - SonarQube: deploy/sonarqube.md
+    - 代码质量检查（SonarQube）: deploy/sonarqube.md
   - 小作业文档:
     - handout/index.md
     - 小作业需求文档: handout/requirement.md
