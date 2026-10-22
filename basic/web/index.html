@@ -1965,7 +1965,7 @@
 <p>网络协议从本质上而言就是规范计算机网络上数据传输格式等的一套共识。HTTP 是应用层网络协议，最初设计就是用于传输 HTML。其一般工作在 TCP 传输层协议上，然而 HTTP 并未规定其下层协议为何，事实上任何能提供可靠传输的下层协议理论上均可以支持 HTTP。</p>
 <p>TCP（传输控制协议，全称 <strong>T</strong>ransfer <strong>C</strong>ontrol <strong>P</strong>rotocol）协议是传输层协议，其是面向连接的，即意味着在实际的数据传输之前，需要先在数据发出方和接收方之间建立可靠的连接。相对于不面向可靠连接的 UDP（用户数据报协议，全称 <strong>U</strong>ser <strong>D</strong>atagram <strong>P</strong>rotocol）而言，TCP 协议更为可靠，但也因此相对低效。</p>
 <p>传输层协议下层常见的是网络层 IP（互联网协议，全称 <strong>I</strong>nternet <strong>P</strong>rotocol）协议，其常见版本为 IPv4 与 IPv6。在软件开发中可能会遇到 IP 地址，而 IP 地址就是为了标识和区分使用 IP 网络层协议的不同设备所分配的标志符。</p>
-<p>而我们常用的类似 <code>http://www.baidu.com</code> 等链接称为 <strong>URL（统一资源定位符，全称 Uniform Resource Locator）</strong>，也就是平时俗称的<strong>网址</strong>，其上定义了请求资源所要使用的协议（这里是 HTTP 协议），而 <code>www.baidu.com</code> 就是<strong>域名（Domain Name）</strong>。域名会通过 **DNS（域名系统，全称 Domain Name System）**解析为 IP 地址供数据交换。</p>
+<p>而我们常用的类似 <code>http://www.baidu.com</code> 等链接称为 <strong>URL（统一资源定位符，全称 Uniform Resource Locator）</strong>，也就是平时俗称的<strong>网址</strong>，其上定义了请求资源所要使用的协议（这里是 HTTP 协议），而 <code>www.baidu.com</code> 就是<strong>域名（Domain Name）</strong>。域名会通过 <strong>DNS（域名系统，全称 Domain Name System）</strong>解析为 IP 地址供数据交换。</p>
 <p>再向下的链路层 MAC，以及 DNS 域名解析系统的细节工作等等已经远超出软件工程课程需要大家掌握的内容了。</p>
 </div>
 <p>HTTP 协议中规定了各种方法，如 GET、POST、PUT、DELETE 等，用于标识该请求的目的（如 GET 表示该请求用于获取数据）。</p>

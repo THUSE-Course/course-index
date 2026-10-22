@@ -2093,16 +2093,16 @@
 <ol>
 <li>
 <p>从 SECoder 概览页进入 <a href="https://sonar.t.secoder.net">SonarQube</a>, 点击 <strong>Log in with GitLab</strong>. 首次使用时先完成 GitLab 的 SECoder 登录.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/sonarqube/sonar-desktop-01.png" data-desc-position="bottom"><img alt="通过 GitLab 登录 SonarQube" src="../../static/sonarqube/sonar-desktop-01.png"></a></p>
+<p></p>
 </li>
 <li>
 <p>在 SonarQube 的项目页选择 <strong>Create Project → From GitLab</strong>. 页面提示提供 GitLab Personal Access Token 时, 到 GitLab 的 <strong>头像菜单 → Edit profile → Access → Personal access tokens</strong> 创建令牌.</p>
 <p>当前 GitLab 的入口为 <strong>Generate token → Legacy token</strong>. 填写名称和到期日期, 权限只勾选 <strong>read_api</strong>, 创建后立即复制令牌. 该令牌用于读取仓库列表并导入项目.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/sonarqube/sonar-desktop-02.png" data-desc-position="bottom"><img alt="创建用于仓库导入的 GitLab 只读令牌" src="../../static/sonarqube/sonar-desktop-02.png"></a></p>
+<p></p>
 </li>
 <li>
 <p>将令牌填写到 SonarQube 的导入页面并保存. 搜索自己的仓库, 核对 <strong>See on GitLab</strong> 的地址, 勾选后点击 <strong>Import</strong>.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/sonarqube/sonar-desktop-03.png" data-desc-position="bottom"><img alt="搜索并选择要导入的 Django 仓库" src="../../static/sonarqube/sonar-desktop-03.png"></a></p>
+<p></p>
 </li>
 <li>
 <p>新代码定义选择 <strong>Follows the instance’s default</strong>, 再点击 <strong>Create project</strong>. 创建完成后选择 <strong>With GitLab CI</strong>, 语言选择 <strong>Python</strong>.</p>
@@ -2111,7 +2111,7 @@
 <p>截图中的 <code>django-backend</code> 是演示项目. 配置自己的项目时, 使用自己的仓库和导入后生成的 Project Key.</p>
 <h2 id="_2">配置分析令牌<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <p>在 GitLab CI 引导页点击 <strong>Generate a token</strong>, 为当前项目生成 Project Analysis Token, 设置名称和合适的有效期. 令牌只用于分析当前项目; 页面只显示一次, 创建后立即复制到 CI/CD 变量中.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/sonarqube/sonar-desktop-04.png" data-desc-position="bottom"><img alt="生成当前项目的 SonarQube 分析令牌" src="../../static/sonarqube/sonar-desktop-04.png"></a></p>
+<p></p>
 <p>进入 GitLab 项目的 <strong>Settings → CI/CD → Variables</strong>, 添加:</p>
 <table>
 <thead>
@@ -2135,7 +2135,7 @@
 </tbody>
 </table>
 <p>本章只扫描默认分支. 默认分支需要在 <strong>Settings → Repository → Branch rules</strong> 中设为 Protected, 才能读取 Protected 的分析令牌. 若引导页建议取消 Protect Variable, 以本章的分支规则与变量设置为准.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/sonarqube/sonar-desktop-05.png" data-desc-position="bottom"><img alt="项目中的 SonarQube CI/CD 变量" src="../../static/sonarqube/sonar-desktop-05.png"></a></p>
+<p></p>
 <p>GitLab PAT 用于导入仓库, <code>SONAR_TOKEN</code> 用于上传分析结果, 部署使用的 <code>TOKEN</code> 则是 Kubernetes API 令牌. 分别保存它们, 到期或轮换后更新对应位置. 截图、仓库和日志中都应隐藏完整凭据.</p>
 <h2 id="_3">生成测试报告<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
 <p>SonarQube 读取测试工具生成的报告. Django 示例使用 Python 3.11、pytest 和 Coverage.py, 先安装项目依赖, 再执行测试.</p>
@@ -2305,7 +2305,7 @@ coverage<span class="w"> </span>report
 <p>课程扫描模板需要直接内联到项目中. 模板默认的 <code>allow_failure: true</code> 应改为本章使用的 <code>false</code>, 才能形成严格门禁.</p>
 <h2 id="_6">查看扫描与门禁结果<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
 <p>提交并推送后, 在 GitLab <strong>Build → Pipelines</strong> 检查 <code>unit-test</code>、<code>sonarqube-check</code>、<code>build-image</code>、<code>deploy</code> 的状态. 扫描日志末尾应出现 <code>QUALITY GATE STATUS: PASSED</code>, 并提供项目结果链接.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/sonarqube/sonar-desktop-06.png" data-desc-position="bottom"><img alt="首次扫描的作业日志" src="../../static/sonarqube/sonar-desktop-06.png"></a></p>
+<p></p>
 <p>在 SonarQube 项目中查看:</p>
 <ul>
 <li><strong>Overview</strong>: 质量门禁与主要指标.</li>
@@ -2313,11 +2313,11 @@ coverage<span class="w"> </span>report
 <li><strong>Security Hotspots</strong>: 需要结合业务场景审核的安全敏感代码.</li>
 <li><strong>Measures</strong>: 覆盖率、测试结果、重复率与复杂度等数据.</li>
 </ul>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/sonarqube/sonar-desktop-07.png" data-desc-position="bottom"><img alt="问题详情与规则说明" src="../../static/sonarqube/sonar-desktop-07.png"></a></p>
+<p></p>
 <p>当前实例的 <code>Sonar way</code> 主要检查新代码: 新增问题为 0、覆盖率至少 80%、重复率不超过 3%、安全热点审核率达到 100%. 小规模变更的覆盖率和重复率可能按实例规则豁免, 实际判定以项目 <strong>Quality gate</strong> 页面为准.</p>
 <p><strong>New Code</strong> 与 <strong>Overall Code</strong> 的范围不同. 首次分析用于建立基线, 门禁通过后整体代码中仍可能有历史问题. 阅读结果时应同时检查整体指标和问题列表, 并在后续提交中持续整改; 门禁通过不能替代对整个项目的检查.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/sonarqube/sonar-desktop-08.png" data-desc-position="bottom"><img alt="质量检查通过后的完整流水线" src="../../static/sonarqube/sonar-desktop-08.png"></a></p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/sonarqube/sonar-desktop-09.png" data-desc-position="bottom"><img alt="项目的质量门禁和整体分析结果" src="../../static/sonarqube/sonar-desktop-09.png"></a></p>
+<p></p>
+<p></p>
 <h2 id="_7">常见问题<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
 <table>
 <thead>
@@ -2354,7 +2354,7 @@ coverage<span class="w"> </span>report
 </tbody>
 </table>
 <p>本例用一条单独的验收流水线覆盖为无效的 <code>SONAR_TOKEN</code>, 验证扫描鉴权失败后, <code>build-image</code> 和 <code>deploy</code> 都被跳过. 该变量仅对这条验收流水线生效; 随后的正常流水线继续使用项目原有分析令牌.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/sonarqube/sonar-desktop-10.png" data-desc-position="bottom"><img alt="扫描失败时构建和部署被阻断" src="../../static/sonarqube/sonar-desktop-10.png"></a></p>
+<p></p>
 <p>配置成功后, 应能看到与当前提交 SHA 对应的分析记录、正确的测试数量和覆盖率, 且扫描失败时构建和部署被阻断.</p>
 <h2 id="_8">参考资料<a class="headerlink" href="#_8" title="Permanent link">¶</a></h2>
 <ul>

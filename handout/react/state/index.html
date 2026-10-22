@@ -2044,7 +2044,7 @@
 <p>之后，你需要在两处完成代码填空。</p>
 <p>第一处在文件 <code>src/utils/logic.ts</code> 文件的 <code>flipCell</code> 函数中，你需要在注释 <code>// Step 3 BEGIN</code> 与 <code>// Step 3 END</code> 之间的部分填充你的代码以实现切换棋盘中某一个给定细胞的状态（存活变为死亡，死亡变为存活）的功能。本处填空的代码量在 20 行以内。</p>
 <p>为了确认第一处代码填空正确完成，可以运行命令 <code>pnpm test flip</code> 运行我们编写好的单元测试，如果显示下述提示信息则代表你完成了 Step 3 的第一处填空：</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../static/react/step3-test-pass.png" data-desc-position="bottom"><img alt="" src="../../../static/react/step3-test-pass.png"></a></p>
+<p></p>
 <p>第二处在文件 <code>src/pages/index.tsx</code> 文件的 <code>BoardScreen</code> 组件中的 <code>switchAutoPlay</code> 函数，你需要在注释 <code>// Step 3 BEGIN</code> 与 <code>// Step 3 END</code> 之间的部分填充你的代码，以正确处理自动播放控制按钮的点击事件，并且能够正确管理计时器资源。本处填空的代码量在 10 行以内。</p>
 <p>在完成填空后，目前的游戏应当具有下述功能：</p>
 <ul>
@@ -2053,7 +2053,7 @@
 <li>支持自由状态和自动播放状态的切换</li>
 </ul>
 <p>完成本 Step 后，你的游戏主界面的交互应当和下述 GIF 图所展示的类似：</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../static/react/step3-demo.gif" data-desc-position="bottom"><img alt="" src="../../../static/react/step3-demo.gif"></a></p>
+<p></p>
 <h3 id="_4">代码说明<a class="headerlink" href="#_4" title="Permanent link">¶</a></h3>
 <p>需要注意，我们在 <code>flipCell</code> 函数中留有下述两行代码：</p>
 <div class="highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -2075,9 +2075,9 @@
 <li>在自动播放状态下，点击 Stop auto play 按钮能够退回自由状态，自动演变停止，点击棋盘，其响应点击事件</li>
 </ul>
 <p>Step 3 的一部分与 Step 1 可以通过自动化测试进行检查。在正确完成 CI/CD 小作业的基础上，你应当能在 SECoder Gitlab CI 上观察到单元测试所输出的信息。如果完全通过，显示应当类似于：</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../static/next-pass.png" data-desc-position="bottom"><img alt="" src="../../../static/next-pass.png"></a></p>
+<p></p>
 <p>如果仅通过 Step 1 与 Step 3 中的某一个，显示应当类似于：</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../../static/next-partial-pass.png" data-desc-position="bottom"><img alt="" src="../../../static/next-partial-pass.png"></a></p>
+<p></p>
 <p>只要上述信息中显示 Step 3 测试通过，即表示本 Step 的自动化检查已通过。</p>
 <p>若你未正确完成 CI/CD 小作业导致无法通过上述方式检查，可以克隆仓库并本地运行单元测试进行自测。</p>
 <h2 id="_6">知识讲解<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>

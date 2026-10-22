@@ -2014,14 +2014,14 @@
 <h1 id="_1">前后端分离的安全问题<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
 <h2 id="_2">跨域限制<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <p>现在最常见的前后端分离架构如下图所示：</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/basic.png" data-desc-position="bottom"><img alt="" src="../../static/basic.png"></a></p>
+<p></p>
 <p>这个架构实际上有一个极大的危险，因为前端服务器事实上可以返回任何嵌入在 HTML 中的代码，其完全可以是恶意的，这可能导致很严重的后果（比如帮你在 info 上申请退学）。这类问题统称为<strong>跨域安全问题</strong>。</p>
 <p>为了解决这一问题，现代网络协议限制一个站点发来的前端只能访问同域名同端口的后端，这些限制统称为<strong>跨域限制</strong>。比如跨域资源共享机制（<strong>C</strong>ross <strong>O</strong>rigin <strong>R</strong>esource <strong>S</strong>haring）就是其中一例，其包括了浏览器对发出跨域的限制和服务器端对接受跨域的限制，具体表现为：</p>
 <ul>
 <li>支持 CORS 的浏览器会拦截所有未成功通过预检的请求并报错</li>
 <li>支持 CORS 的服务器可以选择自己信任哪些源发送的请求</li>
 </ul>
-<p>这里提到了**预检（Preflight）**这一概念。预检是一个使用 OPTIONS 方法的 HTTP 请求，浏览器在发送真实的跨域请求前，首先会向目标发送预检请求，如果目标是支持 CORS 的服务器，预检请求的应答头中会包括该目标服务器所信任的源的列表。若浏览器发现这一跨域请求的源不在目标的信任列表中，就会拦截这一请求。</p>
+<p>这里提到了<strong>预检（Preflight）</strong>这一概念。预检是一个使用 OPTIONS 方法的 HTTP 请求，浏览器在发送真实的跨域请求前，首先会向目标发送预检请求，如果目标是支持 CORS 的服务器，预检请求的应答头中会包括该目标服务器所信任的源的列表。若浏览器发现这一跨域请求的源不在目标的信任列表中，就会拦截这一请求。</p>
 <div class="admonition note">
 <p class="admonition-title">Tips</p>
 <p>CORS 的主体是浏览器，是浏览器自行发送预检请求，也是浏览器自行拦截不合法跨域请求。</p>
@@ -2046,7 +2046,7 @@
 </div>
 <p>假设现在本地 5000 端口运行前端服务器而 3000 端口运行后端服务器，此时若使用浏览器访问 5000 端口的网页并在网页中请求 3000 端口的数据，就会发生跨域，从而请求被浏览器拦截。</p>
 <p>那么，我们在本地 8080 端口运行一个 Nginx 代理服务器来代理前端和后端的服务器（即反向代理）。首先，在代理服务器设置中约定一个能够区分请求应当转发给前端还是后端服务器的格式（比如以 <code>/api</code> 开头的路径转发给后端服务器，其余全部转发到前端服务器）。然后我们就可以注意到，我们无论是请求前端服务器的 HTML 模板还是请求后端服务器的数据，对浏览器而言，都是在访问 8080 端口。这样，前后端暴露端口就是统一的，从而能够实现事实上的跨域：</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/nginx.png" data-desc-position="bottom"><img alt="" src="../../static/nginx.png"></a></p>
+<p></p>
 
 
 

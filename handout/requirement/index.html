@@ -2138,7 +2138,7 @@
 <h2 id="_2">游戏规则<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
 <p>首先简要讲解康威生命游戏的规则。本作业中的康威生命游戏基于一个 <span class="arithmatex"><span class="MathJax_Preview">50 \times 50</span><script type="math/tex">50 \times 50</script></span> 的棋盘，棋盘上的每一个格子代表一个<strong>细胞</strong>。细胞具有两种状态，分别为<strong>存活</strong>以及<strong>死亡</strong>。</p>
 <p>每个细胞在 <span class="arithmatex"><span class="MathJax_Preview">t + 1</span><script type="math/tex">t + 1</script></span> 时刻的状态取决于它自身在 <span class="arithmatex"><span class="MathJax_Preview">t</span><script type="math/tex">t</script></span> 时刻的状态，以及其所有<strong>邻居</strong>在 <span class="arithmatex"><span class="MathJax_Preview">t</span><script type="math/tex">t</script></span> 时刻的状态。每一个细胞都有 8 个邻居，这里由于棋盘大小有限，故采用循环相邻的定义方式。具体请看下图，这里用一个 <span class="arithmatex"><span class="MathJax_Preview">8 \times 8</span><script type="math/tex">8 \times 8</script></span> 的棋盘作为简化示例，对于每一个红色的细胞，8 个黄色的细胞称之为其邻居：</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/neigbour.png" data-desc-position="bottom"><img alt="" src="../../static/neigbour.png"></a></p>
+<p></p>
 <p>基于上述定义，每个细胞在下一个时刻的状态按照下述规则确定：</p>
 <ul>
 <li>如果该细胞在这个时刻存活<ul>
@@ -2175,7 +2175,7 @@
 </li>
 </ul>
 <p>等做出约定。其中业务处理流程也常常用流程图、交互图等表示。交互图的一个样例为：</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/interaction.png" data-desc-position="bottom"><img alt="" src="../../static/interaction.png"></a></p>
+<p></p>
 <p>本次小作业相对简单，故不会过多采用图表，主要以文字的形式描述最终小作业的实现形式。</p>
 </div>
 <h3 id="_4">棋盘<a class="headerlink" href="#_4" title="Permanent link">¶</a></h3>
@@ -2208,7 +2208,7 @@
 </ul>
 <p>用户在输入用户名及密码后，点击注册或登录按钮即可发起注册或登录请求。若用户填入的用户名不存在，则视为注册请求，需要创建该用户。若用户填入的用户名存在，则视为登录请求，需要验证密码是否正确。在注册成功或者登录成功的时候，需要自动跳转回原先的页面（例如若用户从主页进入登录页面，登录成功后应当自动跳转回主页）。</p>
 <p>参考的实现为：</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/login-eg.png" data-desc-position="bottom"><img alt="" src="../../static/login-eg.png"></a></p>
+<p></p>
 <p>另外，所有页面（除登录页面）的最下方都需要展示登录信息。若用户已登录，则需要展示：</p>
 <ul>
 <li>当前登录的用户名</li>
@@ -2216,14 +2216,14 @@
 </ul>
 <p>注销按钮点击后，需要清除所有浏览器本地存储的与用户相关的信息并及时切换到未登录状态。</p>
 <p>参考实现为：</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/logged-eg.png" data-desc-position="bottom"><img alt="" src="../../static/logged-eg.png"></a></p>
+<p></p>
 <p>若用户未登录，则需要展示：</p>
 <ul>
 <li>登录按钮</li>
 </ul>
 <p>登录按钮点击后，需要跳转到登录页面。</p>
 <p>参考实现为：</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/unlogged-eg.png" data-desc-position="bottom"><img alt="" src="../../static/unlogged-eg.png"></a></p>
+<p></p>
 <h4 id="free-mode">Free Mode<a class="headerlink" href="#free-mode" title="Permanent link">¶</a></h4>
 <p>Free Mode 下，应用前端页面应当显示下述内容：</p>
 <ul>
@@ -2260,7 +2260,7 @@
 <li>跳转按钮。点击后，应当跳转到显示存储的所有游戏记录的界面（记录列表页面，后续具体说明）</li>
 </ul>
 <p>参考的实现为：</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/free-mode-eg.png" data-desc-position="bottom"><img alt="" src="../../static/free-mode-eg.png"></a></p>
+<p></p>
 <h4 id="replay-mode">Replay Mode<a class="headerlink" href="#replay-mode" title="Permanent link">¶</a></h4>
 <p>Replay Mode 下，应用前端页面应当显示下述内容：</p>
 <ul>
@@ -2281,7 +2281,7 @@
 </ul>
 <p>自动播放状态下，除自动播放控制按钮与两个跳转按钮外，包括棋盘在内所有按钮、文本框等可交互组件均应<strong>不</strong>可用。交互行为与 Free Mode 完全一致。</p>
 <p>参考的实现为：</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/replay-mode-eg.png" data-desc-position="bottom"><img alt="" src="../../static/replay-mode-eg.png"></a></p>
+<p></p>
 <h4 id="_8">记录列表页面<a class="headerlink" href="#_8" title="Permanent link">¶</a></h4>
 <p>记录列表页面应当显示下述内容：</p>
 <ul>
@@ -2305,14 +2305,14 @@
 </ul>
 <p>如果记录列表为空，应当显示提示列表为空的提示文字。</p>
 <p>参考的实现为：</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/list-eg.png" data-desc-position="bottom"><img alt="" src="../../static/list-eg.png"></a></p>
+<p></p>
 <p>另外，需要一个显示指定用户所有游戏记录的页面，其大体设计要求与上述一致，页面上需要增加下述内容：</p>
 <ul>
 <li>页面顶部显示该用户的用户名</li>
 <li>页面顶部增加一个回到整体记录列表页面的按钮</li>
 </ul>
 <p>参考的实现为：</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../static/list-user-eg.png" data-desc-position="bottom"><img alt="" src="../../static/list-user-eg.png"></a></p>
+<p></p>
 <div class="admonition note">
 <p class="admonition-title">More?</p>
 <p>本文档仅仅提供了一份最经典的需求文档的样本，大家的软工大作业中甲方也基本仅会提供类似这样的文档作为起始资料，将这种需求文档中的需求描述最终转化为代码实践也是软件工程课程希望大家掌握的重要技能。</p>
